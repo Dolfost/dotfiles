@@ -1,4 +1,3 @@
-# Snippet for creating new generic LaTeX environments
 snippet env "New LaTeX environment"
 \begin{${1:enviroment}}
     $2
@@ -7,20 +6,41 @@ $0
 endsnippet
 
 
-# New figure
-snippet fig "Begin new figure enviroment"
+snippet fig "Begin new figure enviroment" b
 \begin{figure}[H]
 	\centering
 	\includegraphics[${1:options}]{images/${2:file}}
 	\caption[]{${3:caption}}
-	\label{fig:${4:label}}
+	\label{fig:${4:tag}}
 \end{figure}
 $0
 endsnippet
 
 
-# New table
-snippet tab "Begin new table enviroment"
+snippet 2fig "Begin 2 new figures"
+\begin{figure}[H]
+	\begin{minipage}{.5\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[${1:options}]{images/${2:file}}
+			\caption[]{${3:caption}}
+			\label{fig:${4:tag}}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[${5:options}]{images/${6:file}}
+		\caption[]{${7:caption}}
+		\label{fig:${8:tag}}
+	\end{figure}
+	\end{minipage}
+\end{figure}
+$0
+endsnippet
+
+
+snippet tab "Begin new table enviroment" b
 \begin{table}[H]
 	\centering
 	\caption[]{${1:caption}}
@@ -33,7 +53,19 @@ $0
 endsnippet
 
 
-# Snippet for italic font
+snippet lst "Begin new listing enviroment" b
+\begin{listing}[H]
+	\centering
+	\begin{minted}{c}
+		${1:code}
+	\end{minted}
+	\caption[]{${2:caption}}
+	\label{lst:${3:tag}}
+\end{listing}
+$0
+endsnippet
+
+
 snippet tii "The \textit{} command for italic font"
 \textit{${1:${VISUAL:}}}$0
 endsnippet
