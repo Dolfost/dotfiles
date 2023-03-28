@@ -1,0 +1,39 @@
+# Snippet for creating new generic LaTeX environments
+snippet env "New LaTeX environment"
+\begin{${1:enviroment}}
+    $2
+\end{$1}
+$0
+endsnippet
+
+
+# New figure
+snippet fig "Begin new figure enviroment"
+\begin{figure}[H]
+	\centering
+	\includegraphics[${1:options}]{images/${2:file}}
+	\caption[]{${3:caption}}
+	\label{fig:${4:label}}
+\end{figure}
+$0
+endsnippet
+
+
+# New table
+snippet tab "Begin new table enviroment"
+\begin{table}[H]
+	\centering
+	\caption[]{${1:caption}}
+	\label{tab:${2:caption}}
+	\begin{tabular}[]{${3:cols/rows}}
+		${4:table body}
+	\end{tabular}
+\end{table}
+$0
+endsnippet
+
+
+# Snippet for italic font
+snippet tii "The \textit{} command for italic font"
+\textit{${1:${VISUAL:}}}$0
+endsnippet
