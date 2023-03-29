@@ -12,11 +12,13 @@ set mouse=a
 set nofixendofline
 set encoding=utf8 			" vimtex requirement
 set guicursor=i:block-nCursor
+set cursorline
+set scrolloff=8
 
 
 function! s:write_server_name() abort
   let nvim_server_file = (has('win32') ? $TEMP : '/tmp') . '/vimtexserver.txt'
-  `rm /tmp/vimtexserver.txt`
+"  `rm /tmp/vimtexserver.txt`
   call writefile([v:servername], nvim_server_file)
 endfunction
 
