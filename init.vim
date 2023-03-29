@@ -45,9 +45,10 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger='<Tab>'
-let g:UltiSnipsJumpForwardTrigger='<Tab>'
-let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
-
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+let g:UltiSnipsEditSplit="tabdo"
+let g:UltiSnippetsStorageDirectoryForUltisnipsEdit="/Users/vladyslav/.config/nvim/UltiSnips"
 
 Plugin 'morhetz/gruvbox'
 let g:gruvbox_italic = 1
