@@ -10,6 +10,7 @@ set history=200
 set nofixendofline
 
 set mouse=a
+set wrap
 set number
 set guicursor=i:block-nCursor
 set cursorline
@@ -33,6 +34,11 @@ augroup vimtex_common
   autocmd FileType tex call s:write_server_name()
 augroup END
 
+" NO ARROW KEYS, U MFCKER! heheheha!!1!
+noremap <Up> <Nop> 
+noremap <Down> <Nop> 
+noremap <Left> <Nop> 
+noremap <Right> <Nop>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
