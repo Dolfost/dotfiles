@@ -1,8 +1,7 @@
 snippet env "New LaTeX environment"
 \begin{${1:enviroment}}
     $2
-\end{$1}
-$0
+\end{$1}$0
 endsnippet
 
 
@@ -10,7 +9,7 @@ snippet fig "Begin new figure enviroment" b
 \begin{figure}[H]
 	\centering
 	\includegraphics[${1:options}]{images/${2:file}}
-	\caption[]{${3:caption}}
+	\caption{${3:caption}}
 	\label{fig:${4:tag}}
 \end{figure}
 $0
@@ -23,7 +22,7 @@ snippet 2fig "Begin 2 new figures"
 		\begin{figure}[H]
 			\centering
 			\includegraphics[${1:options}]{images/${2:file}}
-			\caption[]{${3:caption}}
+			\caption{${3:caption}}
 			\label{fig:${4:tag}}
 		\end{figure}
 	\end{minipage}
@@ -31,7 +30,7 @@ snippet 2fig "Begin 2 new figures"
 	\begin{figure}[H]
 		\centering
 		\includegraphics[${5:options}]{images/${6:file}}
-		\caption[]{${7:caption}}
+		\caption{${7:caption}}
 		\label{fig:${8:tag}}
 	\end{figure}
 	\end{minipage}
@@ -43,9 +42,9 @@ endsnippet
 snippet tab "Begin new table enviroment" b
 \begin{table}[H]
 	\centering
-	\caption[]{${1:caption}}
+	\caption{${1:caption}}
 	\label{tab:${2:caption}}
-	\begin{tabular}[]{${3:cols/rows}}
+	\begin{tabular}{${3:cols/rows}}
 		${4:table body}
 	\end{tabular}
 \end{table}
@@ -59,7 +58,7 @@ snippet lst "Begin new listing enviroment" b
 	\begin{minted}{c}
 		${1:code}
 	\end{minted}
-	\caption[]{${2:caption}}
+	\caption{${2:caption}}
 	\label{lst:${3:tag}}
 \end{listing}
 $0
