@@ -1,21 +1,27 @@
 set nocompatible
-filetype plugin indent on 	" vimtex, vundle requirement
-syntax on 					" vimtex requirement
+filetype plugin indent on 	" VimTex, vundle requirement
+set encoding=utf8 			" VimTex requirement
+syntax on 					" VimTex requirementi
+
 set t_Co=256
-set number
 set wildmenu
 set wildmode=full
-set tabstop=4
-set shiftwidth=4
 set history=200
-set mouse=a
 set nofixendofline
-set encoding=utf8 			" vimtex requirement
+
+set mouse=a
+set number
 set guicursor=i:block-nCursor
 set cursorline
 set scrolloff=8
 
+set tabstop=4
+set shiftwidth=4
 
+set keymap=ukrainian-jcuken
+set iminsert=0 imsearch=-1
+
+" VimTex -> Skim -> nvim link
 function! s:write_server_name() abort
   let nvim_server_file = (has('win32') ? $TEMP : '/tmp') . '/vimtexserver.txt'
 "  `rm /tmp/vimtexserver.txt`
