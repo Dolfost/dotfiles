@@ -1,3 +1,5 @@
+[What inspired me to make this repo?](https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds)
+
 ## Steps to bootstrap a new Mac
 
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
