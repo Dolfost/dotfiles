@@ -13,9 +13,9 @@ xcode-select --install
 
 ```zsh
 # Use SSH (if set up)...
-git clone git@github.com:eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotfiles
+git clone git@github.com:Dolfost/dotfiles.git ~/dotfiles
 # ...or use HTTPS and switch remotes later.
-git clone https://github.com/eieioxyz/Beyond-Dotfiles-in-100-Seconds.git ~/.dotfiles
+git clone https://github.com/Dolfost/dotfiles.git ~/dotfiles
 ```
 
 
