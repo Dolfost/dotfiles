@@ -14,6 +14,7 @@ set wrap
 set number
 set guicursor=i:block-nCursor
 set cursorline
+set noshowmode
 set scrolloff=8
 
 set tabstop=4
@@ -45,15 +46,13 @@ call vundle#begin()
 
 Plugin 'lervag/vimtex'
 
-
 " Plugin 'ycm-core/YouCompleteMe'
 " let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_max_num_candidates =12
 
-
 Plugin 'ludovicchabant/vim-gutentags'
 
-
+Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger='<Tab>'
@@ -68,12 +67,11 @@ let g:gruvbox_contrast_dark = "hard"
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'ChrisKempson/Tomorrow-Theme'
 
-
 Plugin 'itchyny/lightline.vim'
-set noshowmode
-
 let g:lightline = { 'colorscheme': 'PaperColor' }
+
 call vundle#end()
+
 
 set background=dark
 colorscheme PaperColor
