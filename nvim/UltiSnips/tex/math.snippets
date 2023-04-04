@@ -1,3 +1,5 @@
+# vim: set filetype=snippets:
+
 global !p
 def math():
   return vim.eval('vimtex#syntax#in_mathzone()') == '1'
@@ -26,10 +28,10 @@ endsnippet
 
 context "math()"
 snippet rt "Square root" i
-\\sqrt{${1:arg}} $0
+\\sqrt{${1:arg}}$0
 endsnippet
 
 
-snippet mm "Inline LaTeX math"
-\\(${1:math}\\) $0
+snippet mm "Inline LaTeX math" i
+\\(${1:${VISUAL:}}\\)$0
 endsnippet

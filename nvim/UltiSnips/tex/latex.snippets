@@ -1,3 +1,4 @@
+# vim: set filetype=snippets:
 snippet env "New LaTeX environment"
 \begin{${1:enviroment}}
     $2
@@ -16,26 +17,41 @@ $0
 endsnippet
 
 
-snippet 2fig "Begin 2 new figures"
+snippet fig2 "Create figure with two images"
 \begin{figure}[H]
-	\begin{minipage}{.5\textwidth}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[${1:options}]{images/${2:file}}
-			\caption{${3:caption}}
-			\label{fig:${4:tag}}
-		\end{figure}
-	\end{minipage}
-	\begin{minipage}{.5\textwidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[${5:options}]{images/${6:file}}
-		\caption{${7:caption}}
-		\label{fig:${8:tag}}
-	\end{figure}
-	\end{minipage}
+	\centering
+	\includegraphics[width=.49\\textwidth]{images/${1:file}}
+	\includegraphics[width=.49\\textwidth]{images/${2:file}}
+	\caption{${3:caption}}
+	\label{fig:${4:tag}}
 \end{figure}
 $0
+endsnippet
+
+
+snippet 2fig "Create two figures side by side"
+\begin{minipage}{.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{images/${1:file}}
+		\caption{${2:caption}}
+		\label{${3:label}}
+	\end{figure}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{images/${4:file}}
+		\caption{${5:caption}}
+		\label{${6:label}}
+	\end{figure}
+\end{minipage}
+$0
+endsnippet
+
+
+snippet lb "New label"
+\\label{${1:tag}}$0
 endsnippet
 
 
