@@ -111,6 +111,8 @@ brew "screen"
 brew "sfml"
 # ISO/Edinburgh-style Prolog interpreter
 brew "swi-prolog"
+# Change macOS audio source from the command-line
+brew "switchaudio-osx"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Extraction utility for .zip compressed archives
@@ -158,6 +160,8 @@ cask "hiddenbar"
 cask "imageoptim"
 # Blocks all Keyboard and TouchBar input
 cask "keyboardcleantool"
+# Media key forwarder for iTunes and Spotify
+cask "macmediakeyforwarder"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
 # Open-source software for live streaming and screen recording
@@ -172,8 +176,6 @@ cask "qbittorrent"
 cask "rar"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
-# Mathematics software system
-cask "sage"
 # Tool to manage the size and position of windows
 cask "shiftit"
 # PDF reader and note-taking application
