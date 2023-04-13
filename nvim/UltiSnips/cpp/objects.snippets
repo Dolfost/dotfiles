@@ -2,13 +2,13 @@
 extends c
 
 snippet for "New for loop"
-for (${1:varriables}; ${2:condition}; ${3:repeat}) {
+for (${1:int i = 0}; ${2:condition}; ${3:repeat}) {
 	${3:body}
 }$0
 endsnippet
 
 snippet for1 "New for loop for one operator"
-for (${1:varriables}; ${2:condition}; ${3:repeat}) 
+for (${1:int i = 0}; ${2:condition}; ${3:repeat}) 
 	${3:operator}
 $0
 endsnippet
@@ -25,16 +25,30 @@ if (${1:condition}) {
 }$0
 endsnippet
 
-snippet if1 "Create new if statement for one preceeding operator"
+snippet if1 "Create new if statement for one operator"
 if (${1:condition})
 	${2:operator};
 $0
 endsnippet
 
 snippet fx "New function"
-${1:rtype} ${2:name}(${3:arglist}) {
+${1:void} ${2:name}(${3:arglist}) {
 	${4:body}
 
-	return ${5:0};
+	return EXIT_SUCCESS;
 }$0
+endsnippet
+
+snippet ifndef "Create #ifndef macros"
+#ifndef ${1:macros}
+${2:${VISUAL:body}}
+#endif /* ifndef $1 */
+$0
+endsnippet
+
+snippet ifdef "Create #ifdef macros"
+#ifdef ${1:macros}
+${2:${VISUAL:body}}
+#endif /* ifdef $1 */
+$0
 endsnippet

@@ -1,7 +1,7 @@
 # vim: set filetype=snippets:
 snippet env "New LaTeX environment"
 \begin{${1:enviroment}}
-    $2
+	$2
 \end{$1}$0
 endsnippet
 
@@ -35,7 +35,7 @@ snippet 2fig "Create two figures side by side"
 		\centering
 		\includegraphics[width=\textwidth]{images/${1:file}}
 		\caption{${2:caption}}
-		\label{${3:label}}
+		\label{fig:${3:tag}}
 	\end{figure}
 \end{minipage}
 \begin{minipage}{.5\textwidth}
@@ -43,7 +43,7 @@ snippet 2fig "Create two figures side by side"
 		\centering
 		\includegraphics[width=\textwidth]{images/${4:file}}
 		\caption{${5:caption}}
-		\label{${6:label}}
+		\label{fig:${6:tag}}
 	\end{figure}
 \end{minipage}
 $0
