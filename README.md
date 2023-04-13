@@ -9,7 +9,7 @@ xcode-select --install
 ```
 
 
-2. Clone repo into new hidden directory.
+2. Clone repo into new directory.
 
 ```zsh
 # Use SSH (if set up)...
