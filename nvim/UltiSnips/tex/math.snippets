@@ -7,6 +7,13 @@ endglobal
 
 
 context "math()"
+snippet mtrx "Create new matrix"
+\begin{bmatrix*}[r]
+	${1:body}
+\end{bmatrix*}$0
+endsnippet
+
+context "math()"
 snippet ff "LaTex \frac{}{} math operator" i
 \frac{${1:num}}{${2:den}}$0
 endsnippet

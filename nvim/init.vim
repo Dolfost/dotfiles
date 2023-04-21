@@ -53,6 +53,7 @@ Plugin 'lervag/vimtex'
 Plugin 'ludovicchabant/vim-gutentags'
 
 Plugin 'tpope/vim-surround'
+
 Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger='<Tab>'
@@ -61,6 +62,8 @@ let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 let g:UltiSnipsEditSplit="tabdo"
 let g:UltiSnippetsStorageDirectoryForUltisnipsEdit="/Users/vladyslav/.config/nvim/UltiSnips"
 
+Plugin 'tpope/vim-fugitive'
+
 Plugin 'morhetz/gruvbox'
 let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = "hard"
@@ -68,7 +71,16 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'ChrisKempson/Tomorrow-Theme'
 
 Plugin 'itchyny/lightline.vim'
-let g:lightline = { 'colorscheme': 'PaperColor' }
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 call vundle#end()
 
