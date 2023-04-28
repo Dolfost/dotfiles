@@ -20,6 +20,10 @@ set scrolloff=8
 set tabstop=4
 set shiftwidth=4
 
+" next map  makes the :edit %:h<Tab>
+" equivalent to       :edit %%<Tab>
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 set keymap=ukrainian-jcuken
 set iminsert=0 imsearch=-1
 
