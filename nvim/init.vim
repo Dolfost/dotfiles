@@ -54,6 +54,11 @@ Plugin 'lervag/vimtex'
 " let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_max_num_candidates =12
 
+Plugin 'godlygeek/tabular'
+Plugin 'preservim/vim-markdown'
+
+Plugin 'iamcco/markdown-preview.nvim'
+
 Plugin 'ludovicchabant/vim-gutentags'
 
 Plugin 'tpope/vim-surround'
