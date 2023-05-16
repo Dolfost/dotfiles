@@ -5,6 +5,8 @@ tap "homebrew/core"
 tap "microsoft/git"
 tap "sidneys/homebrew"
 tap "universal-ctags/universal-ctags"
+# Strip or convert ANSI codes into HTML, (La)Tex, RTF, or BBCode
+brew "ansifilter"
 # List ASCII idiomatic names and octal/decimal code-point forms
 brew "ascii"
 # Macro processing language
@@ -31,6 +33,8 @@ brew "python@3.11"
 brew "ed"
 # Download assets from a commit, branch, or tag of GitHub repositories
 brew "fetch"
+# Banner-like program prints strings as ASCII art
+brew "figlet"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
 # Fast Lexical Analyzer, generates Scanners (tokenizers)
@@ -85,6 +89,8 @@ brew "less"
 brew "make"
 # Terminal-based visual file manager
 brew "midnight-commander"
+# Cross platform, open source .NET development framework
+brew "mono"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Control nvim processes using `nvr` command-line tool
@@ -117,6 +123,8 @@ brew "switchaudio-osx"
 brew "tree"
 # Extraction utility for .zip compressed archives
 brew "unzip"
+# Pager/text based browser
+brew "w3m"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Display word differences between text files
@@ -143,12 +151,10 @@ cask "audacity"
 cask "blender"
 # Private rolodex to remember people better
 cask "clay"
-# Draw.io is free online diagram software
+# Online diagram software
 cask "drawio"
-# Book reader
-cask "fbreader"
-# Solve, save and share math problems, graph functions, etc
-cask "geogebra"
+# Free and open-source image editor
+cask "gimp"
 cask "git-credential-manager-core"
 # Desktop client for GitHub repositories
 cask "github"
@@ -158,8 +164,12 @@ cask "handbrake"
 cask "hiddenbar"
 # Tool to optimize images to a smaller size
 cask "imageoptim"
+# Free and Open Source Video Editor
+cask "kdenlive"
 # Blocks all Keyboard and TouchBar input
 cask "keyboardcleantool"
+# Open-source Markdown editor
+cask "macdown"
 # Media key forwarder for iTunes and Spotify
 cask "macmediakeyforwarder"
 # Full TeX Live distribution with GUI applications
@@ -178,6 +188,8 @@ cask "rar"
 cask "rectangle"
 # Tool to manage the size and position of windows
 cask "shiftit"
+# React client for Simplenote
+cask "simplenote"
 # PDF reader and note-taking application
 cask "skim"
 # System monitor for the menu bar
