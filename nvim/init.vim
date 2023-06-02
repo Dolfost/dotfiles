@@ -9,6 +9,8 @@ set wildmode=full
 set history=200
 set nofixendofline
 
+set incsearch
+
 set mouse=a
 set wrap
 set number
