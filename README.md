@@ -52,3 +52,6 @@ cd ~/.dotfiles && brew bundle
 - Create a [bootable USB installer for macOS](https://support.apple.com/en-us/HT201372).
 - Integrate other cloud services into your Dotfiles process (Dropbox, Google Drive, etc.).
 - Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/).
+
+## Recomended readings
+[From init.vim to init.lua crash course](https://www.notonlycode.org/neovim-lua-config/)  
