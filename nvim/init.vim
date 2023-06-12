@@ -47,6 +47,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop> 
 noremap <Right> <Nop>
 
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -55,6 +56,8 @@ Plugin 'lervag/vimtex'
 " Plugin 'ycm-core/YouCompleteMe'
 " let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_max_num_candidates =12
+
+Plugin 'nvim-treesitter/nvim-treesitter'
 
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
@@ -95,6 +98,7 @@ let g:lightline = {
 
 call vundle#end()
 
+lua require('config/treesitter')
 
 set background=dark
 colorscheme PaperColor
