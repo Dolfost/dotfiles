@@ -47,6 +47,8 @@ noremap <Down> <Nop>
 noremap <Left> <Nop> 
 noremap <Right> <Nop>
 
+" Regenerate tags file with F5
+:nnoremap <f5> :!ctags -R<CR>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
