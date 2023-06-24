@@ -1,5 +1,7 @@
 set suffixesadd+=.tex
 
+set spell
+
 let g:vimtex_view_method = 'skim'
 let g:vimtex_view_skim_reading_bar = 1
 let g:vimtex_view_skim_activate = 0
