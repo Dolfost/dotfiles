@@ -30,9 +30,10 @@ set grepformat=%f:%l:%c%m,%l:%c%m
 " equivalent to       :edit %%<Tab>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Ukrainian keymap
+" Ukrainian language support
 set keymap=ukrainian-jcuken
 set iminsert=0 imsearch=-1
+set spelllang=uk,en_us,ru
 
 " Buffers navigation
 nnoremap <silent> [b :bprevious<CR>
