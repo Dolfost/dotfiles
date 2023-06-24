@@ -33,7 +33,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Ukrainian language support
 set keymap=ukrainian-jcuken
 set iminsert=0 imsearch=-1
-set spelllang=uk,en_us,ru
+set spelllang=uk,en_us,ru_ru
 
 " Buffers navigation
 nnoremap <silent> [b :bprevious<CR>
