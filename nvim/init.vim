@@ -1,7 +1,7 @@
 set nocompatible
 filetype plugin indent on 	" VimTex, vundle requirement
 set encoding=utf8 			" VimTex requirement
-syntax on 					" VimTex requirementi
+syntax on 					" VimTex requirement
 
 set t_Co=256
 set wildmenu
@@ -22,10 +22,15 @@ set scrolloff=8
 set tabstop=4
 set shiftwidth=4
 
-" next map  makes the :edit %:h<Tab>
+" Replace grep with ripgrep
+set grepprg=rg\ $*\ --column\ --no-heading
+set grepformat=%f:%l:%c%m,%l:%c%m
+
+" Next map  makes the :edit %:h<Tab>
 " equivalent to       :edit %%<Tab>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" Ukrainian keymap
 set keymap=ukrainian-jcuken
 set iminsert=0 imsearch=-1
 
@@ -41,7 +46,6 @@ function! s:write_server_name() abort
 "  `rm /tmp/vimtexserver.txt`
   call writefile([v:servername], nvim_server_file)
 endfunction
-
 augroup vimtex_common
   autocmd!
   autocmd FileType tex call s:write_server_name()
@@ -53,8 +57,9 @@ noremap <Down> <Nop>
 noremap <Left> <Nop> 
 noremap <Right> <Nop>
 
-" Regenerate tags file with F5
+" Regenerate ctags file with F5
 :nnoremap <f5> :!ctags -R<CR>
+
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -77,7 +82,6 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'tpope/vim-surround'
 
 Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger='<Tab>'
 let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
