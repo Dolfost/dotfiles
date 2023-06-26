@@ -20,6 +20,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#616161, bg=None, bold, underline"
 # Add libgdiplus to csc library path on mac
 export DYLD_LIBRARY_PATH="/opt/homebrew/Cellar/mono-libgdiplus/6.1_2/lib/"
 
+# Remove files in .gitignore from fzf list 
+export FZF_DEFAULT_COMMAND='rg --files'
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
