@@ -41,17 +41,6 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
-" VimTex -> Skim -> nvim link
-function! s:write_server_name() abort
-  let nvim_server_file = (has('win32') ? $TEMP : '/tmp') . '/vimtexserver.txt'
-"  `rm /tmp/vimtexserver.txt`
-  call writefile([v:servername], nvim_server_file)
-endfunction
-augroup vimtex_common
-  autocmd!
-  autocmd FileType tex call s:write_server_name()
-augroup END
-
 " NO ARROW KEYS, U MFCKER! heheheha!!1!
 noremap <Up> <Nop> 
 noremap <Down> <Nop> 
@@ -59,7 +48,7 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 " Regenerate ctags file with F5
-:nnoremap <f5> :!ctags -R<CR>
+nnoremap <f5> :!ctags -R<CR>
 
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -72,6 +61,26 @@ Plugin 'lervag/vimtex'
 " let g:ycm_max_num_candidates =12
 
 Plugin 'junegunn/fzf'
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 Plugin 'nvim-treesitter/nvim-treesitter'
 
