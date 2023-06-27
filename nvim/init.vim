@@ -35,12 +35,6 @@ set keymap=ukrainian-jcuken
 set iminsert=0 imsearch=-1
 set spelllang=uk,en_us,ru_ru
 
-" Buffers navigation
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
-
 " NO ARROW KEYS, U MFCKER! heheheha!!1!
 noremap <Up> <Nop> 
 noremap <Down> <Nop> 
@@ -85,12 +79,18 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 Plugin 'nvim-treesitter/nvim-treesitter'
 
 Plugin 'dense-analysis/ale'
+noremap <Leader>l :ALELint<CR> 
+let g:ale_enabled = 1
+let g:ale_lint_delay = 3000 " def: 200 ms
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '->'
-let g:ale_sign_column_always = 1
-"let g:ale_linters = {
-"  \ 'javascript': ['eslint'],
-"\}
+let g:ale_sign_column_always = 0
+let g:ale_lint_on_text_changed = 'never' " always, normal, insert, never
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+
+Plugin 'tpope/vim-unimpaired'
 
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
