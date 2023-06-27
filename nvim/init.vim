@@ -84,6 +84,14 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 Plugin 'nvim-treesitter/nvim-treesitter'
 
+Plugin 'dense-analysis/ale'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '->'
+let g:ale_sign_column_always = 1
+"let g:ale_linters = {
+"  \ 'javascript': ['eslint'],
+"\}
+
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 
@@ -108,23 +116,44 @@ let g:gruvbox_contrast_dark = "hard"
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'ChrisKempson/Tomorrow-Theme'
 
-Plugin 'itchyny/lightline.vim'
-let g:lightline = {
-      \ 'colorscheme': 'PaperColor',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
-
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_detect_modified=1
+let g:airline_detect_paste=1
+let g:airline_detect_crypt=1
+let g:airline_detect_spell=1
+let g:airline_detect_spelllang=1
+let g:airline_detect_iminsert=1
+let g:airline_inactive_collapse=1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.colnr = ' col '
+let g:airline_symbols.crypt = ''
+let g:airline_symbols.linenr = ' '
+let g:airline_symbols.maxlinenr = '㏑ '
+let g:airline_symbols.branch = '⎇ '
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#whitespace#enabled = 0
+	let g:airline#extensions#fzf#enabled = 1
+	let g:airline#extensions#gutentags#enabled = 1
+	let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
+let airline#extensions#ale#show_line_numbers = 1
+let airline#extensions#ale#open_lnum_symbol = '(L'
+let airline#extensions#ale#close_lnum_symbol = ')'
 call vundle#end()
 
 lua require('config/treesitter')
 
 set background=dark
 colorscheme PaperColor
-
-" autocmd BufEnter *.tex colorscheme PaperColor
