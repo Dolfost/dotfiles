@@ -54,6 +54,20 @@ Plugin 'lervag/vimtex'
 " let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_max_num_candidates =12
 
+Plugin 'mhinz/vim-grepper'
+if !exists('g:grepper')
+	let g:grepper = {}
+endif
+let g:grepper.highlight = 1
+let g:grepper.quickfix = 1
+let g:grepper.open = 1
+let g:grepper.switch = 1
+let g:grepper.jump = 0
+let g:grepper.prompt = 1
+let g:grepper.prompt_text = '$c> '
+let g:grepper.prompt_quote = 0
+let g:grepper.tools = ['rg', 'grep', 'git']
+
 Plugin 'junegunn/fzf'
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
