@@ -124,6 +124,8 @@ let g:UltiSnippetsStorageDirectoryForUltisnipsEdit="/Users/vladyslav/.config/nvi
 
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'tpope/vim-dispatch'
+
 Plugin 'morhetz/gruvbox'
 let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = "hard"
