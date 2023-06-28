@@ -167,6 +167,25 @@ let airline#extensions#ale#warning_symbol = 'W:'
 let airline#extensions#ale#show_line_numbers = 1
 let airline#extensions#ale#open_lnum_symbol = '(L'
 let airline#extensions#ale#close_lnum_symbol = ')'
+let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " 0:splits, 1:tabn, 2:splits&tabn
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#overflow_marker = '…'
+let g:airline#extensions#tabline#show_tab_count = 1
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#buffers_label = 'B'
+let g:airline#extensions#tabline#tabs_label = 'T'
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#close_symbol = '×'
+let g:airline#extensions#tabline#buffer_nr_format = '%s'
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
 call vundle#end()
 
 lua require('config/treesitter')
