@@ -23,8 +23,13 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export TERM=xterm-256color
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; 
-	then export PS1="» "
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+	export PS1="» "
+	if [ -x "$(command -v nvr)" ]; then
+		   alias nvim=nvr
+	else
+		alias nvim='echo "No neovim nesting!"'
+	fi
 fi
 
 alias ll='ls -l'
