@@ -32,6 +32,8 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 	fi
 fi
 
+export VISUAL='nvim'
+
 alias ll='ls -l'
 alias la='ls -a'
 
