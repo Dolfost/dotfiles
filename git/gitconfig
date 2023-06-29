@@ -2,7 +2,6 @@
 	name = Vladyslav Rehan
 	email = rehanvladyslav@gmail.com
 [core]
-	editor = nvim
 	pager = less -F
 [init]
 	defaultBranch = main
