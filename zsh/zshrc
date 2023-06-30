@@ -23,10 +23,11 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export TERM=xterm-256color
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-	export PS1="» "
+alias nvim='INSIDE_NVIM=1 nvim'
+if [ -n "$INSIDE_NVIM" ]; then
+	PS1='$(basename `pwd`) » '
 	if [ -x "$(command -v nvr)" ]; then
-		   alias nvim=nvr
+		alias nvim=nvr
 	else
 		alias nvim='echo "No neovim nesting!"'
 	fi
@@ -47,8 +48,5 @@ alias cwd='pwd | pbcopy'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 
-
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
