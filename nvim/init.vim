@@ -1,7 +1,7 @@
 set nocompatible
-filetype plugin indent on 	" VimTex, vundle requirement
-set encoding=utf8 			" VimTex requirement
-syntax on 					" VimTex requirement
+filetype plugin indent on	" VimTex, vundle requirement
+set encoding=utf8			" VimTex requirement
+syntax on					" VimTex requirement
 
 set t_Co=256
 set wildmenu
@@ -43,7 +43,6 @@ noremap <Right> <Nop>
 
 " Regenerate ctags file with F5
 nnoremap <f5> :!ctags -R<CR>
-
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -186,6 +185,7 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#ignore_bufadd_pat = 'defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 
 call vundle#end()
 
