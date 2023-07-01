@@ -190,6 +190,8 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline#extensions#tabline#ignore_bufadd_pat = 'defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
+	let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = 'Ⓢ '
 
 call vundle#end()
 
