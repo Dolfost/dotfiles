@@ -105,6 +105,10 @@ let g:ale_lint_on_save = 1
 
 Plugin 'tpope/vim-unimpaired'
 
+Plugin 'tpope/vim-commentary'
+
+Plugin 'tpope/vim-obsession'
+
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 
