@@ -44,11 +44,6 @@ noremap <Right> <Nop>
 " Regenerate ctags file with F5
 nnoremap <f5> :!ctags -R<CR>
 
-" Exit term with esc, press esc in term with Ctrl-v+esc
-if has('nvim')
-	tnoremap <Esc> <C-\><C-n>
-	tnoremap <C-v><Esc> <Esc>
-endif
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
