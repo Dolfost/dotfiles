@@ -181,6 +181,8 @@ cask "appcleaner"
 cask "audacity"
 # Integrated CAD, CAM, CAE, and PCB software
 cask "autodesk-fusion360"
+# Tool to flash OS images to SD cards & USB drives
+cask "balenaetcher"
 # 3D creation suite
 cask "blender"
 # Developer platform
@@ -204,6 +206,8 @@ cask "hiddenbar"
 cask "iina"
 # Tool to optimize images to a smaller size
 cask "imageoptim"
+# Vector graphics editor
+cask "inkscape"
 # Free and Open Source Video Editor
 cask "kdenlive"
 # Blocks all Keyboard and TouchBar input
