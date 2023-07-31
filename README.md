@@ -53,5 +53,5 @@ cd ~/.dotfiles && brew bundle
 - Integrate other cloud services into your Dotfiles process (Dropbox, Google Drive, etc.).
 - Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/).
 
-## Recomended readings
+## Recommended readings
 [From init.vim to init.lua crash course](https://www.notonlycode.org/neovim-lua-config/)  
