@@ -1,3 +1,5 @@
+set spell
+
 " VimTex -> Skim -> nvim link
 function! s:write_server_name() abort
   let nvim_server_file = (has('win32') ? $TEMP : '/tmp') . '/vimtexserver.txt'
@@ -10,8 +12,6 @@ augroup vimtex_common
 augroup END
 
 set suffixesadd+=.tex
-
-set spell
 
 let g:vimtex_view_method = 'skim'
 let g:vimtex_view_skim_reading_bar = 1
