@@ -11,6 +11,9 @@ set nofixendofline
 
 set incsearch
 
+set infercase
+set ignorecase
+
 set mouse=a
 set wrap
 set number
