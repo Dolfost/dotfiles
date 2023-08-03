@@ -49,8 +49,6 @@ vim.keymap.set('n', '<Right>', '<Nop>')
 vim.cmd("nnoremap <f5> :!ctags -R<CR>")
 require('plugins')
 
-
--- lua require('config/treesitter')
-
 vim.cmd.set("background=dark")
 vim.cmd.colorscheme("PaperColor")
+
