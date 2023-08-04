@@ -113,4 +113,4 @@ vim.g.mkdp_filetypes = {'markdown', 'md'}
 
 -- set default theme (dark or light)
 -- By default the theme is define according to the preferences of the system
-vim.g.mkdp_theme = 'light'
+vim.g.mkdp_theme = 'dark'
