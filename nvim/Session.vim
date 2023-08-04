@@ -20,7 +20,7 @@ badd +1 lua/options.lua
 badd +1 lua/visuals.lua
 badd +1 ftplugin/markdown.lua
 badd +1 ftplugin/tex.lua
-badd +0 lua/config/treesitter.lua
+badd +1 lua/config/treesitter.lua
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -165,12 +165,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 6 - ((5 * winheight(0) + 29) / 59)
+let s:l = 116 - ((58 * winheight(0) + 29) / 59)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
-normal! 0
+keepjumps 116
+normal! 024|
 tabnext
 edit ftplugin/tex.lua
 argglobal
@@ -233,7 +233,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 1471
 normal! 038|
-tabnext 8
+tabnext 7
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -245,6 +245,8 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
