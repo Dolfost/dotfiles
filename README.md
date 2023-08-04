@@ -24,21 +24,18 @@ git clone https://github.com/Dolfost/dotfiles.git ~/dotfiles
 ```zsh
 # There are better and less manual ways to do this;
 # investigate install scripts and bootstrapping tools.
-ln -s ~/.dotfiles/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/dotfiles/zshrc ~/.zshrc
+ln -s ~/dotfiles/gitconfig ~/.gitconfig
 ```
-
-
 4. Install Homebrew, followed by the software listed in the Brewfile.
-
 ```zsh
 # These could also be in an install script.
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Then pass in the Brewfile location...
-brew bundle --file ~/.dotfiles/Brewfile
+brew bundle --file ~/dotfiles/Brewfile
 # ...or move to the directory first.
-cd ~/.dotfiles && brew bundle
+cd ~/dotfiles && brew bundle
 ```
 
 
@@ -54,4 +51,4 @@ cd ~/.dotfiles && brew bundle
 - Find inspiration and examples in other Dotfiles repositories at [dotfiles.github.io](https://dotfiles.github.io/).
 
 ## Recommended readings
-[From init.vim to init.lua crash course](https://www.notonlycode.org/neovim-lua-config/)  
+[Nvim Lua guide](https://neovim.io/doc/user/lua-guide.html)  
