@@ -104,9 +104,9 @@ return require('packer').startup(function(use)
 	-- vim.g.airline_detect_iminsert = 1
 	-- vim.g.airline_inactive_collapse = 1
 	-- vim.g['airline#parts#ffenc#skip_expected_string'] = 'utf-8[unix]'
-		if vim.g.airline_symbols == nil then
-			vim.g.airline_symbols = {}
-		end
+		--if vim.g.airline_symbols == nil then
+		--	vim.g.airline_symbols = {}
+		--end
 	-- vim.g.airline_left_sep = ''
 	-- vim.g.airline_right_sep = ''
 	-- vim.g.airline_symbols.colnr = ' col '
