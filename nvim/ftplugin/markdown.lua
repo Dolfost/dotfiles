@@ -1,4 +1,6 @@
-vim.opt.spell = true
+print('Sourcing markdown ftplugin')
+
+vim.o.spell = true
 
 -- vim markdown
 vim.g.vim_markdown_folding_disabled = 1
@@ -6,7 +8,7 @@ vim.g.vim_markdown_math = 1
 vim.g.vim_markdown_strikethrough = 1
 vim.g.vim_markdown_no_extensions_in_markdown = 1
 vim.g.vim_markdown_edit_url_in = 'tab'
-vim.opt.conceallevel = 2
+vim.o.conceallevel = 2
 
 
 -- markdown perview

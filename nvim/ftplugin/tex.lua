@@ -6,10 +6,6 @@ function write_server_name()
 --  `rm /tmp/vimtexserver.txt`
   vim.f("writefile([v:servername], nvim_server_file)")
 end
--- augroup vimtex_common
---   autocmd!
---   autocmd FileType tex call s:write_server_name()
--- augroup END
 
 vim.api.nvim_create_augroup('vimtex_common', {clear = true})
 vim.api.nvim_create_autocmd({"FileType"}, {
