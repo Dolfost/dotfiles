@@ -11,20 +11,18 @@ return require('packer').startup(function(use)
 	-- ycm_min_num_of_chars_for_completion = 3,
 	-- ycm_max_num_candidates = 12}
 
-	-- use 'mhinz/vim-grepper'
-	if vim.g.grepper == nil then
-		vim.g.grepper = {}
-	end
-	vim.g.grepper.highlight = 1
-	vim.g.grepper.quickfix = 1
-	vim.g.grepper.open = 1
-	vim.g.grepper.switch = 1
-	vim.g.grepper.jump = 0
-	vim.g.grepper.prompt = 1
-	vim.g.grepper.prompt_text = '$c> '
-	vim.g.grepper.prompt_quote = 0
-	vim.g.grepper.tools = {'rg', 'grep', 'git'}
-	
+	use 'mhinz/vim-grepper'
+	vim.g.grepper = {
+		highlight = 1,
+		quickfix = 1,
+		open = 1,
+		switch = 1,
+		jump = 0,
+		prompt = 1,
+		prompt_text = '$c> ',
+		prompt_quote = 0,
+		tools = {'rg', 'grep', 'git'},
+	}
 
 	use 'junegunn/fzf'
 	vim.g.fzf_action = {
