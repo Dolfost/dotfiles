@@ -23,7 +23,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
 	export ZPLUG_HOME=/usr/share/zplug
 fi
-sudo source $ZPLUG_HOME/init.zsh
+source $ZPLUG_HOME/init.zsh
 
 
 # User configuration
