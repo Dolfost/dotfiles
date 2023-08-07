@@ -20,6 +20,8 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # zplug
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	export ZPLUG_HOME=/opt/homebrew/opt/zplug
+else
+	export ZPLUG_HOME=~/.zplug
 fi
 source $ZPLUG_HOME/init.zsh
 
