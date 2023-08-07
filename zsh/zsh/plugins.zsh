@@ -12,4 +12,3 @@ zplug "plugins/dirhistory", from:oh-my-zsh
 
 
 zplug load
-zplug list
