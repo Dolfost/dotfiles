@@ -20,7 +20,7 @@ badd +1 zsh/plugins.zsh
 badd +26 zsh/exports.zsh
 badd +1 visuals.zsh
 badd +1 zsh/visuals.zsh
-badd +0 zsh/dir_colors
+badd +1 zsh/dir_colors
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -141,12 +141,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 11) / 22)
+let s:l = 4 - ((3 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 028|
+keepjumps 4
+normal! 0
 tabnext
 edit zsh/dir_colors
 argglobal
@@ -167,7 +167,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 180
 normal! 0
-tabnext 7
+tabnext 6
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
