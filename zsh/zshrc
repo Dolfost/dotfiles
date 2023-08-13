@@ -3,5 +3,4 @@ export ZSH_CONFIG="$HOME/.config/zsh"
 source $ZSH_CONFIG/exports.zsh
 source $ZSH_CONFIG/plugins.zsh
 source $ZSH_CONFIG/aliases.zsh
-
-export VISUAL='nvim'
+source $ZSH_CONFIG/visuals.zsh

@@ -1,6 +1,8 @@
 # export invocations
 export ZSH="$HOME/.oh-my-zsh"
 
+export LANG=en_US.UTF-8
+
 # cargo
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	export PATH=$PATH:/Users/vladyslav/.cargo/bin

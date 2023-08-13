@@ -10,5 +10,4 @@ zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/web-search", from:oh-my-zsh
 zplug "plugins/dirhistory", from:oh-my-zsh
 
-
 zplug load
