@@ -4,3 +4,4 @@ source $ZSH_CONFIG/exports.zsh
 source $ZSH_CONFIG/plugins.zsh
 source $ZSH_CONFIG/aliases.zsh
 source $ZSH_CONFIG/visuals.zsh
+source $ZSH_CONFIG/binds.zsh
