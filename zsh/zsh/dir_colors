@@ -78,14 +78,14 @@ EXEC 01;32
 .pgcc 0;36
 .i   0;36
 .ii  0;36
-.err 1;42
+.err 1;41
 .h   0;36
 .hxx 0;36
 .H   0;36
 .hh  0;36
 .inc 0;36
 .hpp 0;36
-*tags 1;42
+*tags 1;44
 
 # Lex/Yacc
 .l 1;35
