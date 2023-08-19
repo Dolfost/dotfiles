@@ -35,7 +35,7 @@ window:
   option_as_alt: 'None'
 
 scrolling:
-  history: 20000
+  history: 0
   multipler: 1
 
 font:
