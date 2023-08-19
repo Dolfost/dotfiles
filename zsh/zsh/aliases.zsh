@@ -13,8 +13,13 @@ alias la='ls -a'
 
 alias c="clear"
 alias p='pwd'
+alias h='history'
+
 alias q='exit'
 alias rf='rm -rf'
+
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
 
 # If MacOS...
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -22,6 +27,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
 	alias cwd='pwd | xclip -i'
 fi
-
-alias grep='grep --color=auto'
-alias ls='ls --color=auto'
