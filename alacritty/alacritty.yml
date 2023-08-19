@@ -1,7 +1,9 @@
 shell:
   program: /bin/zsh
-  args: 
-    - --login
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
 
 # working_directory: ~/
 
