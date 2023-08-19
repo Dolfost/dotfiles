@@ -3,3 +3,4 @@ export HISTSIZE=10000
 export SAVEHIST=5000
 
 setopt histverify
+setopt append_history
