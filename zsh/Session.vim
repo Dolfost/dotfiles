@@ -44,12 +44,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 29) / 59)
+let s:l = 9 - ((8 * winheight(0) + 29) / 59)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 7
-normal! 024|
+keepjumps 9
+normal! 04|
 tabnext
 edit zprofile
 argglobal
@@ -189,7 +189,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 180
 normal! 0
-tabnext 6
+tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
