@@ -14,6 +14,7 @@ alias la='ls -a'
 alias c="clear"
 alias p='pwd'
 alias h='history'
+alias dirs='dirs -v'
 
 alias q='exit'
 alias rf='rm -rf'
