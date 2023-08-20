@@ -46,7 +46,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 16) / 33)
+let s:l = 8 - ((7 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -66,7 +66,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 12 - ((8 * winheight(0) + 16) / 33)
+let s:l = 12 - ((11 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -85,7 +85,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((8 * winheight(0) + 16) / 33)
+let s:l = 13 - ((12 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -105,7 +105,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 16) / 33)
+let s:l = 5 - ((4 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -125,12 +125,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((16 * winheight(0) + 16) / 33)
+let s:l = 3 - ((2 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
-normal! 028|
+keepjumps 3
+normal! 010|
 tabnext
 edit zsh/visuals.zsh
 argglobal
@@ -145,7 +145,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 16) / 33)
+let s:l = 7 - ((6 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -165,7 +165,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 16) / 33)
+let s:l = 3 - ((2 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -185,12 +185,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 16) / 33)
+let s:l = 10 - ((9 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 018|
+keepjumps 10
+normal! 024|
 tabnext
 edit zsh/dir_colors
 argglobal
@@ -205,7 +205,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 180 - ((21 * winheight(0) + 16) / 33)
+let s:l = 180 - ((39 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
