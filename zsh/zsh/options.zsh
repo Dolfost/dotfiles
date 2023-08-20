@@ -11,3 +11,4 @@ setopt transient_rprompt
 setopt correct
 setopt chase_links
 setopt autocd
+setopt braceccl
