@@ -6,3 +6,4 @@ setopt histverify
 setopt append_history
 setopt share_history
 setopt hist_reduce_blanks
+setopt prompt_cr
