@@ -4,12 +4,12 @@ export ZSH="$HOME/.oh-my-zsh"
 export LANG=en_US.UTF-8
 
 # cargo
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; fhen
 	export PATH=$PATH:/Users/vladyslav/.cargo/bin
 fi
 
 # My sctipts
-export PATH=$PATH:$HOME/.scripts
+export PATH="$PATH:$HOME/.scripts"
 
 # Add libgdiplus to csc library path on mac
 if [[ "$OSTYPE" == "darwin"* ]]; then
