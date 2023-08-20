@@ -1,6 +1,6 @@
-export HISTFILE="~/.zsh_history"
+export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
-export SAVEHIST=5000
+export SAVEHIST=80000
 
 setopt histverify
 setopt append_history
