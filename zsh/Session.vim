@@ -51,7 +51,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 8
-normal! 026|
+normal! 010|
 tabnext
 edit zprofile
 argglobal
@@ -105,12 +105,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 31) / 62)
+let s:l = 7 - ((6 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
-normal! 0
+keepjumps 7
+normal! 034|
 tabnext
 edit zsh/aliases.zsh
 argglobal
@@ -174,7 +174,6 @@ normal! 033|
 tabnext
 edit zsh/options.zsh
 argglobal
-balt zsh/binds.zsh
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -185,12 +184,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 10 - ((9 * winheight(0) + 31) / 62)
+let s:l = 12 - ((11 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 10
-normal! 024|
+keepjumps 12
+normal! 018|
 tabnext
 edit zsh/dir_colors
 argglobal
