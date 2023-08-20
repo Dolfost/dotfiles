@@ -1,6 +1,6 @@
 # zsh aliases
 if [ -n "$NVIM" ]; then
-	PS1='$(basename `pwd`) » '
+	PS1='%2~ » '
 	if [ -x "$(command -v nvr)" ]; then
 		alias nvim=nvr
 	else
