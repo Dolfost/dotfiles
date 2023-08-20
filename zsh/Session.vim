@@ -125,12 +125,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 31) / 62)
+let s:l = 17 - ((16 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 010|
+keepjumps 17
+normal! 020|
 tabnext
 edit zsh/visuals.zsh
 argglobal
@@ -184,12 +184,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 12 - ((11 * winheight(0) + 31) / 62)
+let s:l = 14 - ((13 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 12
-normal! 018|
+keepjumps 14
+normal! 015|
 tabnext
 edit zsh/dir_colors
 argglobal
