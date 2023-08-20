@@ -9,3 +9,4 @@ setopt hist_reduce_blanks
 setopt prompt_cr
 setopt transient_rprompt
 setopt correct
+setopt chase_links
