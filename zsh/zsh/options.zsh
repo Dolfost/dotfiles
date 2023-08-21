@@ -20,3 +20,4 @@ zstyle ':completion:::::' completer _complete _approximate
 zstyle -e ':completion:*:approximate:*' max-errors \
     'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) )'
 zstyle ':completion::*:(git add|less|rm|nvim):*' ignore-line true
+zstyle ':completion:*' ignore-parents parent pwd
