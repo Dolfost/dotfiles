@@ -15,3 +15,6 @@ setopt braceccl
 setopt extended_glob
 
 unsetopt list_beep
+
+zstyle ':completion:::::' completer _complete _approximate
+zstyle ':completion:*:approximate:*' max-errors 2
