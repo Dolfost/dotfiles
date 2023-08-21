@@ -150,7 +150,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 7
-normal! 017|
+normal! 021|
 tabnext
 edit zsh/binds.zsh
 argglobal
@@ -165,12 +165,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 34) / 68)
+let s:l = 8 - ((7 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 033|
+keepjumps 8
+normal! 0
 tabnext
 edit zsh/options.zsh
 argglobal
@@ -210,7 +210,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 180
 normal! 0
-tabnext 8
+tabnext 7
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
