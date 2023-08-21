@@ -1,6 +1,6 @@
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
-export SAVEHIST=80000
+export SAVEHIST=8000
 
 setopt histverify
 setopt append_history
@@ -12,4 +12,5 @@ setopt correct
 setopt chase_links
 setopt autocd
 setopt braceccl
-setopt extended_glob
+
+unsetopt extended_glob
