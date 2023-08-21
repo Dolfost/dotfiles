@@ -1,5 +1,7 @@
 eval `dircolors $ZSH_CONFIG/dir_colors`
 
+zmodload zsh/complist
+
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' list-separator '-->'
