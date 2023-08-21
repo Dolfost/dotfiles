@@ -12,5 +12,4 @@ setopt correct
 setopt chase_links
 setopt autocd
 setopt braceccl
-
-unsetopt extended_glob
+setopt extended_glob
