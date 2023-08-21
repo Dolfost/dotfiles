@@ -184,12 +184,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 34) / 68)
+let s:l = 20 - ((19 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
-normal! 018|
+keepjumps 20
+normal! 049|
 tabnext
 edit zsh/dir_colors
 argglobal
@@ -210,7 +210,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 180
 normal! 0
-tabnext 7
+tabnext 8
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
