@@ -184,12 +184,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 22 - ((21 * winheight(0) + 34) / 68)
+let s:l = 23 - ((22 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 22
-normal! 031|
+keepjumps 23
+normal! 048|
 tabnext
 edit zsh/dir_colors
 argglobal
