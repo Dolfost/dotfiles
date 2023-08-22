@@ -1,5 +1,3 @@
-print('Sourcing markdown ftplugin')
-
 vim.o.spell = true
 
 -- vim markdown
