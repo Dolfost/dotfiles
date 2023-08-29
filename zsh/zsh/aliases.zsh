@@ -22,6 +22,8 @@ alias rf='rm -rf'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 
+alias showargs="printf '>>%s<<\n'"
+
 # If MacOS...
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias cwd='pwd | pbcopy'
