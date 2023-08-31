@@ -1,4 +1,4 @@
-vim.opt.spell = true
+vim.opt_local.spell = true
 
 -- VimTex -> Skim -> nvim link
 function write_server_name()
