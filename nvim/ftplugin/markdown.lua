@@ -1,4 +1,4 @@
-vim.o.spell = true
+vim.opt_local.spell = true
 
 -- vim markdown
 vim.g.vim_markdown_folding_disabled = 1
