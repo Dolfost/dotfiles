@@ -14,16 +14,15 @@ else
   set shortmess=aoO
 endif
 badd +1 init.lua
-badd +1 lua/plugins.lua
-badd +1 lua/keybinds.lua
-badd +1 lua/options.lua
+badd +53 lua/plugins.lua
+badd +4 lua/keybinds.lua
+badd +8 lua/options.lua
 badd +1 lua/visuals.lua
-badd +1 ftplugin/markdown.lua
+badd +15 ftplugin/markdown.lua
 badd +1 ftplugin/tex.lua
 badd +1 lua/config/treesitter.lua
 argglobal
 %argdel
-tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -65,11 +64,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((25 * winheight(0) + 34) / 68)
+let s:l = 3 - ((2 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
+keepjumps 3
 normal! 0
 tabnext
 edit lua/keybinds.lua
@@ -112,29 +111,9 @@ normal! zt
 keepjumps 2
 normal! 021|
 tabnext
-edit lua/options.lua
-argglobal
-balt lua/keybinds.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 35 - ((34 * winheight(0) + 34) / 68)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 35
-normal! 07|
-tabnext
 edit lua/config/treesitter.lua
 argglobal
-balt lua/plugins.lua
+balt ftplugin/tex.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -145,12 +124,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 34) / 68)
+let s:l = 9 - ((8 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 9
+normal! 07|
 tabnext
 edit ftplugin/markdown.lua
 argglobal
@@ -170,7 +149,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
-normal! 0
+normal! 013|
 tabnext
 edit ftplugin/tex.lua
 argglobal
@@ -185,17 +164,17 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 34) / 68)
+let s:l = 21 - ((20 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
-normal! 014|
+keepjumps 21
+normal! 035|
 tabnext
 argglobal
 enew | setl bt=help
 help lua@en
-balt lua/options.lua
+balt ftplugin/tex.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -206,12 +185,12 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1167 - ((9 * winheight(0) + 34) / 68)
+let s:l = 7 - ((6 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1167
-normal! 013|
+keepjumps 7
+normal! 070|
 tabnext
 argglobal
 enew | setl bt=help
