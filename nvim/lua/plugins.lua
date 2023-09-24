@@ -99,6 +99,7 @@ return require('packer').startup(function(use)
 
 	use 'vim-airline/vim-airline'
 	use 'vim-airline/vim-airline-themes'
+
 	vim.g.airline_detect_modified = 1
 	vim.g.airline_detect_paste = 1
 	vim.g.airline_detect_crypt = 1
@@ -108,13 +109,13 @@ return require('packer').startup(function(use)
 	vim.g.airline_inactive_collapse = 1
 	vim.g['airline#parts#ffenc#skip_expected_string'] = 'utf-8[unix]'
 	vim.g.airline_symbols = {
-		 colnr = ' col ',
+		 colnr = 'col ',
 		 crypt = '',
 		 linenr = ' ',
 		 maxlinenr = '㏑ ',
 		 branch = '⎇ ',
 		 paste = 'ρ',
-		 spell = 'Ꞩ',
+		 spell = 'ഗ',
 		 notexists = '∄',
 		 whitespace = 'Ξ',
 	 }
@@ -150,6 +151,6 @@ return require('packer').startup(function(use)
 		 vim.g['airline#extensions#tabline#right_alt_sep'] = ''
 		 vim.g['airline#extensions#tabline#ignore_bufadd_pat'] = 'defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 	 vim.g['airline#extensions#obsession#enabled'] = 1
-		 vim.g['airline#extensions#obsession#indicator_text'] = "Ⓢ "
+		 vim.g['airline#extensions#obsession#indicator_text'] = "ⓢ "
 
 end)
