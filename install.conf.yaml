@@ -1,0 +1,32 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: false
+
+- create:
+  - ~/.config/zsh
+
+# remove the dead symlimcs that point
+# somewhere in thre dotfiles directory
+- clean:
+    ~/:
+      force: false
+    ~/.config:
+      recursive: true
+
+- link:
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.gitconfig: git/gitconfig
+    ~/.sqliterc: sqlite/sqliterc
+    ~/.zshrc: zsh/zshrc
+    ~/.zprofile: zsh/zprofile
+
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+    ~/.config/karabiner/karabiner.json: karabiner/karabiner.json
+    ~/.config/texstudio/texstudio.ini: texstudio/texstudio.ini
+    ~/.config/zsh: zsh/zsh
+    ~/.config/nvim: nvim
+
+    ~/Library/Preferences/FreeCAD/user.cfg: freecad/user.cfg
+    ~/Library/Preferences/com.googlecode.iterm2.plist: iterm/com.googlecode.iterm2.plist

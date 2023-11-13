@@ -1,1 +1,0 @@
-iterm: ~/Library/Preferences/com.googlecode.iterm2.plist
