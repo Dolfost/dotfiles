@@ -8,7 +8,7 @@ vim.o.syntax = true     -- VimTex requirement
 vim.cmd.set("t_Co=256")
 vim.o.wildmenu = true
 vim.o.wildmode = "full"
-vim.o.history =200
+vim.o.history = 200
 vim.o.fixendofline = false
 
 vim.o.incsearch = true
