@@ -14,10 +14,10 @@ else
   set shortmess=aoO
 endif
 badd +1 init.lua
-badd +1 lua/plugins.lua
+badd +56 lua/plugins.lua
 badd +4 lua/keybinds.lua
 badd +8 lua/options.lua
-badd +1 lua/visuals.lua
+badd +5 lua/visuals.lua
 badd +15 ftplugin/markdown.lua
 badd +1 ftplugin/tex.lua
 badd +1 lua/config/treesitter.lua
@@ -45,12 +45,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 2 - ((1 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 010|
+keepjumps 2
+normal! 0
 tabnext
 edit lua/plugins.lua
 argglobal
@@ -65,12 +65,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 83 - ((39 * winheight(0) + 24) / 48)
+let s:l = 58 - ((9 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 83
-normal! 0
+keepjumps 58
+normal! 030|
 tabnext
 edit lua/keybinds.lua
 argglobal
@@ -85,16 +85,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 24) / 48)
+let s:l = 10 - ((9 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
+keepjumps 10
 normal! 0
 tabnext
 edit lua/visuals.lua
 argglobal
-balt init.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -105,12 +104,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 5 - ((4 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 021|
+keepjumps 5
+normal! 063|
 tabnext
 edit lua/options.lua
 argglobal
@@ -125,12 +124,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 40 - ((39 * winheight(0) + 24) / 48)
+let s:l = 15 - ((14 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 40
-normal! 016|
+keepjumps 15
+normal! 07|
 tabnext
 edit lua/config/treesitter.lua
 argglobal
@@ -145,7 +144,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 24) / 48)
+let s:l = 2 - ((1 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -165,7 +164,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 114 - ((47 * winheight(0) + 24) / 48)
+let s:l = 114 - ((61 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -185,7 +184,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 28 - ((11 * winheight(0) + 24) / 48)
+let s:l = 28 - ((14 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -206,7 +205,7 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 67 - ((39 * winheight(0) + 24) / 48)
+let s:l = 67 - ((50 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -227,13 +226,13 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1452 - ((8 * winheight(0) + 24) / 48)
+let s:l = 1452 - ((10 * winheight(0) + 31) / 62)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1452
 normal! 040|
-tabnext 5
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
