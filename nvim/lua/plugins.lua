@@ -51,6 +51,8 @@ return require('packer').startup(function(use)
 
 	use 'dense-analysis/ale'
 	vim.keymap.set('n', '<Leader>l', ':ALELint<CR>')
+	vim.g.ale_use_neovim_diagnostics_api = 1
+
 	vim.g.ale_enabled = 1
 	vim.g.ale_lint_delay = 3000 -- def: 200 ms
 	vim.g.ale_sign_error = '>>'
@@ -152,5 +154,4 @@ return require('packer').startup(function(use)
 		 vim.g['airline#extensions#tabline#ignore_bufadd_pat'] = 'defx|gundo|nerd_tree|startify|tagbar|undotree|vimfiler'
 	 vim.g['airline#extensions#obsession#enabled'] = 1
 		 vim.g['airline#extensions#obsession#indicator_text'] = "ⓢ "
-
 end)
