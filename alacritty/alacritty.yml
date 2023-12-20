@@ -3,7 +3,7 @@ shell:
   args:
     - -l
     - -c
-    - "tmux attach || tmux"
+    - "tmux attach -t alacritty || tmux new-session -s alacritty"
 
 # working_directory: ~/
 
