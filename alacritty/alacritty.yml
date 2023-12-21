@@ -2,8 +2,6 @@ shell:
   program: /bin/zsh
   args:
     - -l
-    - -c
-    - "tmux attach -t alacritty || tmux new-session -s alacritty"
 
 # working_directory: ~/
 
