@@ -17,6 +17,7 @@
 
 - link:
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmate.conf: tmux/tmate.conf
     ~/.gitconfig: git/gitconfig
     ~/.sqliterc: sqlite/sqliterc
     ~/.zshrc: zsh/zshrc
