@@ -46,7 +46,7 @@ font:
     style: 'Italic'
   bold_italic:
     style: 'Bold Italic'
-  size: 15
+  size: 18
   offset:
     x: 0
     y: 0
