@@ -26,7 +26,3 @@ else
 	export ZPLUG_HOME=~/.zplug
 fi
 source $ZPLUG_HOME/init.zsh
-
-
-# User configuration
-export TERM=xterm-256color

@@ -7,3 +7,8 @@ source $ZSH_CONFIG/visuals.zsh
 source $ZSH_CONFIG/binds.zsh
 source $ZSH_CONFIG/options.zsh
 source $ZSH_CONFIG/completions.zsh
+
+if [[ "$TERM" != "screen-256color" ]]
+then
+	tmux attach-session -t "$USER" || tmux new-session -s "$USER"
+fi
