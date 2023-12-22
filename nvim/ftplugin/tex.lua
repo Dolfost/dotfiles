@@ -46,7 +46,7 @@ vim.g.vimtex_compiler_latexmk_engines = {
     pdfdvi = '-pdfdvi',
     pdfps = '-pdfps',
     pdflatex = '-pdf',
-    luatex = '-lualatex',
+    luatex = '-luatex',
     lualatex = '-lualatex',
     xelatex = '-xelatex',
     ['context (pdftex)'] = "-pdf -pdflatex=texexec",
