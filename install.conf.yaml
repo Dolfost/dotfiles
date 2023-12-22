@@ -7,8 +7,8 @@
 - create:
   - ~/.config/zsh
 
-# remove the dead symlimcs that point
-# somewhere in thre dotfiles directory
+# Remove the dead symlimcs that point
+# Somewhere in thre dotfiles directory
 - clean:
     ~/:
       force: false
@@ -31,3 +31,6 @@
 
     ~/Library/Preferences/FreeCAD/user.cfg: freecad/user.cfg
     ~/Library/Preferences/com.googlecode.iterm2.plist: iterm/com.googlecode.iterm2.plist
+
+- shell:
+  - [git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm] # Install tmux plugin manager
