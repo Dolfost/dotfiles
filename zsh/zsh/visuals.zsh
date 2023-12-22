@@ -11,6 +11,6 @@ export MANPAGER='less --RAW-CONTROL-CHARS --use-color --color=d+g --color=u+y'
 export MANROFFOPT="-c"
 
 export RI_PAGER='less -R --use-color -Dd+r -Du+b'
-export LESS='-RXF --use-color -Dd+r$Du+b'
+export LESS='--mouse --wheel-lines 2 -RXF --use-color -Dd+r$Du+b'
 
 export VISUAL='nvim'
