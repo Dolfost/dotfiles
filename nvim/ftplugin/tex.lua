@@ -41,17 +41,18 @@ vim.g.vimtex_compiler_latexmk = {
 	'-shell-escape',
 	},
 }
+
 vim.g.vimtex_compiler_latexmk_engines = {
-    _ = '-pdf',
-    pdfdvi = '-pdfdvi',
-    pdfps = '-pdfps',
-    pdflatex = '-pdf',
-    luatex = '-luatex',
-    lualatex = '-lualatex',
-    xelatex = '-xelatex',
-    ['context (pdftex)'] = "-pdf -pdflatex=texexec",
-    ['context (luatex)'] = "-pdf -pdflatex=context",
-    ['context (xetex)'] = "-pdf -pdflatex=''texexec --xtx''",
+	_ = '-pdf',
+	pdfdvi = '-pdfdvi',
+	pdfps = '-pdfps',
+	pdflatex = '-pdf',
+	luatex = '-lualatex',
+	lualatex = '-lualatex',
+	xelatex = '-xelatex',
+	['context (pdftex)'] = "-pdf -pdflatex=texexec",
+	['context (luatex)'] = "-pdf -pdflatex=context",
+	['context (xetex)'] = "-pdf -pdflatex=''texexec --xtx''",
 }
 
 vim.g.vimtex_parser_bib_backend = "bibtex"
