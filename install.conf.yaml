@@ -4,9 +4,6 @@
       relink: true
       force: false
 
-- create:
-  - ~/.config/zsh
-
 # Remove the dead symlimcs that point
 # Somewhere in thre dotfiles directory
 - clean:
