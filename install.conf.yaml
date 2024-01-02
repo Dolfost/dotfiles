@@ -21,13 +21,21 @@
     ~/.zprofile: zsh/zprofile
 
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    ~/.config/karabiner/karabiner.json: karabiner/karabiner.json
-    ~/.config/texstudio/texstudio.ini: texstudio/texstudio.ini
     ~/.config/zsh: zsh/zsh
     ~/.config/nvim: nvim
 
-    ~/Library/Preferences/FreeCAD/user.cfg: freecad/user.cfg
-    ~/Library/Preferences/com.googlecode.iterm2.plist: iterm/com.googlecode.iterm2.plist
+    ~/Library/Preferences/FreeCAD/user.cfg:
+      path: freecad/user.cfg
+      if: '[ `uname` = Darwin ]'
+
+    ~/Library/Preferences/com.googlecode.iterm2.plist:
+      path: iterm/com.googlecode.iterm2.plist
+      if: '[ `uname` = Darwin ]'
+
+    ~/.config/karabiner/karabiner.json:
+      path: karabiner/karabiner.json
+      if: '[ `uname` = Darwin ]'
+
 
 - shell:
   - ['git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm', 'Installing tpm'] # tmux plugin manager
