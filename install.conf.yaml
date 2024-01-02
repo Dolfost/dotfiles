@@ -30,5 +30,6 @@
     ~/Library/Preferences/com.googlecode.iterm2.plist: iterm/com.googlecode.iterm2.plist
 
 - shell:
-  - [git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm, Installing tpm] # Install tmux plugin manager
-  - [git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim, Installing packer] # Install neovim plugin manager
+  - [git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm, Installing tpm] # tmux plugin manager
+  - [git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim, Installing packer] # neovim plugin manager
+  - [curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh, Installing zplug] # zsh plugin manager
