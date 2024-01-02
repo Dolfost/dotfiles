@@ -33,3 +33,4 @@
   - ['git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm', 'Installing tpm'] # tmux plugin manager
   - ['git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim', 'Installing packer'] # neovim plugin manager
   - ['curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh', 'Installing zplug'] # zsh plugin manager
+  - ['sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"', 'Installing ohmyzsh'] # OhMyZSH
