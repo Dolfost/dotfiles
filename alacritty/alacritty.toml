@@ -1,0 +1,164 @@
+ipc_socket = true
+live_config_reload = true
+
+[bell]
+animation = "EaseOutExpo"
+color = "#ffffff"
+command = "None"
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+transparent_background_colors = false
+
+[colors.bright]
+black = "#666666"
+blue = "#04a1fe"
+cyan = "#00ffff"
+green = "#1fff00"
+magenta = "#d582eb"
+red = "#ff0000"
+white = "#ffffff"
+yellow = "#fefb67"
+
+[colors.cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[colors.footer_bar]
+background = "#d8d8d8"
+foreground = "#181818"
+
+[colors.hints.end]
+background = "#ac4242"
+foreground = "#181818"
+
+[colors.hints.start]
+background = "#f4bf75"
+foreground = "#181818"
+
+[colors.line_indicator]
+background = "None"
+foreground = "None"
+
+[colors.normal]
+black = "#000000"
+blue = "#0060ff"
+cyan = "#27bdbe"
+green = "#07ea01"
+magenta = "#d47bfe"
+red = "#e5120a"
+white = "#e5e5e5"
+yellow = "#fefc57"
+
+[colors.primary]
+background = "#000000"
+bright_foreground = "None"
+foreground = "#ffffff"
+
+[colors.search.focused_match]
+background = "#f4bf75"
+foreground = "#181818"
+
+[colors.search.matches]
+background = "#ac4242"
+foreground = "#181818"
+
+[colors.selection]
+background = "CellForeground"
+text = "CellBackground"
+
+[colors.vi_mode_cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[cursor]
+blink_interval = 750
+blink_timeout = 5
+thickness = 0.15
+unfocused_hollow = true
+vi_mode_style = "None"
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[debug]
+highlight_famage = false
+log_lever = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+renderer = "None"
+
+[env]
+TERM = "alacritty"
+
+[font]
+builtn_box_drawing = true
+size = 18
+
+[font.bold]
+style = "Bold"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+[font.gylph_offset]
+x = 0
+y = 0
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "FantasqueSansMono Nerd Font Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+[mouse]
+hide_when_typing = true
+
+[scrolling]
+history = 0
+multipler = 1
+
+[selection]
+save_to_clipdoard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[shell]
+args = ["-l"]
+program = "/bin/zsh"
+
+[terminal]
+osc52 = "OnlyCopy"
+
+[window]
+decorations = "Full"
+decorations_theme_variant = "Dark"
+dyanmic_padding = false
+dynamic_title = true
+opacity = 1.0
+option_as_alt = "None"
+resize_increments = true
+startup_mode = "Windowed"
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 0
+y = 0
