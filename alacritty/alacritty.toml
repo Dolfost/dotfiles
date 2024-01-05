@@ -84,8 +84,6 @@ blinking = "Off"
 shape = "Block"
 
 [debug]
-highlight_famage = false
-log_lever = "Warn"
 persistent_logging = false
 print_events = false
 render_timer = false
@@ -95,7 +93,6 @@ renderer = "None"
 TERM = "alacritty"
 
 [font]
-builtn_box_drawing = true
 size = 18
 
 [font.bold]
@@ -103,10 +100,6 @@ style = "Bold"
 
 [font.bold_italic]
 style = "Bold Italic"
-
-[font.gylph_offset]
-x = 0
-y = 0
 
 [font.italic]
 style = "Italic"
@@ -127,10 +120,8 @@ hide_when_typing = true
 
 [scrolling]
 history = 0
-multipler = 1
 
 [selection]
-save_to_clipdoard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 
 [shell]
@@ -143,7 +134,6 @@ osc52 = "OnlyCopy"
 [window]
 decorations = "Full"
 decorations_theme_variant = "Dark"
-dyanmic_padding = false
 dynamic_title = true
 opacity = 1.0
 option_as_alt = "None"
