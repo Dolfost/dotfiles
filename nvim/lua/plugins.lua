@@ -38,6 +38,7 @@ require("lazy").setup({
 		config = function()
 			require'config.treesitter'
 		end,
+		build = ":TSUpdate"
 	},
 
 	{'dense-analysis/ale',
@@ -82,6 +83,14 @@ require("lazy").setup({
 	},
 
 	{'tpope/vim-dispatch',
+	},
+
+	{
+		'nvim-lualine/lualine.nvim',
+		config = function()
+			require'config.lualine'
+		end,
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 
 	{'morhetz/gruvbox',
