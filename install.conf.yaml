@@ -2,7 +2,8 @@
     link:
       create: true
       relink: true
-      force: false
+      force: true
+
 
 # Remove the dead symlimcs that point
 # Somewhere in thre dotfiles directory
@@ -11,6 +12,35 @@
       force: false
     ~/.config:
       recursive: true
+
+
+- shell:
+  - 
+    command: 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
+    description: 'Installing tpm'
+    quiet: true
+  - 
+    command: 'python3 -m pip install --user --upgrade pynvim'
+    description: 'Installing pynvim'        
+  - 
+    command: 'git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim'
+    description: 'Installing packer'
+    quiet: true
+  - 
+    command: 'curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh'
+    description: 'Installing zplug'
+    stdout: true
+    stdin: true
+    stderr: true
+    quiet: true
+  - 
+    command: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+    description: 'Installing ohmyzsh'
+    stdout: true
+    stdin: true
+    stderr: true
+    quiet: true
+
 
 - link:
     ~/.tmux.conf: tmux/tmux.conf
@@ -35,28 +65,3 @@
     ~/.config/karabiner/karabiner.json:
       path: karabiner/karabiner.json
       if: '[ `uname` = Darwin ]'
-
-
-- shell:
-  - 
-    command: 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
-    description: 'Installing tpm'
-    quiet: true
-  - 
-    command: 'python3 -m pip install --user --upgrade pynvim'
-    description: 'Installing pynvim'        
-  - 
-    command: 'git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim'
-    description: 'Installing packer'
-    quiet: true
-  - 
-    command: 'curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh'
-    description: 'Installing zplug'
-    quiet: true
-  - 
-    command: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-    description: 'Installing ohmyzsh'
-    stdout: true
-    stdin: true
-    stderr: true
-    quiet: true
