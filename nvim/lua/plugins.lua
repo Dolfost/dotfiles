@@ -21,12 +21,6 @@ local plugins = {
 		end,
 	},
 
-	{'mhinz/vim-grepper',
-		config = function()
-			require'config.vim-grepper'
-		end,
-	},
-
 	{'nvim-treesitter/nvim-treesitter',
 		config = function()
 			require'config.treesitter'
