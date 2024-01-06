@@ -33,8 +33,8 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {lualine_a = {{'tabs', mode = 2, max_length = vim.o.columns}}},
   winbar = {},
   inactive_winbar = {},
-  extensions = {'fugitive', 'fzf', 'man', 'lazy', 'quickfix'}
+  extensions = {'fugitive', 'fzf', 'man', 'lazy', 'quickfix', 'neo-tree'}
 }
