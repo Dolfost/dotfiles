@@ -16,22 +16,12 @@ endif
 badd +2 init.lua
 badd +9 lua/plugins.lua
 badd +3 lua/keybinds.lua
-badd +9 lua/options.lua
+badd +1 lua/options.lua
 badd +2 lua/visuals.lua
-badd +6 lua/config/luasnip.lua
-badd +1 LuaSnip/all.lua
-badd +1 lua/config/treesitter.lua
-badd +44 lua/config/lspconfig.lua
-badd +1 lua/config/ale.lua
-badd +1 lua/config/vim-markdown.lua
-badd +1 lua/config/vimtex.lua
+badd +39 lua/config/lualine.lua
 argglobal
 %argdel
 set stal=2
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -60,6 +50,27 @@ keepjumps 2
 normal! 047|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
+edit ~/dotfiles/nvim/lua/plugins.lua
+argglobal
+balt ~/dotfiles/nvim/init.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 40 - ((21 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 40
+normal! 052|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+tabnext
 edit ~/dotfiles/nvim/init.lua
 argglobal
 balt ~/dotfiles/nvim/lua/keybinds.lua
@@ -81,49 +92,7 @@ keepjumps 2
 normal! 023|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
-edit ~/dotfiles/nvim/lua/plugins.lua
-argglobal
-balt ~/dotfiles/nvim/init.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 46 - ((27 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 46
-normal! 052|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/config/lspconfig.lua
-argglobal
-balt ~/dotfiles/nvim/lua/plugins.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 44 - ((39 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 44
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/config/luasnip.lua
+edit ~/dotfiles/nvim/lua/config/lualine.lua
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -135,54 +104,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 24) / 48)
+let s:l = 39 - ((38 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/config/treesitter.lua
-argglobal
-balt ~/dotfiles/nvim/lua/config/luasnip.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/LuaSnip/all.lua
-argglobal
-balt ~/dotfiles/nvim/lua/config/luasnip.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 4 - ((3 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 4
-normal! 013|
+keepjumps 39
+normal! 072|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/init.lua
@@ -263,26 +190,6 @@ keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 07|
-tabnext
-argglobal
-enew | setl bt=help
-help lua@en
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 017|
 tabnext 4
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
