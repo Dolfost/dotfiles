@@ -12,7 +12,7 @@ vim.o.conceallevel = 2
 -- markdown perview
 -- nmap <C-s> <Plug>MarkdownPreview
 -- nmap <M-s> <Plug>MarkdownPreviewStop
-vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
+vim.keymapfs.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
 
 -- set to 1, nvim will open the preview window after entering the markdown buffer
 -- default: 0

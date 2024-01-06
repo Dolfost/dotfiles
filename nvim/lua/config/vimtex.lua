@@ -62,4 +62,4 @@ vim.g.vimtex_quickfix_open_on_warning = 0
 vim.g.vimtex_doc_handlers = {'vimtex#doc#handlers#texdoc'}
 vim.g.vimtex_complete_close_braces = 1
 
-vim.keymap.set("n", "<localleader>ll", "<Cmd>update<CR><Cmd>VimtexCompile<CR>")
+vim.keymapfs.set("n", "<localleader>ll", "<Cmd>update<CR><Cmd>VimtexCompile<CR>")

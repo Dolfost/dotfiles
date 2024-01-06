@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<Leader>l', ':ALELint<CR>')
+vim.keymapfs.set('n', '<Leader>l', ':ALELint<CR>')
 vim.g.ale_use_neovim_diagnostics_api = 1
 vim.g.ale_enabled = 1
 vim.g.ale_lint_delay = 3000 -- def: 200 ms

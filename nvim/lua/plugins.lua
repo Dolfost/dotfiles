@@ -17,14 +17,14 @@ local plugins = {
 	{'lervag/vimtex',
 		ft = 'tex',
 		config = function()
-				require'config.vimtex'
-			end,
+			require'config.vimtex'
+		end,
 	},
 
 	{'mhinz/vim-grepper',
 		config = function()
-				require'config.vim-grepper'
-			end,
+			require'config.vim-grepper'
+		end,
 	},
 
 	{'nvim-treesitter/nvim-treesitter',
@@ -34,48 +34,46 @@ local plugins = {
 		build = ":TSUpdate"
 	},
 
-	{'dense-analysis/ale',
+	{
+		'L3MON4D3/LuaSnip',
+		-- follow latest release.
+		version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = 'make install_jsregexp',
 		config = function()
-			require'config.ale'
+			require'config.luasnip'
+		end,
+		dependencies = {'saadparwaiz1/cmp_luasnip'},
+	},
+
+	{'hrsh7th/nvim-cmp',
+		dependencies = {'neovim/nvim-lspconfig',
+			'hrsh7th/cmp-cmdline',
+			'hrsh7th/cmp-path',
+			'hrsh7th/cmp-buffer',
+			'hrsh7th/cmp-nvim-lsp'
+		},
+		config = function()
+			require'config.lspconfig'
 		end,
 	},
 
-	{'tpope/vim-unimpaired',
-	},
+	'tpope/vim-unimpaired',
+	'tpope/vim-commentary',
+	'tpope/vim-obsession',
+	'tpope/vim-surround',
+	'tpope/vim-fugitive',
+	'tpope/vim-dispatch',
 
-	{'tpope/vim-commentary',
-	},
-
-	{'tpope/vim-obsession',
-	},
-
-	{'godlygeek/tabular',
-	},
+	'godlygeek/tabular',
+	'ludovicchabant/vim-gutentags',
 
 	{'preservim/vim-markdown',
 		ft = 'markdown',
 	},
 
 	{'iamcco/markdown-preview.nvim',
-		build = function() vim.fn["mkdp#util#install"]() end,
-	},
-
-	{'ludovicchabant/vim-gutentags',
-	},
-		
-	{'tpope/vim-surround',
-	},
-
-	{'SirVer/ultisnips',
-		config = function()
-			require'config.ultisnips'
-		end,
-	},
-
-	{'tpope/vim-fugitive',
-	},
-
-	{'tpope/vim-dispatch',
+		build = function() vim.fn['mkdp#util#install']() end,
 	},
 
 	{
@@ -86,22 +84,20 @@ local plugins = {
 		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 
-	{
-		"nvim-neo-tree/neo-tree.nvim",
+	{'nvim-neo-tree/neo-tree.nvim',
 		branch = "v3.x",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-			"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			'nvim-lua/plenary.nvim',
+			'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+			'MunifTanjim/nui.nvim',
+			'3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
 		config = function()
 			require'config.neo-tree'
 		end,
 	},
 
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.5',
+	{'nvim-telescope/telescope.nvim', tag = '0.1.5',
 		dependencies = {'nvim-lua/plenary.nvim'}
     },
 
@@ -118,6 +114,6 @@ local plugins = {
 	},
 }
 
-local opts = {}
+local options = {}
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, options)
