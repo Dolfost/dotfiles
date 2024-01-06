@@ -37,7 +37,7 @@ local plugins = {
 		config = function()
 			require'config.luasnip'
 		end,
-		dependencies = {'saadparwaiz1/cmp_luasnip'},
+		dependencies = {'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets'},
 	},
 
 	{'hrsh7th/nvim-cmp',
