@@ -18,7 +18,8 @@ badd +9 lua/plugins.lua
 badd +3 lua/keybinds.lua
 badd +1 lua/options.lua
 badd +2 lua/visuals.lua
-badd +39 lua/config/lualine.lua
+badd +36 lua/config/lualine.lua
+badd +1 lua/config/vim-markdown.lua
 argglobal
 %argdel
 set stal=2
@@ -104,12 +105,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 39 - ((38 * winheight(0) + 24) / 48)
+let s:l = 36 - ((35 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 39
-normal! 072|
+keepjumps 36
+normal! 0107|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/init.lua
