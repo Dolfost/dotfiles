@@ -92,10 +92,15 @@ renderer = "None"
 [env]
 TERM = "alacritty"
 
+[font.normal]
+family = "FantasqueSansM Nerd Font Mono"
+style = "Regular"
+
 [font]
 size = 18
 
 [font.bold]
+family = "FantasqueSansM Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
@@ -104,9 +109,6 @@ style = "Bold Italic"
 [font.italic]
 style = "Italic"
 
-[font.normal]
-family = "FantasqueSansMono Nerd Font Mono"
-style = "Regular"
 
 [font.offset]
 x = 0
