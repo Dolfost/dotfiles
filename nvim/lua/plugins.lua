@@ -118,12 +118,13 @@ local plugins = {
 		dependencies = {'nvim-lua/plenary.nvim'}
     },
 
+	-- Themes
 	{'morhetz/gruvbox',
 		-- config = function ()
 		-- 	require("config.colorscheme")
 		-- end,
-		lazy = true,
 		-- priority = 1000,
+		lazy = true,
 	},
 	-- TODO: Do somethind with commenting out the config 
 	-- field of theme plugins.
@@ -132,16 +133,16 @@ local plugins = {
 		-- config = function ()
 		-- 	require("config.colorscheme")
 		-- end,
-		lazy = true,
 		-- priority = 1000,
+		lazy = true,
 	},
 
 	{"yorik1984/newpaper.nvim",
-		priority = 1000,
-		config = function ()
-			require("config.colorscheme")
-		end,
-		kazy = true,
+		-- priority = 1000,
+		-- config = function ()
+		-- 	require("config.colorscheme")
+		-- end,
+		lazy = true,
 	},
 
 	{"rebelot/kanagawa.nvim",
@@ -158,6 +159,14 @@ local plugins = {
 		-- 	require("config.colorscheme")
 		-- end,
 		lazy = true,
+	},
+
+	{"catppuccin/nvim", 
+		name = "catppuccin",
+		priority = 1000,
+		config = function ()
+			require("config.colorscheme")
+		end,
 	},
 		
 }
