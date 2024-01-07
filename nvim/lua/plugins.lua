@@ -108,6 +108,8 @@ local plugins = {
 		lazy = true,
 		-- priority = 1000,
 	},
+	-- TODO: Do somethind with commenting out the config 
+	-- field of theme plugins.
 
 	{'NLKNguyen/papercolor-theme',
 		-- config = function ()
