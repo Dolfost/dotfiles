@@ -16,8 +16,8 @@ cmp.setup({
 		end,
 	},
 	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 
 	experimental = {
@@ -60,13 +60,13 @@ cmp.setup({
 		fields = {'abbr', 'kind', 'menu'},
 		format = lspkind.cmp_format({
 			mode = 'text_symbol',
-			menu = ({
-				buffer = '[Buf]',
-				nvim_lsp = '[LSP]',
-				luasnip = '[lSnip]',
-				nvim_lua = '[Lua]',
-				latex_symbols = '[tex]',
-			})
+			-- menu = {
+			-- 	buffer = '[Buf]',
+			-- 	nvim_lsp = '[LSP]',
+			-- 	luasnip = '[lSnip]',
+			-- 	nvim_lua = '[Lua]',
+			-- 	latex_symbols = '[tex]',
+			-- },
 		}),
 	},
 
