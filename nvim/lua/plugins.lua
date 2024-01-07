@@ -28,8 +28,7 @@ local plugins = {
 		build = ":TSUpdate"
 	},
 
-	{
-		'L3MON4D3/LuaSnip',
+	{'L3MON4D3/LuaSnip',
 		-- follow latest release.
 		version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		-- install jsregexp (optional!).
@@ -45,11 +44,19 @@ local plugins = {
 			'hrsh7th/cmp-cmdline',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-buffer',
-			'hrsh7th/cmp-nvim-lsp'
+			'hrsh7th/cmp-nvim-lsp',
+			'onsails/lspkind.nvim',
 		},
 		config = function()
 			require'config.lspconfig'
 		end,
+	},
+
+	{"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function ()
+			require("config.todo-comments")
+		end
 	},
 
 	'tpope/vim-unimpaired',
@@ -70,12 +77,11 @@ local plugins = {
 		build = function() vim.fn['mkdp#util#install']() end,
 	},
 
-	{
-		'nvim-lualine/lualine.nvim',
+	{'nvim-lualine/lualine.nvim',
 		config = function()
 			require'config.lualine'
 		end,
-		dependencies = { 'nvim-tree/nvim-web-devicons' }
+		dependencies = {'nvim-tree/nvim-web-devicons'}
 	},
 
 	{'nvim-neo-tree/neo-tree.nvim',
@@ -96,16 +102,45 @@ local plugins = {
     },
 
 	{'morhetz/gruvbox',
-		config = function()
-			require'config.gruvbox'
-		end,
+		-- config = function ()
+		-- 	require("config.colorscheme")
+		-- end,
 		lazy = true,
+		-- priority = 1000,
 	},
 
 	{'NLKNguyen/papercolor-theme',
+		-- config = function ()
+		-- 	require("config.colorscheme")
+		-- end,
 		lazy = true,
-		priority = 1000,
+		-- priority = 1000,
 	},
+
+	{"yorik1984/newpaper.nvim",
+		priority = 1000,
+		config = function ()
+			require("config.colorscheme")
+		end,
+		kazy = true,
+	},
+
+	{"rebelot/kanagawa.nvim",
+		-- priority = 1000,
+		-- config = function ()
+		-- 	require("config.colorscheme")
+		-- end,
+		lazy = true,
+	},
+
+	{"marko-cerovac/material.nvim",
+		-- priority = 1000,
+		-- config = function ()
+		-- 	require("config.colorscheme")
+		-- end,
+		lazy = true,
+	},
+		
 }
 
 local options = {}

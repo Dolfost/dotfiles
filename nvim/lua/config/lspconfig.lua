@@ -1,5 +1,6 @@
 local cmp = require'cmp'
 local ls = require'luasnip'
+local lspkind = require'lspkind'
 
 local has_words_before = function()
 	unpack = unpack or table.unpack
@@ -11,16 +12,18 @@ cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+			require('luasnip').lsp_expand(args.body)
 		end,
 	},
 	window = {
 		-- completion = cmp.config.window.bordered(),
 		-- documentation = cmp.config.window.bordered(),
 	},
+
+	experimental = {
+		ghost_text = true
+	},
+
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -29,7 +32,7 @@ cmp.setup({
 		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
 		-- LuaSnip support
-		["<Tab>"] = cmp.mapping(function(fallback)
+		['<Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 				-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
@@ -41,8 +44,8 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
+		end, { 'i', 's' }),
+		['<S-Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif ls.jumpable(-1) then
@@ -50,18 +53,31 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, { "i", "s" }),
+		end, { 'i', 's' }),
 	}),
+
+	formatting = {
+		fields = {'abbr', 'kind', 'menu'},
+		format = lspkind.cmp_format({
+			mode = 'text_symbol',
+			menu = ({
+				buffer = '[Buf]',
+				nvim_lsp = '[LSP]',
+				luasnip = '[lSnip]',
+				nvim_lua = '[Lua]',
+				latex_symbols = '[tex]',
+			})
+		}),
+	},
+
 	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		-- { name = 'vsnip' }, -- For vsnip users.
-		{name = 'luasnip'}, -- For luasnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		-- { name = 'snippy' }, -- For snippy users.
-	}, {
-		{ name = 'buffer' },
-	})
+		{name = 'nvim_lsp'},
+		{name = 'luasnip'},
+		{name = 'buffer'},
+		{name = 'path'},
+	}),
 })
+
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
