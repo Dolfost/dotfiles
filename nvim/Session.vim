@@ -13,13 +13,15 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +2 init.lua
-badd +9 lua/plugins.lua
+badd +1 init.lua
+badd +49 lua/plugins.lua
 badd +3 lua/keybinds.lua
 badd +1 lua/options.lua
-badd +2 lua/visuals.lua
-badd +36 lua/config/lualine.lua
-badd +1 lua/config/vim-markdown.lua
+badd +1 lua/visuals.lua
+badd +9 lua/config/lspconfig.lua
+badd +6 lua/config/colorscheme.lua
+badd +1 lua/config/vimtex.lua
+badd +4 lua/config/lualine.lua
 argglobal
 %argdel
 set stal=2
@@ -29,10 +31,10 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit lua/plugins.lua
 argglobal
+balt lua/config/lspconfig.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -43,17 +45,17 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 24) / 48)
+let s:l = 49 - ((29 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 2
-normal! 047|
+keepjumps 49
+normal! 010|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
-edit ~/dotfiles/nvim/lua/plugins.lua
+edit ~/dotfiles/nvim/lua/config/colorscheme.lua
 argglobal
-balt ~/dotfiles/nvim/init.lua
+balt ~/dotfiles/nvim/lua/config/vimtex.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -64,13 +66,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 40 - ((21 * winheight(0) + 24) / 48)
+let s:l = 105 - ((32 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 40
-normal! 052|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+keepjumps 105
+normal! 021|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
 edit ~/dotfiles/nvim/init.lua
 argglobal
@@ -85,52 +87,33 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 2
-normal! 023|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/config/lualine.lua
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 36 - ((35 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 36
-normal! 0107|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/init.lua
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
-normal! 023|
+normal! 016|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+tabnext
+edit ~/dotfiles/nvim/lua/config/lualine.lua
+argglobal
+balt ~/dotfiles/nvim/init.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 4 - ((3 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 4
+normal! 022|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/lua/keybinds.lua
@@ -146,7 +129,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 14 - ((13 * winheight(0) + 24) / 48)
+let s:l = 14 - ((13 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -165,12 +148,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
-normal! 031|
+normal! 029|
 tabnext
 edit ~/dotfiles/nvim/lua/options.lua
 argglobal
@@ -185,13 +168,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 07|
-tabnext 4
+tabnext 1
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -205,6 +188,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
