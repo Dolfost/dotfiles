@@ -1,6 +1,7 @@
 # Plugins (zplug)
 
 zplug "plugins/git", from:oh-my-zsh
+# zplug "catppuccin/zsh-syntax-highlighting", hook-load:"source $ZPLUG_HOME/repos/catppuccin/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh" #  NOTE: good solution, bas themes
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
