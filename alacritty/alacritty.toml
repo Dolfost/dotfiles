@@ -90,7 +90,7 @@ render_timer = false
 renderer = "None"
 
 [env]
-TERM = "alacritty"
+TERM = "xterm-256color"
 
 [font.normal]
 family = "FantasqueSansM Nerd Font Mono"
