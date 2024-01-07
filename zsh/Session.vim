@@ -20,7 +20,7 @@ badd +4 zsh/plugins.zsh
 badd +1 zsh/exports.zsh
 badd +1 visuals.zsh
 badd +1 zsh/visuals.zsh
-badd +1 zsh/dir_colors
+badd +16 zsh/dir_colors
 badd +10 zsh/binds.zsh
 badd +6 zsh/options.zsh
 badd +1 zsh/completions.zsh
@@ -68,11 +68,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+let s:l = 3 - ((2 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 3
 normal! 026|
 tabnext
 edit zsh/plugins.zsh
@@ -92,7 +92,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 4
-normal! 0158|
+normal! 0197|
 tabnext
 edit zsh/exports.zsh
 argglobal
@@ -147,12 +147,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 14 - ((12 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 14
-normal! 036|
+keepjumps 1
+normal! 07|
 tabnext
 edit zsh/binds.zsh
 argglobal
@@ -226,13 +226,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 180 - ((35 * winheight(0) + 26) / 52)
+let s:l = 16 - ((15 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 180
-normal! 0
-tabnext 3
+keepjumps 16
+normal! 05|
+tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
