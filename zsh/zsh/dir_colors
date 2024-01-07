@@ -107,6 +107,7 @@ EXEC 01;32
 
 # Common programming languages
 .java 0;35
+.lua 0;35
 .py 0;35
 .pl 0;35
 .pm 0;35
@@ -125,7 +126,6 @@ EXEC 01;32
 .ksh  1;33
 .tcsh  1;33
 .csh  1;33
-
 .s   0;33
 .t   0;33
 
@@ -143,6 +143,7 @@ EXEC 01;32
 .cfg 0;31
 .yml 0;31
 .yaml 0;31
+.toml 0;31
 
 # Unimportant, nearly hidden.
 .o   0;30
