@@ -14,15 +14,17 @@ else
   set shortmess=aoO
 endif
 badd +7 init.lua
-badd +156 lua/plugins.lua
+badd +11 lua/plugins.lua
 badd +3 lua/keybinds.lua
 badd +8 lua/options.lua
 badd +1 lua/visuals.lua
 badd +35 lua/config/colorscheme.lua
 badd +3 lua/config/lualine.lua
 badd +1 lua/e.lua
+badd +64 lua/config/lspconfig.lua
 argglobal
 %argdel
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -50,6 +52,27 @@ keepjumps exe s:l
 normal! zt
 keepjumps 11
 normal! 04|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+tabnext
+edit ~/dotfiles/nvim/lua/config/lspconfig.lua
+argglobal
+balt ~/dotfiles/nvim/lua/plugins.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 64 - ((26 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 64
+normal! 08|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
 edit ~/dotfiles/nvim/lua/config/colorscheme.lua
@@ -136,13 +159,6 @@ normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/lua/config/lualine.lua
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
 argglobal
 balt ~/dotfiles/nvim/init.lua
 setlocal fdm=manual
@@ -221,7 +237,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 7
 normal! 0
-tabnext 6
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -233,8 +249,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
