@@ -44,10 +44,11 @@ local plugins = {
 	{'hrsh7th/nvim-cmp',
 		dependencies = {'neovim/nvim-lspconfig',
 			'hrsh7th/cmp-cmdline',
-			'hrsh7th/cmp-path',
+			'FelipeLema/cmp-async-path',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-nvim-lsp',
 			'onsails/lspkind.nvim',
+			'tamago324/cmp-zsh',
 		},
 		config = function()
 			require'config.lspconfig'
