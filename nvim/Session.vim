@@ -14,15 +14,16 @@ else
   set shortmess=aoO
 endif
 badd +7 init.lua
-badd +64 lua/plugins.lua
-badd +3 lua/keybinds.lua
+badd +188 lua/plugins.lua
+badd +12 lua/keybinds.lua
 badd +8 lua/options.lua
 badd +1 lua/visuals.lua
 badd +1 lua/config/colorscheme.lua
-badd +97 lua/config/lspconfig.lua
-badd +63 lua/config/vimtex.lua
+badd +117 lua/config/lspconfig.lua
+badd +7 lua/config/vimtex.lua
 argglobal
 %argdel
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -43,12 +44,34 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 64 - ((43 * winheight(0) + 26) / 52)
+let s:l = 188 - ((51 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 64
-normal! 0
+keepjumps 188
+normal! 029|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+tabnext
+argglobal
+enew | setl bt=help
+help lazy.nvim.txt@en
+balt ~/dotfiles/nvim/lua/plugins.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 796 - ((22 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 796
+normal! 020|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
 edit ~/dotfiles/nvim/lua/config/vimtex.lua
@@ -106,11 +129,11 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 150 - ((33 * winheight(0) + 26) / 52)
+let s:l = 147 - ((30 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 150
+keepjumps 147
 normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
@@ -148,12 +171,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 14 - ((13 * winheight(0) + 26) / 52)
+let s:l = 12 - ((11 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 14
-normal! 011|
+keepjumps 12
+normal! 03|
 tabnext
 edit ~/dotfiles/nvim/lua/visuals.lua
 argglobal
@@ -172,7 +195,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
-normal! 031|
+normal! 0
 tabnext
 edit ~/dotfiles/nvim/lua/options.lua
 argglobal
