@@ -15,13 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 
 
 local plugins = {
-	{'lervag/vimtex',
-		ft = 'tex',
-		config = function()
-			require'config.vimtex'
-		end,
-	},
-
 	{'nvim-treesitter/nvim-treesitter',
 		config = function()
 			require'config.treesitter'
@@ -40,6 +33,7 @@ local plugins = {
 		dependencies = {'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets'},
 	},
 
+
 	{'hrsh7th/nvim-cmp',
 		dependencies = {'neovim/nvim-lspconfig',
 			'hrsh7th/cmp-cmdline',
@@ -48,10 +42,20 @@ local plugins = {
 			'hrsh7th/cmp-nvim-lsp',
 			'onsails/lspkind.nvim',
 			'tamago324/cmp-zsh',
-			'micangl/cmp-vimtex',
+			{'micangl/cmp-vimtex', ft = 'tex'},
+			{'hrsh7th/cmp-nvim-lua', ft = 'lua'},
 		},
 		config = function()
 			require'config.lspconfig'
+		end,
+	},
+
+	
+	{'lervag/vimtex',
+		lazy = true,
+		ft = 'tex',
+		config = function()
+			require'config.vimtex'
 		end,
 	},
 
@@ -112,13 +116,15 @@ local plugins = {
 			'MunifTanjim/nui.nvim',
 			'3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
+		cmd = 'Neotree',
 		config = function()
 			require'config.neo-tree'
 		end,
 	},
 
 	{'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		dependencies = {'nvim-lua/plenary.nvim'}
+		dependencies = {'nvim-lua/plenary.nvim'},
+		cmd = 'Telescope',
     },
 
 	-- Themes
@@ -129,6 +135,7 @@ local plugins = {
 		-- priority = 1000,
 		lazy = true,
 	},
+
 	-- TODO: Do somethind with commenting out the config 
 	-- field of theme plugins.
 
@@ -165,10 +172,12 @@ local plugins = {
 	},
 
 	{"catppuccin/nvim", 
+		lazy = false,
 		name = "catppuccin",
 		priority = 1000,
 		config = function ()
 			require("config.colorscheme")
+			vim.cmd.colorscheme 'catppuccin'
 		end,
 	},
 		
