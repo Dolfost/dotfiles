@@ -13,16 +13,20 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +7 init.lua
-badd +188 lua/plugins.lua
-badd +12 lua/keybinds.lua
-badd +8 lua/options.lua
-badd +1 lua/visuals.lua
-badd +1 lua/config/colorscheme.lua
-badd +117 lua/config/lspconfig.lua
-badd +7 lua/config/vimtex.lua
+badd +27 init.lua
+badd +6 lua/plugins/colorscheme.lua
+badd +10 lua/plugins/lualine.lua
+badd +127 lua/plugins/lspconfig.lua
+badd +42 lua/plugins/neo-tree.lua
+badd +1 lua/config/visuals.lua
+badd +34 lua/plugins/treesitter.lua
+badd +1 health://
+badd +12 lua/plugins/vim-markdown.lua
+badd +7 lua/plugins/luasnip.lua
 argglobal
 %argdel
+set stal=2
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -32,30 +36,9 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit lua/plugins.lua
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 188 - ((51 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 188
-normal! 029|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
-tabnext
 argglobal
 enew | setl bt=help
 help lazy.nvim.txt@en
-balt ~/dotfiles/nvim/lua/plugins.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -66,17 +49,15 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 796 - ((22 * winheight(0) + 26) / 52)
+let s:l = 785 - ((13 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 796
-normal! 020|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+keepjumps 785
+normal! 035|
 tabnext
-edit ~/dotfiles/nvim/lua/config/vimtex.lua
+edit lua/plugins/lualine.lua
 argglobal
-balt ~/dotfiles/nvim/lua/config/lspconfig.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -87,17 +68,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 26) / 52)
+let s:l = 10 - ((9 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 7
-normal! 04|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+keepjumps 10
+normal! 033|
 tabnext
-edit ~/dotfiles/nvim/lua/config/lspconfig.lua
+edit lua/plugins/colorscheme.lua
 argglobal
-balt ~/dotfiles/nvim/lua/config/vimtex.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -108,59 +87,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 43 - ((42 * winheight(0) + 26) / 52)
+let s:l = 5 - ((4 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 43
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+keepjumps 5
+normal! 09|
 tabnext
+edit lua/plugins/vim-markdown.lua
 argglobal
-enew | setl bt=help
-help nvim-cmp@en
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 147 - ((30 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 147
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
-tabnext
-edit ~/dotfiles/nvim/init.lua
-argglobal
-balt ~/dotfiles/nvim/lua/keybinds.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 7
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/keybinds.lua
-argglobal
-balt ~/dotfiles/nvim/lua/plugins.lua
+balt lua/plugins/treesitter.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -176,10 +112,11 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 12
-normal! 03|
+normal! 09|
 tabnext
-edit ~/dotfiles/nvim/lua/visuals.lua
+edit lua/plugins/lspconfig.lua
 argglobal
+balt lua/plugins/vim-markdown.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -190,16 +127,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+let s:l = 127 - ((17 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 127
 normal! 0
 tabnext
-edit ~/dotfiles/nvim/lua/options.lua
+edit lua/plugins/luasnip.lua
 argglobal
-balt ~/dotfiles/nvim/lua/visuals.lua
+balt lua/plugins/lspconfig.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -216,7 +153,88 @@ keepjumps exe s:l
 normal! zt
 keepjumps 7
 normal! 0
-tabnext 1
+tabnext
+argglobal
+enew | setl bt=help
+help cmp-autocmd@en
+balt lua/plugins/lspconfig.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 420 - ((8 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 420
+normal! 068|
+tabnext
+edit lua/config/visuals.lua
+argglobal
+balt lua/plugins/colorscheme.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 023|
+tabnext
+edit init.lua
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 27 - ((26 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 27
+normal! 031|
+tabnext
+edit lua/plugins/treesitter.lua
+argglobal
+balt init.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 04|
+tabnext 2
+set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
