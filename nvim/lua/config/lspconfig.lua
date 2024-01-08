@@ -104,6 +104,16 @@ cmp.setup.filetype("tex", {
 	},
 })
 
+cmp.setup.filetype("lua", {
+	sources = {
+		{name = 'nvim_lsp'},
+		{name = 'nvim_lua'},
+		{name = 'luasnip'},
+		{name = 'buffer'},
+		{name = 'path'},
+	},
+})
+
 cmp.setup.cmdline(':', {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
