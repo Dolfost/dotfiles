@@ -13,12 +13,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- lazy.nvim bootstrap -- 
 
+
 local plugins = {
 	{'lervag/vimtex',
 		ft = 'tex',
 		config = function()
 			require'config.vimtex'
 		end,
+		dependencies = {'micangl/cmp-vimtex'},
 	},
 
 	{'nvim-treesitter/nvim-treesitter',

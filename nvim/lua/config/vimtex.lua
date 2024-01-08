@@ -17,9 +17,25 @@ vim.opt_local.spell = true
 vim.cmd("set suffixesadd+=.tex")
 
 vim.g.vimtex_view_method = 'skim'
-vim.g.vimtex_view_skim_reading_bar = 1
-vim.g.vimtex_view_skim_activate = 0
-vim.g.vimtex_view_skim_sync = 1
+vim.g.vimtex_view_skim_reading_bar = true
+vim.g.vimtex_view_skim_activate = false
+vim.g.vimtex_view_skim_sync = true
+
+vim.g.vimtex_complete_enabled = true
+vim.g.vimtex_complete_bib = {
+	menu_fmt = '@key [@type] \'@title\' @author_short (@year)',
+}
+vim.g.vimtex_complete_close_braces = true
+vim.g.vimtex_complete_ignore_case = true
+-- vim.g.vimtex_complete_ref = {
+-- 	custom_patterns = '\\ref\\*\\?{[^}]*$',
+-- }
+vim.g.vimtex_complete_smart_case = true
+
+vim.g.vimtex_parser_bib_backend = "lua"
+vim.g.vimtex_quickfix_open_on_warning = 0 
+vim.g.vimtex_doc_handlers = {'vimtex#doc#handlers#texdoc'}
+vim.keymap.set("n", "<localleader>ll", "<Cmd>update<CR><Cmd>VimtexCompile<CR>")
 
 -- VimTeX uses latexmk as the default compiler backend. If you use it, which is
 -- strongly recommended, you probably don't need to configure anything. If you
@@ -54,12 +70,3 @@ vim.g.vimtex_compiler_latexmk_engines = {
 	['context (luatex)'] = "-pdf -pdflatex=context",
 	['context (xetex)'] = "-pdf -pdflatex=''texexec --xtx''",
 }
-
-vim.g.vimtex_parser_bib_backend = "bibtex"
-
-vim.g.vimtex_quickfix_open_on_warning = 0 
-
-vim.g.vimtex_doc_handlers = {'vimtex#doc#handlers#texdoc'}
-vim.g.vimtex_complete_close_braces = 1
-
-vim.keymap.set("n", "<localleader>ll", "<Cmd>update<CR><Cmd>VimtexCompile<CR>")

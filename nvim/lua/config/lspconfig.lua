@@ -66,6 +66,7 @@ cmp.setup({
 			-- 	luasnip = '[lSnip]',
 			-- 	nvim_lua = '[Lua]',
 			-- 	latex_symbols = '[tex]',
+			-- 	vimtex = '[vimtex]',
 			-- },
 		}),
 	},
@@ -78,8 +79,6 @@ cmp.setup({
 	}),
 })
 
-
--- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
 	sources = cmp.config.sources({
 		{ name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
@@ -88,12 +87,21 @@ cmp.setup.filetype('gitcommit', {
 	})
 })
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = 'buffer' }
 	}
+})
+
+cmp.setup.filetype("tex", {
+	sources = {
+		{name = 'vimtex'},
+		{name = 'nvim_lsp'},
+		{name = 'luasnip'},
+		{name = 'buffer'},
+		{name = 'path'},
+	},
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
