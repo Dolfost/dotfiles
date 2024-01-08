@@ -13,7 +13,6 @@ vim.opt_local.spell = true
 -- 	group = "vimtex_common",
 -- 	command = "call write_server_name"})
 
-
 vim.cmd("set suffixesadd+=.tex")
 
 vim.g.vimtex_view_method = 'skim'

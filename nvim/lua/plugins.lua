@@ -20,7 +20,6 @@ local plugins = {
 		config = function()
 			require'config.vimtex'
 		end,
-		dependencies = {'micangl/cmp-vimtex'},
 	},
 
 	{'nvim-treesitter/nvim-treesitter',
@@ -49,6 +48,7 @@ local plugins = {
 			'hrsh7th/cmp-nvim-lsp',
 			'onsails/lspkind.nvim',
 			'tamago324/cmp-zsh',
+			'micangl/cmp-vimtex',
 		},
 		config = function()
 			require'config.lspconfig'
