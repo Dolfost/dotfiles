@@ -14,14 +14,15 @@ else
   set shortmess=aoO
 endif
 badd +7 init.lua
-badd +23 lua/plugins.lua
+badd +52 lua/plugins.lua
 badd +3 lua/keybinds.lua
 badd +8 lua/options.lua
 badd +1 lua/visuals.lua
 badd +1 lua/config/colorscheme.lua
-badd +79 lua/config/lspconfig.lua
+badd +1 lua/config/lspconfig.lua
 argglobal
 %argdel
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -42,16 +43,19 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 23 - ((22 * winheight(0) + 26) / 52)
+let s:l = 35 - ((16 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 23
-normal! 046|
+keepjumps 35
+normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
-edit ~/dotfiles/nvim/lua/config/lspconfig.lua
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
+tabnext
 argglobal
+enew | setl bt=help
+help getcmdtype()@en
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -59,21 +63,21 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal fen
+setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 79 - ((8 * winheight(0) + 26) / 52)
+let s:l = 2978 - ((8 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 79
-normal! 07|
+keepjumps 2978
+normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
 argglobal
 enew | setl bt=help
-help g:vimtex_complete_ref@en
-setlocal fdm=marker
+help nvim-cmp@en
+setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
@@ -81,12 +85,14 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 1459 - ((26 * winheight(0) + 26) / 52)
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 150 - ((17 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1459
-normal! 012|
+keepjumps 150
+normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim/lua | endif
 tabnext
 edit ~/dotfiles/nvim/lua/config/colorscheme.lua
@@ -101,7 +107,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -122,7 +128,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 26) / 52)
+let s:l = 7 - ((6 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -143,7 +149,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 14 - ((13 * winheight(0) + 26) / 52)
+let s:l = 14 - ((13 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -162,7 +168,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -182,13 +188,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 7 - ((6 * winheight(0) + 26) / 52)
+let s:l = 7 - ((6 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 7
 normal! 0
-tabnext 1
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
