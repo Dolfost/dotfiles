@@ -25,47 +25,47 @@ return {
 		no_bold = false, -- Force no bold
 		no_underline = false, -- Force no underline
 		styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-			comments = { "italic" }, -- Change the style of comments
-			conditionals = { "italic" },
-			loops = {"italic"},
-			functions = {},
-			keywords = {},
-			strings = { --[["italic"]] },
-			variables = { --[["italic"]] },
-			numbers = {},
-			booleans = { "italic" },
-			properties = {},
-			types = {"bold"},
-			operators = {"bold"},
-		},
-		custom_highlights = {},
-		integrations = {
-			cmp = true,
-			gitsigns = false,
-			neotree = true,
-			treesitter = true,
-			notify = false,
-			markdown = true,
-			native_lsp = {
-				enabled = true,
-				virtual_text = {
-					errors = { "italic" },
-					hints = { "italic" },
-					warnings = { "italic" },
-					information = { "italic" },
-				},
-				underlines = {
-					errors = { "underline" },
-					hints = { "underline" },
-					warnings = { "underline" },
-					information = { "underline" },
-				},
-				inlay_hints = {
-					background = true,
-				},
+		comments = { "italic" }, -- Change the style of comments
+		conditionals = { "italic" },
+		loops = { "italic" },
+		functions = {},
+		keywords = {},
+		strings = { --[["italic"]] },
+		variables = { --[["italic"]] },
+		numbers = {},
+		booleans = { "italic" },
+		properties = {},
+		types = { "bold" },
+		operators = { "bold" },
+	},
+	custom_highlights = {},
+	integrations = {
+		cmp = true,
+		gitsigns = false,
+		neotree = true,
+		treesitter = true,
+		notify = false,
+		markdown = true,
+		native_lsp = {
+			enabled = true,
+			virtual_text = {
+				errors = { "italic" },
+				hints = { "italic" },
+				warnings = { "italic" },
+				information = { "italic" },
+			},
+			underlines = {
+				errors = { "underline" },
+				hints = { "underline" },
+				warnings = { "underline" },
+				information = { "underline" },
+			},
+			inlay_hints = {
+				background = true,
 			},
 		},
 	},
+},
 },
 
 {
@@ -184,41 +184,41 @@ return {
 			},
 
 			styles = { -- Give comments style such as bold, italic, underline etc.
-			comments = { --[[ italic = true ]] },
-			strings = { --[[ italic = true ]] },
-			keywords = { --[[ underline = true ]] },
-			functions = { --[[ bold = true, undercurl = true ]] },
-			variables = {},
-			operators = {},
-			types = {},
+				comments = { --[[ italic = true ]] },
+				strings = { --[[ italic = true ]] },
+				keywords = { --[[ underline = true ]] },
+				functions = { --[[ bold = true, undercurl = true ]] },
+				variables = {},
+				operators = {},
+				types = {},
+			},
+
+			plugins = { -- Uncomment the plugins that you use to highlight them
+				"neo-tree",
+				"nvim-cmp",
+				"telescope",
+			},
+
+			disable = {
+				colored_cursor = false, -- Disable the colored cursor
+				borders = false, -- Disable borders between verticaly split windows
+				background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+				term_colors = false, -- Prevent the theme from setting terminal colors
+				eob_lines = false -- Hide the end-of-buffer lines
+			},
+
+			high_visibility = {
+				lighter = false, -- Enable higher contrast text for lighter style
+				darker = false -- Enable higher contrast text for darker style
+			},
+
+			lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
+
+			async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
+
+			custom_colors = nil, -- If you want to override the default colors, set this to a function
+
+			custom_highlights = {}, -- Overwrite highlights with your own
 		},
-
-		plugins = { -- Uncomment the plugins that you use to highlight them
-		"neo-tree",
-		"nvim-cmp",
-		"telescope",
-	},
-
-	disable = {
-		colored_cursor = false, -- Disable the colored cursor
-		borders = false, -- Disable borders between verticaly split windows
-		background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-		term_colors = false, -- Prevent the theme from setting terminal colors
-		eob_lines = false -- Hide the end-of-buffer lines
-	},
-
-	high_visibility = {
-		lighter = false, -- Enable higher contrast text for lighter style
-		darker = false -- Enable higher contrast text for darker style
-	},
-
-	lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
-
-	async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
-
-	custom_colors = nil, -- If you want to override the default colors, set this to a function
-
-	custom_highlights = {}, -- Overwrite highlights with your own
-},
 	},
 }

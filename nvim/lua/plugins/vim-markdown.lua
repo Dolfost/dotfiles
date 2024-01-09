@@ -1,15 +1,15 @@
 return {
 	{
-		'iamcco/markdown-preview.nvim',
-
-		build = function() vim.fn['mkdp#util#install']() end,
-		ft = 'markdown',
-	},
-	
-	{
 		'preservim/vim-markdown',
 
 		ft = 'markdown',
+
+		dependencies = {
+			{
+				'iamcco/markdown-preview.nvim',
+				build = function() vim.fn['mkdp#util#install']() end,
+			},
+		},
 
 
 		config = function()
@@ -27,7 +27,7 @@ return {
 			-- markdown perview
 			-- nmap <C-s> <Plug>MarkdownPreview
 			-- nmap <M-s> <Plug>MarkdownPreviewStop
-			vim.keymapfs.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
+			vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
 
 			-- set to 1, nvim will open the preview window after entering the markdown buffer
 			-- default: 0
@@ -128,5 +128,5 @@ return {
 			-- By default the theme is define according to the preferences of the system
 			vim.g.mkdp_theme = 'dark'
 		end,
-	}
+	},
 }
