@@ -4,14 +4,6 @@ return {
 
 		ft = 'markdown',
 
-		dependencies = {
-			{
-				'iamcco/markdown-preview.nvim',
-				build = function() vim.fn['mkdp#util#install']() end,
-			},
-		},
-
-
 		config = function()
 			vim.opt_local.spell = true
 
@@ -21,17 +13,24 @@ return {
 			vim.g.vim_markdown_strikethrough = 1
 			vim.g.vim_markdown_no_extensions_in_markdown = 1
 			vim.g.vim_markdown_edit_url_in = 'tab'
-			vim.o.conceallevel = 2
+		end,
+	},
+
+	{
+		'iamcco/markdown-preview.nvim',
+
+		build = function() vim.fn['mkdp#util#install']() end,
+		ft = 'markdown',
 
 
-			-- markdown perview
+		config = function (_, opts)
 			-- nmap <C-s> <Plug>MarkdownPreview
 			-- nmap <M-s> <Plug>MarkdownPreviewStop
 			vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
 
 			-- set to 1, nvim will open the preview window after entering the markdown buffer
 			-- default: 0
-			vim.g.mkdp_auto_start = 1
+			vim.g.mkdp_auto_start = 0
 
 			-- set to 1, the nvim will auto close current preview window when change
 			-- from markdown buffer to another buffer
