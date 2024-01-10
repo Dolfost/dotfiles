@@ -28,6 +28,10 @@ require("lazy").setup("plugins", options)
 
 
 
-
 require'config/visuals'
 require'config/keybinds'
+
+
+--  TODO: Fix oil.nvim or neo-tree.nvim loading on FileExplorer event
+--  TODO: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
+--  BUG: Fix omnnisharp or charp_ls LSP 
