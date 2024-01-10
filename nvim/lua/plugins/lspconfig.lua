@@ -205,13 +205,6 @@ return {
 				}),
 			})
 
-			cmp.setup.cmdline({ '/', '?' }, {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-					{ name = 'buffer' }
-				}
-			})
-
 			cmp.setup.filetype("tex", {
 				sources = {
 					{ name = 'vimtex' },
@@ -232,6 +225,13 @@ return {
 				},
 			})
 
+			cmp.setup.cmdline({ '/', '?' }, {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = 'buffer' }
+				}
+			})
+
 			cmp.setup.cmdline(':', {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({
@@ -243,7 +243,10 @@ return {
 							ignore_cmds = { 'Man', '!' }
 						},
 					},
-					{ name = 'zsh', group_index = 2 },
+					{
+						name = 'zsh',
+						group_index = 2,
+					},
 				})
 			})
 		end,
