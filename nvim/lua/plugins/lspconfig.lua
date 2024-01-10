@@ -19,6 +19,8 @@ return {
 				'lua_ls',
 				'clangd',
 				'omnisharp',
+				'pyright',
+				'neocmake',
 			},
 		},
 	},
@@ -53,7 +55,8 @@ return {
 					vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
 					vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
 					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts) vim.keymap.set('n', '<leader>f', function()
+					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+					vim.keymap.set('n', '<leader>f', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
 				end,
@@ -69,7 +72,14 @@ return {
 			lspconfig.omnisharp.setup {
 				capabilities = capabilities,
 				cmd = { "dotnet", "/Users/vladyslav/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
-			}		end,
+			}
+			lspconfig.pyright.setup {
+				capabilities = capabilities,
+			}
+			lspconfig.neocmake.setup {
+				capabilities = capabilities,
+			}
+		end,
 	},
 
 	{
@@ -189,8 +199,8 @@ return {
 
 			cmp.setup.filetype('gitcommit', {
 				sources = cmp.config.sources({
-					{ name = 'git',    group_index = 1 },
-					{ name = 'buffer', group_index = 2 },
+					{ name = 'git',        group_index = 1 },
+					{ name = 'buffer',     group_index = 2 },
 					{ name = 'async_path', group_index = 2 },
 				}),
 			})
