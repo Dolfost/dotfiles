@@ -6,12 +6,11 @@ end
 
 return {
 	{
-		"williamboman/mason.nvim",
-		config = true,
-	},
-
-	{
 		'williamboman/mason-lspconfig.nvim',
+
+		dependencies = {
+			{ "williamboman/mason.nvim", config = true, },
+		},
 
 
 		opts = {
@@ -84,6 +83,7 @@ return {
 
 	{
 		'L3MON4D3/LuaSnip',
+
 		-- follow latest release.
 		version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		-- install jsregexp (optional!).
@@ -98,13 +98,12 @@ return {
 		end,
 	},
 
-
 	{
 		'hrsh7th/nvim-cmp',
 
 		dependencies = {
 			'neovim/nvim-lspconfig',
-			"williamboman/mason.nvim",
+			{"williamboman/mason.nvim", config = true, },
 			'williamboman/mason-lspconfig.nvim',
 			'onsails/lspkind.nvim',
 
