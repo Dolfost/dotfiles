@@ -36,3 +36,5 @@ require'config/keybinds'
 --  TODO: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
 --  TODO: Fix cmd-zsh completion in cmdline after :!
 --  BUG: Fix omnnisharp or charp_ls LSP 
+
+--  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
