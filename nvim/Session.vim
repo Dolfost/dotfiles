@@ -14,13 +14,12 @@ else
   set shortmess=aoO
 endif
 badd +37 init.lua
-badd +254 lua/plugins/lspconfig.lua
-badd +20 lua/config/keybinds.lua
-badd +5 lua/plugins/oil.lua
-badd +8 lua/plugins/neo-tree.lua
+badd +63 lua/plugins/lspconfig.lua
+badd +10 lua/config/keybinds.lua
 argglobal
 %argdel
 set stal=2
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit init.lua
@@ -35,16 +34,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 37 - ((36 * winheight(0) + 26) / 52)
+let s:l = 38 - ((37 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 37
-normal! 052|
+keepjumps 38
+normal! 040|
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
-balt init.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -55,13 +53,32 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 243 - ((33 * winheight(0) + 26) / 52)
+let s:l = 63 - ((8 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 243
-normal! 037|
-tabnext 1
+keepjumps 63
+normal! 0
+tabnext
+edit lua/config/keybinds.lua
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 10 - ((9 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 10
+normal! 0
+tabnext 3
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
