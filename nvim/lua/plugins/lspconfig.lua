@@ -103,7 +103,7 @@ return {
 
 		dependencies = {
 			'neovim/nvim-lspconfig',
-			{"williamboman/mason.nvim", config = true, },
+			{ "williamboman/mason.nvim", config = true, },
 			'williamboman/mason-lspconfig.nvim',
 			'onsails/lspkind.nvim',
 
@@ -114,8 +114,8 @@ return {
 			'saadparwaiz1/cmp_luasnip',
 			'tamago324/cmp-zsh',
 			'petertriho/cmp-git',
-			{ 'micangl/cmp-vimtex',   ft = 'tex' },
-			{ 'hrsh7th/cmp-nvim-lua', ft = 'lua' },
+			{ 'micangl/cmp-vimtex',      ft = 'tex' },
+			{ 'hrsh7th/cmp-nvim-lua',    ft = 'lua' },
 		},
 
 
@@ -250,4 +250,5 @@ return {
 			})
 		end,
 	}
+}
 }
