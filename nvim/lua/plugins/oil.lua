@@ -3,7 +3,9 @@ return {
 		'stevearc/oil.nvim',
 
 		cmd = { "Oil" },
-		-- event = { "FileExplorer" },
+		keys = {
+			{"-", "<CMD>Oil<CR>", { desc = "Open parent directory" }},
+		},
 
 
 		opts = {
