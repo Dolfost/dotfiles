@@ -38,3 +38,5 @@ require'config/keybinds'
 --  BUG: Fix omnnisharp or charp_ls LSP 
 
 --  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
+--  TODO: Fix formatter.nvim suport (see ./lua/plugins/formatter.lua) 
+--        Make it work with mason.nvim 
