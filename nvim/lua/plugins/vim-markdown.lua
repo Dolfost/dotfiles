@@ -23,10 +23,10 @@ return {
 		ft = 'markdown',
 
 
-		config = function (_, opts)
+		config = function(_, opts)
 			-- nmap <C-s> <Plug>MarkdownPreview
 			-- nmap <M-s> <Plug>MarkdownPreviewStop
-			vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle')
+			vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle', { desc = "Toggle Markdown Preview" })
 
 			-- set to 1, nvim will open the preview window after entering the markdown buffer
 			-- default: 0
@@ -121,7 +121,7 @@ return {
 
 			-- recognized filetypes
 			-- these filetypes will have MarkdownPreview... commands
-			vim.g.mkdp_filetypes = {'markdown', 'md'}
+			vim.g.mkdp_filetypes = { 'markdown', 'md' }
 
 			-- set default theme (dark or light)
 			-- By default the theme is define according to the preferences of the system
