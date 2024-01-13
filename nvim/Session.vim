@@ -13,20 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +42 init.lua
-badd +251 lua/plugins/lspconfig.lua
+badd +34 init.lua
+badd +1 lua/plugins/lspconfig.lua
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit init.lua
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -38,12 +31,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 42 - ((41 * winheight(0) + 26) / 52)
+let s:l = 2 - ((1 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 42
-normal! 039|
+keepjumps 2
+normal! 031|
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
@@ -58,13 +51,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 251 - ((48 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 251
+keepjumps 1
 normal! 0
-tabnext 1
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
