@@ -36,6 +36,9 @@ vim.o.grepformat = '%f:%l:%c%m,%l:%c%m'
 -- equivalent to       :edit %%<Tab>
 -- vim.cmd("cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'")
 
+-- Disable netwr explorer
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
 
 -- Ukrainian language support
 vim.o.keymap = 'ukrainian-jcuken'
