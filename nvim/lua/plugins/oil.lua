@@ -2,10 +2,12 @@ return {
 	{
 		'stevearc/oil.nvim',
 
-		cmd = { "Oil" },
+		lazy = false,
+		cmd = { "Oil"},
 		keys = {
 			{"-", "<CMD>Oil<CR>", { desc = "Open parent directory" }},
 		},
+		-- event = "BufRead */", --  TODO: Make the oil.nvim load when `$ nvim folder1/folder2/`
 
 
 		opts = {
