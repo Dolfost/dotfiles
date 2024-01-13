@@ -35,6 +35,7 @@ require'config/keybinds'
 --  TODO: Fix oil.nvim or neo-tree.nvim loading on FileExplorer event
 --  TODO: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
 --  TODO: Fix cmd-zsh completion in cmdline after :!
+--  TODO: Make the oil.nvim load when `$ nvim folder1/folder2/`
 --  BUG: Fix omnnisharp or charp_ls LSP 
 
 --  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
