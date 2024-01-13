@@ -4,7 +4,6 @@
 require'config/options'
 
 
-
 -- lazy.nvim bootstrap --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -32,12 +31,11 @@ require'config/visuals'
 require'config/keybinds'
 
 
---  TODO: Fix oil.nvim or neo-tree.nvim loading on FileExplorer event
---  TODO: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
+--  TODO: Fix oil.nvim lazy loading on `$ nvim folder/`
 --  TODO: Fix cmd-zsh completion in cmdline after :!
---  TODO: Make the oil.nvim load when `$ nvim folder1/folder2/`
---  BUG: Fix omnnisharp or charp_ls LSP 
-
 --  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
 --  TODO: Fix formatter.nvim suport (see ./lua/plugins/formatter.lua) 
 --        Make it work with mason.nvim 
+
+--  DONE: Fix omnnisharp or charp_ls LSP 
+--  DONE: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
