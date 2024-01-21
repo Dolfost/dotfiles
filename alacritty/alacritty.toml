@@ -138,7 +138,6 @@ decorations = "Full"
 decorations_theme_variant = "Dark"
 dynamic_title = true
 opacity = 1.0
-option_as_alt = "None"
 resize_increments = true
 startup_mode = "Windowed"
 title = "Alacritty"
