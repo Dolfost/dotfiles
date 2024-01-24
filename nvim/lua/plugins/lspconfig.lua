@@ -67,6 +67,7 @@ return {
 			}
 			lspconfig.clangd.setup {
 				capabilities = capabilities,
+				cmd = {vim.fn.stdpath("data") .. "/mason/bin/clangd"},
 				filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp", "cuda", "proto" }
 			}
 			lspconfig.omnisharp.setup {
