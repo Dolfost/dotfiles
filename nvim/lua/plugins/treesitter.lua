@@ -1,7 +1,8 @@
-return { 
+return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
+		lazy = true,
 
 		opts = {
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -17,7 +18,7 @@ return {
 			-- List of parsers to ignore installing (for "all")
 			ignore_install = { "latex" },
 
-			---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+			-- If you need to change the installation directory of the parsers (see -> Advanced Setup)
 			-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
 			highlight = {
