@@ -14,7 +14,6 @@ return {
 
 	config = function()
 		vim.opt_local.spell = true
-		local wk = require("which-key")
 
 		--  NOTE: VimTex -> Skim -> nvim link
 		-- vim.api.nvim_create_augroup('vimtex_common', {clear = true})
@@ -38,15 +37,11 @@ return {
 		vim.g.vimtex_complete_ignore_case = true
 		vim.g.vimtex_complete_smart_case = true
 
-		vim.g.vimtex_parser_bib_backend = "lua"
-		vim.g.vimtex_quickfix_open_on_warning = 0 
-		vim.g.vimtex_doc_handlers = {'vimtex#doc#handlers#texdoc'}
+		vim.g.vimtex_syntax_conceal_disable = true
 
-		wk.register({
-			l = {
-				name = "Vimtex",
-			},
-		})
+		vim.g.vimtex_parser_bib_backend = "lua"
+		vim.g.vimtex_quickfix_open_on_warning = 0
+		vim.g.vimtex_doc_handlers = {'vimtex#doc#handlers#texdoc'}
 
 		vim.keymap.set("n", "<localleader>ll", "<Cmd>update<CR><Cmd>VimtexCompile<CR>", {desc = "Vimtex compile"})
 		vim.keymap.set({"n", "x"}, "<localleader>lL", "<Cmd>update<CR><Cmd>VimtexCompileSelected<CR>", {desc = "Vimtex compile selected"})
