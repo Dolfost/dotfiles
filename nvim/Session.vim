@@ -14,7 +14,7 @@ else
   set shortmess=aoO
 endif
 badd +2 init.lua
-badd +216 lua/plugins/lspconfig.lua
+badd +77 lua/plugins/lspconfig.lua
 badd +32 lua/plugins/alpha.lua
 badd +12 lua/plugins/leetcode.lua
 badd +64 lua/plugins/oil.lua
@@ -22,6 +22,7 @@ badd +60 lua/plugins/vimtex.lua
 badd +10 lua/plugins/treesitter.lua
 argglobal
 %argdel
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -40,7 +41,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 25) / 50)
+let s:l = 2 - ((1 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -60,12 +61,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 216 - ((41 * winheight(0) + 25) / 50)
+let s:l = 77 - ((19 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 216
-normal! 016|
+keepjumps 77
+normal! 0
 tabnext
 edit lua/plugins/oil.lua
 argglobal
@@ -80,12 +81,33 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 64 - ((23 * winheight(0) + 25) / 50)
+let s:l = 64 - ((18 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 64
 normal! 023|
+tabnext
+argglobal
+enew | setl bt=help
+help lspconfig@en
+balt lua/plugins/oil.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 146 - ((30 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 146
+normal! 015|
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
@@ -100,11 +122,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 64 - ((36 * winheight(0) + 25) / 50)
+let s:l = 27 - ((8 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 64
+keepjumps 27
 normal! 0
 tabnext
 edit lua/plugins/treesitter.lua
@@ -120,7 +142,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 10 - ((9 * winheight(0) + 25) / 50)
+let s:l = 10 - ((9 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -140,7 +162,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 60 - ((34 * winheight(0) + 25) / 50)
+let s:l = 60 - ((35 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt

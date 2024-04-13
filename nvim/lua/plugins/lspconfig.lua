@@ -4,6 +4,15 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local handle = io.popen("command -v avr-gcc")
+local avr_gcc
+if handle then
+	avr_gcc = handle:read("*a"):sub(1, -2)
+	handle:close()
+else
+	avr_gcc = nil;
+end
+
 return {
 	{
 		'williamboman/mason-lspconfig.nvim',
@@ -67,8 +76,8 @@ return {
 			}
 			lspconfig.clangd.setup {
 				capabilities = capabilities,
-				cmd = {vim.fn.stdpath("data") .. "/mason/bin/clangd"},
-				filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp", "cuda", "proto" }
+				cmd = {vim.fn.stdpath("data") .. "/mason/bin/clangd", avr_gcc and "--query-driver=" .. avr_gcc},
+				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
 			}
 			lspconfig.omnisharp.setup {
 				capabilities = capabilities,
