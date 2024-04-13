@@ -17,7 +17,7 @@ badd +2 init.lua
 badd +77 lua/plugins/lspconfig.lua
 badd +32 lua/plugins/alpha.lua
 badd +12 lua/plugins/leetcode.lua
-badd +64 lua/plugins/oil.lua
+badd +54 lua/plugins/oil.lua
 badd +60 lua/plugins/vimtex.lua
 badd +10 lua/plugins/treesitter.lua
 argglobal
@@ -41,7 +41,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 26) / 52)
+let s:l = 2 - ((1 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -81,12 +81,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 64 - ((18 * winheight(0) + 19) / 39)
+let s:l = 54 - ((29 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 64
-normal! 023|
+keepjumps 54
+normal! 014|
 tabnext
 argglobal
 enew | setl bt=help
@@ -122,7 +122,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((8 * winheight(0) + 26) / 52)
+let s:l = 27 - ((6 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -142,7 +142,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 10 - ((9 * winheight(0) + 26) / 52)
+let s:l = 10 - ((7 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -162,13 +162,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 60 - ((35 * winheight(0) + 26) / 52)
+let s:l = 60 - ((26 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 60
 normal! 090|
-tabnext 2
+tabnext 3
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
