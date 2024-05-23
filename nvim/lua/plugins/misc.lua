@@ -2,7 +2,6 @@ return {
 	'tpope/vim-unimpaired',
 	'tpope/vim-obsession',
 	'tpope/vim-surround',
-	'tpope/vim-fugitive',
 	'tpope/vim-dispatch',
 
 	'godlygeek/tabular',
