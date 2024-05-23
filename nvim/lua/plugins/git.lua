@@ -19,7 +19,7 @@ return {
 			local opts = {
 				signs = {
 					add          = { text = '┃' },
-					change       = { text = '┃' },
+					change       = { text = 'Δ' },
 					delete       = { text = '_' },
 					topdelete    = { text = '‾' },
 					changedelete = { text = '~' },
@@ -42,7 +42,7 @@ return {
 					ignore_whitespace = false,
 					virt_text_priority = 100,
 				},
-				current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+				current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
 				current_line_blame_formatter_opts = {
 					relative_time = false,
 				},
