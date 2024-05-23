@@ -13,16 +13,18 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +26 init.lua
-badd +77 lua/plugins/lspconfig.lua
+badd +24 init.lua
+badd +27 lua/plugins/lspconfig.lua
 badd +32 lua/plugins/alpha.lua
 badd +12 lua/plugins/leetcode.lua
 badd +1 lua/plugins/oil.lua
 badd +60 lua/plugins/vimtex.lua
 badd +10 lua/plugins/treesitter.lua
-badd +4 lua/plugins/git.lua
+badd +45 lua/plugins/git.lua
 badd +30 lua/plugins/misc.lua
 badd +47 lua/config/options.lua
+badd +11 gitsigns:///Users/vladyslav/dotfiles/.git/:0:nvim/lua/plugins/git.lua
+badd +11 lua/plugins/telescope.lua
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -45,12 +47,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((23 * winheight(0) + 19) / 39)
+let s:l = 37 - ((35 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 26
-normal! 05|
+keepjumps 37
+normal! 0
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
@@ -65,16 +67,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 77 - ((19 * winheight(0) + 19) / 39)
+let s:l = 55 - ((17 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 77
+keepjumps 55
 normal! 0
 tabnext
 edit lua/plugins/git.lua
 argglobal
-balt lua/plugins/oil.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -85,17 +86,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 4 - ((3 * winheight(0) + 19) / 39)
+let s:l = 45 - ((35 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 4
-normal! 0
+keepjumps 45
+normal! 056|
 tabnext
+edit lua/plugins/telescope.lua
 argglobal
-enew | setl bt=help
-help lspconfig@en
-balt lua/plugins/oil.lua
+balt gitsigns:///Users/vladyslav/dotfiles/.git/:0:nvim/lua/plugins/git.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -103,15 +103,15 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal nofen
+setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 146 - ((30 * winheight(0) + 19) / 39)
+let s:l = 11 - ((10 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 146
-normal! 015|
+keepjumps 11
+normal! 0
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
@@ -126,7 +126,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((8 * winheight(0) + 19) / 39)
+let s:l = 27 - ((10 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -146,7 +146,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 10 - ((8 * winheight(0) + 19) / 39)
+let s:l = 10 - ((9 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -166,13 +166,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 60 - ((26 * winheight(0) + 19) / 39)
+let s:l = 60 - ((31 * winheight(0) + 23) / 47)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 60
 normal! 090|
-tabnext 1
+tabnext 3
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
