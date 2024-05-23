@@ -21,8 +21,8 @@ vim.opt.rtp:prepend(lazypath)
 
 local options = {
 	change_detection = {
-		enabled = false,
-		notify = true, -- get a notification when changes are found
+		enabled = true,
+		notify = false, -- get a notification when changes are found
 	}
 }
 
