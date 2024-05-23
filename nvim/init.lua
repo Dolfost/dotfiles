@@ -19,7 +19,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- lazy.nvim bootstrap -- 
 
-local options = {}
+local options = {
+	change_detection = {
+		enabled = false,
+		notify = true, -- get a notification when changes are found
+	}
+}
 
 --  NOTE: It will source all lua files in /lua/plugins/ according to `:h Lazy.nvim.txt`
 
