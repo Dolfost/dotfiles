@@ -4,20 +4,13 @@ return {
 	},
 
 	{
-
 		'lewis6991/gitsigns.nvim',
 
 		lazy = false,
-		-- keys = {
-		-- 	{ "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find File" } },
-		-- 	{ "<leader>fg", "<cmd>Telescope live_grep<cr>",  { desc = "Live grep" } },
-		-- 	{ "<leader>fb", "<cmd>Telescope buffers<cr>",    { desc = "Buffres" } },
-		-- 	{ "<leader>fh", "<cmd>Telescope help_tags<cr>",  { desc = "Help tags" } },
-		-- },
-		-- dependencies = {
-		-- 	'nvim-lua/plenary.nvim',
-		-- 	'nvim-telescope/telescope-ui-select.nvim',
-		-- },
+		keys = {
+			{ "<leader>hb", "<cmd>Gitsigns blame_line full=true<cr>", { desc = "Blame current line" } },
+			{ "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<cr>",  { desc = "Toggle line blaming" } },
+		},
 
 
 		config = function()
