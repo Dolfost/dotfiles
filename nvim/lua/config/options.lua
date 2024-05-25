@@ -2,8 +2,8 @@ vim.o.compatible = false
 
 vim.cmd("filetype plugin indent on") -- VimTex requirement
 
-vim.o.encoding = "utf8" -- VimTex requirement
-vim.o.syntax = true     -- VimTex requirement
+vim.o.encoding = "utf8"              -- VimTex requirement
+vim.o.syntax = true                  -- VimTex requirement
 
 vim.o.termguicolor = true
 
@@ -24,8 +24,8 @@ vim.o.cursorline = true
 vim.o.showmode = false
 vim.o.scrolloff = 8
 
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
 vim.o.conceallevel = 2
 
 -- Replace grep with ripgrep
