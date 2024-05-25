@@ -37,7 +37,6 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 
-
 		config = function(_, opts)
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			local lspconfig = require("lspconfig")
@@ -99,17 +98,23 @@ return {
 	{
 		'L3MON4D3/LuaSnip',
 
+		enabled = false,
+
 		-- follow latest release.
 		version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		-- install jsregexp (optional!).
 		build = 'make install_jsregexp',
-		dependencies = { 'rafamadriz/friendly-snippets' },
-
+		-- dependencies = { 'rafamadriz/friendly-snippets' },
 
 		config = function()
 			local ls = require 'luasnip'
-			require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/LuaSnip/' })
-			require("luasnip.loaders.from_vscode").lazy_load()
+			ls.setup {
+				snip_env = {
+					bruh = "sus",
+				},
+			}
+
+			require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/lua/plugins/snippets' })
 		end,
 	},
 
@@ -126,7 +131,7 @@ return {
 			'FelipeLema/cmp-async-path',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-nvim-lsp',
-			'saadparwaiz1/cmp_luasnip',
+			-- 'saadparwaiz1/cmp_luasnip',
 			'tamago324/cmp-zsh',
 			'petertriho/cmp-git',
 			{ 'micangl/cmp-vimtex',      ft = 'tex' },
@@ -136,16 +141,16 @@ return {
 
 		config = function()
 			local cmp = require 'cmp'
-			local ls = require 'luasnip'
+			-- local ls = require 'luasnip'
 			local lspkind = require 'lspkind'
 
 			cmp.setup({
-				snippet = {
-					-- REQUIRED - you must specify a snippet engine
-					expand = function(args)
-						require('luasnip').lsp_expand(args.body)
-					end,
-				},
+				-- snippet = {
+				-- 	-- REQUIRED - you must specify a snippet engine
+				-- 	expand = function(args)
+				-- 		require('luasnip').lsp_expand(args.body)
+				-- 	end,
+				-- },
 
 				window = {
 					completion = cmp.config.window.bordered(),
@@ -205,7 +210,7 @@ return {
 
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
-					{ name = 'luasnip' },
+					-- { name = 'luasnip' },
 					{ name = 'async_path' },
 					{ name = 'buffer' },
 				}),
@@ -223,7 +228,7 @@ return {
 				sources = {
 					{ name = 'vimtex' },
 					{ name = 'nvim_lsp' },
-					{ name = 'luasnip' },
+					-- { name = 'luasnip' },
 					{ name = 'async_path' },
 					{ name = 'buffer' },
 				},
@@ -233,7 +238,7 @@ return {
 				sources = {
 					{ name = 'nvim_lua' },
 					{ name = 'nvim_lsp' },
-					{ name = 'luasnip' },
+					-- { name = 'luasnip' },
 					{ name = 'async_path' },
 					{ name = 'buffer' },
 				},
