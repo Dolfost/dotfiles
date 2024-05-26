@@ -13,8 +13,8 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +15 init.lua
-badd +115 lua/plugins/lspconfig.lua
+badd +12 init.lua
+badd +116 lua/plugins/lspconfig.lua
 badd +16 lua/plugins/alpha.lua
 badd +13 lua/plugins/leetcode.lua
 badd +1 lua/plugins/oil.lua
@@ -32,10 +32,12 @@ badd +1 lua/plugins/conform.lua
 badd +6 LuaSnip/all.lua
 badd +5 lua/plugins/snippets/all.lua
 badd +1 lua/plugins/snippets/tex/environments.lua
-badd +184 lua/snippets/tex/environments.lua
-badd +1 lua/utils/texsnip.lua
-badd +26 lua/snippets/tex/math.lua
-badd +58 lua/snippets/tex/bibliography.lua
+badd +185 lua/snippets/tex/environments.lua
+badd +45 lua/utils/texsnip.lua
+badd +28 lua/snippets/tex/math.lua
+badd +1 lua/snippets/tex/bibliography.lua
+badd +15 lua/snippets/c.lua
+badd +3 lua/snippets/cpp.lua
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -46,6 +48,18 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit init.lua
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
 balt lua/plugins/misc.lua
 setlocal fdm=manual
@@ -65,8 +79,9 @@ normal! zt
 keepjumps 12
 normal! 0
 tabnext
-edit lua/snippets/tex/bibliography.lua
+edit lua/snippets/c.lua
 argglobal
+balt init.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -77,34 +92,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 10 - ((9 * winheight(0) + 22) / 45)
+let s:l = 15 - ((14 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 10
+keepjumps 15
 normal! 0
 tabnext
-edit lua/utils/texsnip.lua
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe 'vert 1resize ' . ((&columns * 73 + 81) / 162)
-exe 'vert 2resize ' . ((&columns * 88 + 81) / 162)
+edit lua/snippets/cpp.lua
 argglobal
-balt lua/snippets/tex/bibliography.lua
+balt lua/snippets/c.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -115,13 +112,33 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 45 - ((7 * winheight(0) + 22) / 45)
+let s:l = 3 - ((2 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 45
+keepjumps 3
 normal! 04|
-wincmd w
+tabnext
+edit lua/snippets/tex/environments.lua
+argglobal
+balt lua/snippets/c.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 185 - ((43 * winheight(0) + 22) / 45)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 185
+normal! 05|
+tabnext
 argglobal
 enew | setl bt=help
 help luasnip-snippets@en
@@ -136,55 +153,12 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 308 - ((36 * winheight(0) + 22) / 45)
+let s:l = 2741 - ((24 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 308
-normal! 034|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 73 + 81) / 162)
-exe 'vert 2resize ' . ((&columns * 88 + 81) / 162)
-tabnext
-edit lua/snippets/tex/math.lua
-argglobal
-balt lua/snippets/tex/environments.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 26 - ((25 * winheight(0) + 22) / 45)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 26
-normal! 026|
-tabnext
-edit lua/snippets/tex/environments.lua
-argglobal
-balt lua/snippets/tex/math.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 184 - ((42 * winheight(0) + 22) / 45)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 184
-normal! 038|
+keepjumps 2741
+normal! 015|
 tabnext
 edit lua/plugins/lspconfig.lua
 argglobal
@@ -199,12 +173,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 115 - ((22 * winheight(0) + 22) / 45)
+let s:l = 104 - ((16 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 115
-normal! 078|
+keepjumps 104
+normal! 023|
 tabnext
 edit lua/plugins/telescope.lua
 argglobal
@@ -225,7 +199,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 30
 normal! 0
-tabnext 4
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
