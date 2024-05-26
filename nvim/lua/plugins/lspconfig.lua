@@ -112,6 +112,7 @@ return {
 				},
 			}
 
+			ls.filetype_extend("cpp", {"c"})
 			require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/lua/snippets' })
 		end,
 	},
