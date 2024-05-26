@@ -3,7 +3,17 @@ local line_end = require("luasnip.extras.conditions.show").line_end
 local tex = require"utils.texsnip"
 
 return {
-	s("itemize", fmt([[
+	s({
+		trig = "itemize",
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{itemize}]],
+		desc = "Begin new itemize environment",
+		docstring = [[
+		\begin{itemize}
+			\item 
+		\end{itemize}]],
+	}, fmt([[
 	\begin{itemize}
 		\item <item>
 	\end{itemize}
@@ -13,7 +23,17 @@ return {
 		e = i(0),
 	}, { delimiters = "<>" })),
 
-	s("enumerate", fmt([[
+	s({
+		trig = "enumerate",
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{enumerate}]],
+		desc = "Begin new enumerate environment",
+		docstring = [[
+		\begin{enumerate}
+			\item 
+		\end{enumerate}]],
+	}, fmt([[
 	\begin{enumerate}
 		\item <item>
 	\end{enumerate}
@@ -24,7 +44,17 @@ return {
 	}, { delimiters = "<>" })),
 
 
-	s("description", fmt([[
+	s({
+		trig = "description",
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{description}]],
+		desc = "Begin new description environment",
+		docstring = [[
+		\begin{description}
+			\item[]
+		\end{description}]],
+	}, fmt([[
 	\begin{description}
 		\item[<desc>] <item>
 	\end{description}
@@ -38,8 +68,19 @@ return {
 
 	s({
 		trig = "figure",
-		show_condition = line_end,
-		condition = line_end}, fmt([[ 
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{figure}]],
+		desc = "Make a figure",
+		docstring = [[ 
+		\begin{figure}
+			\begin{center}
+				\includegraphics[width=\textwidth]{\subfix{images/}
+			\end{center}
+			\caption{}\label{fig:}
+		\end{figure}
+		]]
+	}, fmt([[ 
 		\begin{figure}
 			\begin{center}
 				\includegraphics[width=<width>\textwidth]{\subfix{images/<path>}}
@@ -64,8 +105,18 @@ return {
 
 	s({
 		trig = "listing",
-		show_condition = line_end,
-		condition = line_end}, fmt([[ 
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{longlisting}]],
+		desc = "Begin new code listing",
+		docstring = [[
+		\begin{longlisting}
+			\begin{minted}{}
+
+			\end{minted}
+			\caption{}\label{lst:}
+		\end{longlisting}
+		]]}, fmt([[ 
 		\begin{longlisting}
 			\begin{minted}{<lang>}
 				<code>
@@ -85,8 +136,16 @@ return {
 
 	s({
 		trig = "minted",
-		show_condition = line_end,
-		condition = line_end}, fmt([[ 
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text,
+		name = [[\begin{minted}]],
+		desc = "Begin new minted environment",
+		docstring = [[ 
+		\begin{minted}{}
+			
+		\end{minted}
+	]]
+	}, fmt([[ 
 		\begin{minted}{<lang>}
 			<con>
 		\end{minted}
@@ -99,11 +158,19 @@ return {
 			delimiters = "<>" })),
 
 
-	s("begin", fmt([[ 
-	\begin{<env>}
-		<con>
-	\end{<env>}
-	]], {
+	s({
+		trig = "begin",
+		name = [[\begin{}]],
+		desc = "Begin new environment",
+		docstring = [[
+		\begin{}
+			
+		\end{}
+		]]},fmt([[ 
+		\begin{<env>}
+			<con>
+		\end{<env>}
+		]], {
 		env = i(1, "environment"),
 		con = i(2, "contents"),
 	}, {
@@ -113,7 +180,7 @@ return {
 
 
 	tex.environment("center", {
-		show_condition = line_end,
-		condition = line_end
+		show_condition = line_end * tex.in_text,
+		condition = line_end * tex.in_text
 	}),
 }
