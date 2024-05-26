@@ -13,18 +13,18 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +35 init.lua
+badd +3 init.lua
 badd +37 lua/plugins/lspconfig.lua
 badd +16 lua/plugins/alpha.lua
 badd +10 lua/plugins/leetcode.lua
-badd +1 lua/plugins/oil.lua
+badd +160 lua/plugins/oil.lua
 badd +34 lua/plugins/vimtex.lua
 badd +45 lua/plugins/treesitter.lua
 badd +45 lua/plugins/git.lua
 badd +34 lua/plugins/misc.lua
 badd +1 lua/config/options.lua
 badd +11 gitsigns:///Users/vladyslav/dotfiles/.git/:0:nvim/lua/plugins/git.lua
-badd +13 lua/plugins/telescope.lua
+badd +31 lua/plugins/telescope.lua
 badd +6 lua/plugins/colorscheme.lua
 badd +1 lua/plugins/dapconfig.lua
 badd +1 lua/config/visuals.lua
@@ -38,35 +38,13 @@ badd +28 lua/snippets/tex/math.lua
 badd +1 lua/snippets/tex/bibliography.lua
 badd +1 lua/snippets/c.lua
 badd +4 lua/snippets/cpp.lua
-badd +15 lua/plugins/neo-tree.lua
+badd +18 lua/plugins/neo-tree.lua
 badd +16 lua/plugins/which-key.lua
 badd +5 Session.vim
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
 tabrewind
-argglobal
-enew | setl bt=help
-help which-key.nvim-which-key-configuration@en
-balt lua/plugins/leetcode.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 250 - ((16 * winheight(0) + 22) / 45)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 250
-normal! 022|
-tabnext
 edit init.lua
 argglobal
 setlocal fdm=manual
@@ -79,16 +57,17 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 35 - ((33 * winheight(0) + 22) / 45)
+let s:l = 3 - ((2 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 35
-normal! 023|
+keepjumps 3
+normal! 0
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
-edit lua/plugins/neo-tree.lua
+edit ~/dotfiles/nvim/lua/plugins/telescope.lua
 argglobal
-balt Session.vim
+balt ~/dotfiles/nvim/init.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -99,13 +78,14 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((8 * winheight(0) + 22) / 45)
+let s:l = 31 - ((30 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 15
-normal! 022|
-tabnext 3
+keepjumps 31
+normal! 037|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -118,7 +98,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
