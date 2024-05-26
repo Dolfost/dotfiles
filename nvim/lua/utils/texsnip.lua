@@ -34,12 +34,20 @@ local M = {}
 -- snippet generators
 
 -- make new environment with name <env> and context <context>
--- if no <context> passed, then <env> is used as context.trigger
+-- if no <context> passed, then <env> is used as context.trig
 function M.environment(env, context)
-	if (context and not context.trig) then
-		context.trig = env
-	end
-	return s(context or env, fmt(string.format([[ 
+	context = context or {}
+	context.trig = context.trig or env
+	context.name = context.name or ("\\begin{" .. env .. "}")
+	context.desc = context.desc or ("Begin new " .. env .. " environment")
+	context.docstring = context.docstring or string.format([[
+	\begin{%s}
+		
+	\end{%s}
+	]], env, env)
+
+
+	return s(context , fmt(string.format([[ 
 	\begin{%s}
 		<con>
 	\end{%s}
@@ -57,24 +65,31 @@ function M.bib_entry(type, required_fields)
 	required_fields = required_fields or {}
 	local format = "@" .. type .. "{<tag>,"
 	local nodes = {tag = i(1, "tag")}
+	local docstring =  "@" .. type .. "{ ,"
 	local nodecount = 1;
 	for idx, field in ipairs(required_fields) do
 		format = format .. "\n\t" .. field .. " = {<" .. field .. ">},"
+		docstring = docstring .. "\n\t" .. field .. " = {},"
 		nodes[field] = i(idx+1, field .. " value")
 		nodecount = nodecount + 1
 	end
 	if (nodecount == 1) then
 		format = format .. "\n\t <nah>"
+		docstring = docstring .. "\n\t"
 		nodes["nah"] = i(2, "fields")
 	end
 	nodes.e = i(0)
 	format = format .. "\n}\n<e>"
+	docstring = docstring .. "\n}\n"
 
 	return s({
 		trig = type,
 		show_condition = line_end,
 		condition = line_end,
-		filetype = "bib"
+		filetype = "bib",
+		docstring = docstring,
+		name = "@" .. type,
+		desc = "New bibliography " .. type .. " entry"
 	}, fmt(format, nodes, {delimiters = "<>"}))
 end
 
