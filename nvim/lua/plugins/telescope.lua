@@ -44,7 +44,7 @@ return {
 					},
 				},
 				defaults = {
-					layout_strategy = "vertical",
+					layout_strategy = "horizontal",
 				},
 			}
 
