@@ -74,8 +74,31 @@ return {
 				capabilities = capabilities,
 			}
 			lspconfig.clangd.setup {
-				capabilities = capabilities,
-				cmd = {vim.fn.stdpath("data") .. "/mason/bin/clangd", avr_gcc and "--query-driver=" .. avr_gcc},
+				capabilities = {
+					textDocument = {
+						completion = {
+							completionItem = {
+								commitCharactersSupport = true,
+								deprecatedSupport = true,
+								insertReplaceSupport = true,
+								labelDetailsSupport = true,
+								preselectSupport = true,
+								resolveSupport = {
+									properties = { "documentation", "detail", "additionalTextEdits" }
+								},
+								snippetSupport = false,
+								tagSupport = {
+									valueSet = { 1 }
+								}
+							}
+						}
+					}
+				},
+				cmd = {
+					vim.fn.stdpath("data") .. "/mason/bin/clangd", avr_gcc and "--query-driver=" .. avr_gcc,
+					"--header-insertion=iwyu",
+					"--enable-config",
+				},
 				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
 			}
 			lspconfig.omnisharp.setup {
