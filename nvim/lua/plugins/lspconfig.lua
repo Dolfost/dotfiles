@@ -120,6 +120,7 @@ return {
 			lspconfig.neocmake.setup {
 				capabilities = capabilities,
 			}
+
 		end,
 	},
 
