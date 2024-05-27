@@ -163,16 +163,17 @@ return {
 		name = [[\begin{}]],
 		desc = "Begin new environment",
 		docstring = [[
-		\begin{}
+		\begin{}[]{}
 			
 		\end{}
 		]]},fmt([[ 
-		\begin{<env>}
+		\begin{<env><opts>
 			<con>
-		\end{<env>}
+		\end{<env>
 		]], {
 		env = i(1, "environment"),
-		con = i(2, "contents"),
+		opts = i(2),
+		con = i(3, "contents"),
 	}, {
 		delimiters = "<>",
 		repeat_duplicates = true,
