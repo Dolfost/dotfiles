@@ -4,6 +4,7 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- search for avr-gcc for clangd
 local handle = io.popen("command -v avr-gcc")
 local avr_gcc
 if handle then
@@ -13,6 +14,7 @@ else
 	avr_gcc = nil;
 end
 
+
 return {
 	{
 		'williamboman/mason-lspconfig.nvim',
@@ -20,7 +22,6 @@ return {
 		dependencies = {
 			{ "williamboman/mason.nvim", config = true, },
 		},
-
 
 		opts = {
 			ensure_installed = {
@@ -102,6 +103,7 @@ return {
 				},
 				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
 			}
+
 			lspconfig.omnisharp.setup {
 				capabilities = capabilities,
 				cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
@@ -110,9 +112,11 @@ return {
 				enable_roslyn_analyzers = true,
 				root_dir = vim.loop.cwd, -- current working directory
 			}
+
 			lspconfig.pyright.setup {
 				capabilities = capabilities,
 			}
+			
 			lspconfig.neocmake.setup {
 				capabilities = capabilities,
 			}
