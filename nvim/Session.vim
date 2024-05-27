@@ -14,12 +14,12 @@ else
   set shortmess=aoO
 endif
 badd +2 init.lua
-badd +252 lua/plugins/lspconfig.lua
+badd +67 lua/plugins/lspconfig.lua
 badd +16 lua/plugins/alpha.lua
 badd +10 lua/plugins/leetcode.lua
 badd +160 lua/plugins/oil.lua
-badd +2 lua/plugins/vimtex.lua
-badd +21 lua/plugins/treesitter.lua
+badd +8 lua/plugins/vimtex.lua
+badd +40 lua/plugins/treesitter.lua
 badd +45 lua/plugins/git.lua
 badd +34 lua/plugins/misc.lua
 badd +1 lua/config/options.lua
@@ -32,8 +32,8 @@ badd +40 lua/plugins/conform.lua
 badd +6 LuaSnip/all.lua
 badd +5 lua/plugins/snippets/all.lua
 badd +1 lua/plugins/snippets/tex/environments.lua
-badd +157 lua/snippets/tex/environments.lua
-badd +54 lua/utils/texsnip.lua
+badd +171 lua/snippets/tex/environments.lua
+badd +41 lua/utils/texsnip.lua
 badd +28 lua/snippets/tex/math.lua
 badd +1 lua/snippets/tex/bibliography.lua
 badd +1 lua/snippets/c.lua
@@ -43,6 +43,7 @@ badd +16 lua/plugins/which-key.lua
 badd +5 Session.vim
 argglobal
 %argdel
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -82,12 +83,33 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 22) / 45)
+let s:l = 8 - ((7 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 2
-normal! 031|
+keepjumps 8
+normal! 021|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+tabnext
+edit ~/dotfiles/nvim/lua/plugins/treesitter.lua
+argglobal
+balt ~/dotfiles/nvim/lua/plugins/vimtex.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 28 - ((27 * winheight(0) + 22) / 45)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 28
+normal! 0
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/lua/snippets/tex/environments.lua
@@ -103,12 +125,33 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 157 - ((15 * winheight(0) + 22) / 45)
+let s:l = 171 - ((30 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 157
-normal! 08|
+keepjumps 171
+normal! 011|
+if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+tabnext
+edit ~/dotfiles/nvim/lua/snippets/tex/environments.lua
+argglobal
+balt ~/dotfiles/nvim/lua/utils/texsnip.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 168 - ((26 * winheight(0) + 22) / 45)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 168
+normal! 06|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/lua/plugins/lspconfig.lua
@@ -123,32 +166,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 252 - ((18 * winheight(0) + 22) / 45)
+let s:l = 223 - ((8 * winheight(0) + 22) / 45)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 252
-normal! 017|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-argglobal
-enew | setl bt=help
-help vimtex-complete-nvim-cmp@en
-balt ~/dotfiles/nvim/lua/plugins/lspconfig.lua
-setlocal fdm=marker
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-let s:l = 4673 - ((8 * winheight(0) + 22) / 45)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 4673
-normal! 026|
+keepjumps 223
+normal! 018|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
 edit ~/dotfiles/nvim/lua/plugins/telescope.lua
@@ -171,7 +194,7 @@ normal! zt
 keepjumps 32
 normal! 092|
 if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext 3
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
