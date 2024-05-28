@@ -1,6 +1,5 @@
 return {
 	'tpope/vim-unimpaired',
-	'tpope/vim-obsession',
 
 	'ludovicchabant/vim-gutentags',
 
