@@ -4,6 +4,7 @@ return {
 	ft = 'tex',
 	enabled = true,
 
+	--  TODO: fix skim backward search
 
 	config = function()
 		vim.opt_local.spell = true
