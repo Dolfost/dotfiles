@@ -13,40 +13,20 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +2 init.lua
-badd +22 lua/plugins/lspconfig.lua
-badd +16 lua/plugins/alpha.lua
-badd +10 lua/plugins/leetcode.lua
-badd +160 lua/plugins/oil.lua
-badd +21 lua/plugins/vimtex.lua
-badd +25 lua/plugins/treesitter.lua
-badd +45 lua/plugins/git.lua
-badd +73 lua/plugins/misc.lua
-badd +4 lua/config/options.lua
-badd +11 gitsigns:///Users/vladyslav/dotfiles/.git/:0:nvim/lua/plugins/git.lua
-badd +32 lua/plugins/telescope.lua
-badd +6 lua/plugins/colorscheme.lua
-badd +1 lua/plugins/dapconfig.lua
+badd +40 init.lua
+badd +67 ~/dotfiles/nvim/lua/plugins/colorscheme/catppuccin.lua
+badd +11 ~/dotfiles/nvim/lua/plugins/colorscheme/gruvbox.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorscheme/papercolor.lua
+badd +51 ~/dotfiles/nvim/lua/plugins/colorscheme/newpaper.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorscheme/kanagawa.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorschemes/material.lua
+badd +13 ~/dotfiles/nvim/lua/plugins/colorschemes/vscode.lua
 badd +1 lua/config/visuals.lua
-badd +40 lua/plugins/conform.lua
-badd +6 LuaSnip/all.lua
-badd +5 lua/plugins/snippets/all.lua
-badd +1 lua/plugins/snippets/tex/environments.lua
-badd +168 lua/snippets/tex/environments.lua
-badd +41 lua/utils/texsnip.lua
-badd +28 lua/snippets/tex/math.lua
-badd +1 lua/snippets/tex/bibliography.lua
-badd +1 lua/snippets/c.lua
-badd +4 lua/snippets/cpp.lua
-badd +18 lua/plugins/neo-tree.lua
-badd +16 lua/plugins/which-key.lua
-badd +5 Session.vim
+badd +10 lua/plugins/lualine.lua
+badd +6 ~/dotfiles/nvim/lua/plugins/colorschemes/papercolor.lua
+badd +34 ~/dotfiles/nvim/lua/plugins/colorschemes/newpaper.lua
 argglobal
 %argdel
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
-tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
@@ -62,17 +42,28 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 2 - ((1 * winheight(0) + 26) / 52)
+let s:l = 33 - ((11 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 2
+keepjumps 33
 normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
 tabnext
-edit ~/dotfiles/nvim/lua/plugins/misc.lua
+edit ~/dotfiles/nvim/lua/plugins/colorschemes/newpaper.lua
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt ~/dotfiles/nvim/lua/config/options.lua
+balt ~/dotfiles/nvim/lua/plugins/colorschemes/papercolor.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -83,17 +74,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 73 - ((36 * winheight(0) + 26) / 52)
+let s:l = 34 - ((10 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 73
-normal! 033|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
+keepjumps 34
+normal! 0
 tabnext
-edit ~/dotfiles/nvim/lua/plugins/vimtex.lua
+edit lua/config/visuals.lua
 argglobal
-balt ~/dotfiles/nvim/lua/plugins/misc.lua
+balt lua/plugins/lualine.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -104,95 +94,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 21 - ((18 * winheight(0) + 23) / 46)
+let s:l = 1 - ((0 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 21
-normal! 042|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-argglobal
-enew | setl bt=help
-help g:vimtex_complete_close_braces@en
-setlocal fdm=marker
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-let s:l = 4890 - ((34 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 4890
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-argglobal
-enew | setl bt=help
-help which-key.nvim-which-key-usage@en
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 215 - ((23 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 215
-normal! 032|
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/plugins/neo-tree.lua
-argglobal
-balt ~/dotfiles/nvim/lua/plugins/treesitter.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 18 - ((17 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 18
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext
-edit ~/dotfiles/nvim/lua/plugins/lspconfig.lua
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 22 - ((21 * winheight(0) + 26) / 52)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 22
-normal! 0
-if exists(':tcd') == 2 | tcd ~/dotfiles/nvim | endif
-tabnext 3
+keepjumps 1
+normal! 07|
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
