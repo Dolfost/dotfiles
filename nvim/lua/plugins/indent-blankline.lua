@@ -4,7 +4,7 @@ return {
 	main = "ibl",
 
 	opts = {
-		debounce = 100,
+		debounce = 200,
 		indent = {
 			char = {"╎", "┆", "┊"},
 			-- tab_char = nil,
