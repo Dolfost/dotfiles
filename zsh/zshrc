@@ -8,7 +8,7 @@ source $ZSH_CONFIG/binds.zsh
 source $ZSH_CONFIG/options.zsh
 source $ZSH_CONFIG/completions.zsh
 
-if [[ "$TERM" != "tmux-256color" ]]
-then
-	tmux attach-session -t "$USERNAME" || tmux new-session -s "$USERNAME"
-fi
+# if [[ "$TERM" != "tmux-256color" ]]
+# then
+# 	tmux attach-session -t "$USERNAME" || tmux new-session -s "$USERNAME"
+# fi
