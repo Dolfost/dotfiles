@@ -92,23 +92,23 @@ renderer = "None"
 [env]
 TERM = "xterm-256color"
 
+# idea behind Iosevka font is that Light threated as 
+# regular, and regular threated as bold 
 [font.normal]
-family = "FantasqueSansM Nerd Font Mono"
+family = "Iosevka"
+style = "Light"
+
+[font.bold]
 style = "Regular"
+
+[font.bold_italic]
+style = "Italic"
+
+[font.italic]
+style = "Light Italic"
 
 [font]
 size = 18
-
-[font.bold]
-family = "FantasqueSansM Nerd Font Mono"
-style = "Bold"
-
-[font.bold_italic]
-style = "Bold Italic"
-
-[font.italic]
-style = "Italic"
-
 
 [font.offset]
 x = 0
