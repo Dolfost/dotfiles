@@ -13,22 +13,26 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +40 init.lua
+badd +33 init.lua
 badd +67 ~/dotfiles/nvim/lua/plugins/colorscheme/catppuccin.lua
 badd +11 ~/dotfiles/nvim/lua/plugins/colorscheme/gruvbox.lua
 badd +1 ~/dotfiles/nvim/lua/plugins/colorscheme/papercolor.lua
 badd +51 ~/dotfiles/nvim/lua/plugins/colorscheme/newpaper.lua
 badd +1 ~/dotfiles/nvim/lua/plugins/colorscheme/kanagawa.lua
-badd +1 ~/dotfiles/nvim/lua/plugins/colorschemes/material.lua
-badd +13 ~/dotfiles/nvim/lua/plugins/colorschemes/vscode.lua
+badd +58 ~/dotfiles/nvim/lua/plugins/colorschemes/material.lua
+badd +3 ~/dotfiles/nvim/lua/plugins/colorschemes/vscode.lua
 badd +1 lua/config/visuals.lua
-badd +13 lua/plugins/lualine.lua
-badd +6 ~/dotfiles/nvim/lua/plugins/colorschemes/papercolor.lua
-badd +34 ~/dotfiles/nvim/lua/plugins/colorschemes/newpaper.lua
-badd +10 ~/dotfiles/nvim/lua/plugins/colorschemes/night-owl.lua
+badd +9 lua/plugins/lualine.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorschemes/papercolor.lua
+badd +49 ~/dotfiles/nvim/lua/plugins/colorschemes/newpaper.lua
+badd +8 ~/dotfiles/nvim/lua/plugins/colorschemes/night-owl.lua
+badd +11 ~/dotfiles/nvim/lua/plugins/colorschemes/catppuccin.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorschemes/gruvbox.lua
+badd +1 ~/dotfiles/nvim/lua/plugins/colorschemes/kanagawa.lua
+badd +19 lua/plugins/telescope.lua
+badd +23 ~/dotfiles/nvim/lua/plugins/indent-blankline.lua
 argglobal
 %argdel
-tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
@@ -44,73 +48,53 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 33 - ((11 * winheight(0) + 14) / 28)
+let s:l = 29 - ((18 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 33
+keepjumps 29
+normal! 06|
+tabnext
+edit ~/dotfiles/nvim/lua/plugins/indent-blankline.lua
+argglobal
+balt lua/plugins/telescope.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 25 - ((24 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 25
+normal! 023|
+tabnext
+argglobal
+enew | setl bt=help
+help TSNode:type()@en
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 199 - ((29 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 199
 normal! 0
-tabnext
-edit ~/dotfiles/nvim/lua/plugins/colorschemes/night-owl.lua
-argglobal
-balt ~/dotfiles/nvim/lua/plugins/colorschemes/newpaper.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 14) / 28)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 3
-normal! 021|
-tabnext
-edit lua/plugins/lualine.lua
-argglobal
-balt ~/dotfiles/nvim/lua/plugins/colorschemes/night-owl.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 13 - ((12 * winheight(0) + 14) / 28)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 13
-normal! 024|
-tabnext
-edit lua/config/visuals.lua
-argglobal
-balt lua/plugins/lualine.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 14) / 28)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 030|
-tabnext 4
+tabnext 3
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
