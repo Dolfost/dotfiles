@@ -1,6 +1,9 @@
 return {
 	'Mofiqul/vscode.nvim',
 
+	lazy = true,
+	priority = 1000,
+
 	config = function ()
 		local vs = require('vscode')
 		local c = require"vscode.colors".get_colors()
