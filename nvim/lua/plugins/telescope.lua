@@ -25,7 +25,7 @@ return {
 					h = { "<cmd>Telescope help_tags<cr>", "Help tags" },
 					s = { "<cmd>Telescope treesitter<cr>", "Treesitter symbols" },
 					o = { "<cmd>Telescope oldfiles<cr>", "List recentry opened files" },
-					c = { "<cmd>Telescope colorscheme<cr>", "List avaliable colorschemes" },
+					c = { "<cmd>Telescope colorscheme enable_preview=true<cr>", "List avaliable colorschemes" },
 					m = { "<cmd>Telescope marks<cr>", "List vim marks" },
 					r = { "<cmd>Telescope registers<cr>", "List vim registers and their contents" },
 					j = { "<cmd>Telescope jumplist<cr>", "List vim jumplist" },
