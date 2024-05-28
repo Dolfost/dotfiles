@@ -95,7 +95,7 @@ TERM = "xterm-256color"
 # idea behind Iosevka font is that Light threated as 
 # regular, and regular threated as bold 
 [font.normal]
-family = "Iosevka"
+family = "Iosevka Nerd Font"
 style = "Light"
 
 [font.bold]
