@@ -1,3 +1,12 @@
+--  BUG: 
+--  Steps to reproduce:
+--  	Install telescope
+--  	Install indent-blankline.nvim
+--  	Save vim session with :mksession (or obsession.nvim)
+--  	Reopen nvim with this session
+--  	Open the telescope 'find file'
+--  After this you will be greeded with lua errors
+
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	enabled = true,
