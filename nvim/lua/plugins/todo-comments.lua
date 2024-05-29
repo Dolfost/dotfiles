@@ -8,12 +8,12 @@ return {
 		-- keywords recognized as todo comments
 
 		keywords = {
-			FIX =  { icon = "", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "ERROR" } },
-			TODO = { icon = "", alt = { "WIP" } },
-			HACK = { icon = "" },
-			WARN = { icon = "" },
-			PERF = { icon = "" },
-			NOTE = { icon = "󰎞", alt = { "INFO", "DOCS" } },
+			FIX =  { icon = "", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "ERROR" } },
+			TODO = { icon = "󰄳", alt = { "WIP" } },
+			HACK = { icon = "󰈸" },
+			WARN = { icon = "" },
+			PERF = { icon = "" },
+			NOTE = { icon = "", alt = { "INFO", "DOCS" } },
 			TEST = { icon = "" },
 		},
 
