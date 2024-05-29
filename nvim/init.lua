@@ -40,11 +40,8 @@ require'config/visuals'
 require'config/keybinds'
 
 
---  TODO: Fix oil.nvim lazy loading on `$ nvim folder/`
 --  TODO: Fix cmd-zsh completion in cmdline after :!
 --  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
---  TODO: Fix formatter.nvim suport (see ./lua/plugins/formatter.lua) 
---        Make it work with mason.nvim 
 
 --  DONE: Fix omnnisharp or charp_ls LSP 
 --  DONE: Add debugger support (check out https://www.youtube.com/@typecraft_dev)
