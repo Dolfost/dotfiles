@@ -27,7 +27,7 @@ return {
 			menu_fmt = '[@type] @author_short (@year), "@title"',
 		}
 
-		vim.g.vimtex_fold_enabled = true
+		vim.g.vimtex_fold_enabled = false
 		vim.g.vimtex_fold_types = {
 			preamble = {enabled = true},
 			sections = {enabled = true},
