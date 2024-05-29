@@ -26,7 +26,13 @@ return {
 		config = function(_, opts)
 			-- nmap <C-s> <Plug>MarkdownPreview
 			-- nmap <M-s> <Plug>MarkdownPreviewStop
-			vim.keymap.set('n', '<leader>ll', '<Plug>MarkdownPreviewToggle', { desc = "Toggle Markdown Preview" })
+			local wk = require"which-key"
+			wk.register({
+				l = {
+					name = "VimMarkdown",
+					l = {'<Plug>MarkdownPreviewToggle', "Toggle Markdown Preview" },
+				},
+			}, { prefix = "<leader>" })
 
 			-- set to 1, nvim will open the preview window after entering the markdown buffer
 			-- default: 0
@@ -64,7 +70,7 @@ return {
 			-- valid: `/path/with\ space/xxx`
 			-- invalid: `/path/with\\ space/xxx`
 			-- default: ''
-			vim.g.mkdp_browser = 'safari'
+			vim.g.mkdp_browser = 'vivaldi'
 
 			-- set to 1, echo preview page url in command line when open preview page
 			-- default is 0
