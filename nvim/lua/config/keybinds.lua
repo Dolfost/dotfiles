@@ -7,4 +7,4 @@ vim.keymap.set('n', '<Left>', '<Nop>')
 vim.keymap.set('n', '<Right>', '<Nop>')
 
 -- Regenerate ctags file with F5
-vim.keymap.set('n', '<f5>', ':!ctags -R<CR>', {desc = "Generate Ctags"})
+-- vim.keymap.set('n', '<f5>', ':!ctags -R<CR>', {desc = "Generate Ctags"})
