@@ -141,6 +141,7 @@ opacity = 1.0
 resize_increments = true
 startup_mode = "Windowed"
 title = "Alacritty"
+option_as_alt = "OnlyLeft"
 
 [window.class]
 general = "Alacritty"
