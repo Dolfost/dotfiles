@@ -26,7 +26,8 @@ local options = {
 	}
 }
 
---  NOTE: It will source all lua files in /lua/plugins/ according to `:h Lazy.nvim.txt`
+--  NOTE: It will source all lua files in /lua/plugins/
+--  and /lua/plugins/colorschemes according to `:h Lazy.nvim.txt`
 
 require("lazy").setup({
 	{import = "plugins"},
