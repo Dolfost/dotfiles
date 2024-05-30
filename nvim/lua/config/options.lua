@@ -24,6 +24,8 @@ vim.o.cursorline = true
 vim.o.showmode = false
 vim.o.scrolloff = 8
 
+-- vim.o.switchbuf = "usetab"
+
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.conceallevel = 2
@@ -37,8 +39,8 @@ vim.o.grepformat = '%f:%l:%c%m,%l:%c%m'
 -- vim.cmd("cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'")
 
 -- Disable netwr explorer
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = true
+vim.g.loaded_netrw = true
 
 -- Ukrainian language support
 vim.o.keymap = 'ukrainian-jcuken'
