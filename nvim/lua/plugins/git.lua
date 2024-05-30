@@ -17,6 +17,9 @@ return {
 					name = "Signs",
 					B = { "<cmd>Gitsigns blame_line full=true<cr>", "Blame current line" },
 					b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle line blaming"},
+					p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk"},
+					d = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff"},
+					s = { "<cmd>Gitsigns toggle_signs<cr>", "Toggle signs"},
 				},
 			}, {prefix = "<leader>g"})
 
