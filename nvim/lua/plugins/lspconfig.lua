@@ -80,26 +80,49 @@ return {
 					-- Enable completion triggered by <c-x><c-o>
 					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-					-- Buffer local mappings.
-					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					local opts = { buffer = ev.buf }
-					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-					vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-					vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-					vim.keymap.set('n', '<leader>wl', function()
-						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, opts)
-					vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-					vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-					vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', '<leader>f', function()
-						vim.lsp.buf.format { async = true }
-					end, opts)
+					local wk = require"which-key"
+					wk.register({
+						name = "Language server",
+						g = {
+							name = "Go to",
+							D = {vim.lsp.buf.declaration, "symbol declaration"},
+							d = {vim.lsp.buf.definition, "symbol definition"},
+							i = {vim.lsp.buf.implementation, "symbol implementation"},
+							t = {vim.lsp.buf.type_definition, "symbol type definition"},
+						},
+						K = {vim.lsp.buf.hover, "Display information about the symbol"},
+						k = {vim.lsp.buf.signature_help, "Display symbol signature help"},
+						w = {
+							name = "Workspace",
+							a = {vim.lsp.buf.add_workspace_folder, "Add folder to the workspace"},
+							r = {vim.lsp.buf.remove_workspace_folder, "Remove forlder from the workspace"},
+						},
+						r = {vim.lsp.buf.rename, "Rename symbol"},
+						f = {function()
+							vim.lsp.buf.format{async = true}
+						end, "Format current buffer"},
+						l = {
+							name = "List",
+							r = {vim.lsp.buf.references, "current symbol references"},
+							s = {
+								name = "Symbols",
+								d = {vim.lsp.buf.document_symbol, "from current document"},
+								w = {vim.lsp.buf.workspace_symbol, "from current workspace"},
+							},
+							f = {function()
+								print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+							end , "List workspace folders"},
+							c = {
+								name = "Calls",
+								o = {vim.lsp.buf.outgoing_calls, "symbol outgoing calls"},
+								i = {vim.lsp.buf.incoming_calls, "symbol incoming calls"},
+							},
+						},
+					}, {prefix = "<leader>s", buffer = ev.buf})
+
+					wk.register({
+						a = {vim.lsp.buf.code_action, "Code actions"},
+					}, {prefix = "<leader>s", mode = {"n", "v"}, buffer = ev.buf})
 				end,
 			})
 
@@ -160,14 +183,53 @@ return {
 				capabilities = capabilities,
 			}
 
-			lspconfig.bashls.setup{}
-			lspconfig.autotools_ls.setup{}
+			lspconfig.bashls.setup{
+				capabilities = {
+					codeActionProvider = {
+						codeActionKinds = { "quickfix" },
+						resolveProvider = false,
+						workDoneProgress = false
+					},
+					completionProvider = {
+						resolveProvider = true,
+						triggerCharacters = { "$", "{" }
+					},
+					definitionProvider = true,
+					documentFormattingProvider = true,
+					documentHighlightProvider = true,
+					documentSymbolProvider = true,
+					hoverProvider = true,
+					referencesProvider = true,
+					renameProvider = {
+						prepareProvider = true
+					},
+					textDocumentSync = {
+						change = 1,
+						openClose = true,
+						save = {
+							includeText = false
+						},
+						willSave = false,
+						willSaveWaitUntil = false
+					},
+					workspaceSymbolProvider = true
+				}
+			}
+
+			lspconfig.autotools_ls.setup{
+				cmd = { "autotools-language-server", vim.fn.stdpath "data" .. "/mason/packages/autotools-language-server/venv/bin" },
+			}
 			lspconfig.marksman.setup{}
 			lspconfig.matlab_ls.setup{
 				single_file_support = true
 			}
 
 		end,
+
+	--  NOTE: :h LSP says:
+	-- 	To learn what capabilities are available you can run the following command in
+	-- 	a buffer with a started LSP client:
+	-- 		:lua =vim.lsp.get_active_clients()[1].server_capabilities
 	},
 
 	{
