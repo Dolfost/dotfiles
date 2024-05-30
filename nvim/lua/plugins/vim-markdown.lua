@@ -26,13 +26,19 @@ return {
 		config = function(_, opts)
 			-- nmap <C-s> <Plug>MarkdownPreview
 			-- nmap <M-s> <Plug>MarkdownPreviewStop
-			local wk = require"which-key"
-			wk.register({
-				l = {
+
+
+		vim.api.nvim_create_autocmd('BufEnter', {
+			pattern = {"*.md"},
+			group = vim.api.nvim_create_augroup('markdownConfig', {}),
+			callback = function(ev)
+				local wk = require"which-key"
+				wk.register({
 					name = "VimMarkdown",
 					l = {'<Plug>MarkdownPreviewToggle', "Toggle Markdown Preview" },
-				},
-			}, { prefix = "<leader>" })
+				}, { prefix = "<leader>l", buffer = ev.buf})
+			end,
+		})
 
 			-- set to 1, nvim will open the preview window after entering the markdown buffer
 			-- default: 0

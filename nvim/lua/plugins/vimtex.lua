@@ -63,45 +63,46 @@ return {
 		vim.g.vimtex_doc_confirm_single = false
 		vim.g.vimtex_doc_handlers = { 'vimtex#doc#handlers#texdoc' }
 
-		local wk = require"which-key"
+		vim.api.nvim_create_autocmd('BufEnter', {
+			pattern = {"*.tex", "*.bib", "*.sty"},
+			group = vim.api.nvim_create_augroup('vimtexConfig', {}),
+			callback = function(ev)
+				local wk = require"which-key"
 
-		wk.register({
-			l = {
-				name = "VimTeX",
-				l = { "<cmd>update<cr><cmd>VimtexCompile<cr>", "Compile" },
-				s = { "<cmd>update<cr><cmd>VimtexCompileSS<cr>", "Single shot compile" },
-				L = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
-				i = { "<cmd>VimtexInfo<cr>", "Information" },
-				I = { "<cmd>VimtexInfo!<cr>", "Full information" },
-				t = { "<cmd>VimtexTocOpen<cr>", "Table of Contents" },
-				T = { "<cmd>VimtexTocToggle<cr>", "Toggle table of Contents" },
-				q = { "<cmd>VimtexLog<cr>", "Log" },
-				v = { "<cmd>VimtexView<cr>", "View" },
-				r = { "<plug>(Vimtex-reverse-search)", "Reverse search" },
-				k = { "<Cmd>VimtexStop<cr>", "Stop" },
-				K = { "<Cmd>VimtexStopAll<cr>", "Stop all" },
-				e = { "<Cmd>VimtexErrors<cr>", "Errors" },
-				o = { "<Cmd>VimtexCompileOutput<cr>", "Compile output" },
-				g = { "<Cmd>VimtexStatus<cr>", "Status" },
-				G = { "<Cmd>VimtexStatus!<cr>", "Full status" },
-				c = { "<Cmd>VimtexClean<cr>", "Clean" },
-				h = { "<Cmd>VimtexClearCache ALL<cr>", "Clear all cache" },
-				C = { "<Cmd>Vimtexllean!<cr>", "Full clean" },
-				x = { "<Cmd>VimtexReload<cr>", "Reload" },
-				X = { "<Cmd>VimtexReloadState<cr>", "Reload state" },
-				m = { "<Cmd>VimtexImapsList<cr>", "Input mappings" },
-				S = { "<Cmd>VimtexToggleMain<cr>", "Toggle main" },
-				a = { "<Cmd>VimtexContextMenu<cr>", "Context menu"},
-			},
-		}, { prefix = "<leader>" })
+				wk.register({
+					name = "VimTeX",
+					l = { "<cmd>update<cr><cmd>VimtexCompile<cr>", "Compile" },
+					s = { "<cmd>update<cr><cmd>VimtexCompileSS<cr>", "Single shot compile" },
+					L = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
+					i = { "<cmd>VimtexInfo<cr>", "Information" },
+					I = { "<cmd>VimtexInfo!<cr>", "Full information" },
+					t = { "<cmd>VimtexTocOpen<cr>", "Table of Contents" },
+					T = { "<cmd>VimtexTocToggle<cr>", "Toggle table of Contents" },
+					q = { "<cmd>VimtexLog<cr>", "Log" },
+					v = { "<cmd>VimtexView<cr>", "View" },
+					r = { "<plug>(Vimtex-reverse-search)", "Reverse search" },
+					k = { "<Cmd>VimtexStop<cr>", "Stop" },
+					K = { "<Cmd>VimtexStopAll<cr>", "Stop all" },
+					e = { "<Cmd>VimtexErrors<cr>", "Errors" },
+					o = { "<Cmd>VimtexCompileOutput<cr>", "Compile output" },
+					g = { "<Cmd>VimtexStatus<cr>", "Status" },
+					G = { "<Cmd>VimtexStatus!<cr>", "Full status" },
+					c = { "<Cmd>VimtexClean<cr>", "Clean" },
+					h = { "<Cmd>VimtexClearCache ALL<cr>", "Clear all cache" },
+					C = { "<Cmd>Vimtexllean!<cr>", "Full clean" },
+					x = { "<Cmd>VimtexReload<cr>", "Reload" },
+					X = { "<Cmd>VimtexReloadState<cr>", "Reload state" },
+					m = { "<Cmd>VimtexImapsList<cr>", "Input mappings" },
+					S = { "<Cmd>VimtexToggleMain<cr>", "Toggle main" },
+					a = { "<Cmd>VimtexContextMenu<cr>", "Context menu"},
+				}, { prefix = "<leader>l", buffer = ev.buf})
 
-		wk.register({
-			l = {
-				name = "VimTex",
-				l = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
-			},
-		}, { prefix = "<leader>", mode = "v"})
-
+				wk.register({
+					name = "VimTex",
+					l = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
+				}, { prefix = "<leader>l", mode = "v", buffer = ev.buf})
+			end,
+		})
 
 		vim.g.vimtex_compiler_method = 'latexmk'
 		vim.g.vimtex_compiler_latexmk = {
