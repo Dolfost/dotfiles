@@ -7,10 +7,20 @@ return {
 		'lewis6991/gitsigns.nvim',
 
 		lazy = false,
-		keys = {
-			{ "<leader>hb", "<cmd>Gitsigns blame_line full=true<cr>", { desc = "Blame current line" } },
-			{ "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<cr>",  { desc = "Toggle line blaming" } },
-		},
+
+		init = function ()
+			local wk = require"which-key"
+
+			wk.register({
+				name = "Git",
+				s = {
+					name = "Signs",
+					B = { "<cmd>Gitsigns blame_line full=true<cr>", "Blame current line" },
+					b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle line blaming"},
+				},
+			}, {prefix = "<leader>g"})
+
+		end,
 
 
 		config = function()
