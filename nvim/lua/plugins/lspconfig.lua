@@ -26,6 +26,10 @@ return {
 		opts = {
 			ensure_installed = {
 				'lua_ls',
+				'bashls',
+				'autotools_ls',
+				'marksman',
+				'matlab_ls',
 				'clangd',
 				'omnisharp',
 				'pyright',
@@ -154,6 +158,13 @@ return {
 			
 			lspconfig.neocmake.setup {
 				capabilities = capabilities,
+			}
+
+			lspconfig.bashls.setup{}
+			lspconfig.autotools_ls.setup{}
+			lspconfig.marksman.setup{}
+			lspconfig.matlab_ls.setup{
+				single_file_support = true
 			}
 
 		end,
