@@ -74,6 +74,20 @@ return {
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			local lspconfig = require("lspconfig")
 
+       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+         vim.lsp.handlers.hover, {
+           border = "rounded",
+           title = "Symbol info"
+         }
+       )
+
+       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+         vim.lsp.handlers.signature_help, {
+           border = "rounded",
+					 title = "Signature help",
+         }
+       )
+
 			vim.api.nvim_create_autocmd('LspAttach', {
 				group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 				callback = function(ev)
@@ -90,8 +104,8 @@ return {
 							i = {vim.lsp.buf.implementation, "symbol implementation"},
 							t = {vim.lsp.buf.type_definition, "symbol type definition"},
 						},
-						K = {vim.lsp.buf.hover, "Display information about the symbol"},
 						k = {vim.lsp.buf.signature_help, "Display symbol signature help"},
+						K = {vim.lsp.buf.hover, "Display information about the symbol"},
 						w = {
 							name = "Workspace",
 							a = {vim.lsp.buf.add_workspace_folder, "Add folder to the workspace"},
