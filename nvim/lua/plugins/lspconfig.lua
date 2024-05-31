@@ -27,7 +27,6 @@ return {
 			ensure_installed = {
 				'lua_ls',
 				'bashls',
-				'autotools_ls',
 				'marksman',
 				'matlab_ls',
 				'clangd',
@@ -229,15 +228,6 @@ return {
 					workspaceSymbolProvider = true
 				}
 			}
-
-			lspconfig.autotools_ls.setup{
-				cmd = { "autotools-language-server", vim.fn.stdpath "data" .. "/mason/packages/autotools-language-server/venv/bin" },
-			}
-			lspconfig.marksman.setup{}
-			lspconfig.matlab_ls.setup{
-				single_file_support = true
-			}
-
 		end,
 
 	--  NOTE: :h LSP says:
