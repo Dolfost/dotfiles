@@ -12,3 +12,8 @@ source $ZSH_CONFIG/completions.zsh
 # then
 # 	tmux attach-session -t "$USERNAME" || tmux new-session -s "$USERNAME"
 # fi
+
+# more details: man pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+	eval "$(pyenv init -)"
+fi
