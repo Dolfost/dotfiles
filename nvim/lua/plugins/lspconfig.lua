@@ -28,7 +28,6 @@ return {
 				'lua_ls',
 				'bashls',
 				'marksman',
-				'matlab_ls',
 				'clangd',
 				'omnisharp',
 				'pyright',
@@ -193,7 +192,34 @@ return {
 			}
 			
 			lspconfig.neocmake.setup {
-				capabilities = capabilities,
+				capabilities = {
+					completionProvider = {
+						resolveProvider = false
+					},
+					definitionProvider = true,
+					documentFormattingProvider = true,
+					documentSymbolProvider = true,
+					executeCommandProvider = {
+						commands = { "dummy.do_something" }
+					},
+					hoverProvider = true,
+					referencesProvider = true,
+					textDocumentSync = {
+						change = 1,
+						openClose = true,
+						save = {
+							includeText = false
+						},
+						willSave = false,
+						willSaveWaitUntil = false
+					},
+					workspace = {
+						workspaceFolders = {
+							changeNotifications = true,
+							supported = true
+						},
+					},
+				},
 			}
 
 			lspconfig.bashls.setup{
