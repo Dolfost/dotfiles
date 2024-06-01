@@ -192,34 +192,7 @@ return {
 			}
 			
 			lspconfig.neocmake.setup {
-				capabilities = {
-					completionProvider = {
-						resolveProvider = false
-					},
-					definitionProvider = true,
-					documentFormattingProvider = true,
-					documentSymbolProvider = true,
-					executeCommandProvider = {
-						commands = { "dummy.do_something" }
-					},
-					hoverProvider = true,
-					referencesProvider = true,
-					textDocumentSync = {
-						change = 1,
-						openClose = true,
-						save = {
-							includeText = false
-						},
-						willSave = false,
-						willSaveWaitUntil = false
-					},
-					workspace = {
-						workspaceFolders = {
-							changeNotifications = true,
-							supported = true
-						},
-					},
-				},
+				capabilities = capabilities,
 			}
 
 			lspconfig.bashls.setup{
