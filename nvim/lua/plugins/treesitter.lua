@@ -3,6 +3,7 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
 		lazy = true,
+		enabled = true,
 
 		opts = {
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -45,7 +46,7 @@ return {
 		dependencies = {'nvim-treesitter/nvim-treesitter'},
 
 		config = function ()
----@diagnostic disable-next-line: missing-fields
+			---@diagnostic disable-next-line: missing-fields
 			require"nvim-treesitter.configs".setup{
 				textobjects = {
 					select = {
@@ -85,6 +86,26 @@ return {
 						-- * selection_mode: eg 'v'
 						-- and should return true or false
 						include_surrounding_whitespace = true,
+					},
+				},
+			}
+		end,
+	},
+
+	{
+		'nvim-treesitter/nvim-treesitter-refactor',
+
+		dependencies = {'nvim-treesitter/nvim-treesitter'},
+
+		config = function ()
+			---@diagnostic disable-next-line: missing-fields
+			require"nvim-treesitter.configs".setup{
+				refactor = {
+					--  BUG: Definition highlight does not work
+					highlight_definitions = {
+						enable = true,
+						-- Set to false if you have an `updatetime` of ~100.
+						clear_on_cursor_move = true,
 					},
 				},
 			}
