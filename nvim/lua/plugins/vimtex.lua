@@ -89,7 +89,7 @@ return {
 					G = { "<Cmd>VimtexStatus!<cr>", "Full status" },
 					c = { "<Cmd>VimtexClean<cr>", "Clean" },
 					h = { "<Cmd>VimtexClearCache ALL<cr>", "Clear all cache" },
-					C = { "<Cmd>Vimtexllean!<cr>", "Full clean" },
+					C = { "<Cmd>VimtexClean!<cr>", "Full clean" },
 					x = { "<Cmd>VimtexReload<cr>", "Reload" },
 					X = { "<Cmd>VimtexReloadState<cr>", "Reload state" },
 					m = { "<Cmd>VimtexImapsList<cr>", "Input mappings" },
