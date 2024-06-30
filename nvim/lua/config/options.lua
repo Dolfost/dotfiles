@@ -3,9 +3,9 @@ vim.o.compatible = false
 vim.cmd("filetype plugin indent on") -- VimTex requirement
 
 vim.o.encoding = "utf8"              -- VimTex requirement
-vim.o.syntax = true                  -- VimTex requirement
+vim.o.syntax = "ON"                  -- VimTex requirement
 
-vim.o.termguicolor = true
+vim.o.termguicolors = true
 
 vim.cmd.set("t_Co=256")
 vim.o.wildmenu = true
