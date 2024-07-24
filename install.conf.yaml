@@ -46,7 +46,8 @@
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile
 
-    ~/.config/alacritty/alacritty.toml: alacritty/alacritty.toml
+    ~/.config/alacritty: alacritty
+    ~/.config/wezterm: wezterm
     ~/.config/zsh: zsh/zsh
     ~/.config/nvim: nvim
 
