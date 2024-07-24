@@ -11,16 +11,6 @@ duration = 0
 draw_bold_text_with_bright_colors = true
 transparent_background_colors = false
 
-[colors.bright]
-black = "#666666"
-blue = "#04a1fe"
-cyan = "#00ffff"
-green = "#1fff00"
-magenta = "#d582eb"
-red = "#ff0000"
-white = "#ffffff"
-yellow = "#fefb67"
-
 [colors.cursor]
 cursor = "CellForeground"
 text = "CellBackground"
@@ -43,13 +33,23 @@ foreground = "None"
 
 [colors.normal]
 black = "#000000"
-blue = "#0060ff"
-cyan = "#27bdbe"
-green = "#07ea01"
-magenta = "#d47bfe"
 red = "#e5120a"
-white = "#e5e5e5"
+green = "#07ea01"
 yellow = "#fefc57"
+blue = "#0060ff"
+magenta = "#d47bfe"
+cyan = "#27bdbe"
+white = "#e5e5e5"
+
+[colors.bright]
+black = "#666666"
+red = "#ff0000"
+green = "#1fff00"
+yellow = "#fefb67"
+blue = "#04a1fe"
+magenta = "#d582eb"
+cyan = "#00ffff"
+white = "#ffffff"
 
 [colors.primary]
 background = "#000000"
