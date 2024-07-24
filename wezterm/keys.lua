@@ -1,54 +1,97 @@
-local w = require"wezterm"
-local k = {
+local a = require"wezterm".action
+
+return {
 	-- create new window
 	{
 		key = 'n',
 		mods = 'CTRL|SHIFT',
-		action = w.action.SpawnWindow,
+		action = a.SpawnWindow,
 	},
 	{
 		key = 'n',
 		mods = 'SUPER',
-		action = w.action.SpawnWindow,
+		action = a.SpawnWindow,
 	},
 
 	-- hide window
 	{
 		key = 'm',
 		mods = 'SUPER',
-		action = w.action.Hide,
+		action = a.Hide,
 	},
 
 	-- change font size
 	{
 		key = '-',
 		mods = 'SUPER',
-		action = w.action.DecreaseFontSize,
+		action = a.DecreaseFontSize,
 	},
 	{
 		key = '=',
 		mods = 'SUPER',
-		action = w.action.IncreaseFontSize,
+		action = a.IncreaseFontSize,
 	},
 
 	-- toggle full screen
 	{
 		key = 'Enter',
 		mods = 'ALT',
-		action = w.action.ToggleFullScreen,
+		action = a.ToggleFullScreen,
 	},
 
 	-- reload configuration
 	{
 		key = 'R',
 		mods = 'CTRL|SHIFT',
-		action = w.action.ReloadConfiguration,
+		action = a.ReloadConfiguration,
 	},
 	{
 		key = 'r',
 		mods = 'SUPER',
-		action = w.action.ReloadConfiguration,
+		action = a.ReloadConfiguration,
 	},
-}
 
-return k
+	-- copy
+	{
+		key = 'c',
+		mods = 'CTRL|SHIFT',
+		action = a.CopyTo'Clipboard',
+	},
+	{
+		key = 'c',
+		mods = 'SUPER',
+		action = a.CopyTo'Clipboard',
+	},
+	{
+		key = 'Copy',
+		action = a.CopyTo'Clipboard',
+	},
+	-- paste
+	{
+		key = 'v',
+		mods = 'CTRL|SHIFT',
+		action = a.PasteFrom'Clipboard',
+	},
+	{
+		key = 'v',
+		mods = 'SUPER',
+		action = a.PasteFrom'Clipboard',
+	},
+	{
+		key = 'Paste',
+		action = a.PasteFrom'Clipboard',
+	},
+
+	-- launcher menu
+	{
+		key = 'l',
+		mods = 'SUPER',
+		action = a.ShowLauncher,
+	},
+
+	-- quit
+	{
+		key = 'q',
+		mods = 'SUPER',
+		action = a.QuitApplication },
+}
