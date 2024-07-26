@@ -76,7 +76,7 @@ return {
 			-- valid: `/path/with\ space/xxx`
 			-- invalid: `/path/with\\ space/xxx`
 			-- default: ''
-			vim.g.mkdp_browser = 'vivaldi'
+			vim.g.mkdp_browser = 'firefox'
 
 			-- set to 1, echo preview page url in command line when open preview page
 			-- default is 0
