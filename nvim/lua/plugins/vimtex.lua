@@ -56,7 +56,7 @@ return {
 
     vim.g.vimtex_syntax_conceal_cites = {
 			type = 'brackets',
-			icon = '📖',
+			icon = '',
 			verbose = true,
 		}
 
