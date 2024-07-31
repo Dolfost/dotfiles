@@ -34,8 +34,13 @@ return {
 			callback = function(ev)
 				local wk = require"which-key"
 				wk.add{
-					{ "<leader>l>", buffer = ev.buf, group =  "VimMarkdown" },
-					{ "<leader>lt", '<Plug>MarkdownPreviewToggle', desc = "Toggle Markdown Preview" },
+					{ "<leader>l>", buffer = ev.buf, group =  "VimMarkdown",
+						icon = {icon = '', color = 'purple'},
+					},
+					{ "<leader>lt", '<Plug>MarkdownPreviewToggle',
+							desc = "Toggle Markdown Preview",
+							icon = {icon = '', color = 'green'},
+					},
 				}
 			end,
 		})
