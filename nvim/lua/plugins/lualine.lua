@@ -38,7 +38,21 @@ return {
 			lualine_y = {},
 			lualine_z = {},
 		},
-		tabline = {lualine_a = {{'tabs', mode = 2, max_length = vim.o.columns, symbols = {modified = '+'}, path = 0}}},
+		tabline = {
+			lualine_a = {
+				{
+					'tabs',
+					mode = 2,
+					max_length = vim.o.columns,
+					symbols = {
+						modified = '󰷥 ',
+						alternate_file = ' ',
+						directory = 'a',
+					},
+					path = 0
+				}
+			}
+		},
 
 		winbar = {},
 		inactive_winbar = {},
