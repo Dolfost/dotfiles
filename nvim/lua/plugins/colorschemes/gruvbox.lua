@@ -1,7 +1,7 @@
 return {
 	"ellisonleao/gruvbox.nvim",
 	priority = 1000 ,
-	lazy = true,
+	lazy = false,
 	config = true,
 
 	opts = {
