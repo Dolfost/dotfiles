@@ -28,7 +28,7 @@ return {
 
 				highlight = {
 					enable = true,
-					disable = { 'markdown', 'markdown_inline' };
+					disable = { 'markdown', 'markdown_inline', 'latex' };
 
 					-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
 					-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
@@ -43,7 +43,9 @@ return {
 					-- Instead of true it can also be a list of languages
 					additional_vim_regex_highlighting = false,
 				},
-				indent = { enable = true }
+				indent = { enable = true,
+					disable = { "latex", },
+				}
 			})
 		end
 	},
