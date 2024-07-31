@@ -11,17 +11,15 @@ return {
 		init = function ()
 			local wk = require"which-key"
 
-			wk.register({
-				name = "Git",
-				s = {
-					name = "Signs",
-					B = { "<cmd>Gitsigns blame_line full=true<cr>", "Blame current line" },
-					b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle line blaming"},
-					p = { "<cmd>Gitsigns preview_hunk<cr>", "Preview hunk"},
-					d = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff"},
-					s = { "<cmd>Gitsigns toggle_signs<cr>", "Toggle signs"},
-				},
-			}, {prefix = "<leader>g"})
+			wk.add{
+				{ "<leader>g", group = "Git" };
+				{ "<leader>gs", group = "Signs" };
+				{ "<leader>gsB", "<cmd>Gitsigns blame_line full=true<cr>", desc = "Blame current line" },
+				{ "<leader>gsb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle line blaming"},
+				{ "<leader>gsp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview hunk"},
+				{ "<leader>gsd", "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word diff"},
+				{ "<leader>gss", "<cmd>Gitsigns toggle_signs<cr>", desc = "Toggle signs"},
+			}
 
 		end,
 

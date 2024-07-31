@@ -15,23 +15,30 @@ return {
 
 		init = function ()
 			local wk = require"which-key"
-
-			wk.register({
-				t = {
-					name = "Telescope",
-					f = {"<cmd>Telescope find_files<cr>", "Find File" },
-					g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-					b = { "<cmd>Telescope buffers<cr>",   "Buffres" },
-					h = { "<cmd>Telescope help_tags<cr>", "Help tags" },
-					s = { "<cmd>Telescope treesitter<cr>", "Treesitter symbols" },
-					o = { "<cmd>Telescope oldfiles<cr>", "List recentry opened files" },
-					c = { "<cmd>Telescope colorscheme enable_preview=true<cr>", "List avaliable colorschemes" },
-					m = { "<cmd>Telescope marks<cr>", "List vim marks" },
-					r = { "<cmd>Telescope registers<cr>", "List vim registers and their contents" },
-					j = { "<cmd>Telescope jumplist<cr>", "List vim jumplist" },
-					['/'] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer fuzzy search" },
-				},
-			}, { prefix = "<leader>" })
+			wk.add{
+				{ "<leader>t", group = "Telescope" },
+				{ "<leader>tf", "<cmd>Telescope find_files<cr>",
+					desc = "Find File",
+					icon = {icon = " ", color = 'green'}, },
+				{ "<leader>tg",  "<cmd>Telescope live_grep<cr>",
+					desc = "Live grep",
+					icon = {icon = "", color = 'purple'}, },
+				{ "<leader>tb",  "<cmd>Telescope buffers<cr>", desc =   "Buffres" },
+				{ "<leader>th",  "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+				{ "<leader>ts",  "<cmd>Telescope treesitter<cr>", desc = "Treesitter symbols" },
+				{ "<leader>to",  "<cmd>Telescope oldfiles<cr>", desc = "List recentry opened files" },
+				{ "<leader>tc",  "<cmd>Telescope colorscheme enable_preview=true<cr>", desc = "List avaliable colorschemes" },
+				{ "<leader>tm",  "<cmd>Telescope marks<cr>",
+					desc = "List vim marks",
+					icon = {icon = "", color = 'purple'}, },
+				{ "<leader>tr",  "<cmd>Telescope registers<cr>", desc = "List vim registers and their contents" },
+				{ "<leader>tj",  "<cmd>Telescope jumplist<cr>",
+					desc = "List vim jumplist",
+					icon = {icon = "󱡀", color = 'green'}, },
+				{ "<leader>t/",  "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+					desc = "Buffer fuzzy search",
+					icon = {icon = " ", color = 'green'}, },
+			}
 		end,
 
 		config = function()

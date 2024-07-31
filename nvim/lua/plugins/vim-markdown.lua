@@ -33,10 +33,10 @@ return {
 			group = vim.api.nvim_create_augroup('markdownConfig', {}),
 			callback = function(ev)
 				local wk = require"which-key"
-				wk.register({
-					name = "VimMarkdown",
-					l = {'<Plug>MarkdownPreviewToggle', "Toggle Markdown Preview" },
-				}, { prefix = "<leader>l", buffer = ev.buf})
+				wk.add{
+					{ "<leader>l>", buffer = ev.buf, group =  "VimMarkdown" },
+					{ "<leader>lt", '<Plug>MarkdownPreviewToggle', desc = "Toggle Markdown Preview" },
+				}
 			end,
 		})
 

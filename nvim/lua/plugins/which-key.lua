@@ -1,3 +1,5 @@
+---@diagnostic disable: unused-local
+
 return {
 	{
 		"folke/which-key.nvim",
@@ -13,6 +15,21 @@ return {
 		dependencies = { "afreakk/unimpaired-which-key.nvim" },
 
 		opts = {
+      preset = "classic",
+      spec = {},
+      delay = function(ctx)
+        return ctx.plugin and 0 or 200
+      end,
+      filter = function(mapping)
+        -- example to exclude mappings without a description
+        -- return mapping.desc and mapping.desc ~= ""
+        return true
+      end,
+      defer = function(ctx)
+        return ctx.mode == "V" or ctx.mode == "<C-V>"
+      end,
+			notify = true;
+
 			plugins = {
 				marks = true, -- shows a list of your marks on ' and `
 				registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -34,67 +51,91 @@ return {
 			},
 			-- add operators that will trigger motion and text object completion
 			-- to enable all native operators, set the preset / operators plugin above
-			operators = { gc = "Comments" },
-			key_labels = {
-				-- override the label used to display some keys. It doesn't effect WK in any other way.
-				-- For example:
-				-- ["<space>"] = "SPC",
-				-- ["<cr>"] = "RET",
-				-- ["<tab>"] = "TAB",
-			},
-			motions = {
-				count = true,
-			},
-			icons = {
-				breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-				separator = ">", -- symbol used between a key and it's label
-				group = "+", -- symbol prepended to a group
-			},
-			popup_mappings = {
-				scroll_down = "<c-d>", -- binding to scroll down inside the popup
-				scroll_up = "<c-u>", -- binding to scroll up inside the popup
-			},
-			window = {
+      keys = {
+        scroll_down = "<c-d>", -- binding to scroll down inside the popup
+        scroll_up = "<c-u>", -- binding to scroll up inside the popup
+      },
+			win = {
+        title = true,
+        title_pos = "center",
 				border = "rounded", -- none, single, double, shadow
-				position = "bottom", -- bottom, top
-				margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]. When between 0 and 1, will be treated as a percentage of the screen size.
-				padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
-				winblend = 0, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+				padding = { 1, 2, }, -- extra window padding [top/bottom, right/left]
 				zindex = 1000, -- positive value to position WhichKey above other floating windows.
 			},
 			layout = {
-				height = { min = 4, max = 25 },                                      -- min and max height of the columns
 				width = { min = 20, max = 50 },                                      -- min and max width of the columns
 				spacing = 3,                                                         -- spacing between columns
-				align = "left",                                                      -- align columns left, center or right
 			},
-			ignore_missing = false,                                                  -- enable this to hide mappings for which you didn't specify a label
-			hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " }, -- hide mapping boilerplate
-			show_help = true,                                                        -- show a help message in the command line for using WhichKey
-			show_keys = true,                                                        -- show the currently pressed key and its label as a message in the command line
-			triggers = "auto",                                                       -- automatically setup triggers
-			-- triggers = {"<leader>"} -- or specifiy a list manually
-			-- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
-			triggers_nowait = {
-				-- marks
-				"`",
-				"'",
-				"g`",
-				"g'",
-				-- registers
-				'"',
-				"<c-r>",
-				-- spelling
-				"z=",
-			},
-			triggers_blacklist = {
-				-- list of mode / prefixes that should never be hooked by WhichKey
-				-- this is mostly relevant for keymaps that start with a native binding
-				i = { "j", "k" },
-				v = { "j", "k" },
-			},
-			-- disable the WhichKey popup for certain buf types and file types.
-			-- Disabled by default for Telescope
+      sort = { "local", "order", "group", "alphanum", "mod" },
+      expand = 0, -- expand groups when <= n mappings
+      replace = {
+        key = {
+          function(key)
+            return require("which-key.view").format(key)
+          end,
+          -- { "<Space>", "SPC" },
+        },
+        desc = {
+          { "<Plug>%(?(.*)%)?", "%1" },
+          { "^%+", "" },
+          { "<[cC]md>", "" },
+          { "<[cC][rR]>", "" },
+          { "<[sS]ilent>", "" },
+          { "^lua%s+", "" },
+          { "^call%s+", "" },
+          { "^:%s*", "" },
+        },
+      },
+      icons = {
+        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+        separator = "", -- symbol used between a key and it's label
+        group = "+", -- symbol prepended to a group
+        ellipsis = "…",
+        -- set to false to disable all mapping icons,
+        -- both those explicitely added in a mapping
+        -- and those from rules
+        mappings = true,
+        --- See `lua/which-key/icons.lua` for more details
+        --- Set to `false` to disable keymap icons from rules
+        rules = {
+				},
+        -- use the highlights from mini.icons
+        -- When `false`, it will use `WhichKeyIcon` instead
+        colors = true,
+        -- used by key format
+        keys = {
+          Up = " ",
+          Down = " ",
+          Left = " ",
+          Right = " ",
+          C = "󰘴 ",
+          M = "󰘵 ",
+          D = "󰘳 ",
+          S = "󰘶 ",
+          CR = "󰌑 ",
+          Esc = "󱊷 ",
+          ScrollWheelDown = "󱕐 ",
+          ScrollWheelUp = "󱕑 ",
+          NL = "󰌑 ",
+          BS = "󰁮 " ,
+          Space = "󱁐 ",
+          Tab = "󰌒 ",
+          F1 = "󱊫",
+          F2 = "󱊬",
+          F3 = "󱊭",
+          F4 = "󱊮",
+          F5 = "󱊯",
+          F6 = "󱊰",
+          F7 = "󱊱",
+          F8 = "󱊲",
+          F9 = "󱊳",
+          F10 = "󱊴",
+          F11 = "󱊵",
+          F12 = "󱊶",
+        },
+      },
+			show_help = true,	-- show a help message in the command line for using WhichKey
+			show_keys = true, -- show the currently pressed key and its label as a message in the command line
 			disable = {
 				buftypes = {},
 				filetypes = {},
@@ -106,8 +147,8 @@ return {
 			local uwk = require("unimpaired-which-key")
 
 			wk.setup(opts)
-			wk.register(uwk.normal_mode)
-			wk.register(uwk.normal_and_visual_mode, { mode = { "n", "v" } })
+			wk.add(uwk.normal_mode)
+			wk.add(uwk.normal_and_visual_mode, { mode = { "n", "v" } })
 		end
 	},
 }

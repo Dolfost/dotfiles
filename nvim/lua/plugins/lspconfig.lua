@@ -93,48 +93,36 @@ return {
 					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 					local wk = require"which-key"
-					wk.register({
-						name = "Language server",
-						g = {
-							name = "Go to",
-							D = {vim.lsp.buf.declaration, "symbol declaration"},
-							d = {vim.lsp.buf.definition, "symbol definition"},
-							i = {vim.lsp.buf.implementation, "symbol implementation"},
-							t = {vim.lsp.buf.type_definition, "symbol type definition"},
-						},
-						k = {vim.lsp.buf.signature_help, "Display symbol signature help"},
-						K = {vim.lsp.buf.hover, "Display information about the symbol"},
-						w = {
-							name = "Workspace",
-							a = {vim.lsp.buf.add_workspace_folder, "Add folder to the workspace"},
-							r = {vim.lsp.buf.remove_workspace_folder, "Remove forlder from the workspace"},
-						},
-						r = {vim.lsp.buf.rename, "Rename symbol"},
-						f = {function()
+					wk.add{
+						{ "<leader>s", buffer = ev.buf, group = "Language server"},
+						{ "<leader>sg", group = "Go to symbol"},
+						{ "<leader>sgD", vim.lsp.buf.declaration, desc = "Declaration"},
+						{ "<leader>sgd", vim.lsp.buf.definition, desc = "Definition"},
+						{ "<leader>sgi", vim.lsp.buf.implementation, desc = "Implementation"},
+						{ "<leader>sgt", vim.lsp.buf.type_definition, desc = "Type definition"},
+						{ "<leader>sk", vim.lsp.buf.signature_help, desc = "Display symbol signature help"},
+						{ "<leader>sa", vim.lsp.buf.code_action, desc = "Code actions", mode = {"n", "v"}},
+						{ "<leader>sK", vim.lsp.buf.hover, desc = "Display information about the symbol"},
+						{ "<leader>sw", group = "Workspace"},
+						{ "<leader>sw", vim.lsp.buf.add_workspace_folder, desc = "Add folder to the workspace"},
+						{ "<leader>sw", vim.lsp.buf.remove_workspace_folder, desc = "Remove forlder from the workspace"},
+						{ "<leader>sr", vim.lsp.buf.rename, desc = "Rename symbol"},
+						{ "<leader>sr", vim.lsp.buf.rename, desc = "Rename symbol"},
+						{ "<leader>sf", function()
 							vim.lsp.buf.format{async = true}
-						end, "Format current buffer"},
-						l = {
-							name = "List",
-							r = {vim.lsp.buf.references, "current symbol references"},
-							s = {
-								name = "Symbols",
-								d = {vim.lsp.buf.document_symbol, "from current document"},
-								w = {vim.lsp.buf.workspace_symbol, "from current workspace"},
-							},
-							f = {function()
+						end, desc = "Format current buffer"},
+						{ "<leader>sl", group = "List"},
+						{ "<leader>slr", vim.lsp.buf.references, desc = "Current symbol references"},
+						{ "<leader>sls", group = "Symbols"},
+						{ "<leader>sls", vim.lsp.buf.document_symbol, desc = "From current document"},
+						{ "<leader>slw",vim.lsp.buf.workspace_symbol, desc = "From current workspace"},
+						{ "<leader>slf",function()
 								print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-							end , "List workspace folders"},
-							c = {
-								name = "Calls",
-								o = {vim.lsp.buf.outgoing_calls, "symbol outgoing calls"},
-								i = {vim.lsp.buf.incoming_calls, "symbol incoming calls"},
-							},
-						},
-					}, {prefix = "<leader>s", buffer = ev.buf})
-
-					wk.register({
-						a = {vim.lsp.buf.code_action, "Code actions"},
-					}, {prefix = "<leader>s", mode = {"n", "v"}, buffer = ev.buf})
+							end , desc = "Workspace folders"},
+						{ "<leader>sc", group = "Calls"},
+						{ "<leader>so",vim.lsp.buf.outgoing_calls, desc = "Symbol outgoing calls"},
+						{ "<leader>si",vim.lsp.buf.incoming_calls, desc = "Symbol incoming calls"},
+					}
 				end,
 			})
 

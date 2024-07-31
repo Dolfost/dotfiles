@@ -69,38 +69,34 @@ return {
 			callback = function(ev)
 				local wk = require"which-key"
 
-				wk.register({
-					name = "VimTeX",
-					l = { "<cmd>update<cr><cmd>VimtexCompile<cr>", "Compile" },
-					s = { "<cmd>update<cr><cmd>VimtexCompileSS<cr>", "Single shot compile" },
-					L = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
-					i = { "<cmd>VimtexInfo<cr>", "Information" },
-					I = { "<cmd>VimtexInfo!<cr>", "Full information" },
-					t = { "<cmd>VimtexTocOpen<cr>", "Table of Contents" },
-					T = { "<cmd>VimtexTocToggle<cr>", "Toggle table of Contents" },
-					q = { "<cmd>VimtexLog<cr>", "Log" },
-					v = { "<cmd>VimtexView<cr>", "View" },
-					r = { "<plug>(Vimtex-reverse-search)", "Reverse search" },
-					k = { "<Cmd>VimtexStop<cr>", "Stop" },
-					K = { "<Cmd>VimtexStopAll<cr>", "Stop all" },
-					e = { "<Cmd>VimtexErrors<cr>", "Errors" },
-					o = { "<Cmd>VimtexCompileOutput<cr>", "Compile output" },
-					g = { "<Cmd>VimtexStatus<cr>", "Status" },
-					G = { "<Cmd>VimtexStatus!<cr>", "Full status" },
-					c = { "<Cmd>VimtexClean<cr>", "Clean" },
-					h = { "<Cmd>VimtexClearCache ALL<cr>", "Clear all cache" },
-					C = { "<Cmd>VimtexClean!<cr>", "Full clean" },
-					x = { "<Cmd>VimtexReload<cr>", "Reload" },
-					X = { "<Cmd>VimtexReloadState<cr>", "Reload state" },
-					m = { "<Cmd>VimtexImapsList<cr>", "Input mappings" },
-					S = { "<Cmd>VimtexToggleMain<cr>", "Toggle main" },
-					a = { "<Cmd>VimtexContextMenu<cr>", "Context menu"},
-				}, { prefix = "<leader>l", buffer = ev.buf})
-
-				wk.register({
-					name = "VimTex",
-					l = { "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", "Compile selected"},
-				}, { prefix = "<leader>l", mode = "v", buffer = ev.buf})
+				wk.add{
+					{ "<leader>l", buffer = ev.buf, group = "VimTeX" },
+					{ "<leader>ll", "<cmd>update<cr><cmd>VimtexCompile<cr>", desc = "Compile" },
+					{ "<leader>ll", "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", desc = "Compile selected", mode = 'v' },
+					{ "<leader>ls", "<cmd>update<cr><cmd>VimtexCompileSS<cr>", desc = "Single shot compile" },
+					{ "<leader>lL", "<cmd>update<cr><cmd>VimtexCompileSelected<cr>", desc = "Compile selected"},
+					{ "<leader>li", "<cmd>VimtexInfo<cr>", desc = "Information" },
+					{ "<leader>lI", "<cmd>VimtexInfo!<cr>", desc = "Full information" },
+					{ "<leader>lt", "<cmd>VimtexTocOpen<cr>", desc = "Table of Contents" },
+					{ "<leader>lT", "<cmd>VimtexTocToggle<cr>", desc = "Toggle table of Contents" },
+					{ "<leader>lq", "<cmd>VimtexLog<cr>", desc = "Log" },
+					{ "<leader>lv", "<cmd>VimtexView<cr>", desc = "View" },
+					{ "<leader>lr", "<plug>(Vimtex-reverse-search)", desc = "Reverse search" },
+					{ "<leader>lk", "<Cmd>VimtexStop<cr>", desc = "Stop" },
+					{ "<leader>lK", "<Cmd>VimtexStopAll<cr>", desc = "Stop all" },
+					{ "<leader>le", "<Cmd>VimtexErrors<cr>", desc = "Errors" },
+					{ "<leader>lo", "<Cmd>VimtexCompileOutput<cr>", desc = "Compile output" },
+					{ "<leader>lg", "<Cmd>VimtexStatus<cr>", desc = "Status" },
+					{ "<leader>lG", "<Cmd>VimtexStatus!<cr>", desc = "Full status" },
+					{ "<leader>lc", "<Cmd>VimtexClean<cr>", desc = "Clean" },
+					{ "<leader>lh", "<Cmd>VimtexClearCache ALL<cr>", desc = "Clear all cache" },
+					{ "<leader>lC", "<Cmd>VimtexClean!<cr>", desc = "Full clean" },
+					{ "<leader>lx", "<Cmd>VimtexReload<cr>", desc = "Reload" },
+					{ "<leader>lX", "<Cmd>VimtexReloadState<cr>", desc = "Reload state" },
+					{ "<leader>lm", "<Cmd>VimtexImapsList<cr>", desc = "Input mappings" },
+					{ "<leader>lS", "<Cmd>VimtexToggleMain<cr>", desc = "Toggle main" },
+					{ "<leader>la", "<Cmd>VimtexContextMenu<cr>", desc = "Context menu"},
+				}
 			end,
 		})
 

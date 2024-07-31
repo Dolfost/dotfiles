@@ -15,36 +15,80 @@ return {
 		init = function ()
 			local wk = require"which-key"
 
-			wk.register({
-				n = {
-					name = "Neotree",
-					l = {"<cmd>Neotree focus left<cr>", "Open on the left"},
-					r = {"<cmd>Neotree focus right<cr>", "Open on the right"},
-					c = {"<cmd>Neotree focus current<cr>", "Open in this buffer"},
-					f = {"<cmd>Neotree focus float<cr>", "Open as float"},
-					t = {
-						name = "Open Neotree and reveal this file",
-						l = {"<cmd>Neotree focus left reveal<cr>", "Open on the left and find this file"},
-						r = {"<cmd>Neotree focus right reveal<cr>", "Open on the right and find this file"},
-						c = {"<cmd>Neotree focus current reveal<cr>", "Open in this buffer and find this file"},
-						f = {"<cmd>Neotree focus float reveal<cr>", "Open as float and find this file"},
-					},
-					g = {
-						name = "Git status",
-						l = {"<cmd>Neotree focus left git_status<cr>", "Open on the left"},
-						r = {"<cmd>Neotree focus right git_status<cr>", "Open on the right"},
-						c = {"<cmd>Neotree focus current git_status<cr>", "Open in this buffer"},
-						f = {"<cmd>Neotree focus float git_status<cr>", "Open as float"},
-					},
-					b = {
-						name = "Buffers",
-						l = {"<cmd>Neotree focus left buffers<cr>", "Open on the left"},
-						r = {"<cmd>Neotree focus right buffers<cr>", "Open on the right"},
-						c = {"<cmd>Neotree focus current buffers<cr>", "Open in this buffer"},
-						f = {"<cmd>Neotree focus float buffers<cr>", "Open as float"},
-					},
+			wk.add{
+				{ "<leader>n", group = "Neotree",
+					icon = {icon = " ", color = 'purple' }
 				},
-			}, { prefix = "<leader>" })
+				{ "<leader>nl", "<cmd>Neotree focus left<cr>",
+					desc = "Open on the left",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>nr", "<cmd>Neotree focus right<cr>",
+					desc = "Open on the right",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>nc", "<cmd>Neotree focus current<cr>",
+					desc = "Open in this buffer",
+					icon = {icon = "", color = 'green' }
+				},
+				{ "<leader>nf", "<cmd>Neotree focus float<cr>",
+					desc = "Open as float",
+					icon = {icon = "󰹉", color = 'yellow' }
+				},
+				{ "<leader>nt", group = "Open Neotree and reveal this file",
+					icon = {icon = "", color = 'green' }
+				},
+				{ "<leader>ntl", "<cmd>Neotree focus left reveal<cr>",
+					desc = "Open on the left and find this file",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>ntr", "<cmd>Neotree focus right reveal<cr>",
+					desc = "Open on the right and find this file",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>ntc", "<cmd>Neotree focus current reveal<cr>",
+					desc = "Open in this buffer and find this file",
+					icon = {icon = "", color = 'green' }
+				},
+				{ "<leader>ntf", "<cmd>Neotree focus float reveal<cr>",
+					desc = "Open as float and find this file",
+					icon = {icon = "󰹉 ", color = 'green' }
+				},
+				{ "<leader>ng", group = "Git status"},
+				{ "<leader>ngl", "<cmd>Neotree focus left git_status<cr>",
+					desc = "Open on the left",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>ngr", "<cmd>Neotree focus right git_status<cr>",
+					desc = "Open on the right",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>ngc", "<cmd>Neotree focus current git_status<cr>",
+					desc = "Open in this buffer",
+					icon = {icon = "", color = 'green' }
+				},
+				{ "<leader>ngf", "<cmd>Neotree focus float git_status<cr>",
+					desc = "Open as float",
+					icon = {icon = "󰹉 ", color = 'yellow' }
+				},
+				{ "<leader>nb", group = "Buffers"},
+				{ "<leader>nbl", "<cmd>Neotree focus left buffers<cr>",
+					desc = "Open on the left",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>nbr", "<cmd>Neotree focus right buffers<cr>",
+					desc = "Open on the right",
+					icon = {icon = "", color = 'purple' }
+				},
+				{ "<leader>nbc", "<cmd>Neotree focus current buffers<cr>",
+					desc = "Open in this buffer",
+					icon = {icon = "", color = 'green' }
+				},
+				{ "<leader>nbf", "<cmd>Neotree focus float buffers<cr>",
+					desc = "Open as float",
+					icon = {icon = "󰹉 ", color = 'yellow' }
+				},
+			}
 		end,
 
 		opts = {
