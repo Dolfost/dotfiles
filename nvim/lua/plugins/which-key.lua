@@ -147,8 +147,10 @@ return {
 			local uwk = require("unimpaired-which-key")
 
 			wk.setup(opts)
-			wk.add(uwk.normal_mode)
-			wk.add(uwk.normal_and_visual_mode, { mode = { "n", "v" } })
+			--  NOTE: unimpaired-which-key was disabled at 07/31/2024 because 
+			--  WhichKey plugin updated their mappings notation to v3
+			-- wk.add(uwk.normal_mode)
+			-- wk.add(uwk.normal_and_visual_mode, { mode = { "n", "v" } })
 		end
 	},
 }
