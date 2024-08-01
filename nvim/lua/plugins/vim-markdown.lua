@@ -29,12 +29,12 @@ return {
 
 
 		vim.api.nvim_create_autocmd('BufEnter', {
-			pattern = {"*.md"},
+			pattern = {"*.md", "*.markdown"},
 			group = vim.api.nvim_create_augroup('markdownConfig', {}),
 			callback = function(ev)
 				local wk = require"which-key"
 				wk.add{
-					{ "<leader>l>", buffer = ev.buf, group =  "VimMarkdown",
+					{ "<leader>l", buffer = ev.buf, group =  "VimMarkdown",
 						icon = {icon = '', color = 'purple'},
 					},
 					{ "<leader>lt", '<Plug>MarkdownPreviewToggle',
