@@ -64,14 +64,14 @@ return {
 				cycle_navigation = true,
 
 				-- enables default keybindings (C-hjkl) for normal mode
-				enable_default_keybindings = true,
+				enable_default_keybindings = false,
 
 				-- prevents unzoom tmux when navigating beyond vim border
 				persist_zoom = false,
 			},
 			resize = {
 				-- enables default keybindings (A-hjkl) for normal mode
-				enable_default_keybindings = true,
+				enable_default_keybindings = false,
 
 				-- sets resize steps for x axis
 				resize_step_x = 1,
@@ -79,7 +79,48 @@ return {
 				-- sets resize steps for y axis
 				resize_step_y = 1,
 			}
-		}
+		},
+		config = function(_, opts)
+			local tmux = require"tmux"
+			local wk = require"which-key"
+
+			wk.add{
+				{ "<C-h>", tmux.move_left,
+					desc = "Tmux move left",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<C-j>", tmux.move_bottom,
+					desc = "Tmux move down",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<C-k>", tmux.move_top,
+					desc = "Tmux move up",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<C-l>", tmux.move_right,
+					desc = "Tmux move right",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<M-h>", tmux.resize_left,
+					desc = "Tmux resize left",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<M-j>", tmux.resize_bottom,
+					desc = "Tmux resize down",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<M-k>", tmux.resize_top,
+					desc = "Tmux resize up",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<M-l>", tmux.resize_right,
+					desc = "Tmux resize right",
+					icon = {icon = '', color = "azure"},
+				},
+			}
+
+			tmux.setup(opts)
+		end
 	},
 
 
