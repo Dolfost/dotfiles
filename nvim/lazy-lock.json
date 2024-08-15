@@ -25,6 +25,7 @@
   "material.nvim": { "branch": "main", "commit": "b5d0ff3ad37ba00cea3dc3dce0b0f555b481c6f4" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "29f7c215332ba95e470811c380ddbce2cebe2af4" },
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
+  "neogen": { "branch": "main", "commit": "2cad4d6fe9fb7d359ef60f169cf4dad8eb17d6c5" },
   "netman.nvim": { "branch": "main", "commit": "68eecb29d913d4f35efa9bd0e8636046f70f998f" },
   "newpaper.nvim": { "branch": "main", "commit": "eea5df969ed1f0a3c1caa750f82122c92ed074af" },
   "night-owl.nvim": { "branch": "main", "commit": "131641a516085c5b3cacc8022581902e9f2f14af" },
