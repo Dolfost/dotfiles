@@ -39,6 +39,7 @@ require("lazy").setup({
 require'config/visuals'
 require'config/keybinds'
 
+require'config/filetypes'
 
 --  TODO: Fix cmd-zsh completion in cmdline after :!
 --  TODO: Fix DAP suport (see ./lua/plugins/dapconfig.lua) 
