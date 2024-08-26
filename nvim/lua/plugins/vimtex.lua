@@ -186,12 +186,11 @@ return {
 
 		vim.g.vimtex_compiler_method = 'latexmk'
 		vim.g.vimtex_compiler_latexmk = {
-			-- auxdir = 'tex_auxiliary',
-			-- out_dir = 'out',
 			callback = true,
 			continuous = true,
 			executable = 'latexmk',
 			options = {
+				'-r ' .. vim.loop.cwd() .. '/build/src/latexmkrc',
 				'-verbose',
 				'-file-line-error',
 				'-synctex=1',

@@ -75,7 +75,7 @@ return {
 		docstring = [[ 
 		\begin{figure}
 			\begin{center}
-				\includegraphics[width=\textwidth]{\subfix{images/}
+				\includegraphics[width=\textwidth]{}
 			\end{center}
 			\caption{}\label{fig:}
 		\end{figure}
@@ -83,7 +83,7 @@ return {
 	}, fmt([[ 
 		\begin{figure}
 			\begin{center}
-				\includegraphics[width=<width>\textwidth]{\subfix{images/<path>}}
+				\includegraphics[width=<width>\textwidth]{<path>}
 			\end{center}
 			\caption{<caption>}\label{fig:<label>}
 		\end{figure}
@@ -167,9 +167,9 @@ return {
 			
 		\end{}
 		]]},fmt([[ 
-		\begin{<env><opts>
+		\begin{<env>}<opts>
 			<con>
-		\end{<env>
+		\end{<env>}
 		]], {
 		env = i(1, "environment"),
 		opts = i(2),
