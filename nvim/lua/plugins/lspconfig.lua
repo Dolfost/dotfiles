@@ -14,6 +14,7 @@ else
 	avr_gcc = nil;
 end
 
+local mason_bin = vim.fn.stdpath "data" .. "/mason/bin/"
 
 return {
 	{
@@ -218,8 +219,10 @@ return {
 
 			lspconfig.pyright.setup {
 				capabilities = capabilities,
+				cmd = { mason_bin .. "pyright-langserver", "--stdio" },
+				root_dir = vim.loop.cwd, -- current working directory
 			}
-			
+
 			lspconfig.neocmake.setup {
 				capabilities = capabilities,
 			}
