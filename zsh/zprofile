@@ -8,4 +8,7 @@ if [[ $(uname) == "Darwin" ]]; then
 	# Export GNU coreutil before Mac coreutils
 	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 	export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
+
+	export ANDROID_NDK_HOME="/opt/homebrew/share/android-ndk"
 fi
+
