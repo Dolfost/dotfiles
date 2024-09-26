@@ -29,6 +29,20 @@ return {
 	}),
 
 	s({
+		trig = "ff",
+		show_condition = tex.in_math,
+		condition = tex.in_math,
+		name = "Fraction",
+		desc = "Open new fraction",
+		docstring = [[\frac{}{}]]
+	}, fmt([[\frac{<num>}{<den>}<e>]], {
+		num = i(1, "1"),
+		den = i(2, "2"),
+		e = i(0),
+	}, {
+		delimiters = "<>" })),
+
+	s({
 		trig = "mm",
 		show_condition = tex.in_text,
 		condition = tex.in_text,
