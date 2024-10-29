@@ -29,6 +29,7 @@
   "netman.nvim": { "branch": "main", "commit": "68eecb29d913d4f35efa9bd0e8636046f70f998f" },
   "newpaper.nvim": { "branch": "main", "commit": "eea5df969ed1f0a3c1caa750f82122c92ed074af" },
   "night-owl.nvim": { "branch": "main", "commit": "131641a516085c5b3cacc8022581902e9f2f14af" },
+  "nightfox.nvim": { "branch": "main", "commit": "7557f26defd093c4e9bc17f28b08403f706f5a44" },
   "nordic.nvim": { "branch": "main", "commit": "03fcff3c8d68049b8118047784746048b4a08049" },
   "nui.nvim": { "branch": "main", "commit": "61574ce6e60c815b0a0c4b5655b8486ba58089a1" },
   "nvim-cmp": { "branch": "main", "commit": "d818fd0624205b34e14888358037fb6f5dc51234" },
