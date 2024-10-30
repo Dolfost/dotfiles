@@ -110,3 +110,9 @@ toolchain
 CMake
 days
 days
+cmake
+AVR
+SFML
+#hysics/!
+physics/!
+physics
