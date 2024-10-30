@@ -12,7 +12,9 @@ return {
 				-- A list of parser names, or "all" (the five listed parsers should always be installed)
 				ensure_installed = {'c', 'cpp', 'bash', 'python', 'c_sharp', 'git_rebase', 'git_config', 'gitignore',
 					'doxygen',
-					'vimdoc', 'lua', 'luadoc', 'vim', 'query', 'markdown', 'markdown_inline'},
+					'vimdoc', 'lua', 'luadoc', 'vim', 'query', 'markdown', 'markdown_inline',
+					'latex',
+				},
 
 				-- Install parsers synchronously (only applied to `ensure_installed`)
 				sync_install = true,
@@ -29,7 +31,7 @@ return {
 
 				highlight = {
 					enable = true,
-					disable = { 'markdown', 'markdown_inline', 'latex' };
+					disable = { 'markdown', 'markdown_inline', };
 
 					-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
 					-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is

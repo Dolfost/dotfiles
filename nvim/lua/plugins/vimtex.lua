@@ -2,7 +2,7 @@ return {
 	'lervag/vimtex',
 	lazy = true,
 	ft = 'tex',
-	enabled = true,
+	enabled = false,
 
 	--  TODO: fix skim backward search
 

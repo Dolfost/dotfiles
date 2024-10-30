@@ -4,34 +4,26 @@ local tex = require"utils.texsnip"
 
 return {
 	tex.environment("gather", {
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 	}),
 
 	tex.environment("align", {
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 	}),
 
 	tex.environment("multline", {
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 	}),
 
-	tex.environment("cases", {
-		show_condition = tex.in_math,
-		condition = tex.in_math,
-	}),
+	tex.environment("cases"),
 
-	tex.environment("bmatrix", {
-		show_condition = tex.in_math,
-		condition = tex.in_math,
-	}),
+	tex.environment("bmatrix"),
 
 	s({
 		trig = "ff",
-		show_condition = tex.in_math,
-		condition = tex.in_math,
 		name = "Fraction",
 		desc = "Open new fraction",
 		docstring = [[\frac{}{}]]
@@ -44,8 +36,6 @@ return {
 
 	s({
 		trig = "mm",
-		show_condition = tex.in_text,
-		condition = tex.in_text,
 		name = "Inline math",
 		desc = "Begin inline math",
 		docstring = [[\( \)]]
@@ -57,8 +47,6 @@ return {
 
 	s({
 		trig = "MM",
-		show_condition = tex.in_text,
-		condition = tex.in_text,
 		name = "Display math",
 		desc = "Begin display math",
 		docstring = "\\[ \\]"
@@ -67,5 +55,4 @@ return {
 		e = i(0),
 	}, {
 		delimiters = "<>" })),
-
 }

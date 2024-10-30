@@ -5,8 +5,8 @@ local tex = require"utils.texsnip"
 return {
 	s({
 		trig = "itemize",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{itemize}]],
 		desc = "Begin new itemize environment",
 		docstring = [[
@@ -25,8 +25,8 @@ return {
 
 	s({
 		trig = "enumerate",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{enumerate}]],
 		desc = "Begin new enumerate environment",
 		docstring = [[
@@ -46,8 +46,8 @@ return {
 
 	s({
 		trig = "description",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{description}]],
 		desc = "Begin new description environment",
 		docstring = [[
@@ -68,8 +68,8 @@ return {
 
 	s({
 		trig = "figure",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{figure}]],
 		desc = "Make a figure",
 		docstring = [[ 
@@ -105,8 +105,8 @@ return {
 
 	s({
 		trig = "listing",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{longlisting}]],
 		desc = "Begin new code listing",
 		docstring = [[
@@ -136,8 +136,8 @@ return {
 
 	s({
 		trig = "minted",
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text,
+		show_condition = line_end,
+		condition = line_end,
 		name = [[\begin{minted}]],
 		desc = "Begin new minted environment",
 		docstring = [[ 
@@ -181,7 +181,7 @@ return {
 
 
 	tex.environment("center", {
-		show_condition = line_end * tex.in_text,
-		condition = line_end * tex.in_text
+		show_condition = line_end,
+		condition = line_end,
 	}),
 }

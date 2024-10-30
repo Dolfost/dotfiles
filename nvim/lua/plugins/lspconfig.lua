@@ -34,6 +34,7 @@ return {
 				'pyright',
 				'neocmake',
 				'ast_grep',
+				'texlab',
 			},
 		},
 	},
@@ -167,6 +168,36 @@ return {
 					}
 				end,
 			})
+
+			lspconfig.texlab.setup {
+				capabilities = capabilities,
+				filetypes = { "tex", "plaintex", "bib", "sty" },
+				settings = {
+					texlab = {
+						bibtexFormatter = "texlab",
+						build = {
+							args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+							executable = "latexmk",
+							forwardSearchAfter = false,
+							onSave = false
+						},
+						chktex = {
+							onEdit = false,
+							onOpenAndSave = false
+						},
+						diagnosticsDelay = 300,
+						formatterLineLength = 80,
+						forwardSearch = {
+							args = {}
+						},
+						latexFormatter = "latexindent",
+						latexindent = {
+							modifyLineBreaks = false
+						}
+					}
+				},
+				single_file_support = true
+			}
 
 			lspconfig.lua_ls.setup {
 				capabilities = capabilities,
