@@ -13,7 +13,7 @@ return {
 				ensure_installed = {'c', 'cpp', 'bash', 'python', 'c_sharp', 'git_rebase', 'git_config', 'gitignore',
 					'doxygen',
 					'vimdoc', 'lua', 'luadoc', 'vim', 'query', 'markdown', 'markdown_inline',
-					'latex',
+					'latex', 'bibtex'
 				},
 
 				-- Install parsers synchronously (only applied to `ensure_installed`)

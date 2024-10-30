@@ -167,7 +167,7 @@ return {
 						},
 					}
 				end,
-			})
+		})
 
 			lspconfig.texlab.setup {
 				capabilities = capabilities,
@@ -196,7 +196,6 @@ return {
 						}
 					}
 				},
-				single_file_support = true
 			}
 
 			lspconfig.lua_ls.setup {
