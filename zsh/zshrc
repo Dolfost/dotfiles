@@ -1,11 +1,12 @@
 export ZSH_CONFIG="$HOME/.config/zsh"
 
 source $ZSH_CONFIG/exports.zsh
-source $ZSH_CONFIG/plugins.zsh
 source $ZSH_CONFIG/aliases.zsh
 source $ZSH_CONFIG/visuals.zsh
 source $ZSH_CONFIG/binds.zsh
 source $ZSH_CONFIG/options.zsh
+
+eval "$(sheldon source)"
 
 # more details: man pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
