@@ -6,12 +6,6 @@ source $ZSH_CONFIG/aliases.zsh
 source $ZSH_CONFIG/visuals.zsh
 source $ZSH_CONFIG/binds.zsh
 source $ZSH_CONFIG/options.zsh
-source $ZSH_CONFIG/completions.zsh
-
-# if [[ "$TERM" != "tmux-256color" ]]
-# then
-# 	tmux attach-session -t "$USERNAME" || tmux new-session -s "$USERNAME"
-# fi
 
 # more details: man pyenv
 if command -v pyenv 1>/dev/null 2>&1; then

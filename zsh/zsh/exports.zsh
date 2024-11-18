@@ -1,23 +1,25 @@
-# export invocations
 export ZSH="$HOME/.oh-my-zsh"
 
-export LANG=en_US.UTF-8
-
-# cargo
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$(uname -s)" == "Darwin"* ]]; then
 	export PATH="$PATH:$HOME/.cargo/bin"
-	# Add libgdiplus to csc library path on mac
-	export DYLD_LIBRARY_PATH="/opt/homebrew/Cellar/mono-libgdiplus/6.1_2/lib/"
+	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 	export ZPLUG_HOME=/opt/homebrew/opt/zplug
-else
-	export ZPLUG_HOME=~/.zplug
 fi
 
-# My sctipts
-export PATH="$PATH:$HOME/.scripts"
+export PATH="$PATH:$HOME/.local/bin"
 
-# Remove files in .gitignore from fzf list 
-export FZF_DEFAULT_COMMAND='rg --files'
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=8000
 
-# zplug
-source $ZPLUG_HOME/init.zsh
+export VISUAL='nvim'
+export EDITOR='nvim'
+export PAGER='less'
+
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'

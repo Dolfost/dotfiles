@@ -1,14 +1,3 @@
-if [[ $(uname) == "Darwin" ]]; then
-	# Set PATH, MANPATH, etc., for Homebrew.
+if [[ $(uname -s) == "Darwin"* ]]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
-
-	# Export GNUbin utils begore Mac's (grep stuff)
-	export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-
-	# Export GNU coreutil before Mac coreutils
-	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
-	export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
-
-	export ANDROID_NDK_HOME="/opt/homebrew/share/android-ndk"
 fi
-
