@@ -1,9 +1,9 @@
-eval `dircolors $ZSH_CONFIG/dir_colors`
+eval `dircolors $ZSH_CONFIG/LS_COLORS`
 
 zmodload zsh/complist
 
 # use LSCOLORS for tab completion
-zstyle ':completion:*:default' list-colors ${(s.:.)LSCOLORS}
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # case insensitive path-completion
 autoload -Uz +X compinit && compinit
