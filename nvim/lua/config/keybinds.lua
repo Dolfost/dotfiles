@@ -29,7 +29,4 @@ wk.add{
 	{ "<leader>Ml", "<cmd>Lazy<cr>", desc = "Lazy",
 		icon = {icon = '󰒲', color = 'purple'},
 	},
-	{ "<leader>Mm", "<cmd>Mason<cr>", desc = "Mason",
-		icon = {icon = '', color = 'purple'},
-	}
 }
