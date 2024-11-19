@@ -3,3 +3,6 @@
 
 # Ignore ctags
 tags*
+
+# Neovim plugin manager lockfile
+lazy-lock.json
