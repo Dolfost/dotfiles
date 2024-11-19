@@ -207,7 +207,7 @@ return {
 					}
 				},
 				cmd = {
-					vim.fn.stdpath("data") .. "/mason/bin/clangd", avr_gcc and "--query-driver=" .. avr_gcc,
+					"clangd", avr_gcc and "--query-driver=" .. avr_gcc,
 					"--header-insertion=iwyu",
 					"--enable-config",
 				},
