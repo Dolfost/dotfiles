@@ -18,6 +18,7 @@ c.native_macos_fullscreen_mode = true
 
 c.font = w.font("Iosevka Nerd Font", { weight = 'Light'})
 c.font_size = 18
+c.adjust_window_size_when_changing_font_size = false
 c.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
 
 c.scrollback_lines = 0
