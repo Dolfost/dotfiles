@@ -100,7 +100,6 @@ return {
 
 			sources = {
 				'filesystem',
-				"netman.ui.neo-tree",
 				"buffers",
 				"git_status",
 			},
