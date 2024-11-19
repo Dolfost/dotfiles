@@ -94,7 +94,10 @@ return {
 		opts = {
 			window = {
 				mappings = {
-					["P"] = {"toggle_preview", config = { use_float = true, use_image_nvim = true}},
+					["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true} },
+					["S"] = { "noop" }, -- telescope-like splits
+					["s"] = { "open_split" },
+					["v"] = { "open_vsplit" },
 				}
 			},
 
