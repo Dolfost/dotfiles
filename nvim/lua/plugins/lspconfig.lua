@@ -14,31 +14,7 @@ else
 	avr_gcc = nil;
 end
 
-local mason_bin = vim.fn.stdpath "data" .. "/mason/bin/"
-
 return {
-	{
-		'williamboman/mason-lspconfig.nvim',
-
-		dependencies = {
-			{ "williamboman/mason.nvim", config = true, },
-		},
-
-		opts = {
-			ensure_installed = {
-				'lua_ls',
-				'bashls',
-				'marksman',
-				'clangd',
-				'omnisharp',
-				'pyright',
-				'neocmake',
-				'ast_grep',
-				'texlab',
-			},
-		},
-	},
-
 	{
 		"folke/neodev.nvim", -- setup in lspconfig
 	},
@@ -238,22 +214,12 @@ return {
 				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
 			}
 
-			lspconfig.omnisharp.setup {
-				capabilities = capabilities,
-				cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
-				enable_import_completion = true,
-				organize_imports_on_format = true,
-				enable_roslyn_analyzers = true,
-				root_dir = vim.loop.cwd, -- current working directory
-			}
-
 			lspconfig.pyright.setup {
 				capabilities = capabilities,
-				cmd = { mason_bin .. "pyright-langserver", "--stdio" },
 				root_dir = vim.loop.cwd, -- current working directory
 			}
 
-			lspconfig.neocmake.setup {
+			lspconfig.cmake.setup {
 				capabilities = capabilities,
 			}
 
@@ -315,10 +281,10 @@ return {
 			}
 
 			ls.filetype_extend("cpp", {"c"})
-			require('luasnip.loaders.from_lua').load{ 
+			require('luasnip.loaders.from_lua').load{
 				paths = {
 					'~/.config/nvim/lua/snippets'
-				} 
+				}
 			}
 		end,
 	},
@@ -328,8 +294,6 @@ return {
 
 		dependencies = {
 			'neovim/nvim-lspconfig',
-			{ "williamboman/mason.nvim", config = true, },
-			'williamboman/mason-lspconfig.nvim',
 			'onsails/lspkind.nvim',
 
 			'hrsh7th/cmp-cmdline',
@@ -339,9 +303,8 @@ return {
 			'saadparwaiz1/cmp_luasnip',
 			'tamago324/cmp-zsh',
 			'petertriho/cmp-git',
-			{ 'micangl/cmp-vimtex',      ft = 'tex' },
+			{ 'micangl/cmp-vimtex', ft = 'tex' },
 		},
-
 
 		config = function()
 			local cmp = require 'cmp'
