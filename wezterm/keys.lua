@@ -23,16 +23,6 @@ return {
 	-- change font size
 	{
 		key = '-',
-		mods = 'SUPER',
-		action = a.DecreaseFontSize,
-	},
-	{
-		key = '=',
-		mods = 'SUPER',
-		action = a.IncreaseFontSize,
-	},
-	{
-		key = '-',
 		mods = 'CTRL',
 		action = a.DecreaseFontSize,
 	},
