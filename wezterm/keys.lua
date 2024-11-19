@@ -31,6 +31,16 @@ return {
 		mods = 'SUPER',
 		action = a.IncreaseFontSize,
 	},
+	{
+		key = '-',
+		mods = 'CTRL',
+		action = a.DecreaseFontSize,
+	},
+	{
+		key = '=',
+		mods = 'CTRL',
+		action = a.IncreaseFontSize,
+	},
 
 	-- toggle full screen
 	{
