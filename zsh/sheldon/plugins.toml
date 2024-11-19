@@ -17,8 +17,8 @@ shell = "zsh"
 [plugins.syntax-hl]
 github = "zsh-users/zsh-syntax-highlighting"
 
-# [plugins.autosuggestions]
-# github = "zsh-users/zsh-autosuggestions"
+[plugins.autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
 
 [plugins.minimal]
 github = "subnixr/minimal"
