@@ -1,5 +1,4 @@
 -- This is a global keybinds file. The plugin-specific keybinds live in lua/plugin.lua or ftplugin/
-
 local wk = require"which-key"
 
 -- NO ARROW KEYS, U MFCKER! heheheha!!1!
@@ -34,6 +33,3 @@ wk.add{
 		icon = {icon = '', color = 'purple'},
 	}
 }
-
--- Regenerate ctags file with F5
--- vim.keymap.set('n', '<f5>', ':!ctags -R<CR>', {desc = "Generate Ctags"})

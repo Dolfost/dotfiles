@@ -2,8 +2,8 @@ vim.o.compatible = false
 
 vim.cmd("filetype plugin indent on") -- VimTex requirement
 
-vim.o.encoding = "utf8"              -- VimTex requirement
-vim.o.syntax = "ON"                  -- VimTex requirement
+vim.o.encoding = "utf8" -- VimTex requirement
+vim.o.syntax = "ON" -- VimTex requirement
 
 vim.o.termguicolors = true
 
@@ -24,8 +24,6 @@ vim.o.cursorline = true
 vim.o.showmode = false
 vim.o.scrolloff = 8
 
--- vim.o.switchbuf = "usetab"
-
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.conceallevel = 2
@@ -33,10 +31,6 @@ vim.o.conceallevel = 2
 -- Replace grep with ripgrep
 vim.o.grepprg = 'rg\\ $*\\ --column\\ --no-heading'
 vim.o.grepformat = '%f:%l:%c%m,%l:%c%m'
-
--- Next map  makes the :edit %:h<Tab>
--- equivalent to       :edit %%<Tab>
--- vim.cmd("cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'")
 
 -- Disable netwr explorer
 vim.g.loaded_netrwPlugin = true

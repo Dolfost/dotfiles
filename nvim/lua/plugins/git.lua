@@ -23,7 +23,6 @@ return {
 
 		end,
 
-
 		config = function()
 			local gitsigns = require("gitsigns")
 
@@ -67,7 +66,6 @@ return {
 					col = 1
 				},
 			}
-
 			gitsigns.setup(opts)
 		end,
 	},

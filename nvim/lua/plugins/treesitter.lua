@@ -113,7 +113,6 @@ return {
 			---@diagnostic disable-next-line: missing-fields
 			require"nvim-treesitter.configs".setup{
 				refactor = {
-					--  BUG: Definition highlight does not work
 					highlight_definitions = {
 						enable = true,
 						-- Set to false if you have an `updatetime` of ~100.
