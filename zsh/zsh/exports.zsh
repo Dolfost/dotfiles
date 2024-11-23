@@ -3,6 +3,9 @@ export ZSH="$HOME/.oh-my-zsh"
 if [[ "$(uname -s)" == "Darwin"* ]]; then
 	export PATH="$PATH:$HOME/.cargo/bin"
 	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+	PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+	PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
 fi
 
 export PATH="$PATH:$HOME/.local/bin"
