@@ -25,7 +25,7 @@ cask "mactex-no-gui"
 cask "rar"
 
 cask "drawio"
-cask "font-iosevka"
+cask "font-iosevka-nerd-font"
 cask "freecad"
 cask "iina"
 cask "karabiner-elements"
