@@ -56,5 +56,5 @@
       if: '[ `uname` = Darwin ]'
 
     ~/.config/karabiner/karabiner.json:
-      path: karabiner/karabiner.json
+      path: karabiner-elements/karabiner.json
       if: '[ `uname` = Darwin ]'
