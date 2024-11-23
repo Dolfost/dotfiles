@@ -1,7 +1,7 @@
 brew "ncurses"
 
 brew "doxygen"
-brew "graphwiz"
+brew "graphviz"
 brew "git"
 brew "coreutils"
 brew "gnu-sed"
