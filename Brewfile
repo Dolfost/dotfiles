@@ -22,7 +22,6 @@ brew "zip"
 brew "sheldon"
 cask "mactex-no-gui"
 cask "rar"
-cask "java"
 
 brew "neovim"
 brew "bash-language-server"
