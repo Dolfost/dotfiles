@@ -1,3 +1,3 @@
 vim.cmd.colorscheme('carbonfox')
 vim.opt.fillchars = 'eob: '
-vim.opt.pumheight = 30
+vim.opt.pumheight = 10
