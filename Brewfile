@@ -30,6 +30,7 @@ brew "unzip"
 cask "rar"
 # Neovim
 brew "neovim"
+brew "ripgrep"
 brew "bash-language-server"
 brew "lua-language-server"
 brew "cmake-language-server"
