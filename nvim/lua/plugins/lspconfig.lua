@@ -5,14 +5,14 @@ local has_words_before = function()
 end
 
 -- search for avr-gcc for clangd
-local handle = io.popen("command -v avr-gcc")
-local avr_gcc
-if handle then
-	avr_gcc = handle:read("*a"):sub(1, -2)
-	handle:close()
-else
-	avr_gcc = nil;
-end
+-- local handle = io.popen("command -v avr-gcc")
+-- local avr_gcc
+-- if handle then
+-- 	avr_gcc = handle:read("*a"):sub(1, -2)
+-- 	handle:close()
+-- else
+-- 	avr_gcc = nil;
+-- end
 
 return {
 	{
@@ -185,34 +185,35 @@ return {
 				},
 			}
 
-			lspconfig.clangd.setup {
-				capabilities = {
-					textDocument = {
-						completion = {
-							completionItem = {
-								commitCharactersSupport = true,
-								deprecatedSupport = true,
-								insertReplaceSupport = true,
-								labelDetailsSupport = true,
-								preselectSupport = true,
-								resolveSupport = {
-									properties = { "documentation", "detail", "additionalTextEdits" }
-								},
-								snippetSupport = false,
-								tagSupport = {
-									valueSet = { 1 }
-								}
-							}
-						}
-					}
-				},
-				cmd = {
-					"clangd", avr_gcc and "--query-driver=" .. avr_gcc,
-					"--header-insertion=iwyu",
-					"--enable-config",
-				},
-				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
-			}
+			-- lspconfig.clangd.setup {
+			-- 	capabilities = {
+			-- 		textDocument = {
+			-- 			completion = {
+			-- 				completionItem = {
+			-- 					commitCharactersSupport = true,
+			-- 					deprecatedSupport = true,
+			-- 					insertReplaceSupport = true,
+			-- 					labelDetailsSupport = true,
+			-- 					preselectSupport = true,
+			-- 					resolveSupport = {
+			-- 						properties = { "documentation", "detail", "additionalTextEdits" }
+			-- 					},
+			-- 					snippetSupport = false,
+			-- 					tagSupport = {
+			-- 						valueSet = { 1 }
+			-- 					}
+			-- 				}
+			-- 			}
+			-- 		}
+			-- 	},
+			-- 	cmd = {
+			-- 		"clangd", avr_gcc and "--query-driver=" .. avr_gcc,
+			-- 		"--header-insertion=iwyu",
+			-- 		"--enable-config",
+			-- 	},
+			-- 	filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
+			-- }
+			lspconfig.ccls.setup {}
 
 			lspconfig.pyright.setup {
 				capabilities = capabilities,
