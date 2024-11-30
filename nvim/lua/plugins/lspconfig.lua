@@ -185,35 +185,34 @@ return {
 				},
 			}
 
-			-- lspconfig.clangd.setup {
-			-- 	capabilities = {
-			-- 		textDocument = {
-			-- 			completion = {
-			-- 				completionItem = {
-			-- 					commitCharactersSupport = true,
-			-- 					deprecatedSupport = true,
-			-- 					insertReplaceSupport = true,
-			-- 					labelDetailsSupport = true,
-			-- 					preselectSupport = true,
-			-- 					resolveSupport = {
-			-- 						properties = { "documentation", "detail", "additionalTextEdits" }
-			-- 					},
-			-- 					snippetSupport = false,
-			-- 					tagSupport = {
-			-- 						valueSet = { 1 }
-			-- 					}
-			-- 				}
-			-- 			}
-			-- 		}
-			-- 	},
-			-- 	cmd = {
-			-- 		"clangd", avr_gcc and "--query-driver=" .. avr_gcc,
-			-- 		"--header-insertion=iwyu",
-			-- 		"--enable-config",
-			-- 	},
-			-- 	filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
-			-- }
-			lspconfig.ccls.setup {}
+			lspconfig.clangd.setup {
+				capabilities = {
+					textDocument = {
+						completion = {
+							completionItem = {
+								commitCharactersSupport = true,
+								deprecatedSupport = true,
+								insertReplaceSupport = true,
+								labelDetailsSupport = true,
+								preselectSupport = true,
+								resolveSupport = {
+									properties = { "documentation", "detail", "additionalTextEdits" }
+								},
+								snippetSupport = false,
+								tagSupport = {
+									valueSet = { 1 }
+								}
+							}
+						}
+					}
+				},
+				cmd = {
+					"clangd",
+					"--header-insertion=iwyu",
+					"--enable-config",
+				},
+				filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
+			}
 
 			lspconfig.pyright.setup {
 				capabilities = capabilities,
