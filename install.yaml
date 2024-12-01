@@ -1,0 +1,13 @@
+~/.tmux.conf: tmux/tmux.conf
+~/.tmate.conf: tmux/tmate.conf
+~/.gitconfig: git/gitconfig
+~/.sqliterc: sqlite/sqliterc
+~/.zshrc: zsh/zshrc
+~/.zprofile: zsh/zprofile
+
+~/.config/alacritty: alacritty
+~/.config/wezterm: wezterm
+~/.config/zsh: zsh/zsh
+~/.config/nvim: nvim
+
+~/.config/karabiner/karabiner.json: karabiner-elements/karabiner.json
