@@ -10,6 +10,7 @@ brew "git"
 brew "graphviz"
 cask "mactex-no-gui"
 brew "pygments"
+brew "watch"
 # GNU
 brew "coreutils"
 brew "gnu-sed"
