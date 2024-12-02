@@ -11,6 +11,7 @@ brew "graphviz"
 cask "mactex-no-gui"
 brew "pygments"
 brew "watch"
+brew "rustup"
 # GNU
 brew "coreutils"
 brew "gnu-sed"

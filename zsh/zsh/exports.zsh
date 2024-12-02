@@ -1,14 +1,15 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 if [[ "$(uname -s)" == "Darwin"* ]]; then
-	export PATH="$PATH:$HOME/.cargo/bin"
-	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+	PATH="$PATH:$HOME/.cargo/bin"
+	PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 	PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 	PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
+	PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 fi
 
-export PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/.local/bin"
 
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
@@ -26,3 +27,5 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+export PATH
