@@ -35,5 +35,6 @@ require("lazy").setup({
 require'config/visuals'
 require'config/keybinds'
 require'config/filetypes'
+require'config/rust'
 
 --  TODO: Fix cmd-zsh completion in cmdline after :!
