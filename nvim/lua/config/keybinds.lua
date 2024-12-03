@@ -1,4 +1,4 @@
--- This is a global keybinds file. The plugin-specific keybinds live in lua/plugin.lua or ftplugin/
+-- This is a global keybinds file. The plugin-specific keybinds live in lua/plugins/ or ftplugin/
 local wk = require"which-key"
 
 -- NO ARROW KEYS, U MFCKER! heheheha!!1!
