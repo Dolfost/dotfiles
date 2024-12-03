@@ -50,19 +50,19 @@ return {
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			local lspconfig = require("lspconfig")
 
-       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-         vim.lsp.handlers.hover, {
-           border = "rounded",
-           title = "Symbol info"
-         }
-       )
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+				vim.lsp.handlers.hover, {
+					border = "rounded",
+					title = "Symbol info"
+				}
+			)
 
-       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-         vim.lsp.handlers.signature_help, {
-           border = "rounded",
-					 title = "Signature help",
-         }
-       )
+			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+				vim.lsp.handlers.signature_help, {
+					border = "rounded",
+					title = "Signature help",
+				}
+			)
 
 			vim.api.nvim_create_autocmd('LspAttach', {
 				group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -127,8 +127,8 @@ return {
 						{ "<leader>sls", vim.lsp.buf.document_symbol, desc = "From current document"},
 						{ "<leader>slw",vim.lsp.buf.workspace_symbol, desc = "From current workspace"},
 						{ "<leader>slf",function()
-								print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-							end,
+							print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+						end,
 							desc = "Workspace folders",
 							icon = {icon = '', color = 'purple'},
 						},
@@ -143,17 +143,9 @@ return {
 						},
 					}
 				end,
-		})
+			})
 
-			require'lspconfig'.rust_analyzer.setup{
-				settings = {
-					['rust-analyzer'] = {
-						diagnostics = {
-							enable = false;
-						}
-					}
-				}
-			}
+			lspconfig.rust_analyzer.setup{}
 
 			lspconfig.texlab.setup {
 				capabilities = capabilities,
@@ -267,10 +259,10 @@ return {
 			}
 		end,
 
-	--  NOTE: :h LSP says:
-	-- 	To learn what capabilities are available you can run the following command in
-	-- 	a buffer with a started LSP client:
-	-- 		:lua =vim.lsp.get_active_clients()[1].server_capabilities
+		--  NOTE: :h LSP says:
+		-- 	To learn what capabilities are available you can run the following command in
+		-- 	a buffer with a started LSP client:
+		-- 		:lua =vim.lsp.get_active_clients()[1].server_capabilities
 	},
 
 	{
@@ -370,7 +362,7 @@ return {
 					end, { 'i', 's' }),
 				}),
 
----@diagnostic disable-next-line: missing-fields
+				---@diagnostic disable-next-line: missing-fields
 				formatting = {
 					fields = { 'abbr', 'kind', 'menu' },
 					format = lspkind.cmp_format({
