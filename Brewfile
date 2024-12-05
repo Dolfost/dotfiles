@@ -5,6 +5,7 @@ brew "qt"
 # Terminal tools
 brew "make"
 brew "cmake"
+brew "cmake-docs"
 brew "doxygen"
 brew "git"
 brew "graphviz"
@@ -36,6 +37,7 @@ brew "ripgrep"
 brew "bash-language-server"
 brew "lua-language-server"
 brew "cmake-language-server"
+brew "pyright"
 
 # GUI
 cask "drawio"
