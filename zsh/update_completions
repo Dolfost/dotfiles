@@ -1,0 +1,12 @@
+#!/bin/bash
+
+zfunc="$HOME/.zfunc"
+
+if [ ! -d "$zfunc" ]; then 
+	mkdir "$zfunc"
+fi
+
+if command -v rustup 2>&1 >/dev/null; then 
+	rustup completions zsh cargo > "$zfunc/_cargo"
+	rustup completions zsh rustup > "$zfunc/_rustup"
+fi
