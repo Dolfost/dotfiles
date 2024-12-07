@@ -13,7 +13,7 @@ return {
 				ensure_installed = {'c', 'cpp', 'bash', 'python', 'c_sharp', 'git_rebase', 'git_config', 'gitignore',
 					'doxygen',
 					'vimdoc', 'lua', 'luadoc', 'vim', 'query', 'markdown', 'markdown_inline',
-					'latex', 'bibtex'
+					-- 'latex', 'bibtex'
 				},
 
 				-- Install parsers synchronously (only applied to `ensure_installed`)
@@ -24,14 +24,14 @@ return {
 				auto_install = true,
 
 				-- List of parsers to ignore installing (for "all")
-				ignore_install = { "latex" },
+				ignore_install = { "latex", 'bibtex' },
 
 				-- If you need to change the installation directory of the parsers (see -> Advanced Setup)
 				-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
 				highlight = {
 					enable = true,
-					disable = { 'markdown', 'markdown_inline', };
+					disable = { 'markdown', 'markdown_inline', 'latex', 'bibtex' };
 
 					-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
 					-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
@@ -47,7 +47,7 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 				indent = { enable = true,
-					disable = { "latex", },
+					disable = { "latex", 'bibtex' },
 				}
 			})
 		end
