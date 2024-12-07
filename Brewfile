@@ -13,6 +13,7 @@ cask "mactex-no-gui"
 brew "pygments"
 brew "watch"
 brew "rustup"
+brew "entr"
 # GNU
 brew "coreutils"
 brew "gnu-sed"
