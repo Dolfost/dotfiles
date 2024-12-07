@@ -53,9 +53,13 @@ return {
 
 				local wk = require"which-key"
 				wk.add{
-					{ "<leader>s", buffer = ev.buf, 
+					{ "<leader>s", buffer = ev.buf,
 						group = "Language server",
 						icon = {icon = "", color = "purple"},
+					},
+					{ "<leader>sd", vim.diagnostic.open_float,
+						desc = "Line diagnostics",
+						icon = {icon = "󱖫", color = "green"},
 					},
 					{ "<leader>sg", group = "Go to symbol"},
 					{ "<leader>sgD", vim.lsp.buf.declaration,
