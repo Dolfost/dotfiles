@@ -63,6 +63,26 @@ return {
 		vim.g.vimtex_doc_confirm_single = false
 		vim.g.vimtex_doc_handlers = { 'vimtex#doc#handlers#texdoc' }
 
+		vim.g.vimtex_compiler_method = 'latexmk'
+
+		vim.g.vimtex_compiler_latexmk = {
+			callback = true,
+			continuous = true,
+			executable = 'latexmk',
+			options = {
+				'-verbose',
+				'-file-line-error',
+				'-synctex=1',
+				'-interaction=nonstopmode',
+				'-shell-escape',
+			},
+		}
+
+		vim.g.vimtex_compiler_generic = {
+			command = 'cmake --build ../build',
+		}
+
+
 		vim.g.vimtex_mappings_enabled = false
 		vim.g.vimtex_imaps_enabled = false
 		local augroup = vim.api.nvim_create_augroup('vimtexConfig', {})
@@ -414,26 +434,5 @@ return {
 				})
 			end,
 		})
-
-		vim.g.vimtex_compiler_method = 'latexmk'
-
-		vim.g.vimtex_compiler_latexmk = {
-			callback = true,
-			continuous = true,
-			executable = 'latexmk',
-			options = {
-				'-verbose',
-				'-file-line-error',
-				'-synctex=1',
-				'-interaction=nonstopmode',
-				'-shell-escape',
-			},
-		}
-
-		vim.g.vimtex_compiler_generic = {
-			command = 'cmake --build ../build',
-		}
-
-
 	end,
 }

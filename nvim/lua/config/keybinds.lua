@@ -21,6 +21,7 @@ wk.add{
 	},
 }
 
+-- Managers
 wk.add{
 	mode = { "n", "v" },
 	{ "<leader>M", group = "Managers",
