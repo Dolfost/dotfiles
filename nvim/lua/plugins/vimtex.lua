@@ -1,22 +1,15 @@
 return {
 	'lervag/vimtex',
-	lazy = true,
-	ft = 'tex',
+	lazy = false, -- no need to lazy load vimtex
 	enabled = true,
 
-	--  TODO: fix skim backward search
-
-	config = function()
+	init = function()
 		vim.opt_local.spell = true
-
-		vim.cmd("set suffixesadd+=.tex")
 
 		vim.g.vimtex_view_method = 'skim'
 		vim.g.vimtex_view_skim_reading_bar = true
 		vim.g.vimtex_view_skim_activate = false
 		vim.g.vimtex_view_skim_sync = true
-
-		vim.g.vimtex_imaps_enabled = true
 
 		vim.g.vimtex_complete_enabled = true
 		vim.g.vimtex_complete_close_braces = true
@@ -82,9 +75,7 @@ return {
 			command = 'cmake --build ../build',
 		}
 
-
 		vim.g.vimtex_mappings_enabled = false
-		vim.g.vimtex_imaps_enabled = false
 		local augroup = vim.api.nvim_create_augroup('vimtexConfig', {})
 		vim.api.nvim_create_autocmd('FileType', {
 			pattern = {"tex"},
