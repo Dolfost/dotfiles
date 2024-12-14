@@ -23,6 +23,7 @@ vim.o.number = true
 vim.o.cursorline = true
 vim.o.showmode = false
 vim.o.scrolloff = 8
+vim.o.mousescroll = "ver:1,hor:2"
 
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
