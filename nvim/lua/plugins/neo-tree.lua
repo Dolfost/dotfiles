@@ -107,6 +107,11 @@ return {
 				"git_status",
 			},
 
+			filesystem = {
+				group_empty_dirs = true,
+				scan_mode = "deep",
+			},
+
       source_selector = {
         winbar = false, -- toggle to show selector on winbar
         statusline = false, -- toggle to show selector on statusline
@@ -148,7 +153,7 @@ return {
 				git_status = {
 					symbols = {
 						-- Change type
-						added     = "+", --  NOTE: you can set any of these to an empty string to not show them
+						added     = "+",
 						deleted   = "X",
 						modified  = "",
 						renamed   = "r",
