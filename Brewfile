@@ -13,7 +13,9 @@ cask "mactex-no-gui"
 brew "pygments"
 brew "watch"
 brew "rustup"
-brew "entr"
+# brew "entr" # run command on file change
+brew "pngcheck"
+brew "pngcrush"
 # GNU
 brew "coreutils"
 brew "gnu-sed"
