@@ -38,7 +38,7 @@ vim.g.loaded_netrwPlugin = true
 vim.g.loaded_netrw = true
 
 -- Ukrainian language support
-vim.o.keymap = 'ukrainian-jcuken'
+vim.o.keymap = 'ukrainian-enhanced'
 vim.o.iminsert = 0
 vim.o.imsearch = -1
 vim.o.spelllang = 'uk,en_us,ru_ru'
