@@ -4,6 +4,7 @@
 ~/.config/sqlite3: sqlite3
 ~/.zshrc: zsh/zshrc
 ~/.zprofile: zsh/zprofile
+~/.config/sheldon: zsh/sheldon
 
 ~/.config/alacritty: alacritty
 ~/.config/wezterm: wezterm
