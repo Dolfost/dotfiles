@@ -13,6 +13,7 @@ cask "mactex-no-gui"
 brew "pygments"
 brew "watch"
 brew "rustup"
+brew "rsync"
 # brew "entr" # run command on file change
 brew "pngcheck"
 brew "pngcrush"
