@@ -75,7 +75,6 @@ return {
 				end, { 'i', 's' }),
 			}),
 
-			---@diagnostic disable-next-line: missing-fields
 			formatting = {
 				fields = { 'kind', 'abbr', 'menu' },
 				format = lspkind.cmp_format({

@@ -31,20 +31,6 @@ return {
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local lspconfig = require("lspconfig")
 
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-			vim.lsp.handlers.hover, {
-				border = "rounded",
-				title = "Symbol info"
-			}
-		)
-
-		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-			vim.lsp.handlers.signature_help, {
-				border = "rounded",
-				title = "Signature help",
-			}
-		)
-
 		vim.api.nvim_create_autocmd('LspAttach', {
 			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 			callback = function(ev)
@@ -130,9 +116,16 @@ return {
 			end,
 		})
 
-		lspconfig.rust_analyzer.setup{}
+		vim.lsp.enable({
+			'rust_analyzer',
+			'lua_ls',
+			'clangd',
+			'pyright',
+			'cmake',
+			'bashls',
+		})
 
-		lspconfig.lua_ls.setup {
+		vim.lsp.config('lua_ls', {
 			capabilities = capabilities,
 			settings = {
 				Lua = {
@@ -141,9 +134,9 @@ return {
 					},
 				},
 			},
-		}
+		})
 
-		lspconfig.clangd.setup {
+		vim.lsp.config('clangd', {
 			capabilities = {
 				textDocument = {
 					completion = {
@@ -170,18 +163,18 @@ return {
 				"--enable-config",
 			},
 			filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
-		}
+		})
 
-		lspconfig.pyright.setup {
+		vim.lsp.config('pyright', {
 			capabilities = capabilities,
 			root_dir = vim.loop.cwd, -- current working directory
-		}
+		})
 
-		lspconfig.cmake.setup {
+		vim.lsp.config('cmake', {
 			capabilities = capabilities,
-		}
+		})
 
-		lspconfig.bashls.setup{
+		vim.lsp.config('bashls', {
 			capabilities = {
 				codeActionProvider = {
 					codeActionKinds = { "quickfix" },
@@ -212,7 +205,7 @@ return {
 				},
 				workspaceSymbolProvider = true
 			}
-		}
+		})
 	end,
 
 	--  NOTE: :h LSP says:
