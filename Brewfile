@@ -36,6 +36,12 @@ brew "fetch"
 brew "zip"
 brew "unzip"
 cask "rar"
+
+# Music
+brew "shntool"
+brew "musicbrainz-picard"
+brew "foobar2000"
+
 # Neovim
 brew "neovim"
 brew "ripgrep"
