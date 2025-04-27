@@ -116,15 +116,6 @@ return {
 			end,
 		})
 
-		vim.lsp.enable({
-			'rust_analyzer',
-			'lua_ls',
-			'clangd',
-			'pyright',
-			'cmake',
-			'bashls',
-		})
-
 		vim.lsp.config('lua_ls', {
 			capabilities = capabilities,
 			settings = {
@@ -206,6 +197,16 @@ return {
 				workspaceSymbolProvider = true
 			}
 		})
+
+		vim.lsp.enable({
+			'rust_analyzer',
+			'lua_ls',
+			'clangd',
+			'pyright',
+			'cmake',
+			'bashls',
+		})
+
 	end,
 
 	--  NOTE: :h LSP says:
