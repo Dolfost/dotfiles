@@ -41,6 +41,7 @@ cask "rar"
 brew "shntool"
 brew "musicbrainz-picard"
 brew "foobar2000"
+brew "scrcpy"
 
 # Neovim
 brew "neovim"
