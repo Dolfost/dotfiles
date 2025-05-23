@@ -10,5 +10,6 @@ vim.diagnostic.config({
 	signs = true,
 	float = true
 })
+vim.opt.updatetime = 200;
 
 vim.opt.signcolumn = 'number'
