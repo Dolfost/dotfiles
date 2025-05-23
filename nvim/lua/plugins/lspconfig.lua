@@ -129,31 +129,16 @@ return {
 
 		vim.lsp.config('clangd', {
 			capabilities = {
-				textDocument = {
-					completion = {
-						completionItem = {
-							commitCharactersSupport = true,
-							deprecatedSupport = true,
-							insertReplaceSupport = true,
-							labelDetailsSupport = true,
-							preselectSupport = true,
-							resolveSupport = {
-								properties = { "documentation", "detail", "additionalTextEdits" }
-							},
-							snippetSupport = false,
-							tagSupport = {
-								valueSet = { 1 }
-							}
-						}
-					}
-				}
-			},
+				offsetEncoding = { },
+				textDocument = { completion = { editsNearCursor = true } } },
 			cmd = {
 				"clangd",
+				"--rename-file-limit=0",
+				"--header-insertion-decorators",
 				"--header-insertion=iwyu",
-				"--enable-config",
+				"--offset-encoding=utf-32",
 			},
-			filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" }
+			filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" },
 		})
 
 		vim.lsp.config('pyright', {
