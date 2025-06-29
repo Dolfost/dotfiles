@@ -141,6 +141,18 @@ return {
 			filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" },
 		})
 
+		vim.lsp.config("ccls", {
+			init_options = {
+				compilationDatabaseDirectory = "build";
+				index = {
+					threads = 0;
+				};
+				clang = {
+					excludeArgs = { "-frounding-math"} ;
+				};
+			}
+		})
+
 		vim.lsp.config('pyright', {
 			capabilities = capabilities,
 			root_dir = vim.loop.cwd, -- current working directory
@@ -186,7 +198,8 @@ return {
 		vim.lsp.enable({
 			'rust_analyzer',
 			'lua_ls',
-			'clangd',
+			-- 'clangd',
+			'ccls',
 			'pyright',
 			'cmake',
 			'bashls',
