@@ -8,6 +8,7 @@ if [[ "$(uname -s)" == "Darwin"* ]]; then
 	PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
 	PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
 	PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+	PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
 
 PATH="$PATH:$HOME/.local/bin"
