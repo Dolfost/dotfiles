@@ -8,7 +8,6 @@ return {
 	'hrsh7th/nvim-cmp',
 
 	dependencies = {
-		'neovim/nvim-lspconfig',
 		'onsails/lspkind.nvim',
 
 		'hrsh7th/cmp-cmdline',
