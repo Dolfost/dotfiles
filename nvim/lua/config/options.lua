@@ -29,6 +29,8 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.conceallevel = 2
 
+vim.o.exrc = true
+
 -- Replace grep with ripgrep
 vim.o.grepprg = 'rg\\ $*\\ --column\\ --no-heading'
 vim.o.grepformat = '%f:%l:%c%m,%l:%c%m'
