@@ -76,7 +76,7 @@ return {
 		}
 
 		vim.g.vimtex_mappings_enabled = false
-		local augroup = vim.api.nvim_create_augroup('vimtexConfig', {})
+		local augroup = vim.api.nvim_create_augroup('my.vimtex', {})
 		vim.api.nvim_create_autocmd('FileType', {
 			pattern = {"tex"},
 			group = augroup,

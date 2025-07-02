@@ -19,10 +19,12 @@ vim.lsp.enable({
 	'bashls',
 })
 
+local grp = vim.api.nvim_create_augroup('my.lsp', {})
+local wk = require "which-key"
+
 vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	group = grp,
 	callback = function(ev)
-		local wk = require "which-key"
 		wk.add{
 			{ "<leader>s", buffer = ev.buf,
 				group = "Language server",
@@ -100,22 +102,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
-
 -- highlighing of the symbol under cursor
 vim.api.nvim_create_autocmd('CursorHold', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	group = grp,
 	callback = function()
 		vim.lsp.buf.document_highlight()
 	end
 })
 vim.api.nvim_create_autocmd('CursorHoldI', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	group = grp,
 	callback = function()
 		vim.lsp.buf.document_highlight()
 	end
 })
 vim.api.nvim_create_autocmd('CursorMoved', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	group = grp,
 	callback = function()
 		vim.lsp.buf.clear_references()
 	end

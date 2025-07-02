@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup('peekConfig', {})
+local augroup = vim.api.nvim_create_augroup('my.peek', {})
 
 return {
 	"toppair/peek.nvim",
