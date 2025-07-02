@@ -1,8 +1,7 @@
 return {
 	{
 		'aserowy/tmux.nvim',
-		opts =
-		{
+		opts = {
 			copy_sync = {
 				-- enables copy sync. by default, all registers are synchronized.
 				-- to control which registers are synced, see the `sync_*` options.
@@ -95,59 +94,25 @@ return {
 					desc = "Tmux resize right",
 					icon = {icon = '', color = "azure"},
 				},
+				{ "<MC-h>", tmux.swap_left,
+					desc = "Tmux swap left",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<MC-j>", tmux.swap_bottom,
+					desc = "Tmux swap down",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<MC-k>", tmux.swap_top,
+					desc = "Tmux swap up",
+					icon = {icon = '', color = "azure"},
+				},
+				{ "<MC-l>", tmux.swap_right,
+					desc = "Tmux swap right",
+					icon = {icon = '', color = "azure"},
+				},
 			}
 
 			tmux.setup(opts)
 		end
-	},
-
-
-	{
-		'numToStr/Comment.nvim',
-		lazy = false,
-
-		opts = {
-			-- Add a space b/w comment and the line
-			padding = true,
-			-- Whether the cursor should stay at its position
-			sticky = true,
-			-- Lines to be ignored while (un)comment
-			ignore = nil,
-			-- LHS of toggle mappings in NORMAL mode
-			toggler = {
-				-- Line-comment toggle keymap
-				line = 'gcc',
-				-- Block-comment toggle keymap
-				block = 'gbc',
-			},
-			-- LHS of operator-pending mappings in NORMAL and VISUAL mode
-			opleader = {
-				-- Line-comment keymap
-				line = 'gc',
-				-- Block-comment keymap
-				block = 'gb',
-			},
-			-- LHS of extra mappings
-			extra = {
-				-- Add comment on the line above
-				above = 'gcO',
-				-- Add comment on the line below
-				below = 'gco',
-				-- Add comment at the end of line
-				eol = 'gcA',
-			},
-			-- Enable keybindings
-			-- NOTE: If given `false` then the plugin won't create any mappings
-			mappings = {
-				-- Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-				basic = true,
-				-- Extra mapping; `gco`, `gcO`, `gcA`
-				extra = true,
-			},
-			-- Function to call before (un)comment
-			pre_hook = nil,
-			-- Function to call after (un)comment
-			post_hook = nil,
-		},
 	},
 }
