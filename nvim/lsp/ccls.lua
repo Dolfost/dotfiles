@@ -9,4 +9,6 @@ return {
 		};
 	},
 	cmd = { "ccls" },
+	filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" },
+	root_markers = { '.git', '.clangd', 'compile_commands.json' }
 }

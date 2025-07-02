@@ -1,4 +1,4 @@
--- This is a global keybinds file. The plugin-specific keybinds live in lua/plugins/ or ftplugin/
+-- this is a global keybinds file. The plugin-specific keybinds live in lua/plugins/ or ftplugin/
 local wk = require"which-key"
 
 -- NO ARROW KEYS, U MFCKER! heheheha!!1!
@@ -21,7 +21,7 @@ wk.add{
 	},
 }
 
--- Managers
+-- managers
 wk.add{
 	mode = { "n", "v" },
 	{ "<leader>M", group = "Managers",
@@ -31,3 +31,10 @@ wk.add{
 		icon = {icon = '󰒲', color = 'purple'},
 	},
 }
+
+-- disable default neovim lsp binds
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'gO')

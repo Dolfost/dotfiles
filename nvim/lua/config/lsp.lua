@@ -9,7 +9,6 @@ vim.lsp.config('*', {
 	root_markers = { '.git' },
 })
 
-
 vim.lsp.enable({
 	'rust_analyzer',
 	'lua_ls',
@@ -23,7 +22,6 @@ vim.lsp.enable({
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),
 	callback = function(ev)
-		vim.keymap.del('n', 'K', { buffer = ev.buf })
 		local wk = require "which-key"
 		wk.add{
 			{ "<leader>s", buffer = ev.buf,
@@ -32,7 +30,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			},
 			{ "<leader>sd", vim.diagnostic.open_float,
 				desc = "Line diagnostics",
-				icon = {icon = "󱖫", color = "green"},
+				icon = { icon = "󱖫", color = "green" },
 			},
 			{ "<leader>sg", group = "Go to symbol"},
 			{ "<leader>sgD", vim.lsp.buf.declaration,
@@ -46,7 +44,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			{ "<leader>sgi", vim.lsp.buf.implementation, desc = "Implementation"},
 			{ "<leader>sgt", vim.lsp.buf.type_definition, desc = "Type definition"},
 			{ "<leader>sk", vim.lsp.buf.signature_help,
-				desc = "Symbol signature help",
+				desc = "Symbol signature",
 				icon = {icon = '󰘥', color = 'purple'},
 			},
 			{ "<leader>sa", vim.lsp.buf.code_action,
@@ -55,18 +53,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				icon = {icon = '', color = 'green'},
 			},
 			{ "<leader>sK", vim.lsp.buf.hover,
-				desc = "Information about the symbol",
+				desc = "Symbol info",
 				icon = {icon = '', color = 'green'},
 			},
 			{ "<leader>sw", group = "Workspace",
 				icon = {icon = '', color = 'purple'},
 			},
-			{ "<leader>sw", vim.lsp.buf.add_workspace_folder,
-				desc = "Add folder to the workspace",
+			{ "<leader>swa", vim.lsp.buf.add_workspace_folder,
+				desc = "Add directory to the workspace",
 				icon = {icon = '', color = 'green'},
 			},
-			{ "<leader>sw", vim.lsp.buf.remove_workspace_folder,
-				desc = "Remove forlder from the workspace",
+			{ "<leader>swr", vim.lsp.buf.remove_workspace_folder,
+				desc = "Remove directory from the workspace",
 				icon = {icon = '', color = 'red'},
 			},
 			{ "<leader>sr", vim.lsp.buf.rename,
@@ -76,14 +74,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			{ "<leader>sf", function()
 				vim.lsp.buf.format{async = true}
 			end,
-				desc = "Format current buffer",
+				desc = "Format buffer",
 				icon = {icon = '󰉿', color = 'purple'},
 			},
 			{ "<leader>sl", group = "List", icon = {icon = '', color = 'purple'}},
 			{ "<leader>slr", vim.lsp.buf.references, desc = "Current symbol references"},
-			{ "<leader>sls", group = "Symbols", icon = {icon = '󰊕', color = 'purple'}},
-			{ "<leader>sls", vim.lsp.buf.document_symbol, desc = "From current document"},
-			{ "<leader>slw",vim.lsp.buf.workspace_symbol, desc = "From current workspace"},
+			{ "<leader>sld", vim.lsp.buf.document_symbol, desc = "Document symbols"},
+			{ "<leader>slw",vim.lsp.buf.workspace_symbol, desc = "Workspace symbols"},
 			{ "<leader>slf",function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
@@ -92,13 +89,34 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			},
 			{ "<leader>sc", group = "Calls", icon = {icon = '', color = 'purple'}},
 			{ "<leader>sco", vim.lsp.buf.outgoing_calls,
-				desc = "Symbol outgoing calls",
+				desc = "Outgoing",
 				icon = {icon = '', color = 'purple'},
 			},
 			{ "<leader>sci",vim.lsp.buf.incoming_calls,
-				desc = "Symbol incoming calls",
+				desc = "Incoming",
 				icon = {icon = '', color = 'purple'},
 			},
 		}
 	end,
+})
+
+
+-- highlighing of the symbol under cursor
+vim.api.nvim_create_autocmd('CursorHold', {
+	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	callback = function()
+		vim.lsp.buf.document_highlight()
+	end
+})
+vim.api.nvim_create_autocmd('CursorHoldI', {
+	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	callback = function()
+		vim.lsp.buf.document_highlight()
+	end
+})
+vim.api.nvim_create_autocmd('CursorMoved', {
+	group = vim.api.nvim_create_augroup('my.lsp', {}),
+	callback = function()
+		vim.lsp.buf.clear_references()
+	end
 })

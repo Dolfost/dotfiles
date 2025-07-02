@@ -1,11 +1,11 @@
 return {
 	capabilities = {
-		offsetEncoding = { },
-		textDocument = { 
-			completion = { 
-				editsNearCursor = true 
-			} 
-		} 
+		offsetEncoding = {},
+		textDocument = {
+			completion = {
+				editsNearCursor = true
+			}
+		}
 	},
 	cmd = {
 		"clangd",
@@ -17,3 +17,4 @@ return {
 	filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" },
 	root_markers = { '.git', '.clangd', 'compile_commands.json' }
 }
+
