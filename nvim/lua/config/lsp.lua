@@ -107,19 +107,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				group = grp,
 				callback = function()
 					vim.lsp.buf.document_highlight()
-				end
+				end,
+				buffer = ev.buf
 			})
 			vim.api.nvim_create_autocmd('CursorHoldI', {
 				group = grp,
 				callback = function()
 					vim.lsp.buf.document_highlight()
-				end
+				end,
+				buffer = ev.buf
 			})
 			vim.api.nvim_create_autocmd('CursorMoved', {
 				group = grp,
 				callback = function()
 					vim.lsp.buf.clear_references()
-				end
+				end,
+				buffer = ev.buf
 			})
 		end
 	end,
