@@ -25,6 +25,7 @@ local wk = require "which-key"
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = grp,
 	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		wk.add{
 			{ "<leader>s", buffer = ev.buf,
 				group = "Language server",
@@ -99,25 +100,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
 				icon = {icon = '', color = 'purple'},
 			},
 		}
+
+		-- highlighing of the symbol under cursor (if supported)
+		if client and client:supports_method('textDocument/documentHighlight') then
+			vim.api.nvim_create_autocmd('CursorHold', {
+				group = grp,
+				callback = function()
+					vim.lsp.buf.document_highlight()
+				end
+			})
+			vim.api.nvim_create_autocmd('CursorHoldI', {
+				group = grp,
+				callback = function()
+					vim.lsp.buf.document_highlight()
+				end
+			})
+			vim.api.nvim_create_autocmd('CursorMoved', {
+				group = grp,
+				callback = function()
+					vim.lsp.buf.clear_references()
+				end
+			})
+		end
 	end,
 })
 
--- highlighing of the symbol under cursor
-vim.api.nvim_create_autocmd('CursorHold', {
-	group = grp,
-	callback = function()
-		vim.lsp.buf.document_highlight()
-	end
-})
-vim.api.nvim_create_autocmd('CursorHoldI', {
-	group = grp,
-	callback = function()
-		vim.lsp.buf.document_highlight()
-	end
-})
-vim.api.nvim_create_autocmd('CursorMoved', {
-	group = grp,
-	callback = function()
-		vim.lsp.buf.clear_references()
-	end
-})
