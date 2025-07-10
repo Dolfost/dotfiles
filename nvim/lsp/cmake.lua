@@ -1,4 +1,4 @@
 return {
 	cmd = { 'cmake-language-server' },
-	filetype = { 'cmake' }
+	filetypes = { 'cmake' }
 }

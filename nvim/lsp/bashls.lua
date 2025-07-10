@@ -1,5 +1,6 @@
 return {
 	cmd = { "bash-language-server" },
+	filetypes = { "bash" },
 	capabilities = {
 		codeActionProvider = {
 			codeActionKinds = { "quickfix" },
