@@ -12,3 +12,4 @@
 ~/.config/nvim: nvim
 
 ~/.config/karabiner/karabiner.json: karabiner-elements/karabiner.json
+~/.config/MusicBrainz/Picard.ini: MusicBrainz/Picard.ini
