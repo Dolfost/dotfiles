@@ -49,6 +49,7 @@ brew "ripgrep"
 brew "bash-language-server"
 brew "lua-language-server"
 brew "cmake-language-server"
+brew "vscode-langservers-extracted"
 brew "pyright"
 
 # GUI
