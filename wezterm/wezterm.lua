@@ -23,7 +23,7 @@ c.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
 
 c.scrollback_lines = 0
 
-c.disable_default_key_bindings = true
+-- c.disable_default_key_bindings = true
 c.keys = require'keys'
 c.disable_default_mouse_bindings = true
 c.mouse_bindings = require'mouse'
