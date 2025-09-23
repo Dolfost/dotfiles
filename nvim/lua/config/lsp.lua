@@ -17,7 +17,7 @@ vim.lsp.enable({
 	'pyright',
 	'cmake',
 	'bashls',
-	'html'
+	-- 'html'
 })
 
 local grp = vim.api.nvim_create_augroup('my.lsp', {})
