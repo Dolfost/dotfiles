@@ -1,11 +1,12 @@
 [ActivityManager]
 _k_friendly_name=Activity Manager
+switch-to-activity-166d839d-5888-436f-981b-882d19de2515=none,none,Switch to activity "Gaming"
 switch-to-activity-260763bf-c907-4dce-85b6-79328bd5e054=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
 Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
 Switch keyboard layout to Ukrainian=none,none,Switch keyboard layout to Ukrainian
-Switch to Last-Used Keyboard Layout=,Meta+Alt+L,Switch to Last-Used Keyboard Layout
+Switch to Last-Used Keyboard Layout=none,Meta+Alt+L,Switch to Last-Used Keyboard Layout
 Switch to Next Keyboard Layout=Meta+Ctrl+Space,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
