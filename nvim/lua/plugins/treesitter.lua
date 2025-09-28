@@ -104,21 +104,21 @@ return {
 		end,
 	},
 
-	{
-		'nvim-treesitter/nvim-treesitter-refactor',
-
-		dependencies = {'nvim-treesitter/nvim-treesitter'},
-
-		config = function ()
-			require"nvim-treesitter.configs".setup{
-				refactor = {
-					highlight_definitions = {
-						enable = true,
-						-- Set to false if you have an `updatetime` of ~100.
-						clear_on_cursor_move = true,
-					},
-				},
-			}
-		end,
-	},
+	-- { -- super processor hungry on big files (tested on 10k lines)
+	-- 	'nvim-treesitter/nvim-treesitter-refactor',
+	--
+	-- 	dependencies = {'nvim-treesitter/nvim-treesitter'},
+	--
+	-- 	config = function ()
+	-- 		require"nvim-treesitter.configs".setup{
+	-- 			refactor = {
+	-- 				highlight_definitions = {
+	-- 					enable = true,
+	-- 					-- Set to false if you have an `updatetime` of ~100.
+	-- 					clear_on_cursor_move = true,
+	-- 				},
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 }
