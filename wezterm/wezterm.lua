@@ -36,4 +36,8 @@ c.exit_behavior_messaging = 'Brief'
 
 require'events'
 
+if os.getenv("HYPRLAND_INSTANCE_SIGNATURE") ~= nil then
+	c.enable_wayland=false
+end
+
 return c
