@@ -42,7 +42,8 @@
             "4":       SwitchToTab("Album Artists"),
             "5":       SwitchToTab("Albums"),
             "6":       SwitchToTab("Playlists"),
-            "7":       SwitchToTab("Search"),
+            "7":       SwitchToTab("Lyrics"),
+            "8":       SwitchToTab("Search"),
             "q":       Quit,
             ">":       NextTrack,
             "p":       TogglePause,
@@ -149,6 +150,10 @@
         (
             name: "Playlists",
             pane: Pane(Playlists),
+        ),
+        (
+            name: "Lyrics",
+            pane: Pane(Lyrics),
         ),
         (
             name: "Search",
