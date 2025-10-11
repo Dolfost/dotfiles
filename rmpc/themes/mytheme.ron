@@ -53,23 +53,31 @@
 		thumb_style: (fg: "blue"),
 	),
 	song_table_format: [
+	// (
+			// prop: (kind: Sticker("rating"),
+				// default: (kind: Text("-"))
+			// ),
+			// width: "5%",
+			// label: "Rating",
+			// alignment: Center
+		// ),
 	(
 			prop: (kind: Property(Artist),
 				default: (kind: Text("Unknown"))
 			),
-			width: "31%",
+			width: "29%",
 		),
 	(
 			prop: (kind: Property(Title),
 				default: (kind: Text("Unknown"))
 			),
-			width: "31%",
+			width: "29%",
 		),
 	(
 			prop: (kind: Property(Album), style: (fg: "white"),
 				default: (kind: Text("Unknown Album"), style: (fg: "white"))
 			),
-			width: "31%",
+			width: "29%",
 		),
 	(
 			prop: (kind: Property(Duration),
