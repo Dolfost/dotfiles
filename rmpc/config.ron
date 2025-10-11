@@ -126,10 +126,7 @@
     tabs: [
         (
             name: "Queue",
-            pane: Split(
-                direction: Horizontal,
-                panes: [(size: "40%", pane: Pane(AlbumArt)), (size: "60%", pane: Pane(Queue))],
-            ),
+            pane: Pane(Queue),
         ),
         (
             name: "Directories",
