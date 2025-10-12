@@ -1,7 +1,7 @@
 #![enable(implicit_some)]
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
-(address : "/run/user/1000/mpd.socket", lyrics_dir : "/media/2.5_inch/music",
+(address : "~/.mpd/socket", lyrics_dir : "/media/2.5_inch/music",
  password : None, theme : "mytheme", cache_dir : "/media/2.5_inch/rmpc/cache",
  on_song_change : None, volume_step : 1, max_fps : 30, scrolloff : 10,
  wrap_navigation : false, enable_mouse : true, ignore_leading_the : true,
