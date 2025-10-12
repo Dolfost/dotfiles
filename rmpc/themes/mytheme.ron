@@ -53,31 +53,34 @@
 		thumb_style: (fg: "blue"),
 	),
 	song_table_format: [
-	// (
-			// prop: (kind: Sticker("rating"),
-				// default: (kind: Text("-"))
-			// ),
-			// width: "5%",
-			// label: "Rating",
-			// alignment: Center
-		// ),
+		(
+			prop: (kind: Sticker("rating"),
+			default: (kind: Text("-"))
+		),
+			width: "5%",
+			label: "󰔓 ",
+			alignment: Center
+		),
 	(
 			prop: (kind: Property(Artist),
 				default: (kind: Text("Unknown"))
 			),
 			width: "29%",
+			label: "󰠃 Artist",
 		),
 	(
 			prop: (kind: Property(Title),
 				default: (kind: Text("Unknown"))
 			),
 			width: "29%",
+			label: " Title",
 		),
 	(
 			prop: (kind: Property(Album), style: (fg: "white"),
-				default: (kind: Text("Unknown Album"), style: (fg: "white"))
+				default: (kind: Text("Unknown Album"), style: (fg: "white")),
 			),
 			width: "29%",
+			label: "󰀥 Album",
 		),
 	(
 			prop: (kind: Property(Duration),
@@ -98,7 +101,7 @@
 					direction: Horizontal,
 					panes: [
 					(
-							size: "21",
+							size: "19",
 							pane: Pane(AlbumArt),
 						),
 					(
@@ -134,9 +137,9 @@
 		rows: [
 		(
 				left: [
-				(kind: Text(""), style: (fg: "yellow", modifiers: "Bold")),
 				(kind: Property(Status(StateV2(playing_label: "󰏤 Playing", paused_label: "󰐊 Paused", stopped_label: "󰓛 Stopped"))), style: (fg: "yellow", modifiers: "Bold")),
-				(kind: Text(""), style: (fg: "yellow", modifiers: "Bold"))
+				(kind: Text(" ")),
+				(kind: Property(Widget(ScanStatus)), style: (fg: "red")),
 				],
 				center: [
 				(kind: Property(Song(Title)), style: (modifiers: "Bold"),
@@ -144,18 +147,17 @@
 					)
 				],
 				right: [
-				(kind: Property(Widget(ScanStatus)), style: (fg: "blue")),
-				(kind: Property(Widget(Volume)), style: (fg: "blue"))
+					( kind: Property(Status(QueueLength())) ),
+					( kind: Text("  ") ),
+					( kind: Text(" ") ),
+					( kind: Property(Status(Volume)) ),
+					( kind: Text("%") ),
 				]
 			),
 		(
 				left: [
-				(kind: Property(Status(Elapsed))),
-				(kind: Text(" of ")),
-				(kind: Property(Status(Duration))),
-				(kind: Text(" (")),
 				(kind: Property(Status(Bitrate))),
-				(kind: Text("kbps)"))
+				(kind: Text("kbps"))
 				],
 				center: [
 				(kind: Property(Song(Artist)), style: (fg: "green", modifiers: "Bold"),
@@ -168,16 +170,30 @@
 					)
 				],
 				right: [
-					( kind: Property(Status(RepeatV2(on_label: "󰑖", off_label: "󰑗", on_style: (fg: "green"), off_style: (fg: "red")))) ),
-					( kind: Text(" ") ),
-					( kind: Property(Status(RandomV2(on_label: "󰒟", off_label: "󰒟", on_style: (fg: "green"), off_style: (fg: "red")))) ),
-					( kind: Text(" ") ),
-					( kind: Property(Status(ConsumeV2(on_label: "󱟂", off_label: "󱟂", oneshot_label: "󱟂", 
+				( kind: Property(Status(RepeatV2(on_label: "󰑖", off_label: "󰑗", on_style: (fg: "green"), off_style: (fg: "red")))) ),
+				( kind: Text("  ") ),
+				( kind: Property(Status(RandomV2(on_label: "󰒟", off_label: "󰒟", on_style: (fg: "green"), off_style: (fg: "red")))) ),
+				( kind: Text("  ") ),
+				( kind: Property(Status(ConsumeV2(on_label: "󱟂", off_label: "󱟂", oneshot_label: "󱟂", 
 						on_style: (fg: "green"), off_style: (fg: "red"), oneshot_style: (fg: "yellow")))) ),
-					( kind: Text(" ") ),
-					( kind: Property(Status(SingleV2(on_label: "󰲠", off_label: "󰲠", oneshot_label: "󰲠", 
+				( kind: Text("  ") ),
+				( kind: Property(Status(SingleV2(on_label: "󰲠", off_label: "󰲠", oneshot_label: "󰲠", 
 						on_style: (fg: "green"), off_style: (fg: "red"), oneshot_style: (fg: "yellow")))) ),
 				]
+			),
+			(
+				left: [], center: [], right: [],
+			),
+			(
+				left: [], center: [], right: [],
+			),
+			(
+				left:   [ ( kind: Property(Status(Elapsed)) ) ], 
+				center: [ ( kind: Property(Status(Duration)) ) ], 
+				right:  [ 
+					( kind: Text("󱫞  ") ),
+					( kind: Property(Status(QueueTimeRemaining())) ),
+				],
 			),
 		],
 	),
@@ -201,4 +217,4 @@
 		timestamp: false
 	)
 )
-					// repeat random consume single
+// repeat random consume single
