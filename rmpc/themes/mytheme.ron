@@ -101,7 +101,7 @@
 					direction: Horizontal,
 					panes: [
 					(
-							size: "19",
+							size: "21",
 							pane: Pane(AlbumArt),
 						),
 					(
