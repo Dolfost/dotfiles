@@ -34,6 +34,8 @@ c.launch_menu = require'launch_menu'
 
 c.exit_behavior_messaging = 'Brief'
 
+c.window_decorations = 'RESIZE'
+
 require'events'
 
 if os.getenv("HYPRLAND_INSTANCE_SIGNATURE") ~= nil then
