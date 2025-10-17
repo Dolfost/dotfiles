@@ -4,7 +4,7 @@
   "height": 5,
   "spacing": 0,
   "modules-left": [
-    "hyprland/workspaces",
+    "hyprland/workspaces", "mpd"
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
@@ -14,14 +14,14 @@
     // "bluetooth",
     "pulseaudio",
     "clock"
-  ],
-  "hyprland/workspaces": {
+	],
+	"hyprland/workspaces": {
     "disable-scroll": false,
     "all-outputs": true,
     "format": "{icon}",
     "on-click": "activate",
     "persistent-workspaces": {
-    "*":[1,2,3,4,5,6,7,8,9,0]
+    "*":[1,2,3,4,5,6,7,8,9,10]
     },
     "format-icons":{
     "1": "1",
@@ -33,10 +33,35 @@
     "7": "7",
     "8": "8",
     "9": "9",
-		"0": "10",
+		"10": "10",
     "active": "⬤"
     }
   },
+	"mpd": {
+		"format": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {album} - {title}   {elapsedTime:%M:%S}/{totalTime:%M:%S}",
+		"format-disconnected": "Disconnected ",
+		"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+		"interval": 10,
+		"consume-icons": {
+			"on": " "
+		},
+		"random-icons": {
+			"off": "<span color=\"#f53c3c\">󰑗</span> ",
+			"on": "󰒟 ",
+		},
+		"repeat-icons": {
+			"on": " "
+		},
+		"single-icons": {
+			"on": "1 "
+		},
+		"state-icons": {
+			"paused": "󰏤",
+			"playing": "󰐊"
+		},
+		"tooltip-format": "MPD (connected)",
+		"tooltip-format-disconnected": "MPD (disconnected)"
+	},
   "network": {
     "format-wifi": "󰤨   {essid} ",
     "format-ethernet": "   Wired ",

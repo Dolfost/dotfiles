@@ -27,18 +27,21 @@
   transition-duration: 0.5s;
 }
 
-#window,
+#mpd,
 #clock,
+#window,
+#network,
 #bluetooth,
-#pulseaudio,
-#network{
+#pulseaudio {
   border-radius: 3px;
   margin: 6px 3px;
   padding: 0px 12px;
-  background-color: #1e1e2e;
   color: #181825;
 }
 
+#mpd{
+  background-color: #89dceb;
+}
 #clock {
   background-color: #89b4fa;
 }

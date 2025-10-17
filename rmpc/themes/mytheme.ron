@@ -137,7 +137,7 @@
 		rows: [
 		(
 				left: [
-				(kind: Property(Status(StateV2(playing_label: "󰏤 Playing", paused_label: "󰐊 Paused", stopped_label: "󰓛 Stopped"))), style: (fg: "yellow", modifiers: "Bold")),
+				(kind: Property(Status(StateV2(playing_label: "󰐊 Playing", paused_label: "󰏤 Paused", stopped_label: "󰓛 Stopped"))), style: (fg: "yellow", modifiers: "Bold")),
 				(kind: Text(" ")),
 				(kind: Property(Widget(ScanStatus)), style: (fg: "red")),
 				],
@@ -174,7 +174,7 @@
 				( kind: Text("  ") ),
 				( kind: Property(Status(RandomV2(on_label: "󰒟", off_label: "󰒟", on_style: (fg: "green"), off_style: (fg: "red")))) ),
 				( kind: Text("  ") ),
-				( kind: Property(Status(ConsumeV2(on_label: "󱟂", off_label: "󱟂", oneshot_label: "󱟂", 
+				( kind: Property(Status(ConsumeV2(on_label: "", off_label: "", oneshot_label: "", 
 						on_style: (fg: "green"), off_style: (fg: "red"), oneshot_style: (fg: "yellow")))) ),
 				( kind: Text("  ") ),
 				( kind: Property(Status(SingleV2(on_label: "󰲠", off_label: "󰲠", oneshot_label: "󰲠", 
