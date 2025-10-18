@@ -1,14 +1,14 @@
 #!/bin/sh
 
 message() {
-	notify-send -u normal -t 2000 -a dunst "" "$1"
+	notify-send -u low -a dunst "Notifications" "$1"
 }
 
 if [ `dunstctl is-paused` = "false" ]; then 
-	message "Disabling notifications"
+	message "󰖁 Disabled"
 	sleep 1
 	dunstctl set-paused true
 else
-	message "Notifications enabled"
+	message "󰕾 Enabled"
 	dunstctl set-paused toggle
 fi
