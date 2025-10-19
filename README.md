@@ -1,3 +1,7 @@
+# dotfiles 
+Operating system specific quirks:
+ * [macOS](./macos.md)
+ * [linux](./linux.md)
 
 ## Recommended readings
 [Nvim Lua guide](https://neovim.io/doc/user/lua-guide.html)  
