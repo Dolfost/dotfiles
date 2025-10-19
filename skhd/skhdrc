@@ -29,9 +29,11 @@ alt - l : yabai -m window --focus east
 #                   yabai -m space --focus "${index}"
 
 # apps
-ctrl + alt - s : wezterm -e btop 
-ctrl + alt - r : wezterm -e rmpc 
-ctrl + alt - e : open ~ 
+ctrl + alt - t : open -na wezterm
+ctrl + alt - s : open -na wezterm --args -e btop 
+ctrl + alt - s : open -na wezterm --args -e rmpc 
+ctrl + alt - z : open -na zathura
+ctrl + alt - e : open -a finder
 
 # fast focus desktop
 # cmd + alt - x : yabai -m space --focus recent
@@ -96,7 +98,7 @@ alt - f : yabai -m window --toggle native-fullscreen
 # alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-alt - v : yabai -m window --toggle float --grid 4:4:1:1:2:2
+alt - v : yabai -m window --toggle float
 
 # toggle sticky(+float), picture-in-picture
 # alt - p : yabai -m window --toggle sticky --toggle pip
