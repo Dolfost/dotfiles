@@ -10,6 +10,10 @@ install all pakages from homebrew:
 from the repo root, or specify brewfile
 location with `--file`.
 
+### Linux-like keyboard binds
+To change input method with `Shift+Command` the Karabiner-Elements can be used.
+Also it is used to swap caps lock and escape.
+
 # Specifics
 ## zathura
 There is no official zathura build for macOS, so you have to use
