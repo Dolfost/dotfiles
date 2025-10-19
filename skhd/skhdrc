@@ -63,6 +63,11 @@ alt + shift - l : yabai -m space --focus next
 
 alt - f : yabai -m window --toggle native-fullscreen
 
+alt - q : yabai -m window --close
+alt - w : yabai -m window --minimize
+
+alt - a : if [ "$(SwitchAudioSource -c)" = "MacBook Air Speakers" ]; then SwitchAudioSource -s "External Headphones"; else SwitchAudioSource -s "MacBook Air Speakers"; fi
+
 # send window to desktop and follow focus
 # shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
 # shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
