@@ -35,6 +35,7 @@ brew "wget"
 brew "zip"
 brew "unzip"
 cask "rar"
+cask "switchaudio-osx"
 
 # Music
 # brew "shntool"
