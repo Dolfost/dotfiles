@@ -16,26 +16,15 @@
     "clock"
 	],
 	"hyprland/workspaces": {
-    "disable-scroll": false,
-    "all-outputs": true,
     "format": "{icon}",
-    "on-click": "activate",
-    "persistent-workspaces": {
-    "*":[1,2,3,4,5,6,7,8,9,10]
+    "format-icons": {
+      "urgent": " ",
+      "active": " ", // focused workspace on current monitor 
+      "visible": "󰏥 ", // focused workspace on other monitors
+      "default": " ",
+      "empty": " " // persistent (created by this plugin)
     },
-    "format-icons":{
-    "1": "1",
-    "2": "2",
-    "3": "3",
-    "4": "4",
-    "5": "5",
-    "6": "6",
-    "7": "7",
-    "8": "8",
-    "9": "9",
-		"10": "10",
-    "active": "⬤"
-    }
+    "all-outputs": false // recommended
   },
 	"mpd": {
 		"format": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {album} - {title}   {elapsedTime:%M:%S}/{totalTime:%M:%S}",
