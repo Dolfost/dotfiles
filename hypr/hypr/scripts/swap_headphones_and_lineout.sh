@@ -6,7 +6,7 @@
 source $(dirname $0)/swap_headphones_and_lineout_names.sh
 
 message() {
-	notify-send -u low -a pactl "Audio output" "$1"
+	notify-send -r 42397454 -u low -a pactl "Audio output" "$1"
 }
 
 sink=$(pactl get-default-sink)
