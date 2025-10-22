@@ -1,6 +1,7 @@
 God bless you are not on macOS side.
 
-# input remapping
+# Input
+# keyd
 So for input remapping on kernel lever you
 can use keyd daemon. Amazing and simple
 thing. Example `/etc/keyd/default.conf`
@@ -29,3 +30,9 @@ this config:
 has been split. To get key code for your
 keys use `keyd monitor` command.
 
+## Lofree Flow Lite use FN keys over media keys
+To use FN keys over media keys on lofree flow lite 100 execute 
+
+    echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/20_lofree_fn_mode_fix.conf
+
+and reboot.
