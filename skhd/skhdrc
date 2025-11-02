@@ -7,6 +7,11 @@ alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east
 
+# screenshot
+shift + alt - d : screencapture -o ~/Pictures/Screenshots/display_$(date +%F_%H-%M-%S).png
+shift + alt - w : screencapture -oiw ~/Pictures/Screenshots/window_$(date +%F_%H-%M-%S).png
+shift + alt - r : screencapture -ois ~/Pictures/Screenshots/region_$(date +%F_%H-%M-%S).png
+
 # swap managed window
 # shift + alt - h : yabai -m window --swap north
 
