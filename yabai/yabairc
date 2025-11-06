@@ -38,7 +38,7 @@ yabai -m config                                 \
     left_padding                 3              \
     right_padding                3              \
     window_gap                   4              \
-    layout                       bsp            \
+    layout                       float          \
     mouse_modifier               option         \
     mouse_action1                move           \
     mouse_action2                resize         \

@@ -2,7 +2,7 @@
 
 options=(
 	style=round
-	width=2
+	width=1
 	hidpi=on
 	active_color=0xff00ff99 # this shit is is argb (NOT rgba!)
 	inactive_color=0xff414550
