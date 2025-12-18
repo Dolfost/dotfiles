@@ -1,1 +1,1 @@
-vim.g.rust_recommended_style = false
+vim.g.rust_recommended_style = true
