@@ -184,4 +184,9 @@ return {
 		show_condition = line_end,
 		condition = line_end,
 	}),
+
+	tex.environment("tikzpicture", {
+		show_condition = line_end,
+		condition = line_end,
+	}),
 }
