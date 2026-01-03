@@ -10,17 +10,6 @@ wk.add{
 	{ '<Right>', '<Nop>', hidden = true },
 }
 
--- some good shortcuts
-wk.add{
-	mode = { "n", "v" },
-	{ "<leader>q", "<cmd>q<cr>", desc = "Quit",
-		icon = {icon = '', color = 'red'},
-	},
-	{ "<leader>w", "<cmd>w<cr>", desc = "Write",
-		icon = {icon = '', color = 'green'},
-	},
-}
-
 -- managers
 wk.add{
 	mode = { "n", "v" },

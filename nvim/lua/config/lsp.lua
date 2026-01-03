@@ -3,7 +3,7 @@ vim.lsp.enable({
 	'lua_ls',
 	'clangd',
 	-- 'ccls',
-	'pyright',
+	-- 'pyright',
 	'cmake',
 	'bashls',
 	-- 'html'
