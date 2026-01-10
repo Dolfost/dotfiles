@@ -3,8 +3,8 @@
 #![enable(unwrap_variant_newtypes)]
 (
 	address: "~/.mpd/socket", 
-	lyrics_dir: "/media/2.5_inch/music",
-	cache_dir: "/media/2.5_inch/rmpc/cache",
+	lyrics_dir: "/storage/2.5_inch/media/music",
+	cache_dir: "/storage/2.5_inch/media/rmpc/cache",
 	password: None, 
 	theme: "mytheme",
 	on_song_change: None, 
