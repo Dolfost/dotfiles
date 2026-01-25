@@ -47,7 +47,7 @@ Show Folder Tree View Items Count=false
 Show Thumbbar=true
 Show ToolTips=true
 Sidebar Title Style=2
-Theme=Default
+Theme=Black Body
 ToolTips Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 ToolTips Show Album Caption=true
 ToolTips Show Album Category=true
@@ -85,10 +85,10 @@ TreeView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 Update Type=0
 
 [AlbumFolderView Sidebar]
-CurrentIndex=1
+CurrentIndex=3
 Expansion=0,1,2,3,4,7,5,6,-2
 RestoreChecked=false
-Selection=1
+Selection=3
 SortColumn=0
 SortOrder=0
 
@@ -239,7 +239,7 @@ EnableCM=true
 GamutCheckMaskColor=126,255,255
 LastMismatchBehavior=2049
 LastMissingProfileBehavior=2050
-LastSpecifiedAssignProfile=
+LastSpecifiedAssignProfile[$e]=/usr/share/digikam/profiles/
 LastSpecifiedInputProfile=
 LastUncalibratedBehavior=2080
 ManagedPreviews=true
@@ -988,7 +988,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwKurq4=
+Database Encrypted Password=AwLCwsI=
 Database Hostname=
 Database Name=/storage/2.5_inch/media/gallery/
 Database Name Face=/storage/2.5_inch/media/gallery/
@@ -1022,14 +1022,14 @@ Minimized=false
 RestoreSize=-1
 
 [Digikam Right Sidebar]
-ActiveTab=0
+ActiveTab=3
 DigikamProperties Expanded=true
 FileProperties Expanded=true
 ItemProperties Expanded=true
 LocationProperties Expanded=true
-Minimized=true
+Minimized=false
 PhotographProperties Expanded=true
-RestoreSize=210
+RestoreSize=-1
 RightsProperties Expanded=true
 TagsProperties Expanded=true
 VideoProperties Expanded=true
@@ -1064,7 +1064,7 @@ Web GPS Locator=0
 
 [Digikam Right Sidebar][GPS Properties Tab][Map Widget]
 Backend=marble
-Center=geo:0,0
+Center=geo:50.437750005,30.43250001
 GoogleMaps Map Type=ROADMAP
 GoogleMaps Show Map Type Control=true
 GoogleMaps Show Navigation Control=true
@@ -1084,7 +1084,7 @@ Show numbers on items=true
 Sticky Mode State=false
 Thumbnail Grouping Radius=30
 Thumbnail Size=60
-Zoom=marble:900
+Zoom=marble:3063
 
 [Digikam Right Sidebar][Metadata Properties Tab]
 Current EXIF Item=
@@ -1220,7 +1220,7 @@ UseWholeTagsEntry=false
 [Find Duplicates View]
 AlbumComboBox-Checked=
 AlbumComboBox-CurrentIndex=1
-AlbumComboBox-Expansion=1
+AlbumComboBox-Expansion=
 AlbumComboBox-RestoreChecked=true
 AlbumComboBox-Selection=1
 AlbumComboBox-SortColumn=0
@@ -1532,6 +1532,7 @@ Version Properties Tab=versions
 Version Properties View Mode=2
 
 [Import Filters]
+CurrentFilter=0
 Filter0=All Files|false|||
 Filter1=Only New Files|true|||
 Filter2=Raw Files|false|||image/x-nikon-nef;image/x-fuji-raf;image/x-adobe-dng;image/x-panasonic-raw;image/x-olympus-orf;image/x-kodak-dcr;image/x-kodak-k25;image/x-sony-arw;image/x-minolta-mrw;image/x-kodak-kdc;image/x-sigma-x3f;image/x-sony-srf;image/x-pentax-pef;image/x-panasonic-raw2;image/x-canon-crw;image/x-sony-sr2;image/x-canon-cr2;image/x-canon-cr3
@@ -1801,9 +1802,9 @@ Version Properties Tab=versions
 Version Properties View Mode=2
 
 [MainWindow]
-InitialAlbumID=1
-SplitterState=AAAA/wAAAAEAAAADAAABjAAADtgAAAE0Af////8AAAAAAQE=
-ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAg2AAAAkvwBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAACDYAAABXAP///wAACDYAAAUiAAAABAAAAAQAAAAIAAAACPwAAAAA
+InitialAlbumID=3
+SplitterState=AAAA/wAAAAEAAAADAAABjAAABuAAAAFUAf////8AAAAAAQE=
+ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAFdAAAAj/wBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAAAV0AAABXAP///wAAARAAAAUiAAAABAAAAAQAAAAIAAAACPwAAAAA
 
 [Marble Settings]
 Angle Unit=1
@@ -1958,7 +1959,7 @@ CaseSensitive=0
 [Select Reference]
 AlbumComboBox-Checked=
 AlbumComboBox-CurrentIndex=1
-AlbumComboBox-Expansion=1
+AlbumComboBox-Expansion=
 AlbumComboBox-RestoreChecked=true
 AlbumComboBox-Selection=1
 AlbumComboBox-SortColumn=0
@@ -2098,7 +2099,7 @@ Show Thumbnails=true
 Show numbers on items=true
 Thumbnail Grouping Radius=30
 Thumbnail Size=60
-Zoom=marble:1108
+Zoom=marble:3332
 
 [mainwindow_tableview]
 Grouping mode=2

@@ -37,13 +37,13 @@
     <setting id="masterlock.maxretries" default="true">3</setting>
     <setting id="lookandfeel.startupaction" default="true">0</setting>
     <setting id="lookandfeel.startupwindow" default="true">10000</setting>
-    <setting id="window.width" default="true">720</setting>
-    <setting id="window.height" default="true">480</setting>
-    <setting id="videolibrary.updateonstartup" default="true">false</setting>
+    <setting id="window.width">2868</setting>
+    <setting id="window.height">1543</setting>
+    <setting id="videolibrary.updateonstartup">true</setting>
     <setting id="videolibrary.backgroundupdate" default="true">false</setting>
     <setting id="videolibrary.ignorevideoversions" default="true">true</setting>
     <setting id="videolibrary.ignorevideoextras" default="true">true</setting>
-    <setting id="musiclibrary.updateonstartup" default="true">false</setting>
+    <setting id="musiclibrary.updateonstartup">true</setting>
     <setting id="musiclibrary.backgroundupdate" default="true">false</setting>
     <setting id="musiclibrary.exportfiletype" default="true">0</setting>
     <setting id="musiclibrary.exportfolder" default="true" />
@@ -113,7 +113,7 @@
     <setting id="pictures.usetags" default="true">true</setting>
     <setting id="pictures.generatethumbs" default="true">true</setting>
     <setting id="pictures.showvideos" default="true">true</setting>
-    <setting id="pictures.displayresolution">16</setting>
+    <setting id="pictures.displayresolution">17</setting>
     <setting id="scrapers.moviesdefault" default="true">metadata.themoviedb.org.python</setting>
     <setting id="scrapers.tvshowsdefault" default="true">metadata.tvshows.themoviedb.org.python</setting>
     <setting id="scrapers.musicvideosdefault" default="true">metadata.local</setting>
@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>37</systemtotaluptime>
+        <systemtotaluptime>479</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>
@@ -561,6 +561,6 @@
     </myvideos>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>1.000000</fvolumelevel>
+        <fvolumelevel>0.890000</fvolumelevel>
     </audio>
 </settings>
