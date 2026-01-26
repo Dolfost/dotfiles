@@ -988,7 +988,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwLCwsI=
+Database Encrypted Password=AwLa2to=
 Database Hostname=
 Database Name=/storage/2.5_inch/media/gallery/
 Database Name Face=/storage/2.5_inch/media/gallery/
@@ -1200,7 +1200,7 @@ AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 AlbumTypeEntry=0
 Face Already Scanned Handling=0
-Face Detection Accuracy=10
+Face Detection Accuracy=1000
 Face Detection Model=0
 Face Detection Size=3
 Face Recognition Accuracy=7

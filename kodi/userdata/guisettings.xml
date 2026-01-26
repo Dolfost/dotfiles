@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>479</systemtotaluptime>
+        <systemtotaluptime>515</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>
@@ -561,6 +561,6 @@
     </myvideos>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>0.890000</fvolumelevel>
+        <fvolumelevel>1.000000</fvolumelevel>
     </audio>
 </settings>
