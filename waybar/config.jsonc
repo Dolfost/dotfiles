@@ -102,7 +102,7 @@
   "clock": {
    "interval": 1,
     "timezone": "Europe/Kyiv",
-    "format": "{:L%A  %m.%d.%y  %H:%M:%S}",
+    "format": "{:L%A %m.%d.%y %H:%M:%S}",
   },
   "tray": {
     "icon-size": 15,

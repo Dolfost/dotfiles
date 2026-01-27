@@ -17,7 +17,7 @@
   margin: 6px 3px;
   background-color: rgba(36, 36, 52, 1.0);
   padding: 0px 12px;
-  border-radius: 3px;
+  border-radius: 1px;
   border-width: 0px;
 }
 
@@ -33,7 +33,7 @@
 #network,
 #bluetooth,
 #pulseaudio {
-  border-radius: 3px;
+  border-radius: 1px;
   margin: 6px 3px;
   padding: 0px 12px;
   color: #181825;
@@ -71,7 +71,7 @@
   /* Use box-shadow instead of border so the text isn't offset */
   padding: 0px 12px;
   margin: 6px 3px;
-  border-radius: 2px;
+  border-radius: 1px;
   background-color: rgba(36, 36, 52, 1.0);
   color: #cdd6f4;
 }
