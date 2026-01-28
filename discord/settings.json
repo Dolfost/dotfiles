@@ -12,5 +12,5 @@
     "height": 704
   },
   "asyncVideoInputDeviceInit": false,
-	"SKIP_HOST_UPDATE": true
+  "SKIP_HOST_UPDATE": true
 }
