@@ -10,4 +10,6 @@ setopt autocd
 setopt braceccl
 setopt extended_glob
 
+zmodload zsh/net/tcp
+
 unsetopt list_beep
