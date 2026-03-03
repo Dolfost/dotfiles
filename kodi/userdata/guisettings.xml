@@ -113,7 +113,7 @@
     <setting id="pictures.usetags" default="true">true</setting>
     <setting id="pictures.generatethumbs" default="true">true</setting>
     <setting id="pictures.showvideos" default="true">true</setting>
-    <setting id="pictures.displayresolution">17</setting>
+    <setting id="pictures.displayresolution">16</setting>
     <setting id="scrapers.moviesdefault" default="true">metadata.themoviedb.org.python</setting>
     <setting id="scrapers.tvshowsdefault" default="true">metadata.tvshows.themoviedb.org.python</setting>
     <setting id="scrapers.musicvideosdefault" default="true">metadata.local</setting>
@@ -307,8 +307,8 @@
     <setting id="weather.addon" default="true" />
     <setting id="videoscreen.monitor" default="true">Default</setting>
     <setting id="videoscreen.screen" default="true">0</setting>
-    <setting id="videoscreen.resolution">17</setting>
-    <setting id="videoscreen.screenmode">0576003240060.00000pstd</setting>
+    <setting id="videoscreen.resolution" default="true">16</setting>
+    <setting id="videoscreen.screenmode" default="true">DESKTOP</setting>
     <setting id="videoscreen.fakefullscreen" default="true">true</setting>
     <setting id="videoscreen.blankdisplays" default="true">false</setting>
     <setting id="videoscreen.delayrefreshchange" default="true">0</setting>
@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>1902</systemtotaluptime>
+        <systemtotaluptime>3268</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>

@@ -1,3 +1,6 @@
+[AdvancedRename Dialog]
+Dialog Size=450,450
+
 [AdvancedRename Input]
 Pattern History List=\\0
 
@@ -85,10 +88,10 @@ TreeView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 Update Type=0
 
 [AlbumFolderView Sidebar]
-CurrentIndex=3
+CurrentIndex=5
 Expansion=0,1,2,3,4,7,5,6,-2
 RestoreChecked=false
-Selection=3
+Selection=5
 SortColumn=0
 SortOrder=0
 
@@ -988,7 +991,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwLa2to=
+Database Encrypted Password=AwLv7+8=
 Database Hostname=
 Database Name=/storage/2.5_inch/media/gallery/
 Database Name Face=/storage/2.5_inch/media/gallery/
@@ -1064,7 +1067,7 @@ Web GPS Locator=0
 
 [Digikam Right Sidebar][GPS Properties Tab][Map Widget]
 Backend=marble
-Center=geo:50.437750005,30.43250001
+Center=geo:50.439793095,30.434302494
 GoogleMaps Map Type=ROADMAP
 GoogleMaps Show Map Type Control=true
 GoogleMaps Show Navigation Control=true
@@ -1084,7 +1087,7 @@ Show numbers on items=true
 Sticky Mode State=false
 Thumbnail Grouping Radius=30
 Thumbnail Size=60
-Zoom=marble:3063
+Zoom=marble:3400
 
 [Digikam Right Sidebar][Metadata Properties Tab]
 Current EXIF Item=
@@ -1802,9 +1805,9 @@ Version Properties Tab=versions
 Version Properties View Mode=2
 
 [MainWindow]
-InitialAlbumID=3
+InitialAlbumID=5
 SplitterState=AAAA/wAAAAEAAAADAAABjAAABuAAAAFUAf////8AAAAAAQE=
-ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAAFdAAAAj/wBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAAAV0AAABXAP///wAAARAAAAUiAAAABAAAAAQAAAAIAAAACPwAAAAA
+ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAIAAANvAAAAj/wBAAAAAfsAAAAmAG0AYQBpAG4AdwBpAG4AZABvAHcAXwB0AGgAdQBtAGIAYgBhAHIAAAAAAAAAA28AAABXAP///wAAA28AAAUkAAAABAAAAAQAAAAIAAAACPwAAAAA
 
 [Marble Settings]
 Angle Unit=1
@@ -1992,6 +1995,9 @@ AlbumComboBox-SortColumn=0
 AlbumComboBox-SortOrder=0
 UseWholeAlbumsEntry=true
 
+[Slideshow Settings]
+2560x1440 screen: Window-Maximized=true
+
 [Spell Check Settings]
 AlternativeLang=x-default,de-DE,en-US,es-ES,fr-FR,it-IT,pt-PT
 DefaultLanguage=
@@ -2080,7 +2086,7 @@ Sort Order=0
 
 [mainwindow_mapwidgetview][Central Map Widget]
 Backend=marble
-Center=geo:52,6
+Center=geo:0,0
 GoogleMaps Map Type=ROADMAP
 GoogleMaps Show Map Type Control=true
 GoogleMaps Show Navigation Control=true
@@ -2099,7 +2105,7 @@ Show Thumbnails=true
 Show numbers on items=true
 Thumbnail Grouping Radius=30
 Thumbnail Size=60
-Zoom=marble:3332
+Zoom=marble:900
 
 [mainwindow_tableview]
 Grouping mode=2
