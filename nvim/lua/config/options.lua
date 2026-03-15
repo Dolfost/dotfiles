@@ -3,7 +3,7 @@ vim.o.compatible = false
 vim.cmd("filetype plugin indent on") -- VimTex requirement
 
 vim.o.encoding = "utf8" -- VimTex requirement
-vim.o.syntax = "ON" -- VimTex requirement
+vim.o.syntax = "on" -- VimTex requirement
 
 vim.o.termguicolors = true
 
@@ -26,8 +26,10 @@ vim.o.scrolloff = 8
 vim.o.mousescroll = "ver:1,hor:2"
 
 vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 0
 vim.o.conceallevel = 2
+vim.o.list = true 
+vim.o.listchars = "tab:->"
 
 vim.o.exrc = true
 

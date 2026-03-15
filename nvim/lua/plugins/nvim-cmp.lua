@@ -34,125 +34,125 @@ return {
 			},
 
 			-- window = {
-			-- 	completion = cmp.config.window.bordered(),
-			-- 	documentation = cmp.config.window.bordered(),
-			-- },
+				-- 	completion = cmp.config.window.bordered(),
+				-- 	documentation = cmp.config.window.bordered(),
+				-- },
 
-			experimental = {
-				ghost_text = true
-			},
+				experimental = {
+					ghost_text = true
+				},
 
-			mapping = cmp.mapping.preset.insert({
-				['<C-b>'] = cmp.mapping.scroll_docs(-4),
-				['<C-f>'] = cmp.mapping.scroll_docs(4),
-				['<C-Space>'] = cmp.mapping.complete(),
-				['<C-e>'] = cmp.mapping.abort(),
-				['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				mapping = cmp.mapping.preset.insert({
+					['<C-b>'] = cmp.mapping.scroll_docs(-4),
+					['<C-f>'] = cmp.mapping.scroll_docs(4),
+					['<C-Space>'] = cmp.mapping.complete(),
+					['<C-e>'] = cmp.mapping.abort(),
+					['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
-				-- LuaSnip support
-				['<Tab>'] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-						-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-						-- that way you will only jump inside the snippet region
-					elseif ls.expand_or_jumpable() then
-						ls.expand_or_jump()
-					elseif has_words_before() then
-						cmp.complete()
-					else
-						fallback()
-					end
-				end, { 'i', 's' }),
-				['<S-Tab>'] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item()
-					elseif ls.jumpable(-1) then
-						ls.jump(-1)
-					else
-						fallback()
-					end
-				end, { 'i', 's' }),
-			}),
-
-			formatting = {
-				fields = { 'kind', 'abbr', 'menu' },
-				format = lspkind.cmp_format({
-					mode = 'symbol',
-					menu = {
-						buffer = 'buf',
-						nvim_lsp = '',
-						luasnip = 'snip',
-						nvim_lua = 'nlua',
-						latex_symbols = 'latex',
-						vimtex = 'vimtex',
-					},
-					show_labelDetails = true,
-					ellipsis_char = '…',
-					-- maxwidth = {
-					-- 	menu = 20,
-					-- 	abbr = 20,
-					-- },
+					-- LuaSnip support
+					['<Tab>'] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+							-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+							-- that way you will only jump inside the snippet region
+						elseif ls.expand_or_jumpable() then
+							ls.expand_or_jump()
+						elseif has_words_before() then
+							cmp.complete()
+						else
+							fallback()
+						end
+					end, { 'i', 's' }),
+					['<S-Tab>'] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif ls.jumpable(-1) then
+							ls.jump(-1)
+						else
+							fallback()
+						end
+					end, { 'i', 's' }),
 				}),
-			},
 
-			sources = cmp.config.sources({
-				{ name = 'nvim_lsp' },
-				{ name = 'luasnip' },
-				{ name = 'async_path' },
-				{ name = 'buffer' },
-			}),
-		})
-
-		cmp.setup.filetype('gitcommit', {
-			sources = cmp.config.sources({
-				{ name = 'git',        group_index = 1 },
-				{ name = 'buffer',     group_index = 2 },
-				{ name = 'async_path', group_index = 2 },
-			}),
-		})
-
-		cmp.setup.filetype("tex", {
-			sources = {
-				{ name = 'vimtex' },
-				{ name = 'nvim_lsp' },
-				{ name = 'luasnip' },
-				{ name = 'async_path' },
-				{ name = 'buffer' },
-			},
-		})
-
-		cmp.setup.filetype("lua", {
-			sources = {
-				{ name = 'nvim_lsp' },
-				{ name = 'luasnip' },
-				{ name = 'async_path' },
-				{ name = 'buffer' },
-			},
-		})
-
-		cmp.setup.cmdline({ '/', '?' }, {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
-				{ name = 'buffer' }
-			}
-		})
-
-		cmp.setup.cmdline(':', {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({
-				-- { name = 'path' },
-				{
-					name = 'cmdline',
-					group_index = 1,
-					option = {
-						ignore_cmds = { 'Man', '!' }
+				formatting = {
+					fields = { 'kind', 'abbr', 'menu' },
+					format = lspkind.cmp_format({
+						mode = 'symbol',
+						menu = {
+							buffer = 'buf',
+							nvim_lsp = '',
+							luasnip = 'snip',
+							nvim_lua = 'nlua',
+							latex_symbols = 'latex',
+							vimtex = 'vimtex',
+						},
+						show_labelDetails = true,
+						ellipsis_char = '…',
+						-- maxwidth = {
+							-- 	menu = 20,
+							-- 	abbr = 20,
+							-- },
+						}),
 					},
-				},
-				{
-					name = 'zsh',
-					group_index = 2,
-				},
-			})
-		})
-	end,
-}
+
+					sources = cmp.config.sources({
+						{ name = 'nvim_lsp' },
+						{ name = 'luasnip' },
+						{ name = 'async_path' },
+						{ name = 'buffer' },
+					}),
+				})
+
+				cmp.setup.filetype('gitcommit', {
+					sources = cmp.config.sources({
+						{ name = 'git',        group_index = 1 },
+						{ name = 'buffer',     group_index = 2 },
+						{ name = 'async_path', group_index = 2 },
+					}),
+				})
+
+				cmp.setup.filetype("tex", {
+					sources = {
+						{ name = 'vimtex' },
+						{ name = 'nvim_lsp' },
+						{ name = 'luasnip' },
+						{ name = 'async_path' },
+						{ name = 'buffer' },
+					},
+				})
+
+				cmp.setup.filetype("lua", {
+					sources = {
+						{ name = 'nvim_lsp' },
+						{ name = 'luasnip' },
+						{ name = 'async_path' },
+						{ name = 'buffer' },
+					},
+				})
+
+				cmp.setup.cmdline({ '/', '?' }, {
+					mapping = cmp.mapping.preset.cmdline(),
+					sources = {
+						{ name = 'buffer' }
+					}
+				})
+
+				cmp.setup.cmdline(':', {
+					mapping = cmp.mapping.preset.cmdline(),
+					sources = cmp.config.sources({
+						-- { name = 'path' },
+						{
+							name = 'cmdline',
+							group_index = 1,
+							option = {
+								ignore_cmds = { 'Man', '!' }
+							},
+						},
+						{
+							name = 'zsh',
+							group_index = 2,
+						},
+					})
+				})
+			end,
+		}
