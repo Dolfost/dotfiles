@@ -6,12 +6,13 @@
   "IS_MAXIMIZED": false,
   "IS_MINIMIZED": false,
   "WINDOW_BOUNDS": {
-    "x": 643,
-    "y": 32,
-    "width": 940,
-    "height": 1408
+    "x": 1448,
+    "y": 0,
+    "width": 1112,
+    "height": 1440
   },
   "asyncVideoInputDeviceInit": false,
   "SKIP_HOST_UPDATE": true,
-  "enableLibOpenH264Electron": false
+  "enableLibOpenH264Electron": false,
+  "openH264Enabled": true
 }

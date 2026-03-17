@@ -350,7 +350,7 @@
     <setting id="audiooutput.guisoundvolume" default="true">100</setting>
     <setting id="lookandfeel.soundskin" default="true">resource.uisounds.kodi</setting>
     <setting id="audiooutput.passthrough" default="true">false</setting>
-    <setting id="audiooutput.passthroughdevice">PULSE:alsa_output.pci-0000_03_00.1.hdmi-stereo-extra1|Monitor</setting>
+    <setting id="audiooutput.passthroughdevice">PULSE:alsa_output.pci-0000_03_00.1.hdmi-stereo-extra1|Navi 48 HDMI/DP Audio Controller Digital Stereo (HDMI 2)</setting>
     <setting id="audiooutput.ac3passthrough" default="true">true</setting>
     <setting id="audiooutput.ac3transcode" default="true">false</setting>
     <setting id="audiooutput.eac3passthrough" default="true">false</setting>
@@ -373,7 +373,7 @@
     <setting id="network.bandwidth" default="true">0</setting>
     <setting id="powermanagement.displaysoff" default="true">0</setting>
     <setting id="powermanagement.shutdowntime" default="true">0</setting>
-    <setting id="powermanagement.shutdownstate" default="true">1</setting>
+    <setting id="powermanagement.shutdownstate" default="true">0</setting>
     <setting id="powermanagement.waitfornetwork" default="true">0</setting>
     <setting id="powermanagement.wakeonaccess" default="true">false</setting>
     <setting id="general.addonupdates" default="true">0</setting>
@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>3467</systemtotaluptime>
+        <systemtotaluptime>4208</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>
@@ -561,6 +561,6 @@
     </myvideos>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>1.000000</fvolumelevel>
+        <fvolumelevel>0.780000</fvolumelevel>
     </audio>
 </settings>
