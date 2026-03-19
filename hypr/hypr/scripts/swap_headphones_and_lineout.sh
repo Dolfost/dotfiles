@@ -14,10 +14,10 @@ sink=$(pactl get-default-sink)
 if [ "$second" != "" ]; then
 	if [ "$sink" = "$second" ]; then
 		pactl set-default-sink "$first"
-		message "󱡬 Monitor"
+		message "󱀞  Monitor"
 	else
 		pactl set-default-sink "$second"
-		message "󱀞  DAC"
+		message "󱡬 Headphones"
 	fi
 fi
 
