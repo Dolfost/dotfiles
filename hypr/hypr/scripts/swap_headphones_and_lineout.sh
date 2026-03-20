@@ -11,15 +11,15 @@ message() {
 
 sink=$(pactl get-default-sink)
 
-if [ "$dac" != "" ]; then
-	if [ "$sink" = "$dac" ]; then
-		pactl set-default-sink "$mb"
-		message "󱡬 Motherboard"
+if [ "$second" != "" ]; then
+	if [ "$sink" = "$second" ]; then
+		pactl set-default-sink "$first"
+		message "󱀞  Monitor"
 	else
-		pactl set-default-sink "$dac"
-		message "󱀞  DAC"
+		pactl set-default-sink "$second"
+		message "󱡬 Headphones"
 	fi
 fi
 
-echo "DAC is: $dac"
-echo "MB is:  $mb"
+echo "DAC is: $second"
+echo "MB is:  $first"

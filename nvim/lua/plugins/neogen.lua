@@ -4,10 +4,10 @@ return {
 	-- opts = 
 	init = function ()
 		local wk = require"which-key"
-			wk.add{
-				{ "<leader>x", "<cmd>Neogen<cr>",
-					desc = "Insert documentation block",
-					icon = {icon = " ", color = 'yellow'}, },
+		wk.add{
+			{ "<leader>x", "<cmd>Neogen<cr>",
+			desc = "Insert documentation block",
+			icon = {icon = " ", color = 'yellow'}, },
 		}
 	end,
 

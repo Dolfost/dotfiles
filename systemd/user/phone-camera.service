@@ -14,7 +14,8 @@ ExecStart=scrcpy \
   --no-audio --no-window \
   --video-codec=h265 \
   --video-encoder=OMX.qcom.video.encoder.hevc \
-	--capture-orientation=flip180
+	--audio-source=mic \
+	--audio-codec=aac
 Restart=no
 RestartSec=3
 
