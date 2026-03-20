@@ -28,7 +28,7 @@ vim.o.mousescroll = "ver:1,hor:2"
 vim.o.tabstop = 2
 vim.o.shiftwidth = 0
 vim.o.conceallevel = 2
-vim.o.list = true 
+vim.o.list = false 
 vim.o.listchars = "tab:->"
 
 vim.o.exrc = true
