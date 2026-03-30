@@ -7,6 +7,7 @@ c.bold_brightens_ansi_colors = true
 
 c.force_reverse_video_cursor = true
 c.enable_tab_bar = false
+c.warn_about_missing_glyphs = false
 
 c.window_padding = {
   left = 5,
