@@ -6,10 +6,10 @@
   "IS_MAXIMIZED": false,
   "IS_MINIMIZED": false,
   "WINDOW_BOUNDS": {
-    "x": 1448,
-    "y": 0,
-    "width": 1112,
-    "height": 1440
+    "x": 0,
+    "y": 32,
+    "width": 1280,
+    "height": 1408
   },
   "asyncVideoInputDeviceInit": false,
   "SKIP_HOST_UPDATE": true,

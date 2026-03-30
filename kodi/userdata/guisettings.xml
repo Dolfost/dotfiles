@@ -295,7 +295,7 @@
     <setting id="smb.minprotocol" default="true">0</setting>
     <setting id="smb.maxprotocol" default="true">3</setting>
     <setting id="smb.legacysecurity" default="true">false</setting>
-    <setting id="services.wsdiscovery" default="true">true</setting>
+    <setting id="services.wsdiscovery">false</setting>
     <setting id="smb.chunksize" default="true">128</setting>
     <setting id="nfs.version" default="true">3</setting>
     <setting id="nfs.chunksize" default="true">128</setting>
@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>4208</systemtotaluptime>
+        <systemtotaluptime>4861</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>
@@ -561,6 +561,6 @@
     </myvideos>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>0.780000</fvolumelevel>
+        <fvolumelevel>0.720000</fvolumelevel>
     </audio>
 </settings>
