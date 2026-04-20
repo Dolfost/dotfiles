@@ -31,7 +31,7 @@ Icon Show Resolution=false
 Icon Show Size=false
 Icon Show Tags=true
 Icon Show Title=true
-IconView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+IconView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 Image Group Mode=2
 Image Group Sort Order=1
 Image Sort Order=2
@@ -55,7 +55,7 @@ Show Thumbbar=true
 Show ToolTips=true
 Sidebar Title Style=2
 Theme=Black Body
-ToolTips Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+ToolTips Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 ToolTips Show Album Caption=true
 ToolTips Show Album Category=true
 ToolTips Show Album Collection=true
@@ -88,12 +88,12 @@ ToolTips Show Video Aspect Ratio=true
 ToolTips Show Video Codec=true
 ToolTips Show Video Duration=true
 ToolTips Show Video Frame Rate=true
-TreeView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+TreeView Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 Update Type=0
 
 [AlbumFolderView Sidebar]
 CurrentIndex=3
-Expansion=0,1,2,3,4,7,5,6,-2
+Expansion=0,1,8,9,2,3,4,7,5,6,-2
 RestoreChecked=false
 Selection=3
 SortColumn=0
@@ -1007,7 +1007,7 @@ tagPaths=1
 
 [Database Settings]
 Database Connectoptions=
-Database Encrypted Password=AwKhoaE=
+Database Encrypted Password=AwKLi4s=
 Database Hostname=
 Database Name=/storage/2.5_inch/media/gallery/
 Database Name Face=/storage/2.5_inch/media/gallery/
@@ -1083,7 +1083,7 @@ Web GPS Locator=0
 
 [Digikam Right Sidebar][GPS Properties Tab][Map Widget]
 Backend=marble
-Center=geo:50.439570993,30.434227398
+Center=geo:50.490951597,30.50592309
 GoogleMaps Map Type=ROADMAP
 GoogleMaps Show Map Type Control=true
 GoogleMaps Show Navigation Control=true
@@ -1327,7 +1327,7 @@ Zoom=marble:900
 CaseSensitive=0
 
 [General Settings]
-Application Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+Application Font=Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 Application Style=fusion
 Apply Sidebar Changes Directly=false
 Automatically start a background face recognition scan when a new face is tagged=true
@@ -1341,6 +1341,7 @@ FullScreen Hide StatusBar=false
 FullScreen Hide ThumbBar=true
 FullScreen Hide ToolBars=false
 Icon Theme=
+MenuBar=Disabled
 Scan At Start=true
 Scroll Current Item To Center=false
 Select First Album Item=true
@@ -2024,7 +2025,7 @@ TranslatorEngine=0
 TranslatorLang=de-DE,en-US,es-ES,fr-FR,it-IT,pt-PT
 
 [Survey Settings]
-Horizontal Splitter State=AAAA/wAAAAEAAAAC//////////8B/////wAAAAABAQ==
+Horizontal Splitter State=AAAA/wAAAAEAAAACAAAAzgAAATQB/////wAAAAABAQ==
 Show Thumbbar=true
 ThumbbarState=AAAA/wAAAAD9AAAAAQAAAAMAAAAAAAAAAPwBAAAAAfsAAAAeAHMAdQByAHYAZQB5AF8AdABoAHUAbQBiAGIAYQByAQAAAAD/////AAAAVwD///8AAAAAAAAAAAAAAAQAAAAEAAAACAAAAAj8AAAAAA==
 
@@ -2036,7 +2037,7 @@ ItemProperties Expanded=true
 LocationProperties Expanded=true
 Minimized=true
 PhotographProperties Expanded=true
-RestoreSize=-1
+RestoreSize=48
 RightsProperties Expanded=true
 TagsProperties Expanded=true
 VideoProperties Expanded=true

@@ -37,8 +37,8 @@
     <setting id="masterlock.maxretries" default="true">3</setting>
     <setting id="lookandfeel.startupaction" default="true">0</setting>
     <setting id="lookandfeel.startupwindow" default="true">10000</setting>
-    <setting id="window.width">2870</setting>
-    <setting id="window.height">1545</setting>
+    <setting id="window.width">1610</setting>
+    <setting id="window.height">2805</setting>
     <setting id="videolibrary.updateonstartup">true</setting>
     <setting id="videolibrary.backgroundupdate" default="true">false</setting>
     <setting id="videolibrary.ignorevideoversions" default="true">true</setting>
@@ -510,7 +510,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>4861</systemtotaluptime>
+        <systemtotaluptime>6145</systemtotaluptime>
     </general>
     <defaultvideosettings>
         <interlacemethod>1</interlacemethod>
@@ -561,6 +561,6 @@
     </myvideos>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>0.720000</fvolumelevel>
+        <fvolumelevel>1.000000</fvolumelevel>
     </audio>
 </settings>
