@@ -7,6 +7,8 @@ if [ "$ORIENTATION" == "horizontal" ]; then
 	SECONDARY_MONITOR_MODELINE="3840x2160@60, 2560x0, 1.333334"
 elif [ "$ORIENTATION" == "vertical" ]; then
 	SECONDARY_MONITOR_MODELINE="3840x2160@60, 2560x-900, 1.333334, transform, 3"
+elif [ "$ORIENTATION" == "mirror" ]; then
+	SECONDARY_MONITOR_MODELINE="preferred, auto, 1, mirror, DP-1"
 fi
 
 hyprctl monitors | grep $SECONDARY_MONITOR 
