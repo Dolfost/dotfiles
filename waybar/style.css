@@ -31,6 +31,7 @@
 #clock,
 #window,
 #network,
+#battery,
 #bluetooth,
 #pulseaudio {
   border-radius: 1px;
@@ -45,9 +46,10 @@
 #clock {
   background-color: #89b4fa;
 }
-#bluetooth{
+#battery{
   background-color: #f9e2af;
 }
+#bluetooth,
 #pulseaudio{
   background-color: #89dceb;
 }

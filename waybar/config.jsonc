@@ -10,8 +10,8 @@
   "modules-right": [
     "tray",
     "network",
+    "bluetooth",
     "battery",
-    // "bluetooth",
     "pulseaudio",
     "clock"
 	],
@@ -72,28 +72,28 @@
 		"tooltip-format-disconnected": "MPD (disconnected)"
 	},
   "network": {
-    "format-wifi": "󰤨   {essid} ",
-    "format-ethernet": "   Wired ",
+    "format-wifi": "󰤨  {essid} ",
+    "format-ethernet": "  Wired ",
     "tooltip-format": "<span color='#FF1493'>󰅧  </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢   </span>{bandwidthDownBytes}",
-    "format-linked": "󱘖   {ifname} (No IP) ",
-    "format-disconnected": "   Disconnected ",
-    "format-alt": "󰤨   {signalStrength}% ",
+    "format-linked": "󱘖  {ifname} (No IP) ",
+    "format-disconnected": "  Disconnected ",
+    "format-alt": "󰤨  {signalStrength}% ",
     "interval": 1
   },
   "pulseaudio": {
     "format": "{icon}{volume}% ",
-    "format-muted": "󰖁  0% ",
+    "format-muted": "󰖁 ",
     "format-icons": {
-      "headphone": "   ",
-      "hands-free": "   ",
-      "headset": "   ",
-      "phone": "   ",
-      "portable": "   ",
-      "car": "   ",
+      "headphone": "  ",
+      "hands-free": "  ",
+      "headset": "  ",
+      "phone": "  ",
+      "portable": "  ",
+      "car": "  ",
       "default": [
-        "  ",
-        "  ",
-        "   "
+        " ",
+        " ",
+        " "
       ]
     },
     "on-click-right": "pavucontrol -t 3",
@@ -102,7 +102,7 @@
   "clock": {
    "interval": 1,
     "timezone": "Europe/Kyiv",
-    "format": "{:L%A %m.%d.%y %H:%M:%S}",
+    "format": "{:L%a %m.%d.%y %H:%M:%S}",
   },
   "tray": {
     "icon-size": 15,
@@ -111,7 +111,7 @@
   "bluetooth": {
     "format": "  {status} ",
     "format-connected": "  {device_alias} ",
-    "format-no-controller": "  No controller",
+    "format-no-controller": "  ",
     "format-connected-battery": "  {device_alias}{device_battery_percentage}% ",
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
