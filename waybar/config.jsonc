@@ -108,6 +108,14 @@
     "icon-size": 15,
     "spacing": 10
   },
+	"battery": {
+		"interval": 1,
+		"format": "{icon} {capacity}%",
+		"format-icons": {
+			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+		},
+	},
   "bluetooth": {
     "format": "󰂯 {status}",
     "format-on": "",
