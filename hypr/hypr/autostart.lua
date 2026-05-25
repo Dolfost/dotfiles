@@ -1,7 +1,7 @@
 hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
 
-	hl.exec_cmd('uwsm app -- '..TERMINAL..' start -- '..SHELL.." -lc 'tmux new -As main'", { workspace = 2 })
+	hl.exec_cmd('uwsm app -- '..TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 2 })
 	hl.exec_cmd('uwsm app -- '..WEB_BROWSER, { workspace = '3 silent' })
 
 	hl.exec_cmd('systemctl --user start waybar.service')

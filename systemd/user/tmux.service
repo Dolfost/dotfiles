@@ -1,0 +1,12 @@
+[Unit]
+Description=tmux session
+
+[Service]
+Type=forking
+ExecStart=tmux new-session -d -s main
+ExecStop=tmux kill-server
+KillMode=none
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
