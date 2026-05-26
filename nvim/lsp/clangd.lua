@@ -15,7 +15,7 @@ return {
 		"--offset-encoding=utf-32",
 		"--query-driver=**/*",
 	},
-	filetypes = { "c", "cpp", "h", "hpp", "inl", "objc", "objcpp", "cuda", "proto" },
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 	root_markers = { '.git', '.clangd', 'compile_commands.json' }
 }
 
