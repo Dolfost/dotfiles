@@ -1,4 +1,5 @@
 return {
 	cmd = { 'cmake-language-server' },
-	filetypes = { 'cmake' }
+	filetypes = { 'cmake' },
+	root_markers = { 'CMakeLists.txt', 'CMakePresets.json', '.git' },
 }
