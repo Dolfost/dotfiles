@@ -1,0 +1,14 @@
+#
+# https://www.navidrome.org/docs/usage/configuration-options/
+#
+
+# Folder to store application data (DB, cache…)
+DataFolder = "/var/lib/navidrome"
+MusicFolder = "/storage/2.5_inch/media/music"
+
+ArtistArtPriority = "artist.*"
+CoverArtPriority = "cover.*"
+CoverArtQuality = 100
+DiskArtPriority = "cover.*"
+EnableGravatar = true
+EnableSharing = true
