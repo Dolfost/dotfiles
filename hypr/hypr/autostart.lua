@@ -1,8 +1,11 @@
+function exec_cmd_uwsm(cmd, opts)
+	return hl.exec_cmd('uwsm app -p After=waybar.service -- ' .. cmd, opts)
+end
+
 hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
 
-	hl.exec_cmd('uwsm app -- '..TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 2 })
-	hl.exec_cmd('uwsm app -- '..WEB_BROWSER, { workspace = '3 silent' })
+	hl.exec_cmd('systemctl --user start waybar.service')
 
 	hl.exec_cmd('systemctl --user start waybar.service')
 	hl.exec_cmd('systemctl --user start hypridle')
@@ -13,14 +16,17 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd('wl-paste --type text  --watch cliphist store')
 	hl.exec_cmd('wl-paste --type image --watch cliphist store')
 
-	hl.exec_cmd('uwsm app -p After=waybar.service -- openrgb -p ~/.config/OpenRGB/OFF.orp')
-	hl.exec_cmd('sleep 5s; uwsm app -p After=waybar.service -- easyeffects --hide-window --service-mode')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- signal-desktop')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- element-desktop --hidden')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- Telegram -startintray')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- discord --start-minimized')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- steam -silent')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- mullvad-vpn')
+	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
+	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
+
+	exec_cmd_uwsm('openrgb -p ~/.config/OpenRGB/OFF.orp')
+	exec_cmd_uwsm('sleep 10s; easyeffects --hide-window --service-mode')
+	exec_cmd_uwsm('signal-desktop')
+	exec_cmd_uwsm('element-desktop --hidden')
+	exec_cmd_uwsm('Telegram -startintray')
+	exec_cmd_uwsm('discord --start-minimized')
+	exec_cmd_uwsm('steam -silent')
+	exec_cmd_uwsm('mullvad-vpn')
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins
 end)

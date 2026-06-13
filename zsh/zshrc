@@ -5,7 +5,7 @@ source $ZSH_CONFIG/aliases.zsh
 source $ZSH_CONFIG/visuals.zsh
 source $ZSH_CONFIG/binds.zsh
 source $ZSH_CONFIG/options.zsh
-if [ ! -f "$ZSH_CONFIG" ]; then
+if [ -f "$ZSH_CONFIG/secrets.zsh" ]; then
 	source $ZSH_CONFIG/secrets.zsh
 fi
 
