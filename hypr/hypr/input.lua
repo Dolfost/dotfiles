@@ -139,3 +139,5 @@ hl.bind(l..'SHIFT + comma',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh min'),     
 hl.bind(l..'SHIFT + period', hl.dsp.exec_raw(SCRIPTS..'brightness.sh max'),        { locked = true })
 hl.bind(l..'ALT + comma',    hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-dec'),  { locked = true })
 hl.bind(l..'ALT + period',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-inc'),  { locked = true })
+
+load_local_config()

@@ -21,7 +21,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd('uwsm app -p After=waybar.service -- discord --start-minimized')
 	hl.exec_cmd('uwsm app -p After=waybar.service -- steam -silent')
 	hl.exec_cmd('uwsm app -p After=waybar.service -- mullvad-vpn')
-	hl.exec_cmd('uwsm app -p After=waybar.service -- jellyfin-mpv-shim')
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins
 end)
+
+load_local_config()
