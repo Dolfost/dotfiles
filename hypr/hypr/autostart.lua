@@ -30,7 +30,6 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm('Telegram -startintray')
 	exec_cmd_uwsm('discord --start-minimized')
 	exec_cmd_uwsm('steam -silent')
-	exec_cmd_uwsm('mullvad-vpn')
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins
 end)
