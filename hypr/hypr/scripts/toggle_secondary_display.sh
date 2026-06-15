@@ -4,11 +4,11 @@ ORIENTATION=$1
 
 SECONDARY_MONITOR="HDMI-A-1"
 if [ "$ORIENTATION" == "horizontal" ]; then
-	SECONDARY_MONITOR_MODELINE="3840x2160@60, 2560x0, 1.333334"
+	MONITOR_ARGS="mode='3840x2160@60', position='2560x0', scale=1.333334, disabled=false"
 elif [ "$ORIENTATION" == "vertical" ]; then
-	SECONDARY_MONITOR_MODELINE="3840x2160@60, 2560x-900, 1.333334, transform, 3"
+	MONITOR_ARGS="mode='3840x2160@60', position='2560x-900', scale=1.333334, transform=3, disabled=false"
 elif [ "$ORIENTATION" == "mirror" ]; then
-	SECONDARY_MONITOR_MODELINE="preferred, auto, 1, mirror, DP-1"
+	MONITOR_ARGS="mode='preferred', position='auto', scale=1, mirror='DP-1', disabled=false"
 fi
 
 hyprctl monitors | grep $SECONDARY_MONITOR 
@@ -16,13 +16,13 @@ IS_ENABLED=$?
 
 NID=7493270
 if [  $IS_ENABLED = "0" ]; then 
-	hyprctl keyword monitor $SECONDARY_MONITOR , disable
+	hyprctl eval "hl.monitor({output='$SECONDARY_MONITOR', disabled=true})"
 	status=$?
 	if [ "$status" = "0" ]; then
 		notify-send -r $NID -u low -a hyprctl "󰹑  󰨙 " "External monitor OFF"
 	fi
 else
-	hyprctl keyword monitor $SECONDARY_MONITOR , $SECONDARY_MONITOR_MODELINE
+	hyprctl eval "hl.monitor({output='$SECONDARY_MONITOR', $MONITOR_ARGS})"
 	status=$?
 	if [ "$status" = "0" ]; then
 		notify-send -r $NID -u low -a hyprctl "󰹑  󰨚 " "External monitor ON"
