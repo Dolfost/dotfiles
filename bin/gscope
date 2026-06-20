@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# steam launch wrapper: gamescope + mangohud + gamemode.
+# Usage in Steam launch options: gscope %command%
+# Resolution/refresh auto-detected from focused Hyprland monitor.
+# Per-game overrides: ~/.config/gscope/<SteamAppId>.env
+
+export AMD_USERQ=1
+export PROTON_USE_NTSYNC=1
+
+# fallback defaults if Hyprland query fails
+WIDTH=2560
+HEIGHT=1440
+REFRESH=180
+OUTPUT=""
+
+if command -v hyprctl >/dev/null && command -v jq >/dev/null \
+	&& hyprctl monitors >/dev/null 2>&1; then
+read -r WIDTH HEIGHT REFRESH OUTPUT < <(
+	hyprctl -j monitors | jq -r '
+	((map(select(.focused))) + .) | .[0] |
+		"\(.width) \(.height) \(.refreshRate) \(.name)"
+	'
+)
+REFRESH=$(printf "%.0f" "$REFRESH")
+fi
+
+if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
+	source "$HOME/.config/gscope/$SteamAppId.env"
+fi
+
+GS_ARGS=(--output-width "$WIDTH"
+	--output-height "$HEIGHT"
+	--nested-refresh "$REFRESH"
+	--adaptive-sync
+	--fullscreen
+	--mangoapp
+)
+
+[[ -n "$OUTPUT" ]] && GS_ARGS+=(--prefer-output "$OUTPUT")
+
+exec gamemoderun gamescope "${GS_ARGS[@]}" -- "$@"
