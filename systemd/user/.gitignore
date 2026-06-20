@@ -1,2 +1,3 @@
-*.wants
-*.d
+*
+!tmux.service
+!phone-camera.service 
