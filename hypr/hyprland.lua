@@ -2,7 +2,9 @@ hl.monitor({
 	output = "", mode = "preferred",
 	position = "auto", scale = 1
 })
-
+hl.monitor({
+	output = "sunshine-headless", disabled = true,
+})
 
 TERMINAL = 'wezterm'
 CALCULATOR = 'qalculate-gtk --new-instance'
@@ -21,3 +23,7 @@ require('hypr.autostart')
 require('hypr.graphics')
 require('hypr.input')
 require('hypr.misc')
+
+hl.on("config.reloaded", function()
+	hl.exec_cmd('pgrep -x hyprlock >/dev/null || hyprlock')
+end)

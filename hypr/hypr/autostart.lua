@@ -8,6 +8,7 @@ end
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
+	hl.exec_cmd('hyprctl monitors all | grep -q sunshine-headless || hyprctl output create headless sunshine-headless')
 
 	hl.exec_cmd('systemctl --user start waybar.service')
 

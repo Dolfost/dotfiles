@@ -2,9 +2,9 @@
 
 ORIENTATION=$1
 
-SECONDARY_MONITOR="HDMI-A-1"
+SECONDARY_MONITOR="HDMI-A-2"
 if [ "$ORIENTATION" == "horizontal" ]; then
-	MONITOR_ARGS="mode='3840x2160@60', position='2560x0', scale=1.333334, disabled=false"
+	MONITOR_ARGS="mode='3840x2160@60', position='2560x0', scale=1.333334, transform=0, disabled=false"
 elif [ "$ORIENTATION" == "vertical" ]; then
 	MONITOR_ARGS="mode='3840x2160@60', position='2560x-900', scale=1.333334, transform=3, disabled=false"
 elif [ "$ORIENTATION" == "mirror" ]; then
