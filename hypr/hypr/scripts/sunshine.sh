@@ -12,6 +12,8 @@ case "${1:-}" in
 		height="${SUNSHINE_CLIENT_HEIGHT:-1080}"
 		fps="${SUNSHINE_CLIENT_FPS:-60}"
 
+		hyprctl dispatch "hl.dsp.dpms({action = 'on'})"
+		sleep 5s
 		hyprctl eval "hl.monitor({output = \"${HEADLESS}\", mode = \"${width}x${height}@${fps}\", position = \"auto\", scale = 1, disabled = false})"
 		for m in "${PHYSICAL_MONITORS[@]}"; do
 			hyprctl eval "hl.monitor({output = \"${m}\", disabled = true})"
