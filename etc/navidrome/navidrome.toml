@@ -12,3 +12,4 @@ CoverArtQuality = 100
 DiskArtPriority = "cover.*"
 EnableGravatar = true
 EnableSharing = true
+Tags.Artist.Split = ["/", " / ", " feat. ", " feat ", " ft. ", " ft ", "; ", " & "]
