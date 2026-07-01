@@ -1,0 +1,35 @@
+[Unit]
+Description=Crafty Controller (Minecraft server manager)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=crafty
+Image=registry.gitlab.com/crafty-controller/crafty-4:latest
+AutoUpdate=registry
+
+PublishPort=8443:8443
+PublishPort=8123:8123
+PublishPort=19132:19132/udp
+PublishPort=25500-25600:25500-25600
+
+# Once, you should run
+# 	systemctl --user edit crafty.service
+# and add to it:
+# 	[Service]
+# 	Environment=CRAFTY_DIR=/storage/data/crafty
+
+Volume=${CRAFTY_DIR}/backups:/crafty/backups:Z
+Volume=${CRAFTY_DIR}/logs:/crafty/logs:Z
+Volume=${CRAFTY_DIR}/servers:/crafty/servers:Z
+Volume=${CRAFTY_DIR}/config:/crafty/app/config:Z
+Volume=${CRAFTY_DIR}/import:/crafty/import:Z
+
+Environment=TZ=Europe/Kyiv
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
