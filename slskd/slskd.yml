@@ -126,7 +126,7 @@ transfers:
         upload:
           priority: 250
           strategy: firstinfirstout
-          slots: 10
+          slots: 100
           limits: 
             queued: 
               files: ~
@@ -222,6 +222,8 @@ soulseek:
   password: ~
   description: |
     A slskd user. https://github.com/slskd/slskd
+    https://github.com/Dolfost
+    Russia is a terrorist state
   picture: /storage/2.5_inch/media/gallery/avatars/pink/pink_2048.png
   listen_ip_address: 0.0.0.0
   listen_port: 50300
