@@ -1,0 +1,9 @@
+[Unit]
+Description=Immich (photo management)
+
+[Pod]
+PodName=immich
+PublishPort=2283:2283
+
+[Install]
+WantedBy=default.target

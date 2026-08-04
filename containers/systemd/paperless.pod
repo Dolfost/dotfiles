@@ -1,0 +1,9 @@
+[Unit]
+Description=Paperless-ngx (document management)
+
+[Pod]
+PodName=paperless
+PublishPort=8000:8000
+
+[Install]
+WantedBy=default.target

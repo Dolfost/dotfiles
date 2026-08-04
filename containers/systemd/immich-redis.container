@@ -1,0 +1,14 @@
+[Unit]
+Description=Immich cache (Valkey)
+
+[Container]
+ContainerName=immich-redis
+# Version pinned by Immich upstream; check their docker-compose.yml before bumping
+Image=docker.io/valkey/valkey:9@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
+Pod=immich.pod
+
+HealthCmd=redis-cli ping
+Notify=healthy
+
+[Service]
+Restart=on-failure
