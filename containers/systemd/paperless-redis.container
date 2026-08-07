@@ -1,0 +1,15 @@
+[Unit]
+Description=Paperless broker (Valkey)
+
+[Container]
+ContainerName=paperless-redis
+Image=docker.io/valkey/valkey:8-alpine
+AutoUpdate=registry
+Pod=paperless.pod
+
+# Broker/result backend only — data is disposable, so no volume.
+HealthCmd=redis-cli ping
+Notify=healthy
+
+[Service]
+Restart=on-failure

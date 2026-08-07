@@ -4,14 +4,18 @@
 # Resolution/refresh auto-detected from focused Hyprland monitor.
 # Per-game overrides: ~/.config/gscope/<SteamAppId>.env
 
-export AMD_USERQ=1
-export PROTON_USE_NTSYNC=1
-
 # fallback defaults if Hyprland query fails
 WIDTH=2560
 HEIGHT=1440
 REFRESH=180
 OUTPUT=""
+
+export LD_PRELOAD=""
+export AMD_USERQ=1 
+export PROTON_USE_NTSYNC=1 
+export VK_LOADER_LAYERS_ENABLE=VK_LAYER_VALVE_steam_overlay_64
+# export PROTON_NO_FSYNC=0
+# export PROTON_NO_ESYNC=0
 
 if command -v hyprctl >/dev/null && command -v jq >/dev/null \
 	&& hyprctl monitors >/dev/null 2>&1; then
@@ -28,11 +32,15 @@ if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
 	source "$HOME/.config/gscope/$SteamAppId.env"
 fi
 
-GS_ARGS=(--output-width "$WIDTH"
-	--output-height "$HEIGHT"
-	--nested-refresh "$REFRESH"
-	--adaptive-sync
+export MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3)),no_display"
+
+GS_ARGS=(-W "$WIDTH"
+	-H "$HEIGHT"
+	-r "$REFRESH"
+	--hdr-enabled
+	--force-grab-cursor
 	--fullscreen
+	--adaptive-sync
 	--mangoapp
 )
 

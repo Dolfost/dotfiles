@@ -1,0 +1,68 @@
+[Unit]
+Description=Pi-hole (network-wide DNS ad blocker)
+After=network-online.target
+Wants=network-online.target
+# Web+DNS are published on the Tailscale IP (100.91.220.75), which only appears
+# once tailscaled is up — later than this user service starts at boot. Binding it
+# too early fails ("Cannot assign requested address") and kills the container.
+# ExecStartPre (below) waits for that IP; disabling the start-rate-limit keeps
+# systemd retrying instead of giving up with "start-limit-hit".
+StartLimitIntervalSec=0
+
+[Container]
+ContainerName=pihole
+Image=docker.io/pihole/pihole:latest
+AutoUpdate=registry
+
+# DNS stays on localhost and is exposed on the tailnet via the Tailscale service
+# VIP (tailscaled binds svc:pihole's :53 as root — no privileged host bind, no
+# clash with resolved/dnsmasq on the host's own :53):
+#   DNS -> 127.0.0.1:5335 (tcp+udp), fronted by the svc:pihole tcp:53 endpoint
+PublishPort=127.0.0.1:5335:53/tcp
+PublishPort=127.0.0.1:5335:53/udp
+# Also on the LAN IP at the real :53 so the router can hand out 192.168.0.70 as
+# the DHCP DNS server. Needs net.ipv4.ip_unprivileged_port_start<=53 for rootless
+# to bind :53 (see /etc/sysctl.d/99-rootless-dns.conf). Nothing else holds this IP:53.
+PublishPort=192.168.0.70:53:53/tcp
+PublishPort=192.168.0.70:53:53/udp
+# On this node's Tailscale IP too, so tailnet devices can use it as their DNS via
+# a Tailscale global nameserver (set to 100.91.220.75). NOT via the svc:pihole
+# VIP: Tailscale services forward TCP only, but DNS is UDP — so a service VIP
+# can't serve DNS. Point the global nameserver at this node IP instead.
+PublishPort=100.91.220.75:53:53/tcp
+PublishPort=100.91.220.75:53:53/udp
+# Web UI on loopback + this node's Tailscale IP only (NOT the LAN interface): it
+# answers at http://daorus.faun-castor.ts.net:8080/admin over the tailnet and at
+# http://127.0.0.1:8080 locally — password-protected, and intentionally NOT on
+# the svc:pihole service URL. (100.91.220.75 is this node's stable Tailscale IP.)
+PublishPort=127.0.0.1:8080:80/tcp
+PublishPort=100.91.220.75:8080:80/tcp
+
+# Once, you should run
+# 	systemctl --user edit pihole.service
+# and add to it:
+# 	[Service]
+# 	Environment=PIHOLE_DIR=/storage/2.5_inch/pihole
+
+# All Pi-hole state (pihole.toml, gravity/FTL DBs, dnsmasq config) lives under
+# $PIHOLE_DIR — move that dir + this quadlet and the instance moves with it.
+Volume=${PIHOLE_DIR}:/etc/pihole:Z
+
+Environment=TZ=Europe/Kyiv
+# Queries arrive via podman's port-forwarder, so their source IP is outside
+# Pi-hole's own subnet; "all" makes FTL answer them instead of refusing.
+Environment=FTLCONF_dns_listeningMode=all
+Environment=FTLCONF_dns_upstreams=1.1.1.1;9.9.9.9
+# Admin password is NOT kept here — it lives as a hash in pihole.toml (in the
+# data dir), set once with:  podman exec -it pihole pihole setpassword
+
+[Service]
+# Block startup until the Tailscale IP exists (up to 120s), so podman never tries
+# to publish a port on an address that isn't there yet.
+ExecStartPre=/usr/bin/timeout 120 /bin/sh -c "until /usr/bin/ip -4 addr show tailscale0 2>/dev/null | grep -q '100.91.220.75/'; do sleep 2; done"
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

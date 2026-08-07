@@ -1,0 +1,33 @@
+[Unit]
+Description=Immich photo management server
+After=immich-postgres.service immich-redis.service
+RequiresMountsFor=/storage/2.5_inch/media/immich
+
+[Container]
+ContainerName=immich-server
+Image=ghcr.io/immich-app/immich-server:release
+AutoUpdate=registry
+Pod=immich.pod
+
+# All Immich state (uploads, thumbs, DB, ML models) lives under
+# /storage/2.5_inch/media/immich — move that dir + these quadlets
+# and the instance moves with them
+Volume=/storage/2.5_inch/media/immich/library:/data
+# Existing photo collection, add as External Library in the admin UI
+Volume=/storage/2.5_inch/media/gallery:/mnt/gallery:ro
+
+# AMD VAAPI hardware transcoding (select VAAPI in admin UI > video transcoding)
+AddDevice=/dev/dri
+
+# Containers in the pod share one network namespace, so everything is localhost
+Environment=DB_HOSTNAME=127.0.0.1
+Environment=DB_USERNAME=postgres
+Environment=DB_PASSWORD=immich
+Environment=DB_DATABASE_NAME=immich
+Environment=REDIS_HOSTNAME=127.0.0.1
+Environment=IMMICH_MACHINE_LEARNING_URL=http://127.0.0.1:3003
+Environment=TZ=Europe/Kyiv
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900

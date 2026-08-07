@@ -1,0 +1,34 @@
+[Unit]
+Description=Gitea (self-hosted git service)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=gitea
+Image=docker.gitea.com/gitea:latest
+AutoUpdate=registry
+
+# Web UI and git-over-SSH
+PublishPort=3000:3000
+PublishPort=2222:22
+
+# Once, you should run
+# 	systemctl --user edit gitea.service
+# and add to it:
+# 	[Service]
+# 	Environment=GITEA_DIR=/storage/2.5_inch/gitea
+
+# All Gitea state (repos, config, avatars, DB) lives under $GITEA_DIR —
+# move that dir + this quadlet and the instance moves with it
+Volume=${GITEA_DIR}:/data:Z
+
+Environment=USER_UID=1000
+Environment=USER_GID=1000
+Environment=TZ=Europe/Kyiv
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

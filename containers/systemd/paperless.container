@@ -1,0 +1,48 @@
+[Unit]
+Description=Paperless-ngx document management server
+After=paperless-redis.service
+
+[Container]
+ContainerName=paperless
+Image=ghcr.io/paperless-ngx/paperless-ngx:latest
+AutoUpdate=registry
+Pod=paperless.pod
+
+# Once, you should run
+# 	systemctl --user edit paperless.service
+# and add to it:
+# 	[Service]
+# 	Environment=PAPERLESS_DIR=/storage/2.5_inch/media/paperless
+
+# All Paperless state lives under $PAPERLESS_DIR — move that dir + these
+# quadlets and the instance moves with it.
+#   data/    SQLite db, search index, classification model
+#   media/   the documents themselves (originals + OCR'd archive)
+#   consume/ drop files here to import them
+#   export/  target for `document_exporter`
+Volume=${PAPERLESS_DIR}/data:/usr/src/paperless/data:Z
+Volume=${PAPERLESS_DIR}/media:/usr/src/paperless/media:Z
+Volume=${PAPERLESS_DIR}/consume:/usr/src/paperless/consume:Z
+Volume=${PAPERLESS_DIR}/export:/usr/src/paperless/export:Z
+
+# Pod shares one netns, so redis is reachable on localhost. No PAPERLESS_DBHOST
+# set => SQLite.
+Environment=PAPERLESS_REDIS=redis://127.0.0.1:6379
+Environment=PAPERLESS_TIME_ZONE=Europe/Kyiv
+# eng+ukr+rus. PAPERLESS_OCR_LANGUAGES installs the tesseract packs at startup;
+# PAPERLESS_OCR_LANGUAGE selects which are actually used.
+Environment=PAPERLESS_OCR_LANGUAGE=eng+ukr+rus
+# Quoted: without quotes systemd splits on the space and only "ukr" installs,
+# then the eng+ukr+rus check fails on the missing "rus" and the container loops.
+Environment="PAPERLESS_OCR_LANGUAGES=ukr rus"
+Environment=PAPERLESS_SECRET_KEY=dbPONqqzLv1JDh12DU7FMRyoQOLZ0mRE0AqB7SHutCeN7Xb0Dp
+# Behind the Tailscale HTTPS proxy: without these, Django CSRF rejects login.
+Environment=PAPERLESS_URL=https://paperless.faun-castor.ts.net
+Environment=PAPERLESS_CSRF_TRUSTED_ORIGINS=https://paperless.faun-castor.ts.net
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

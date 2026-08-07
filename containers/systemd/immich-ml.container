@@ -1,0 +1,15 @@
+[Unit]
+Description=Immich machine learning (faces, smart search)
+RequiresMountsFor=/storage/2.5_inch/media/immich
+
+[Container]
+ContainerName=immich-ml
+Image=ghcr.io/immich-app/immich-machine-learning:release
+AutoUpdate=registry
+Pod=immich.pod
+
+Volume=/storage/2.5_inch/media/immich/model-cache:/cache
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900

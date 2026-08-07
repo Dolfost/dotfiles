@@ -1,0 +1,29 @@
+[Unit]
+Description=Immich database (PostgreSQL + VectorChord)
+RequiresMountsFor=/storage/2.5_inch/media/immich
+
+[Container]
+ContainerName=immich-postgres
+# Version pinned by Immich upstream; check their docker-compose.yml before bumping
+Image=ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+Pod=immich.pod
+
+Volume=/storage/2.5_inch/media/immich/postgres:/var/lib/postgresql/data
+ShmSize=128m
+
+# Only reachable from inside the pod, hence the throwaway password
+Environment=POSTGRES_USER=postgres
+Environment=POSTGRES_PASSWORD=immich
+Environment=POSTGRES_DB=immich
+Environment=POSTGRES_INITDB_ARGS=--data-checksums
+Environment=DB_STORAGE_TYPE=HDD
+
+# The image is OCI-format (no HEALTHCHECK metadata), so define one explicitly;
+# with Notify=healthy the unit turns "started" only once the DB accepts
+# connections, and immich-server (After=) waits for that
+HealthCmd=pg_isready --username=postgres --dbname=immich
+Notify=healthy
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=300
