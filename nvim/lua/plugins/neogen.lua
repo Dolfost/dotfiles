@@ -1,7 +1,7 @@
 return {
 	"danymat/neogen",
+	dependencies = { "nvim-treesitter/nvim-treesitter" },
 
-	-- opts = 
 	init = function ()
 		local wk = require"which-key"
 		wk.add{
@@ -15,27 +15,28 @@ return {
 		'Neogen',
 	},
 
-	config = function ()
-		local neogen = require("neogen")
-
-		neogen.setup({
-			snippet_engine = 'luasnip',
-			placeholders_text = {
-				["description"] = " TODO: description",
-				["tparam"] = " TODO: tparam",
-				["parameter"] = " TODO: parameter",
-				["return"] = " TODO: return",
-				["class"] = " TODO: class",
-				["throw"] = " TODO: throw",
-				["varargs"] = " TODO: varargs",
-				["type"] = " TODO: type",
-				["attribute"] = " TODO: attribute",
-				["args"] = " TODO: args",
-				["kwargs"] = " TODO: kwargs",
-			},
-			languages = {
-			},
-		})
-
-	end
+	config = true,
+	-- config = function ()
+	-- 	local neogen = require("neogen")
+	--
+	-- 	neogen.setup({
+	-- 		snippet_engine = 'luasnip',
+	-- 		placeholders_text = {
+	-- 			["description"] = " TODO: description",
+	-- 			["tparam"] = " TODO: tparam",
+	-- 			["parameter"] = " TODO: parameter",
+	-- 			["return"] = " TODO: return",
+	-- 			["class"] = " TODO: class",
+	-- 			["throw"] = " TODO: throw",
+	-- 			["varargs"] = " TODO: varargs",
+	-- 			["type"] = " TODO: type",
+	-- 			["attribute"] = " TODO: attribute",
+	-- 			["args"] = " TODO: args",
+	-- 			["kwargs"] = " TODO: kwargs",
+	-- 		},
+	-- 		languages = {
+	-- 		},
+	-- 	})
+	--
+	-- end
 }
