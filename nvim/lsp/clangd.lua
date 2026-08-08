@@ -4,6 +4,12 @@ return {
 		textDocument = {
 			completion = {
 				editsNearCursor = true
+			},
+			-- Advertise inactiveRegions so clangd stops sending #if 0 blocks as
+			-- dimmed `comment` semantic tokens. Neovim ignores the notification,
+			-- so the disabled code keeps normal syntax highlighting.
+			inactiveRegionsCapabilities = {
+				inactiveRegions = true
 			}
 		}
 	},
