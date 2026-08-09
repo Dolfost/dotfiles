@@ -1,0 +1,9 @@
+[Unit]
+Description=Build the Nicotine+/Xpra image
+
+[Build]
+ImageTag=localhost/nicotine:latest
+# Context + Containerfile live in the sibling nicotine/ dir. ~/.config/containers
+# is a symlink to dotfiles/containers, so this path follows the dotfiles.
+File=%h/.config/containers/nicotine/Containerfile
+SetWorkingDirectory=%h/.config/containers/nicotine

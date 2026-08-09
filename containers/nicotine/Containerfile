@@ -1,0 +1,24 @@
+# Nicotine+ (Soulseek client) rendered to a browser via Xpra's HTML5 client.
+# No official image exists. Fedora carries xpra 6.x and nicotine+ 3.3.10 (an
+# exact match for the host config) in its own repos; only the HTML5 *browser*
+# client is missing (Fedora's no-bundled-JS policy), so that one package comes
+# from xpra.org's official, GPG-signed upstream repo. The run command lives in
+# the quadlet's Exec= so bind address / flags stay configurable outside the image.
+FROM docker.io/library/fedora:latest
+
+RUN curl -fsSL https://raw.githubusercontent.com/Xpra-org/xpra/master/packaging/repos/Fedora/xpra.repo \
+      -o /etc/yum.repos.d/xpra.repo \
+ && rpm --import https://xpra.org/xpra.asc \
+ && dnf -y install \
+      xpra xpra-html5 'nicotine+' \
+      xorg-x11-server-Xvfb \
+      dbus-x11 \
+      dejavu-sans-fonts \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8085 8282
+ENTRYPOINT ["/entrypoint.sh"]

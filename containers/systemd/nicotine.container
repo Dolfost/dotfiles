@@ -1,0 +1,70 @@
+[Unit]
+Description=Nicotine+ (Soulseek client) via Xpra HTML5
+After=network-online.target
+Wants=network-online.target
+# The web UI is published on the Tailscale IP (100.91.220.75), which only shows
+# up once tailscaled is up — later than this user service at boot. ExecStartPre
+# waits for it; disabling the start-rate-limit keeps systemd retrying instead of
+# giving up with "start-limit-hit". (Same pattern as pihole.)
+StartLimitIntervalSec=0
+
+[Container]
+ContainerName=nicotine
+# Built locally from containers/nicotine/Containerfile via nicotine.build (no
+# official image exists). Rebuild with: podman build -t localhost/nicotine \
+#   ~/.config/containers/nicotine   (or: systemctl --user start nicotine-build)
+Image=nicotine.build
+
+# Web UI (Xpra HTML5) on :8085 — loopback only (fronted by `tailscale serve` as
+# svc:nicotine -> https://nicotine.faun-castor.ts.net) plus this node's Tailscale
+# IP for direct access at http://daorus.faun-castor.ts.net:8085. NOT on the LAN.
+PublishPort=127.0.0.1:8085:8085
+PublishPort=100.91.220.75:8085:8085
+# Soulseek peer/listen port (portrange in the nicotine config = 8282).
+PublishPort=8282:8282
+
+# Every host path is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet. Once, run
+# 	systemctl --user edit nicotine.service
+# and set them (see the drop-in for the full list):
+# 	[Service]
+# 	Environment=NICOTINE_DIR=/storage/2.5_inch/nicotine
+# 	Environment=NICOTINE_DOWNLOADS=/home/vladyslav/data/soulseek
+# 	Environment=NICOTINE_SHARE_MUSIC=/storage/2.5_inch/media/music
+# 	... one NICOTINE_SHARE_* per shared folder
+
+# State lives in one movable dir $NICOTINE_DIR with config/ + data/ (the config
+# file and the share-index DBs). The container runs as root internally, which
+# rootless podman maps to host uid 1000, so these stay owned by you.
+Volume=${NICOTINE_DIR}/config:/root/.config/nicotine
+Volume=${NICOTINE_DIR}/data:/root/.local/share/nicotine
+
+# Downloads (read-write), mounted at the SAME path as in the config.
+Volume=${NICOTINE_DOWNLOADS}:${NICOTINE_DOWNLOADS}
+
+# Shared folders (read-only), each at the SAME absolute path as in the config so
+# the share list in the DB keeps resolving. Only the shared dirs are mounted, so
+# this internet-facing client can't read the rest of /storage (immich, paperless…).
+Volume=${NICOTINE_SHARE_BOOKS}:${NICOTINE_SHARE_BOOKS}:ro
+Volume=${NICOTINE_SHARE_MOVIES}:${NICOTINE_SHARE_MOVIES}:ro
+Volume=${NICOTINE_SHARE_MUSIC}:${NICOTINE_SHARE_MUSIC}:ro
+Volume=${NICOTINE_SHARE_OLD_MUSIC}:${NICOTINE_SHARE_OLD_MUSIC}:ro
+Volume=${NICOTINE_SHARE_SHOWS}:${NICOTINE_SHARE_SHOWS}:ro
+Volume=${NICOTINE_SHARE_SHOWS_HDD}:${NICOTINE_SHARE_SHOWS_HDD}:ro
+
+Environment=TZ=Europe/Kyiv
+
+# Xpra starts its own virtual X server, launches Nicotine+ in it, and serves the
+# HTML5 client on the bind. Kept out of the image so flags stay tweakable here.
+Exec=xpra start :100 --start=nicotine --bind-tcp=0.0.0.0:8085 --html=on --daemon=no --speaker=off --microphone=off --printing=no --pulseaudio=no --exit-with-children=no --notifications=no
+
+[Service]
+# Block startup until the Tailscale IP exists (up to 120s) so podman never tries
+# to publish a port on an address that isn't there yet.
+ExecStartPre=/usr/bin/timeout 120 /bin/sh -c "until /usr/bin/ip -4 addr show tailscale0 2>/dev/null | grep -q '100.91.220.75/'; do sleep 2; done"
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
