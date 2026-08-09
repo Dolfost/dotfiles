@@ -1,0 +1,43 @@
+[Unit]
+Description=Navidrome Music Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=navidrome
+Image=ghcr.io/navidrome/navidrome:latest
+AutoUpdate=registry
+
+PublishPort=4533:4533
+
+# Every host path is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet. Once, run
+# 	systemctl --user edit navidrome.service
+# and set them:
+# 	[Service]
+# 	Environment=NAVIDROME_DIR=/storage/2.5_inch/media/navidrome
+# 	Environment=NAVIDROME_MUSIC=/storage/2.5_inch/media/music
+# 	Environment=NAVIDROME_OLD_MUSIC=/storage/2.5_inch/media/old_music
+
+# All Navidrome state lives under $NAVIDROME_DIR — the DB (users, play counts,
+# ratings, playlists), navidrome.toml (app settings + your Last.fm keys), cache
+# and artwork. Move that dir + this quadlet and the instance moves with it. The
+# image reads its config from /data/navidrome.toml by default (ND_CONFIGFILE).
+Volume=${NAVIDROME_DIR}:/data:Z
+
+# Each library is mounted read-only at the SAME path as on the host, so the file
+# paths stored in navidrome.db still match — play counts / favourites / playlists
+# are preserved instead of being reset by a full re-scan. Add a matching
+# Volume + Environment line for any further library.
+Volume=${NAVIDROME_MUSIC}:${NAVIDROME_MUSIC}:ro
+Volume=${NAVIDROME_OLD_MUSIC}:${NAVIDROME_OLD_MUSIC}:ro
+Environment=ND_MUSICFOLDER=${NAVIDROME_MUSIC}
+
+Environment=TZ=Europe/Kyiv
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

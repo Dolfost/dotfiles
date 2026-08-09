@@ -1,0 +1,56 @@
+[Unit]
+Description=Jellyfin Media Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=jellyfin
+Image=docker.io/jellyfin/jellyfin:latest
+AutoUpdate=registry
+
+PublishPort=8096:8096
+# Optional: LAN auto-discovery for the Jellyfin apps + DLNA. Uncomment if wanted.
+#PublishPort=7359:7359/udp
+#PublishPort=1900:1900/udp
+
+# Every host path is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet. Once, run
+# 	systemctl --user edit jellyfin.service
+# and set them:
+# 	[Service]
+# 	Environment=JELLYFIN_DIR=/storage/2.5_inch/media/jellyfin
+# 	Environment=JELLYFIN_MOVIES=/storage/2.5_inch/media/movies
+# 	Environment=JELLYFIN_SHOWS=/storage/2.5_inch/media/shows
+# 	Environment=JELLYFIN_SHOWS_HDD=/storage/3.5_inch/media/shows
+# 	Environment=JELLYFIN_MUSIC=/storage/2.5_inch/media/music
+# 	Environment=JELLYFIN_BOOKS=/storage/2.5_inch/media/books
+
+# All Jellyfin state (settings, users, watch history, metadata, plugins) lives
+# under $JELLYFIN_DIR — move that dir + this quadlet and the instance moves with
+# it. The image keeps config in /config/config and data in /config (see its
+# JELLYFIN_CONFIG_DIR / JELLYFIN_DATA_DIR env), so the whole thing is one dir.
+Volume=${JELLYFIN_DIR}:/config:Z
+Volume=${JELLYFIN_DIR}/cache:/cache:Z
+
+# Each library is mounted read-only at the SAME path as on the host, so the
+# library paths already stored in Jellyfin's DB keep resolving — no re-scan,
+# watch state stays intact. Add a matching Volume line for any further library.
+Volume=${JELLYFIN_MOVIES}:${JELLYFIN_MOVIES}:ro
+Volume=${JELLYFIN_SHOWS}:${JELLYFIN_SHOWS}:ro
+Volume=${JELLYFIN_SHOWS_HDD}:${JELLYFIN_SHOWS_HDD}:ro
+Volume=${JELLYFIN_MUSIC}:${JELLYFIN_MUSIC}:ro
+Volume=${JELLYFIN_BOOKS}:${JELLYFIN_BOOKS}:ro
+
+# GPU for hardware transcoding (renderD128 is world-accessible, 0666, so the
+# rootless container can use it without a group). Remove this on a host with no
+# GPU, otherwise the unit fails to start.
+AddDevice=/dev/dri/renderD128
+
+Environment=TZ=Europe/Kyiv
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
