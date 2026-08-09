@@ -1,0 +1,305 @@
+# This is the CoolerControl configuration file.
+# Comments and most formatting is preserved.
+# Most of this file you can edit by hand, but it is recommended to stop the daemon when doing so.
+# -------------------------------
+
+
+# Unique ID Device List
+# -------------------------------
+# This is a simple UID and device name key-value pair, that is automatically generated at startup
+#  to help humans distinguish which UID belongs to which device in this config file.
+#  Only the device name is given here, complete Device information can be requested from the API.
+#  UIDs are generated sha256 hashes based on specific criteria to help determine device uniqueness.
+# ANY CHANGES WILL BE OVERWRITTEN.
+# Example:
+# 21091c4fb341ceab6236e8c9e905ccc263a4ac08134b036ed415925ba4c1645d = "Nvidia GPU"
+[devices]
+fd82456dcdaf7509caa518abbca70e00798b63b1436dfb3e496d55506c3afc8f = "nvme"
+9a64f7a5c7b59e073064f69eea496b0424b867bb35c843c28825f6d4a73aeba5 = "gigabyte_wmi"
+d1ebf9f6d2ecc8e0e2d624d6e7c0e8b61c11c6f7374f000c12cb499a61290aef = "r8169_0_a00:00"
+36fa652ef9381d7838f211388b27749d84dd9ceffc7414a17b2b63d558192d81 = "amdgpu"
+19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee = "Custom Sensors"
+07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c = "AMD Ryzen 9 7900X 12-Core Processor"
+97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e = "amdgpu"
+f42333b13a2853dfb8e516c576470622e74a4659bfffe7ca229f68733beae979 = "acpitz"
+fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803 = "it8622"
+
+
+# Legacy690 Option for devices
+# -------------------------------
+# There are 2 Asetek 690LC liquid coolers that have the same device ID.
+#  To tell them apart we need user input to know which cooler we're actually dealing with.
+#  This is an assignment of liquidctl AseTek690LC device UIDs to true/false:
+#   true = Legacy690 Cooler aka NZXT Kraken X40, X60, X31, X41, X51 and X61
+#   false = Modern690 Cooler aka EVGA CLC 120 (CLC12), 240, 280 and 360
+# Example:
+# 21091c4fb341ceab6236e8c9e905ccc263a4ac08134b036ed415925ba4c1645d = true
+[legacy690]
+
+
+# Device Settings
+# -------------------------------
+# This is where CoolerControl will save device settings for the cooresponding device.
+# Settings can be set here also specifically by hand. (restart required for applying)
+# These settings are applied on startup and each is overwritten once a new setting
+# has been applied.
+# Example:
+# [device-settings.4b9cd1bc5fb2921253e6b7dd5b1b011086ea529d915a86b3560c236084452807]
+# pump = { speed_fixed = 30 }
+# logo = { lighting = { mode = "fixed", colors = [[0, 255, 255]] } }
+# ring = { lighting = { mode = "spectrum-wave", backward = true, colors = [] } }
+[device-settings]
+
+[device-settings.fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803]
+fan1 = { profile_uid = "ae0e5f2c-7350-4ea2-b4ab-3bd424904228" }
+fan2 = { profile_uid = "3a9c0245-9189-453b-ac6f-37dfbd9699f7" }
+fan3 = { profile_uid = "3a9c0245-9189-453b-ac6f-37dfbd9699f7" }
+fan5 = { profile_uid = "72e9782e-88f9-4cbd-8be8-e0482e192eab" }
+
+[device-settings.97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e]
+fan1 = { profile_uid = "b10865bd-490d-4714-bf84-3de1fd4e88e3" }
+
+
+# A list of profiles to be used with each device's settings
+# -------------------------------
+[[profiles]]
+uid = "0"
+name = "Unmanaged"
+p_type = "Default"
+function = "0"
+
+[[profiles]]
+uid = "b10865bd-490d-4714-bf84-3de1fd4e88e3"
+name = "GPU"
+p_type = "Graph"
+speed_profile = [[25.0, 0], [50.0, 0], [60.0, 20], [70.0, 60], [80.0, 100]]
+temp_source = { temp_name = "temp2", device_uid = "97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e" }
+temp_min = 20.0
+temp_max = 80.0
+function_uid = "0"
+offset_profile = []
+
+[[profiles]]
+uid = "ae0e5f2c-7350-4ea2-b4ab-3bd424904228"
+name = "CPU"
+p_type = "Graph"
+speed_profile = [[40.0, 0], [45.0, 20], [55.0, 53], [65.0, 70], [75.0, 85], [80.0, 90], [90.0, 100]]
+temp_source = { temp_name = "temp3", device_uid = "07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c" }
+temp_min = 40.0
+temp_max = 90.0
+function_uid = "0"
+offset_profile = []
+
+[[profiles]]
+uid = "8314145e-9871-4f52-b5ea-100e8afadc5a"
+name = "Case on CPU"
+p_type = "Graph"
+speed_profile = [[40.0, 5], [60.0, 5], [70.0, 50], [85.0, 100], [95.0, 100]]
+temp_source = { temp_name = "temp3", device_uid = "07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c" }
+temp_min = 40.0
+temp_max = 95.0
+function_uid = "5d086a35-e9c8-4db1-a4e3-18cce03a4c11"
+offset_profile = []
+
+[[profiles]]
+uid = "ed39a292-1e0c-48fb-b5e5-9e2bbc68811a"
+name = "Case on GPU"
+p_type = "Graph"
+speed_profile = [[40.0, 5], [50.0, 5], [63.4, 44], [77.0, 90], [85.0, 100]]
+temp_source = { temp_name = "temp2", device_uid = "97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e" }
+temp_min = 40.0
+temp_max = 85.0
+function_uid = "5d086a35-e9c8-4db1-a4e3-18cce03a4c11"
+offset_profile = []
+
+[[profiles]]
+uid = "72e9782e-88f9-4cbd-8be8-e0482e192eab"
+name = "Pump"
+p_type = "Graph"
+speed_profile = [[40.0, 50], [50.0, 50], [65.0, 85], [80.0, 100], [95.0, 100]]
+temp_source = { temp_name = "temp1", device_uid = "07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c" }
+temp_min = 40.0
+temp_max = 95.0
+function_uid = "0"
+offset_profile = []
+
+[[profiles]]
+uid = "3a9c0245-9189-453b-ac6f-37dfbd9699f7"
+name = "Case union"
+p_type = "Mix"
+speed_profile = []
+function_uid = "0"
+member_profile_uids = ["ed39a292-1e0c-48fb-b5e5-9e2bbc68811a", "8314145e-9871-4f52-b5ea-100e8afadc5a"]
+mix_function_type = "Max"
+offset_profile = []
+
+# A list of functions to be applied to the various profiles
+# -------------------------------
+[[functions]]
+uid = "0"
+name = "Default Function"
+f_type = "Identity"
+
+[[functions]]
+uid = "5d086a35-e9c8-4db1-a4e3-18cce03a4c11"
+name = "Cooloff"
+f_type = "Standard"
+duty_minimum = 2
+duty_maximum = 100
+step_size_min_decreasing = 0
+step_size_max_decreasing = 0
+response_delay = 2
+deviance = 2.0
+only_downward = false
+threshold_hopping = true
+bypass_min_at_extremes = false
+
+
+# Cooler Control Settings
+# -------------------------------
+# This is where CoolerControl specifc general and specifc device settings are set. These device
+# settings differ from the above Device Settings, in that they are applied to CoolerControl,
+# and not on the devices themselves. For ex. settings such as disabling/enabling a particular device.
+[settings]
+
+# whether to apply the saved device settings on daemon startup
+apply_on_boot = true
+
+# Whether to enable the integration with liquidctl.
+# Disabling this will prevent any communication with liquidctl,
+# and all HWMon supported devices will be shown.
+liquidctl_integration = true
+
+# There are some devices that are supported both by liquidctl and hwmon drivers. Normally the
+# preference is to use liquidctl as it supports more features such as RGB control. There are
+# some cases where the hwmon driver is preferred though. Note: Care should be taken to blacklist
+# one of the devices to avoid needlessly loading the device IO and avoid concurrency issues.
+# Use at your own risk.
+hide_duplicate_devices = true
+
+# Will skip initialization calls for liquidctl devices. ONLY USE if you are doing initialiation manually.
+no_init = false
+
+# Startup Delay (seconds) is an integer value between 0 and 10
+startup_delay = 2
+
+# For ThinkPads, wheather to use the 'full-speed' option when settings the fan to 100%
+# This option drives the fan as fast as it can go, which might exceed hardware limits,
+# so use this level with caution.
+thinkpad_full_speed = false
+
+# API Address and Port:
+# The daemon by default uses port 11987 and the standard loopback IPv4 and IPv6 addresses.
+# You can set an IPv4, IPv6 or both addresses to listen on. An empty string will disable the address.
+# It is highly recommended to use the default settings unless you have a specific reason to change them
+# and understand the implications.
+# If you expose the API to a public network, it is recommended to use TLS/HTTPS (see below).
+# For more information see the project wiki.
+# Example:
+# port = 11987
+ipv4_address = "0.0.0.0"
+ipv6_address = "::1"
+
+# Whether to compress the response payload from the API. This will reduce the size of the response
+# but will increase CPU usage a tiny bit. This is useful if you are running the API over a network.
+# 'compress' is deprecated, use compress_payload instead.
+compress_payload = true
+
+# The polling rate for sensor data collection. The default is 1.0 second. Limited to values
+# between 0.5 and 5.0 seconds in half-second increments.
+# Note: Caution should be used when using values less than 1.0.
+# poll_rate = 1.0
+
+# Whether to check if drivetemp supported drives are in a suspended state/spun down, and if so,
+# return 0C as their reporting temperature.
+drivetemp_suspend = false
+
+[settings.fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803]
+name = "Motherboard (it8622)"
+disable = false
+
+[settings.fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803.channel_settings]
+fan4 = { label = "Case Bottom 2", disabled = true }
+
+[settings.97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e]
+name = "AMD Radeon RX 9060 XT"
+disable = false
+
+[settings.97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e.channel_settings]
+
+[settings.07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c]
+name = "AMD Ryzen 9 7900X 12-Core Processor"
+disable = false
+
+[settings.07a7276a0ea2fcfefc4ee529635a5bf8f040bcbeda74bca5750e65daf19d925c.channel_settings]
+
+[settings.36fa652ef9381d7838f211388b27749d84dd9ceffc7414a17b2b63d558192d81]
+name = "AMD Radeon Graphics"
+disable = false
+
+[settings.36fa652ef9381d7838f211388b27749d84dd9ceffc7414a17b2b63d558192d81.channel_settings]
+
+[settings.f42333b13a2853dfb8e516c576470622e74a4659bfffe7ca229f68733beae979]
+name = "acpitz"
+disable = false
+
+[settings.f42333b13a2853dfb8e516c576470622e74a4659bfffe7ca229f68733beae979.channel_settings]
+
+[settings.9a64f7a5c7b59e073064f69eea496b0424b867bb35c843c28825f6d4a73aeba5]
+name = "gigabyte_wmi"
+disable = false
+
+[settings.9a64f7a5c7b59e073064f69eea496b0424b867bb35c843c28825f6d4a73aeba5.channel_settings]
+
+[settings.fd82456dcdaf7509caa518abbca70e00798b63b1436dfb3e496d55506c3afc8f]
+name = "CT2000P310SSD8"
+disable = false
+
+[settings.fd82456dcdaf7509caa518abbca70e00798b63b1436dfb3e496d55506c3afc8f.channel_settings]
+
+[settings.d1ebf9f6d2ecc8e0e2d624d6e7c0e8b61c11c6f7374f000c12cb499a61290aef]
+name = "r8169_0_a00:00"
+disable = false
+
+[settings.d1ebf9f6d2ecc8e0e2d624d6e7c0e8b61c11c6f7374f000c12cb499a61290aef.channel_settings]
+
+# TLS/HTTPS Configuration:
+# TLS to secure the REST API with HTTPS. (enabled by default)
+# When enabled, a self-signed certificate will be automatically generated on first startup if no
+# certificate paths are specified. The certificate and key are stored in /etc/coolercontrol/ by
+# default.
+# Note: Self-signed certificates will cause browser warnings. You can provide your own
+# certificate by specifying the paths below, or use a reverse proxy (nginx, caddy, traefik)
+# to handle TLS termination as an alternative approach.
+# tls_enabled = true
+# tls_cert_path = "/etc/coolercontrol/coolercontrol.crt"
+# tls_key_path = "/etc/coolercontrol/coolercontrol.key"
+
+# Reverse Proxy / CORS Configuration:
+# Custom origins to allow in CORS requests. This is useful when accessing CoolerControl through
+# a reverse proxy with a custom domain, or via port forwarding with a public IP. Add the full
+# origin URL (scheme + host + port if non-standard).
+# origins = ["https://coolercontrol.mydomain.com", "http://192.168.1.1:8080"]
+
+# Header to check for the client's original protocol when behind a reverse proxy. Common values
+# are "X-Forwarded-Proto" (nginx, Apache) or "X-Scheme". When this header indicates "https",
+# the HTTP-to-HTTPS redirect is skipped (the proxy handles TLS termination).
+# protocol_header = "X-Forwarded-Proto"
+
+# Allow unencrypted HTTP connections from non-localhost addresses. By default, non-localhost
+# HTTP requests are redirected to HTTPS when TLS is enabled. Set this to true to allow HTTP.
+# Note: This should only be used as a last resort and is not recommended.
+# allow_unencrypted = false
+
+# Whether to auto-detect Super-I/O hardware sensors and load the appropriate kernel
+# modules at startup. This helps ensure all hwmon chips are available. (x86_64 only)
+# sensors_auto_detect = true
+
+# Whether to listen for kernel device add/remove events (e.g. USB hotplug) at startup.
+# When enabled, the daemon watches for hardware changes and notifies connected clients.
+# Disable this in containers or environments without netlink socket access.
+# device_listener_enabled = true
+
+# CoolerControl Device settings Example:
+# [settings.4b9cd1bc5fb2921253e6b7dd5b1b011086ea529d915a86b3560c236084452807]
+# disabled = true
