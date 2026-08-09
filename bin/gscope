@@ -10,9 +10,15 @@ HEIGHT=1440
 REFRESH=180
 OUTPUT=""
 
+# gamescope feature toggles (override per-game in ~/.config/gscope/<AppId>.env)
+HDR=1
+VRR=1
+HUD_HIDDEN=1   # 1: start with HUD hidden (toggle with Shift+F12); 0: start visible
+
 export LD_PRELOAD=""
-export AMD_USERQ=1 
-export PROTON_USE_NTSYNC=1 
+export AMD_USERQ=1
+export PROTON_USE_NTSYNC=1
+export MANGOHUD=1   # required for the --mangoapp overlay to hook the game
 export VK_LOADER_LAYERS_ENABLE=VK_LAYER_VALVE_steam_overlay_64
 # export PROTON_NO_FSYNC=0
 # export PROTON_NO_ESYNC=0
@@ -32,18 +38,20 @@ if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
 	source "$HOME/.config/gscope/$SteamAppId.env"
 fi
 
-export MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3)),no_display"
+MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
+[[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"
+export MANGOHUD_CONFIG
 
 GS_ARGS=(-W "$WIDTH"
 	-H "$HEIGHT"
 	-r "$REFRESH"
-	--hdr-enabled
 	--force-grab-cursor
 	--fullscreen
-	--adaptive-sync
 	--mangoapp
 )
 
+[[ "$HDR" == 1 ]] && GS_ARGS+=(--hdr-enabled)
+[[ "$VRR" == 1 ]] && GS_ARGS+=(--adaptive-sync)
 [[ -n "$OUTPUT" ]] && GS_ARGS+=(--prefer-output "$OUTPUT")
 
 exec gamemoderun gamescope "${GS_ARGS[@]}" -- "$@"
