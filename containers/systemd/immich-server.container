@@ -13,8 +13,6 @@ Pod=immich.pod
 # /storage/2.5_inch/media/immich — move that dir + these quadlets
 # and the instance moves with them
 Volume=/storage/2.5_inch/media/immich/library:/data
-# Existing photo collection, add as External Library in the admin UI
-Volume=/storage/2.5_inch/media/gallery:/mnt/gallery:ro
 
 # AMD VAAPI hardware transcoding (select VAAPI in admin UI > video transcoding)
 AddDevice=/dev/dri
