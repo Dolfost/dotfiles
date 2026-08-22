@@ -6,3 +6,8 @@ tags*
 
 # Neovim plugin manager lockfile
 lazy-lock.json
+
+# Nix build outputs (flake.lock IS tracked — do not ignore it)
+result
+result-*
+.direnv/
