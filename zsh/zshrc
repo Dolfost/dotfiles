@@ -1,5 +1,13 @@
 export ZSH_CONFIG="$HOME/.config/zsh"
 
+# Set NO_TMUX=1 to opt out for one shell.
+if [[ -o interactive ]] && [[ -z "$TMUX" ]] && [[ -z "$NO_TMUX" ]] \
+	&& [[ -z "$VSCODE_INJECTION" ]] && [[ -z "$INSIDE_EMACS" ]] \
+	&& command -v tmux >/dev/null 2>&1; then
+	tmux has-session -t main 2>/dev/null || tmux new-session -d -s main
+	exec tmux new-session -t main \; set-option destroy-unattached on
+fi
+
 source $ZSH_CONFIG/exports.zsh
 source $ZSH_CONFIG/aliases.zsh
 source $ZSH_CONFIG/visuals.zsh

@@ -14,6 +14,18 @@ in {
 		clang zathura
 	];
 
+	systemd.user.services.tmux = {
+		Unit.Description = "tmux session";
+		Service = {
+			Type = "forking";
+			ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s main";
+			ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
+			KillMode = "none";
+			Restart = "on-failure";
+		};
+		Install.WantedBy = [ "default.target" ];
+	};
+
 	home.file = {
 		".zshrc" = link "zsh/zshrc";
 		".zprofile" = link "zsh/zprofile";
