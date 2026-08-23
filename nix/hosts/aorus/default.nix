@@ -15,6 +15,14 @@
 	# them. Overrides the mkDefault "client" in modules/common.nix.
 	services.tailscale.useRoutingFeatures = "server";
 
+	services.displayManager = {
+		autoLogin = {
+			enable = true;
+			user = "vladyslav";
+		};
+		defaultSession = "hyprland-uwsm";
+	};
+
 	# Trusted LAN only. Deliberately NOT in common.nix — the laptop keeps the
 	# default firewall ON, since it leaves the house.
 	networking.firewall.enable = false;
