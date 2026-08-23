@@ -41,6 +41,17 @@
 		useRoutingFeatures = lib.mkDefault "client";
 	};
 
+	services.keyd = {
+		enable = true;
+		keyboards.default = {
+			ids = [ "*" ];
+			settings.main = {
+				capslock = "esc";
+				esc = "capslock";
+			};
+		};
+	};
+
 	# git is required, not optional: a flake only sees git-TRACKED files.
 	environment.systemPackages = with pkgs; [
 		neovim wget git
