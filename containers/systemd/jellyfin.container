@@ -14,9 +14,13 @@ PublishPort=8096:8096
 #PublishPort=1900:1900/udp
 
 # Every host path is an env var so nothing host-specific is baked into this
-# (git-tracked) quadlet. Once, run
+# (git-tracked) quadlet.
+#
+# On NixOS these are generated from nix/hosts/aorus/services.nix — do not edit
+# them by hand there. On Arch, run
 # 	systemctl --user edit jellyfin.service
-# and set them:
+# and set them (note ~/.config/systemd/user is a symlink into this repo, and
+# its .gitignore keeps the drop-in untracked):
 # 	[Service]
 # 	Environment=JELLYFIN_DIR=/storage/2.5_inch/media/jellyfin
 # 	Environment=JELLYFIN_MOVIES=/storage/2.5_inch/media/movies
@@ -32,14 +36,25 @@ PublishPort=8096:8096
 Volume=${JELLYFIN_DIR}:/config:Z
 Volume=${JELLYFIN_DIR}/cache:/cache:Z
 
-# Each library is mounted read-only at the SAME path as on the host, so the
-# library paths already stored in Jellyfin's DB keep resolving — no re-scan,
-# watch state stays intact. Add a matching Volume line for any further library.
-Volume=${JELLYFIN_MOVIES}:${JELLYFIN_MOVIES}:ro
-Volume=${JELLYFIN_SHOWS}:${JELLYFIN_SHOWS}:ro
-Volume=${JELLYFIN_SHOWS_HDD}:${JELLYFIN_SHOWS_HDD}:ro
-Volume=${JELLYFIN_MUSIC}:${JELLYFIN_MUSIC}:ro
-Volume=${JELLYFIN_BOOKS}:${JELLYFIN_BOOKS}:ro
+# Each library is mounted read-only at a FIXED container path, with only the
+# host side coming from an env var. The right-hand paths are NOT a host layout;
+# they are the paths Jellyfin's DB already records (see the .mblink files under
+# ${JELLYFIN_DIR}/root/default/*/), so no re-scan is needed and watch state
+# stays intact.
+#
+# This is what makes one file work on both OSes: Arch mounts the disks at
+# /storage/2.5_inch and /storage/3.5_inch, NixOS at /storage/2.5 and
+# /storage/3.5. Only the env vars differ.
+#
+# Do NOT write ${VAR}:${VAR} here. That re-couples the container's view to the
+# host mountpoint, and renaming a mountpoint then breaks playback silently —
+# the library still lists, because that comes from the DB, but every file
+# lookup misses.
+Volume=${JELLYFIN_MOVIES}:/storage/2.5_inch/media/movies:ro
+Volume=${JELLYFIN_SHOWS}:/storage/2.5_inch/media/shows:ro
+Volume=${JELLYFIN_SHOWS_HDD}:/storage/3.5_inch/media/shows:ro
+Volume=${JELLYFIN_MUSIC}:/storage/2.5_inch/media/music:ro
+Volume=${JELLYFIN_BOOKS}:/storage/2.5_inch/media/books:ro
 
 # GPU for hardware transcoding (renderD128 is world-accessible, 0666, so the
 # rootless container can use it without a group). Remove this on a host with no
