@@ -13,6 +13,8 @@
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
 
+	boot.kernelParams = [ "consoleblank=120" ];
+
 	users.users.vladyslav = {
 		isNormalUser = true;
 		extraGroups = [ "wheel" "networkmanager" ];

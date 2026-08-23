@@ -17,11 +17,14 @@ in {
 	systemd.user.services.tmux = {
 		Unit.Description = "tmux session";
 		Service = {
-			Type = "forking";
-			ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s main";
-			ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
+			Type = "oneshot";
+			RemainAfterExit = true;
+			ExecStart = pkgs.writeShellScript "tmux-main" ''
+				${pkgs.tmux}/bin/tmux has-session -t main 2>/dev/null \
+					|| ${pkgs.tmux}/bin/tmux new-session -d -s main
+			'';
+			ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t main";
 			KillMode = "none";
-			Restart = "on-failure";
 		};
 		Install.WantedBy = [ "default.target" ];
 	};
