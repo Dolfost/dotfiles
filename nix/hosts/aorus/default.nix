@@ -11,6 +11,10 @@
 
 	networking.hostName = "aorus";
 
+	# Always-on box on the LAN, so it ADVERTISES routes rather than only using
+	# them. Overrides the mkDefault "client" in modules/common.nix.
+	services.tailscale.useRoutingFeatures = "server";
+
 	# Trusted LAN only. Deliberately NOT in common.nix — the laptop keeps the
 	# default firewall ON, since it leaves the house.
 	networking.firewall.enable = false;

@@ -1,5 +1,5 @@
 # Shared by every host.
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
 	nixpkgs.config.allowUnfree = true;
@@ -33,6 +33,13 @@
 	};
 
 	services.openssh.enable = true;
+	services.tailscale = {
+		enable = true;
+		openFirewall = true;
+		# "client" = may USE exit nodes / subnet routes. mkDefault so a host can
+		# override it with a plain assignment in its own default.nix (see aorus).
+		useRoutingFeatures = lib.mkDefault "client";
+	};
 
 	# git is required, not optional: a flake only sees git-TRACKED files.
 	environment.systemPackages = with pkgs; [

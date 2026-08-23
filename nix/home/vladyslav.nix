@@ -3,7 +3,12 @@
 let
 	dotfiles = "${config.home.homeDirectory}/dotfiles";
 in {
-	home.packages = with pkgs; [ tree claude-code sheldon ];
+	home.packages = with pkgs; [ 
+		tree claude-code sheldon 
+		gnumake cmake
+		lua-language-server
+		clang
+	];
 
 	# Deliberately no `programs.zsh.enable` here - it generates its own ~/.zshrc
 	home.file = {
@@ -18,11 +23,14 @@ in {
 			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/zsh";
 		"sheldon".source =
 			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/sheldon";
-
-		# Must be out-of-store: lazy.nvim writes lazy-lock.json back into its
-		# own config dir, which a read-only store copy would break.
 		"nvim".source =
 			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim";
+
+		# Outer dir, not hypr/hypr: hyprland.lua refers to
+		# ~/.config/hypr/hypr/scripts/. Out-of-store so the gitignored
+		# *.local.lua overrides that load_local_config() reads still resolve.
+		"hypr".source =
+			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hypr";
 	};
 
 	programs.git = {
