@@ -21,13 +21,9 @@
 	programs.zsh.enable = true;
 
 	home-manager = {
-		# true, not false: home-manager reuses the system's nixpkgs instead of
-		# instantiating a second one. Without this it never sees the
-		# `allowUnfree` above and claude-code fails to evaluate.
 		useGlobalPkgs = true;
 		useUserPackages = false;
 		startAsUserService = true;
-		# Move pre-existing files aside instead of aborting activation.
 		backupFileExtension = "hm-bak";
 		users.vladyslav = import ../home/vladyslav.nix;
 	};
@@ -36,8 +32,6 @@
 	services.tailscale = {
 		enable = true;
 		openFirewall = true;
-		# "client" = may USE exit nodes / subnet routes. mkDefault so a host can
-		# override it with a plain assignment in its own default.nix (see aorus).
 		useRoutingFeatures = lib.mkDefault "client";
 	};
 
@@ -52,8 +46,7 @@
 		};
 	};
 
-	# git is required, not optional: a flake only sees git-TRACKED files.
 	environment.systemPackages = with pkgs; [
-		neovim wget git
+		neovim wget git tmux
 	];
 }

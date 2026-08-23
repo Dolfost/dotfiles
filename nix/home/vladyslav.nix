@@ -2,35 +2,31 @@
 
 let
 	dotfiles = "${config.home.homeDirectory}/dotfiles";
+
+	link = path: {
+		source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
+	};
 in {
-	home.packages = with pkgs; [ 
-		tree claude-code sheldon 
+	home.packages = with pkgs; [
+		tree claude-code sheldon
 		gnumake cmake
 		lua-language-server
-		clang
+		clang zathura
 	];
 
-	# Deliberately no `programs.zsh.enable` here - it generates its own ~/.zshrc
 	home.file = {
-		".zshrc".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/zshrc";
-		".zprofile".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/zprofile";
+		".zshrc" = link "zsh/zshrc";
+		".zprofile" = link "zsh/zprofile";
+		".tmux.conf" = link "tmux/tmux.conf";
+		".tmate.conf" = link "tmux/tmate.conf";
 	};
 
 	xdg.configFile = {
-		"zsh".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/zsh";
-		"sheldon".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/zsh/sheldon";
-		"nvim".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim";
-
-		# Outer dir, not hypr/hypr: hyprland.lua refers to
-		# ~/.config/hypr/hypr/scripts/. Out-of-store so the gitignored
-		# *.local.lua overrides that load_local_config() reads still resolve.
-		"hypr".source =
-			config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hypr";
+		"zsh" = link "zsh/zsh";
+		"sheldon" = link "zsh/sheldon";
+		"nvim" = link "nvim";
+		"hypr" = link "hypr";
+		"zathura" = link "zathura";
 	};
 
 	programs.git = {
