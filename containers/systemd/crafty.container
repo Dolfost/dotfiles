@@ -13,11 +13,20 @@ PublishPort=8123:8123
 PublishPort=19132:19132/udp
 PublishPort=25500-25600:25500-25600
 
-# Once, you should run
+# $CRAFTY_DIR is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet — though it is one of the few that happens to be the
+# same string on both installs, since /storage/data is mounted at the same
+# path.
+#
+# On NixOS it is generated from nix/hosts/aorus/services.nix — do not edit it
+# by hand there. On Arch it lives in an untracked drop-in at
+# 	systemd/user/crafty.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
 # 	systemctl --user edit crafty.service
-# and add to it:
-# 	[Service]
-# 	Environment=CRAFTY_DIR=/storage/data/crafty
+
+# The container paths are the image's own fixed locations, so nothing
+# host-specific reaches Crafty's config or the server data.
 
 Volume=${CRAFTY_DIR}/backups:/crafty/backups:Z
 Volume=${CRAFTY_DIR}/logs:/crafty/logs:Z

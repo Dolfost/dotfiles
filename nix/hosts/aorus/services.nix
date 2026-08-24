@@ -7,8 +7,11 @@ let
 
 	facts = import ./facts.nix;
 
-	# svc:<name> -> localhost:<port>. Default is an HTTPS proxy on 443; give a
-	# `tcp` port instead for services that are not HTTP (pihole serves DNS).
+	# svc:<name> -> localhost:<port>. Default is an HTTPS proxy on 443 to a plain
+	# HTTP backend. Two escape hatches:
+	#   tcp    = <port>   raw TCP forward instead of HTTPS (DNS, minecraft)
+	#   scheme = "..."    backend is not plain http (crafty serves self-signed
+	#                     TLS, so it needs https+insecure)
 	tailscaleServices = {
 		jellyfin = { port = 8096; };
 		nicotine = { port = 8085; };
@@ -17,6 +20,8 @@ let
 		immich = { port = 2283; };
 		gitea = { port = 3000; };
 		pihole = { port = 5335; tcp = 53; };
+		crafty = { port = 8443; scheme = "https+insecure"; };
+		mc = { port = 25565; tcp = 25565; };
 	};
 
 	# Immich is three units sharing one state dir, so the same drop-in is
@@ -38,9 +43,11 @@ Environment=IMMICH_DIR=${immichDir}
 		mode = if cfg ? tcp
 			then "--tcp=${toString cfg.tcp}"
 			else "--https=443";
-		port = toString cfg.port;
+		port = if cfg ? scheme
+			then "${cfg.scheme}://127.0.0.1:${toString cfg.port}"
+			else toString cfg.port;
 	in nameValuePair "tailscale-serve-${name}" {
-		description = "tailscale serve: svc:${name} ${mode} -> localhost:${port}";
+		description = "tailscale serve: svc:${name} ${mode} -> ${port}";
 		after = [ "tailscaled.service" ];
 		wants = [ "tailscaled.service" ];
 		wantedBy = [ "multi-user.target" ];
@@ -112,6 +119,10 @@ Environment=PAPERLESS_DIR=/storage/2.5/media/paperless
 			"systemd/user/gitea.service.d/env.conf".text = ''
 [Service]
 Environment=GITEA_DIR=/storage/2.5/gitea
+'';
+			"systemd/user/crafty.service.d/env.conf".text = ''
+[Service]
+Environment=CRAFTY_DIR=/storage/data/crafty
 '';
 			"systemd/user/pihole.service.d/env.conf".text = ''
 [Service]
