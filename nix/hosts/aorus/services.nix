@@ -13,6 +13,7 @@ let
 		paperless = 8000;
 		navidrome = 4533;
 		immich = 2283;
+		gitea = 3000;
 	};
 
 	# Immich is three units sharing one state dir, so the same drop-in is
@@ -93,6 +94,10 @@ Environment=NAVIDROME_OLD_MUSIC=/storage/2.5/media/old_music
 			"systemd/user/paperless.service.d/env.conf".text = ''
 [Service]
 Environment=PAPERLESS_DIR=/storage/2.5/media/paperless
+'';
+			"systemd/user/gitea.service.d/env.conf".text = ''
+[Service]
+Environment=GITEA_DIR=/storage/2.5/gitea
 '';
 		} // immichDropIns;
 	};

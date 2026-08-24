@@ -12,14 +12,12 @@ AutoUpdate=registry
 PublishPort=3000:3000
 PublishPort=2222:22
 
-# Once, you should run
+# On NixOS it is generated from nix/hosts/aorus/services.nix — do not edit it
+# by hand there. On Arch it lives in an untracked drop-in at
+# 	systemd/user/gitea.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
 # 	systemctl --user edit gitea.service
-# and add to it:
-# 	[Service]
-# 	Environment=GITEA_DIR=/storage/2.5_inch/gitea
-
-# All Gitea state (repos, config, avatars, DB) lives under $GITEA_DIR —
-# move that dir + this quadlet and the instance moves with it
 Volume=${GITEA_DIR}:/data:Z
 
 Environment=USER_UID=1000
