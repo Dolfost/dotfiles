@@ -1,6 +1,7 @@
 [Unit]
 Description=Immich machine learning (faces, smart search)
-RequiresMountsFor=/storage/2.5_inch/media/immich
+# Retry forever on a not-yet-mounted $IMMICH_DIR — see immich-server.container.
+StartLimitIntervalSec=0
 
 [Container]
 ContainerName=immich-ml
@@ -8,8 +9,9 @@ Image=ghcr.io/immich-app/immich-machine-learning:release
 AutoUpdate=registry
 Pod=immich.pod
 
-Volume=/storage/2.5_inch/media/immich/model-cache:/cache
+Volume=${IMMICH_DIR}/model-cache:/cache
 
 [Service]
 Restart=on-failure
+RestartSec=5
 TimeoutStartSec=900

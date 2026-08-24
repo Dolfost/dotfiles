@@ -11,7 +11,23 @@ let
 		jellyfin = 8096;
 		nicotine = 8085;
 		paperless = 8000;
+		navidrome = 4533;
+		immich = 2283;
 	};
+
+	# Immich is three units sharing one state dir, so the same drop-in is
+	# generated for each rather than written out three times.
+	immichDir = "/storage/2.5/media/immich";
+	mkImmichDropIn = unit:
+		nameValuePair "systemd/user/${unit}.service.d/env.conf" {
+			text = ''
+[Service]
+Environment=IMMICH_DIR=${immichDir}
+'';
+		};
+	immichDropIns = lib.listToAttrs (map mkImmichDropIn [
+		"immich-server" "immich-postgres" "immich-ml"
+	]);
 
 	mkServe = name: port: nameValuePair "tailscale-serve-${name}" {
 		description = "tailscale serve: svc:${name} -> localhost:${toString port}";
@@ -78,6 +94,6 @@ Environment=NAVIDROME_OLD_MUSIC=/storage/2.5/media/old_music
 [Service]
 Environment=PAPERLESS_DIR=/storage/2.5/media/paperless
 '';
-		};
+		} // immichDropIns;
 	};
 }

@@ -1,7 +1,12 @@
 [Unit]
 Description=Immich photo management server
 After=immich-postgres.service immich-redis.service
-RequiresMountsFor=/storage/2.5_inch/media/immich
+# $IMMICH_DIR may live on a nofail mount that is not up yet. podman refuses to
+# start on a missing bind source (it does not create it, unlike docker), so the
+# only cost of being early is a failed start — but the default rate limit would
+# then give up after 5 tries in 10s. Retry forever instead, which needs no
+# per-host mount dependency. (Same pattern as nicotine.)
+StartLimitIntervalSec=0
 
 [Container]
 ContainerName=immich-server
@@ -9,10 +14,22 @@ Image=ghcr.io/immich-app/immich-server:release
 AutoUpdate=registry
 Pod=immich.pod
 
-# All Immich state (uploads, thumbs, DB, ML models) lives under
-# /storage/2.5_inch/media/immich — move that dir + these quadlets
-# and the instance moves with them
-Volume=/storage/2.5_inch/media/immich/library:/data
+# All Immich state (uploads, thumbs, DB, ML models) lives under $IMMICH_DIR —
+# move that dir + these quadlets and the instance moves with them.
+#
+# $IMMICH_DIR is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet: Arch mounts the disk at /storage/2.5_inch, NixOS at
+# /storage/2.5, and both reach the same directory on the same disk.
+#
+# On NixOS the drop-in is generated from nix/hosts/aorus/services.nix — do not
+# edit it by hand there. On Arch it goes in an untracked drop-in at
+# 	systemd/user/immich-server.service.d/override.conf
+# in this repo, and likewise for immich-postgres and immich-ml:
+# 	[Service]
+# 	Environment=IMMICH_DIR=/storage/2.5_inch/media/immich
+#
+# The container path is fixed, so nothing host-specific reaches Immich's DB.
+Volume=${IMMICH_DIR}/library:/data
 
 # AMD VAAPI hardware transcoding (select VAAPI in admin UI > video transcoding)
 AddDevice=/dev/dri
@@ -28,4 +45,5 @@ Environment=TZ=Europe/Kyiv
 
 [Service]
 Restart=on-failure
+RestartSec=5
 TimeoutStartSec=900

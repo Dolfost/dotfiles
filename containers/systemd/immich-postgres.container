@@ -1,6 +1,7 @@
 [Unit]
 Description=Immich database (PostgreSQL + VectorChord)
-RequiresMountsFor=/storage/2.5_inch/media/immich
+# Retry forever on a not-yet-mounted $IMMICH_DIR — see immich-server.container.
+StartLimitIntervalSec=0
 
 [Container]
 ContainerName=immich-postgres
@@ -8,7 +9,7 @@ ContainerName=immich-postgres
 Image=ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
 Pod=immich.pod
 
-Volume=/storage/2.5_inch/media/immich/postgres:/var/lib/postgresql/data
+Volume=${IMMICH_DIR}/postgres:/var/lib/postgresql/data
 ShmSize=128m
 
 # Only reachable from inside the pod, hence the throwaway password
@@ -26,4 +27,5 @@ Notify=healthy
 
 [Service]
 Restart=on-failure
+RestartSec=5
 TimeoutStartSec=300
