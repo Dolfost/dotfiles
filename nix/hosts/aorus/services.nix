@@ -71,6 +71,13 @@ in {
 	# the same from /etc/sysctl.d/99-rootless-dns.conf.)
 	boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 53;
 
+	# Quadlets that declare After=network-online.target make podman generate a
+	# podman-user-wait-network-online.service that polls until that target is
+	# active. Nothing pulls the target in by default, so it never activates and
+	# every container unit sits in the job queue until the poller times out.
+	# Wanting it here pulls in NetworkManager-wait-online, which activates it.
+	systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+
 	systemd.services = mapAttrs' mkServe tailscaleServices;
 
 	home-manager.users.vladyslav = { config, ... }:

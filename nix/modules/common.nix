@@ -15,9 +15,16 @@
 
 	boot.kernelParams = [ "consoleblank=120" ];
 
+	# uid and PRIMARY gid are pinned to match the Arch install on this machine.
+	# NixOS would otherwise put a normal user in `users` (gid 100), and that
+	# breaks rootless containers on shared storage
+	users.groups.vladyslav.gid = 1000;
 	users.users.vladyslav = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "networkmanager" ];
+		uid = 1000;
+		group = "vladyslav";
+		# `users` is kept so files already written under gid 100 stay reachable.
+		extraGroups = [ "users" "wheel" "networkmanager" ];
 		shell = pkgs.zsh;
 	};
 	programs.zsh.enable = true;
