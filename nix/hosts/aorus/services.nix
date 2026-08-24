@@ -14,12 +14,10 @@ let
 	#                     TLS, so it needs https+insecure)
 	tailscaleServices = {
 		jellyfin = { port = 8096; };
-		nicotine = { port = 8085; };
 		paperless = { port = 8000; };
 		navidrome = { port = 4533; };
 		immich = { port = 2283; };
 		gitea = { port = 3000; };
-		pihole = { port = 5335; tcp = 53; };
 		crafty = { port = 8443; scheme = "https+insecure"; };
 		mc = { port = 25565; tcp = 25565; };
 	};
