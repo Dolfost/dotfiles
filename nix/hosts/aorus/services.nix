@@ -7,13 +7,16 @@ let
 
 	facts = import ./facts.nix;
 
+	# svc:<name> -> localhost:<port>. Default is an HTTPS proxy on 443; give a
+	# `tcp` port instead for services that are not HTTP (pihole serves DNS).
 	tailscaleServices = {
-		jellyfin = 8096;
-		nicotine = 8085;
-		paperless = 8000;
-		navidrome = 4533;
-		immich = 2283;
-		gitea = 3000;
+		jellyfin = { port = 8096; };
+		nicotine = { port = 8085; };
+		paperless = { port = 8000; };
+		navidrome = { port = 4533; };
+		immich = { port = 2283; };
+		gitea = { port = 3000; };
+		pihole = { port = 5335; tcp = 53; };
 	};
 
 	# Immich is three units sharing one state dir, so the same drop-in is
@@ -30,8 +33,14 @@ Environment=IMMICH_DIR=${immichDir}
 		"immich-server" "immich-postgres" "immich-ml"
 	]);
 
-	mkServe = name: port: nameValuePair "tailscale-serve-${name}" {
-		description = "tailscale serve: svc:${name} -> localhost:${toString port}";
+	mkServe = name: cfg:
+	let
+		mode = if cfg ? tcp
+			then "--tcp=${toString cfg.tcp}"
+			else "--https=443";
+		port = toString cfg.port;
+	in nameValuePair "tailscale-serve-${name}" {
+		description = "tailscale serve: svc:${name} ${mode} -> localhost:${port}";
 		after = [ "tailscaled.service" ];
 		wants = [ "tailscaled.service" ];
 		wantedBy = [ "multi-user.target" ];
@@ -41,7 +50,7 @@ Environment=IMMICH_DIR=${immichDir}
 			Restart = "on-failure";
 			RestartSec = 15;
 			ExecStart = "${config.services.tailscale.package}/bin/tailscale "
-				+ "serve --yes --service=svc:${name} --https=443 ${toString port}";
+				+ "serve --yes --service=svc:${name} ${mode} ${port}";
 		};
 		unitConfig.StartLimitIntervalSec = 0;
 	};
@@ -49,6 +58,11 @@ in {
 
 	virtualisation.podman.enable = true;
 	users.users.vladyslav.linger = true;
+
+	# Pi-hole is rootless but publishes on the real :53. Without this the bind
+	# fails outright — unprivileged ports start at 1024 by default. (Arch does
+	# the same from /etc/sysctl.d/99-rootless-dns.conf.)
+	boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 53;
 
 	systemd.services = mapAttrs' mkServe tailscaleServices;
 
@@ -98,6 +112,12 @@ Environment=PAPERLESS_DIR=/storage/2.5/media/paperless
 			"systemd/user/gitea.service.d/env.conf".text = ''
 [Service]
 Environment=GITEA_DIR=/storage/2.5/gitea
+'';
+			"systemd/user/pihole.service.d/env.conf".text = ''
+[Service]
+Environment=PIHOLE_DIR=/storage/2.5/pihole
+Environment=PIHOLE_TS_IP=${facts.tsIp4}
+Environment=PIHOLE_LAN_IP=${facts.lanIp4}
 '';
 		} // immichDropIns;
 	};
