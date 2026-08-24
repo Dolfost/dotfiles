@@ -18,39 +18,56 @@ Image=nicotine.build
 # Web UI (Xpra HTML5) on :8085 — loopback only (fronted by `tailscale serve` as
 # svc:nicotine -> https://nicotine.faun-castor.ts.net) plus this node's Tailscale
 # IP for direct access at http://daorus.faun-castor.ts.net:8085. NOT on the LAN.
+#
+# podman binds addresses, not interface names, so the Tailscale IP has to be a
+# literal — it comes in as an env var like every other host-specific value.
 PublishPort=127.0.0.1:8085:8085
-PublishPort=100.91.220.75:8085:8085
+PublishPort=${NICOTINE_BIND_IP}:8085:8085
 # Soulseek peer/listen port (portrange in the nicotine config = 8282).
 PublishPort=8282:8282
 
 # Every host path is an env var so nothing host-specific is baked into this
-# (git-tracked) quadlet. Once, run
+# (git-tracked) quadlet.
+#
+# On NixOS these are generated from nix/hosts/aorus/services.nix — do not edit
+# them by hand there. On Arch they live in an untracked drop-in at
+# 	systemd/user/nicotine.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
 # 	systemctl --user edit nicotine.service
-# and set them (see the drop-in for the full list):
-# 	[Service]
-# 	Environment=NICOTINE_DIR=/storage/2.5_inch/nicotine
-# 	Environment=NICOTINE_DOWNLOADS=/home/vladyslav/data/soulseek
-# 	Environment=NICOTINE_SHARE_MUSIC=/storage/2.5_inch/media/music
-# 	... one NICOTINE_SHARE_* per shared folder
 
 # State lives in one movable dir $NICOTINE_DIR with config/ + data/ (the config
-# file and the share-index DBs). The container runs as root internally, which
-# rootless podman maps to host uid 1000, so these stay owned by you.
+# file, the userinfo avatar, and the share-index DBs). The container runs as
+# root internally, which rootless podman maps to host uid 1000, so these stay
+# owned by you.
+#
+# The avatar is a copy inside config/, referenced by its container path
+# (/root/.config/nicotine/avatar.png), so it travels with the state dir and
+# needs no extra mount from the media library.
 Volume=${NICOTINE_DIR}/config:/root/.config/nicotine
 Volume=${NICOTINE_DIR}/data:/root/.local/share/nicotine
 
-# Downloads (read-write), mounted at the SAME path as in the config.
-Volume=${NICOTINE_DOWNLOADS}:${NICOTINE_DOWNLOADS}
+# Downloads (read-write). /storage/data on NixOS, ~/data (a symlink to the very
+# same dir) on Arch — hence a fixed container path rather than ${VAR}:${VAR}.
+Volume=${NICOTINE_DOWNLOADS}:/downloads
 
-# Shared folders (read-only), each at the SAME absolute path as in the config so
-# the share list in the DB keeps resolving. Only the shared dirs are mounted, so
-# this internet-facing client can't read the rest of /storage (immich, paperless…).
-Volume=${NICOTINE_SHARE_BOOKS}:${NICOTINE_SHARE_BOOKS}:ro
-Volume=${NICOTINE_SHARE_MOVIES}:${NICOTINE_SHARE_MOVIES}:ro
-Volume=${NICOTINE_SHARE_MUSIC}:${NICOTINE_SHARE_MUSIC}:ro
-Volume=${NICOTINE_SHARE_OLD_MUSIC}:${NICOTINE_SHARE_OLD_MUSIC}:ro
-Volume=${NICOTINE_SHARE_SHOWS}:${NICOTINE_SHARE_SHOWS}:ro
-Volume=${NICOTINE_SHARE_SHOWS_HDD}:${NICOTINE_SHARE_SHOWS_HDD}:ro
+# Shared folders (read-only) at fixed, host-neutral container paths. These must
+# match the `shared` list in $NICOTINE_DIR/config/config, which both OSes read
+# from the same disk; the left-hand sides differ per host, the right-hand sides
+# never do. The virtual names peers actually see ('books', 'music', …) live in
+# that config and are unaffected by any of this.
+#
+# Only the shared dirs are mounted, so this internet-facing client can't read
+# the rest of /storage (immich, paperless…).
+#
+# Do NOT write ${VAR}:${VAR} here. That re-couples the container's view to the
+# host mountpoint, and the share index then goes stale on the other OS.
+Volume=${NICOTINE_SHARE_BOOKS}:/shares/books:ro
+Volume=${NICOTINE_SHARE_MOVIES}:/shares/movies:ro
+Volume=${NICOTINE_SHARE_MUSIC}:/shares/music:ro
+Volume=${NICOTINE_SHARE_OLD_MUSIC}:/shares/old_music:ro
+Volume=${NICOTINE_SHARE_SHOWS}:/shares/shows:ro
+Volume=${NICOTINE_SHARE_SHOWS_HDD}:/shares/shows2:ro
 
 Environment=TZ=Europe/Kyiv
 
@@ -59,9 +76,14 @@ Environment=TZ=Europe/Kyiv
 Exec=xpra start :100 --start=nicotine --bind-tcp=0.0.0.0:8085 --html=on --daemon=no --speaker=off --microphone=off --printing=no --pulseaudio=no --exit-with-children=no --notifications=no
 
 [Service]
-# Block startup until the Tailscale IP exists (up to 120s) so podman never tries
-# to publish a port on an address that isn't there yet.
-ExecStartPre=/usr/bin/timeout 120 /bin/sh -c "until /usr/bin/ip -4 addr show tailscale0 2>/dev/null | grep -q '100.91.220.75/'; do sleep 2; done"
+# Block startup until the Tailscale IP exists (up to 120s) so podman never
+# tries to publish a port on an address that isn't there yet.
+#
+# /bin/sh is the only absolute path here: it is the one interpreter both
+# distros agree on. NixOS has no /usr/bin at all, so timeout/ip/grep are looked
+# up on PATH instead. systemd expands ${NICOTINE_BIND_IP} before sh sees the
+# string — which is also why this loop uses no shell variables of its own.
+ExecStartPre=/bin/sh -c 'timeout 120 sh -c "until ip -4 addr show tailscale0 2>/dev/null | grep -q ${NICOTINE_BIND_IP}/; do sleep 2; done"'
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=900

@@ -5,8 +5,11 @@
 let
 	inherit (lib) mapAttrs' nameValuePair;
 
+	facts = import ./facts.nix;
+
 	tailscaleServices = {
 		jellyfin = 8096;
+		nicotine = 8085;
 	};
 
 	mkServe = name: port: nameValuePair "tailscale-serve-${name}" {
@@ -49,6 +52,26 @@ Environment=JELLYFIN_SHOWS=/storage/2.5/media/shows
 Environment=JELLYFIN_SHOWS_HDD=/storage/3.5/media/shows
 Environment=JELLYFIN_MUSIC=/storage/2.5/media/music
 Environment=JELLYFIN_BOOKS=/storage/2.5/media/books
+'';
+			# NICOTINE_DOWNLOADS is /storage/data, which Arch reaches through a
+			# ~/data symlink — same directory on the same disk either way.
+			"systemd/user/nicotine.service.d/env.conf".text = ''
+[Service]
+Environment=NICOTINE_DIR=/storage/2.5/nicotine
+Environment=NICOTINE_DOWNLOADS=/storage/data/soulseek
+Environment=NICOTINE_BIND_IP=${facts.tsIp4}
+Environment=NICOTINE_SHARE_BOOKS=/storage/2.5/media/books
+Environment=NICOTINE_SHARE_MOVIES=/storage/2.5/media/movies
+Environment=NICOTINE_SHARE_MUSIC=/storage/2.5/media/music
+Environment=NICOTINE_SHARE_OLD_MUSIC=/storage/2.5/media/old_music
+Environment=NICOTINE_SHARE_SHOWS=/storage/2.5/media/shows
+Environment=NICOTINE_SHARE_SHOWS_HDD=/storage/3.5/media/shows
+'';
+			"systemd/user/navidrome.service.d/env.conf".text = ''
+[Service]
+Environment=NAVIDROME_DIR=/storage/2.5/media/navidrome
+Environment=NAVIDROME_MUSIC=/storage/2.5/media/music
+Environment=NAVIDROME_OLD_MUSIC=/storage/2.5/media/old_music
 '';
 		};
 	};

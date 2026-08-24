@@ -17,10 +17,12 @@ PublishPort=8096:8096
 # (git-tracked) quadlet.
 #
 # On NixOS these are generated from nix/hosts/aorus/services.nix — do not edit
-# them by hand there. On Arch, run
+# them by hand there. On Arch they live in an untracked drop-in at
+# 	systemd/user/jellyfin.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
 # 	systemctl --user edit jellyfin.service
-# and set them (note ~/.config/systemd/user is a symlink into this repo, and
-# its .gitignore keeps the drop-in untracked):
+# The Arch values are:
 # 	[Service]
 # 	Environment=JELLYFIN_DIR=/storage/2.5_inch/media/jellyfin
 # 	Environment=JELLYFIN_MOVIES=/storage/2.5_inch/media/movies
@@ -36,25 +38,29 @@ PublishPort=8096:8096
 Volume=${JELLYFIN_DIR}:/config:Z
 Volume=${JELLYFIN_DIR}/cache:/cache:Z
 
-# Each library is mounted read-only at a FIXED container path, with only the
-# host side coming from an env var. The right-hand paths are NOT a host layout;
-# they are the paths Jellyfin's DB already records (see the .mblink files under
-# ${JELLYFIN_DIR}/root/default/*/), so no re-scan is needed and watch state
-# stays intact.
-#
-# This is what makes one file work on both OSes: Arch mounts the disks at
+# Each library is mounted read-only at a FIXED, host-neutral container path.
+# Only the host side comes from an env var. Arch mounts the disks at
 # /storage/2.5_inch and /storage/3.5_inch, NixOS at /storage/2.5 and
-# /storage/3.5. Only the env vars differ.
+# /storage/3.5 — but the container sees /media/* either way, so the paths
+# Jellyfin records in its DB mean the same thing on both.
+#
+# That matters here specifically because BOTH systems share ONE database:
+# ${JELLYFIN_DIR} is the same directory on the same disk, reached under two
+# different mountpoints. Whichever OS scans last wins, so both must agree on
+# the container-side paths or the other one gets a library it cannot read.
 #
 # Do NOT write ${VAR}:${VAR} here. That re-couples the container's view to the
 # host mountpoint, and renaming a mountpoint then breaks playback silently —
 # the library still lists, because that comes from the DB, but every file
 # lookup misses.
-Volume=${JELLYFIN_MOVIES}:/storage/2.5_inch/media/movies:ro
-Volume=${JELLYFIN_SHOWS}:/storage/2.5_inch/media/shows:ro
-Volume=${JELLYFIN_SHOWS_HDD}:/storage/3.5_inch/media/shows:ro
-Volume=${JELLYFIN_MUSIC}:/storage/2.5_inch/media/music:ro
-Volume=${JELLYFIN_BOOKS}:/storage/2.5_inch/media/books:ro
+#
+# shows2 is the overflow library on the spinning disk. The name is deliberately
+# neutral: if those files ever move to another disk, only the env var changes.
+Volume=${JELLYFIN_MOVIES}:/media/movies:ro
+Volume=${JELLYFIN_SHOWS}:/media/shows:ro
+Volume=${JELLYFIN_SHOWS_HDD}:/media/shows2:ro
+Volume=${JELLYFIN_MUSIC}:/media/music:ro
+Volume=${JELLYFIN_BOOKS}:/media/books:ro
 
 # GPU for hardware transcoding (renderD128 is world-accessible, 0666, so the
 # rootless container can use it without a group). Remove this on a host with no

@@ -1,6 +1,9 @@
 # Desktop. AMD, Hyprland, all the extra disks.
 { ... }:
 
+let
+	facts = import ./facts.nix;
+in
 {
 	imports = [
 		./hardware-configuration.nix
@@ -10,7 +13,7 @@
 		../../modules/storage.nix
 	];
 
-	networking.hostName = "aorus";
+	networking.hostName = facts.hostName;
 
 	services.tailscale.useRoutingFeatures = "server";
 
