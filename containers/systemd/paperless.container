@@ -8,11 +8,23 @@ Image=ghcr.io/paperless-ngx/paperless-ngx:latest
 AutoUpdate=registry
 Pod=paperless.pod
 
-# Once, you should run
+# $PAPERLESS_DIR is an env var so nothing host-specific is baked into this
+# (git-tracked) quadlet.
+#
+# On NixOS it is generated from nix/hosts/aorus/services.nix — do not edit it
+# by hand there. On Arch it lives in an untracked drop-in at
+# 	systemd/user/paperless.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
 # 	systemctl --user edit paperless.service
-# and add to it:
-# 	[Service]
-# 	Environment=PAPERLESS_DIR=/storage/2.5_inch/media/paperless
+#
+# The container paths below are the image's own fixed locations, so unlike the
+# other services there was never a ${VAR}:${VAR} host coupling to undo here.
+#
+# Paperless runs as uid 999 inside the container, which rootless podman maps to
+# host uid 100999 via /etc/subuid — hence the odd ownership on these dirs. Both
+# installs allocate vladyslav:100000:65536, so the mapping lands on the same
+# host uid either way and the files stay readable across a reboot into Arch.
 
 # All Paperless state lives under $PAPERLESS_DIR — move that dir + these
 # quadlets and the instance moves with it.

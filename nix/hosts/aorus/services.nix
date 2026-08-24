@@ -10,6 +10,7 @@ let
 	tailscaleServices = {
 		jellyfin = 8096;
 		nicotine = 8085;
+		paperless = 8000;
 	};
 
 	mkServe = name: port: nameValuePair "tailscale-serve-${name}" {
@@ -72,6 +73,10 @@ Environment=NICOTINE_SHARE_SHOWS_HDD=/storage/3.5/media/shows
 Environment=NAVIDROME_DIR=/storage/2.5/media/navidrome
 Environment=NAVIDROME_MUSIC=/storage/2.5/media/music
 Environment=NAVIDROME_OLD_MUSIC=/storage/2.5/media/old_music
+'';
+			"systemd/user/paperless.service.d/env.conf".text = ''
+[Service]
+Environment=PAPERLESS_DIR=/storage/2.5/media/paperless
 '';
 		};
 	};
