@@ -2,6 +2,8 @@
 { pkgs, ... }:
 
 {
+	imports = [ ./audio.nix ];
+
 	programs.hyprland = {
 		enable = true;
 		withUWSM = true;
@@ -64,7 +66,6 @@
 		};
 	};
 
-	services.pipewire = { enable = true; pulse.enable = true; };
 	services.printing.enable = true;
 
 	programs.firefox.enable = true;
