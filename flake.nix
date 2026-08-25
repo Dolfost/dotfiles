@@ -11,8 +11,21 @@
 
 	outputs = { self, nixpkgs, home-manager, ... }:
 	let
-		# Every host gets the home-manager module; the rest lives in nix/hosts/<name>.
-		mkHost = host: nixpkgs.lib.nixosSystem {
+		lib = nixpkgs.lib;
+
+		# nix/modules exposed to hosts as the `mods` arg, so their
+		# imports read `mods.desktop` instead of
+		# ../../modules/desktop.nix.
+		mods = lib.mapAttrs'
+			(name: _: lib.nameValuePair
+				(lib.removeSuffix ".nix" name)
+				(./nix/modules + "/${name}"))
+			(builtins.readDir ./nix/modules);
+
+		# Every host gets the home-manager module; the rest lives
+		# in nix/hosts/<name>.
+		mkHost = host: lib.nixosSystem {
+			specialArgs = { inherit mods; };
 			modules = [
 				home-manager.nixosModules.home-manager
 				./nix/hosts/${host}

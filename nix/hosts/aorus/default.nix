@@ -1,5 +1,5 @@
 # Desktop. AMD, Hyprland, all the extra disks.
-{ config, lib, ... }:
+{ config, lib, mods, ... }:
 
 let
 	facts = import ./facts.nix;
@@ -10,9 +10,9 @@ in
 		./storage.nix
 		./services.nix
 		./coolercontrol.nix
-		../../modules/common.nix
-		../../modules/desktop.nix
-		../../modules/gaming.nix
+		mods.common
+		mods.desktop
+		mods.gaming
 	];
 
 	services.sunshine.settings.csrf_allowed_origins =
