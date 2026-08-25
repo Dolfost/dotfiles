@@ -12,6 +12,25 @@
 
 	programs.hyprlock.enable = true;
 
+	# GNOME purely as a second session to log into. Hyprland stays default —
+	# that's services.displayManager.defaultSession, set per host. GNOME doesn't
+	# pull in GDM, so ly keeps handling login and just gains an entry.
+	#
+	# core-apps is mkDefault true upstream, so switching it off here drops the
+	# whole bundled app set — Nautilus, Epiphany, Console, Calculator, Calendar,
+	# Contacts, Maps, Music, Weather, Papers, Logs, System Monitor, simple-scan,
+	# and with them the seahorse/gnome-disks/sushi program modules. What remains
+	# is the shell and its lock screen, plus Settings.
+	services.desktopManager.gnome.enable = true;
+	services.gnome.core-apps.enable = false;
+
+	# These ride along with core-shell rather than core-apps, so core-apps=false
+	# doesn't catch them. gnome-tour auto-launches itself on first login.
+	environment.gnome.excludePackages = with pkgs; [
+		gnome-tour
+		gnome-user-docs
+	];
+
 	xdg.portal = {
 		enable = true;
 		extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
