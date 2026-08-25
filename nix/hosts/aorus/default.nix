@@ -1,5 +1,5 @@
 # Desktop. AMD, Hyprland, all the extra disks.
-{ ... }:
+{ config, lib, ... }:
 
 let
 	facts = import ./facts.nix;
@@ -12,16 +12,31 @@ in
 		./coolercontrol.nix
 		../../modules/common.nix
 		../../modules/desktop.nix
+		../../modules/gaming.nix
 	];
+
+	services.sunshine.settings.csrf_allowed_origins =
+		lib.concatMapStringsSep "," (h: "https://${h}:47990") [
+			"${facts.tsHostName}.${facts.tailnet}"
+			"${facts.tsHostName}.wg"
+			"10.8.0.4"
+		];
 
 	networking.hostName = facts.hostName;
 
 	services.tailscale.useRoutingFeatures = "server";
 
+	# gpu_device 1 is the discrete AMD card (0 is the iGPU).
+	programs.gamemode.settings.gpu = {
+		apply_gpu_optimisations = "accept-responsibility";
+		gpu_device = 1;
+		amd_performance_level = "high";
+	};
+
 	services.displayManager = {
 		autoLogin = {
 			enable = true;
-			user = "vladyslav";
+			user = config.dotfiles.user;
 		};
 		defaultSession = "hyprland-uwsm";
 	};

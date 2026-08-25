@@ -21,6 +21,6 @@
 		"coolercontrol/calibrations.json"
 		"coolercontrol/modes.json"
 	] (name: {
-		source = "${config.users.users.vladyslav.home}/dotfiles/nix/hosts/aorus/${name}";
+		source = "${config.users.users.${config.dotfiles.user}.home}/dotfiles/nix/hosts/aorus/${name}";
 	});
 }

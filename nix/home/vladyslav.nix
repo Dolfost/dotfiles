@@ -1,17 +1,13 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-	dotfiles = "${config.home.homeDirectory}/dotfiles";
+{
+	imports = [ ./core.nix ];
 
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
-	};
-in {
 	home.packages = with pkgs; [
-		tree claude-code sheldon
+		tree claude-code
 		gnumake cmake
 		lua-language-server
-		clang zathura
+		clang
 	];
 
 	systemd.user.services.tmux = {
@@ -27,21 +23,6 @@ in {
 			KillMode = "none";
 		};
 		Install.WantedBy = [ "default.target" ];
-	};
-
-	home.file = {
-		".zshrc" = link "zsh/zshrc";
-		".zprofile" = link "zsh/zprofile";
-		".tmux.conf" = link "tmux/tmux.conf";
-		".tmate.conf" = link "tmux/tmate.conf";
-	};
-
-	xdg.configFile = {
-		"zsh" = link "zsh/zsh";
-		"sheldon" = link "zsh/sheldon";
-		"nvim" = link "nvim";
-		"hypr" = link "hypr";
-		"zathura" = link "zathura";
 	};
 
 	programs.git = {
