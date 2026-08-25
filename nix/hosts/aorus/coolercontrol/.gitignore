@@ -1,0 +1,4 @@
+# Never version-control CoolerControl secrets, even if the whole /etc dir is copied here.
+.passwd
+*.key
+*.crt

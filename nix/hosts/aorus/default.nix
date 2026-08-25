@@ -7,10 +7,11 @@ in
 {
 	imports = [
 		./hardware-configuration.nix
+		./storage.nix
 		./services.nix
+		./coolercontrol.nix
 		../../modules/common.nix
 		../../modules/desktop.nix
-		../../modules/storage.nix
 	];
 
 	networking.hostName = facts.hostName;
