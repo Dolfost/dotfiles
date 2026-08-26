@@ -65,5 +65,6 @@ in
 
 	environment.systemPackages = with pkgs; [
 		neovim wget git tmux
+		nerd-fonts.iosevka
 	];
 }
