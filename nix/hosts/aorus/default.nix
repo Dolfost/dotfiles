@@ -33,6 +33,7 @@ in
 		amd_performance_level = "high";
 	};
 
+	services.printing.enable = true;
 	services.displayManager = {
 		autoLogin = {
 			enable = true;

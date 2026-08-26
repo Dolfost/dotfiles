@@ -5,8 +5,7 @@
 	imports = [ ./audio.nix ./user.nix ];
 
 	home-manager.users.${config.dotfiles.user}.imports = [
-		../home/hyprland.nix
-		../home/apps.nix
+		../home/desktop.nix
 	];
 
 	programs.hyprland = {
@@ -77,6 +76,5 @@
 		};
 	};
 
-	services.printing.enable = true;
 	programs.firefox.enable = true;
 }
