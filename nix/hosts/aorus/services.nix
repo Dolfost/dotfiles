@@ -82,7 +82,7 @@ in {
 	let
 		link = path: {
 			source = config.lib.file.mkOutOfStoreSymlink
-				"${config.home.homeDirectory}/dotfiles/${path}";
+				"${config.dotfiles.dir}/${path}";
 		};
 	in {
 		xdg.configFile = {
@@ -103,7 +103,7 @@ Environment=JELLYFIN_BOOKS=/storage/2.5/media/books
 [Service]
 Environment=NICOTINE_DIR=/storage/2.5/nicotine
 Environment=NICOTINE_DOWNLOADS=/storage/data/soulseek
-Environment=NICOTINE_BIND_IP=${facts.tsIp4}
+Environment=NICOTINE_BIND_IP=${facts.ts_ipv4}
 Environment=NICOTINE_SHARE_BOOKS=/storage/2.5/media/books
 Environment=NICOTINE_SHARE_MOVIES=/storage/2.5/media/movies
 Environment=NICOTINE_SHARE_MUSIC=/storage/2.5/media/music
@@ -132,8 +132,8 @@ Environment=CRAFTY_DIR=/storage/data/crafty
 			"systemd/user/pihole.service.d/env.conf".text = ''
 [Service]
 Environment=PIHOLE_DIR=/storage/2.5/pihole
-Environment=PIHOLE_TS_IP=${facts.tsIp4}
-Environment=PIHOLE_LAN_IP=${facts.lanIp4}
+Environment=PIHOLE_TS_IP=${facts.ts_ipv4}
+Environment=PIHOLE_LAN_IP=${facts.lan_ipv4}
 '';
 		} // immichDropIns;
 	};

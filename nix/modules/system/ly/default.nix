@@ -1,32 +1,8 @@
-# Graphical session: Hyprland, ly, portals, audio, printing.
-{ config, pkgs, ... }:
+# The ly display manager. Session-agnostic: it lists whatever sessions
+# the other modules install (hyprland, gnome).
+{ ... }:
 
 {
-	imports = [ ./audio.nix ./user.nix ];
-
-	home-manager.users.${config.dotfiles.user}.imports = [
-		../home/desktop.nix
-	];
-
-	programs.hyprland = {
-		enable = true;
-		withUWSM = true;
-		xwayland.enable = true;
-	};
-	programs.hyprlock.enable = true;
-
-	services.desktopManager.gnome.enable = true;
-	services.gnome.core-apps.enable = false;
-	environment.gnome.excludePackages = with pkgs; [
-		gnome-tour
-		gnome-user-docs
-	];
-
-	xdg.portal = {
-		enable = true;
-		extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-	};
-
 	services.displayManager.ly = {
 		enable = true;
 		settings = {
@@ -75,6 +51,4 @@
 			session_log = ".local/state/ly-session.log";
 		};
 	};
-
-	programs.firefox.enable = true;
 }

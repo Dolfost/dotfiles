@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-	imports = [ ./core.nix ];
+	imports = [ ../../modules/user ];
+
+	home.username = "vladyslav";
+	home.homeDirectory = "/home/vladyslav";
 
 	home.packages = with pkgs; [
 		tree claude-code

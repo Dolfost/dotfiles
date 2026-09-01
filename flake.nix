@@ -9,32 +9,20 @@
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, ... }:
+	outputs = inputs@{ self, nixpkgs, home-manager, ... }:
 	let
-		lib = nixpkgs.lib;
-
-		# nix/modules exposed to hosts as the `mods` arg, so their
-		# imports read `mods.desktop` instead of
-		# ../../modules/desktop.nix.
-		mods = lib.mapAttrs'
-			(name: _: lib.nameValuePair
-				(lib.removeSuffix ".nix" name)
-				(./nix/modules + "/${name}"))
-			(builtins.readDir ./nix/modules);
-
-		# Every host gets the home-manager module; the rest lives
-		# in nix/hosts/<name>.
-		mkHost = host: lib.nixosSystem {
-			specialArgs = { inherit mods; };
-			modules = [
-				home-manager.nixosModules.home-manager
-				./nix/hosts/${host}
-			];
-		};
+		utils = import ./nix/utils.nix { inherit inputs nixpkgs home-manager; };
 	in {
 		nixosConfigurations = {
-			aorus = mkHost "aorus";
-			loq = mkHost "loq";
+			aorus = utils.make_host "aorus";
+			loq = utils.make_host "loq";
+		};
+
+		# Standalone entry points for non-NixOS machines. The GUI/gaming
+		# home halves default off there (no osConfig); flip dotfiles.graphical
+		# or the per-feature dotfiles.<feature>.enable in the home to opt in.
+		homeConfigurations = {
+			vladyslav = utils.make_home "vladyslav";
 		};
 	};
 }

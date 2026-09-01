@@ -1,13 +1,8 @@
-{ config, pkgs, ... }:
+# Steam, gamemode, sunshine streaming. GPU tuning is hardware knowledge - hosts
+# set programs.gamemode.settings.gpu.
+{ pkgs, ... }:
 
 {
-	imports = [ ./user.nix ];
-
-	home-manager.users.${config.dotfiles.user}.imports = [
-		../home/gaming.nix
-	];
-
-	# GPU tuning is hardware knowledge — hosts set programs.gamemode.settings.gpu.
 	programs.gamemode.enable = true;
 
 	services.sunshine = {
@@ -27,5 +22,6 @@
 	environment.systemPackages = with pkgs; [
 		mangohud
 		adwsteamgtk
+		prismlauncher
 	];
 }

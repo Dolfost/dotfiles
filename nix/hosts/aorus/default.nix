@@ -1,39 +1,27 @@
 # Desktop. AMD, Hyprland, all the extra disks.
-{ config, lib, mods, ... }:
+{ config, lib, ... }:
 
 let
 	facts = import ./facts.nix;
 in
 {
 	imports = [
+		# What this machine is.
 		./hardware-configuration.nix
 		./storage.nix
 		./services.nix
 		./coolercontrol.nix
-		mods.common
-		mods.desktop
-		mods.gaming
+
+		# Baseline and the features this host opts into.
+		../../modules/system
+		../../modules/system/hyprland
+		../../modules/system/gnome
+		../../modules/system/ly
+		../../modules/system/gaming
+		../../modules/system/guitar
 	];
 
-	services.sunshine.settings.csrf_allowed_origins =
-		lib.concatMapStringsSep "," (h: "https://${h}:47990") [
-			"${facts.tsHostName}.${facts.tailnet}"
-			"${facts.tsHostName}.wg"
-			"10.8.0.4"
-		];
-
-	networking.hostName = facts.hostName;
-
-	services.tailscale.useRoutingFeatures = "server";
-
-	# gpu_device 1 is the discrete AMD card (0 is the iGPU).
-	programs.gamemode.settings.gpu = {
-		apply_gpu_optimisations = "accept-responsibility";
-		gpu_device = 1;
-		amd_performance_level = "high";
-	};
-
-	services.printing.enable = true;
+	# Session: boot straight into Hyprland.
 	services.displayManager = {
 		autoLogin = {
 			enable = true;
@@ -42,7 +30,37 @@ in
 		defaultSession = "hyprland-uwsm";
 	};
 
+	# This machine's monitors.
+	home-manager.users.${config.dotfiles.user}.dotfiles.hyprland.localConfig = ''
+		hl.monitor({
+			output = "DP-1", mode = "2560x1440@180",
+			position = "auto", scale = 1
+		})
+		hl.monitor({
+			output = "HDMI-A-2", mode = "3840x2160@60",
+			position = "2560x0", scale = 1, disabled = true
+		})
+	'';
+
+	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU); sunshine
+	# streams to the tailnet/VPN addresses.
+	programs.gamemode.settings.gpu = {
+		apply_gpu_optimisations = "accept-responsibility";
+		gpu_device = 1;
+		amd_performance_level = "high";
+	};
+	services.sunshine.settings.csrf_allowed_origins =
+		lib.concatMapStringsSep "," (h: "https://${h}:47990") [
+			"${facts.ts_hostname}.${facts.ts_network}"
+			"${facts.ts_hostname}.wg"
+			"10.8.0.4"
+		];
+
+	# Network: this box routes for the tailnet and trusts its LAN.
+	services.tailscale.useRoutingFeatures = "server";
 	networking.firewall.enable = false;
+
+	services.printing.enable = true;
 
 	system.stateVersion = "26.05"; # DO NOT CHANGE
 }

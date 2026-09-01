@@ -1,8 +1,7 @@
-{ ... }:
-
+{ lib, ... }:
 let
-	rate = 44100;
-	quantum = 256;
+rate = 44100;
+quantum = 256;
 in
 {
 	services.pipewire = {
@@ -23,16 +22,18 @@ in
 
 		wireplumber.extraConfig."10-alsa-rate" = {
 			"monitor.alsa.rules" = [
-				{
-					matches = [ { "node.name" = "~alsa_(input|output)\\..*"; } ];
-					actions.update-props = {
-						"audio.rate" = rate;
-						"audio.allowed-rates" = [ rate ];
-					};
-				}
+			{
+				matches = [ { "node.name" = "~alsa_(input|output)\\..*"; } ];
+				actions.update-props = {
+					"audio.rate" = rate;
+					"audio.allowed-rates" = [ rate ];
+				};
+			}
 			];
 		};
 	};
 
-	security.rtkit.enable = true;
+	# The default for every host; features that depend on realtime scheduling
+	# (../guitar) pin it with a plain definition.
+	security.rtkit.enable = lib.mkDefault true;
 }

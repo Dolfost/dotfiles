@@ -1,6 +1,4 @@
-# Extra disks. aorus-only — the laptop has none of these.
 { ... }:
-
 {
 	fileSystems."/arch" = {
 		device = "/dev/disk/by-label/arch";
