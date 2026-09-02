@@ -57,7 +57,7 @@ fan3 = { profile_uid = "3a9c0245-9189-453b-ac6f-37dfbd9699f7" }
 fan5 = { profile_uid = "72e9782e-88f9-4cbd-8be8-e0482e192eab" }
 
 [device-settings.97910386cac9bfce54b2c224e4aaef42cd953440cb57f1ff5ff46ac183bf338e]
-fan1 = { profile_uid = "b10865bd-490d-4714-bf84-3de1fd4e88e3" }
+fan1 = { profile_uid = "0" }
 
 
 # A list of profiles to be used with each device's settings
