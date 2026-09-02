@@ -1,4 +1,8 @@
 # Guitar rig: DAW, plugin host, and the plugins they load.
+#
+# carla/reaper find pipewire's libjack via the session-wide LD_LIBRARY_PATH
+# from environment.sessionVariables; the uwsm env bridge in system/hyprland
+# carries it (and the plugin paths below) into the graphical session.
 { osConfig ? { }, config, lib, pkgs, ... }:
 
 {
@@ -16,6 +20,7 @@
 			calf
 			guitarix              # also provides gxtuner.lv2
 			neural-amp-modeler-lv2
+			(callPackage ../../../packages/ratatouille.nix { })
 			dragonfly-reverb
 		];
 

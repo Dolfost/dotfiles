@@ -31,16 +31,6 @@ in
 
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
 			"hypr" = link "hypr";
-
-			# uwsm builds the session environment only from uwsm/env, never
-			# from shell profiles - without this bridge neither NixOS's
-			# environment.sessionVariables (LD_LIBRARY_PATH for pipewire-jack)
-			# nor home.sessionVariables (LV2_PATH etc.) reach the session.
-			# "uwsm/env".text = ''
-			# 	[ -f /etc/set-environment ] && . /etc/set-environment
-			# 	unset __HM_SESS_VARS_SOURCED
-			# 	. "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-			# '';
 		} // lib.optionalAttrs (cfg.localConfig != "") {
 			"hypr-local/hyprland.lua".text = cfg.localConfig;
 		};
