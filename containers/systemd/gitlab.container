@@ -1,0 +1,51 @@
+[Unit]
+Description=GitLab CE (self-hosted git service)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=gitlab
+Image=docker.io/gitlab/gitlab-ce:latest
+AutoUpdate=registry
+HostName=gitlab
+
+# Web UI and git-over-SSH. Ports differ from gitea (3000/2222) so both
+# can run side by side. external_url below carries :8929 so nginx inside
+# the container also listens on 8929 - hence the 1:1 web publish.
+PublishPort=8929:8929
+PublishPort=2224:22
+
+# On NixOS it is generated from nix/hosts/aorus/services/gitlab.nix - do not
+# edit it by hand there. On Arch it lives in an untracked drop-in at
+# 	systemd/user/gitlab.service.d/override.conf
+# in this repo (~/.config/systemd is a symlink to systemd/, and its .gitignore
+# keeps the drop-in out of git). Edit it directly, or via
+# 	systemctl --user edit gitlab.service
+# 	[Service]
+# 	Environment=GITLAB_DIR=/storage/2.5_inch/gitlab
+#
+# All GitLab state lives under $GITLAB_DIR (config, logs, repos, DB, uploads).
+# Move that one dir + this quadlet and the instance moves with it.
+Volume=${GITLAB_DIR}/config:/etc/gitlab:Z
+Volume=${GITLAB_DIR}/logs:/var/log/gitlab:Z
+Volume=${GITLAB_DIR}/data:/var/opt/gitlab:Z
+
+# Omnibus config applied on every (re)start. external_url is what GitLab uses
+# to build clone/redirect URLs and to pick the nginx listen port; the SSH port
+# must match the published 2224 so HTTPS/SSH clone URLs point at the right
+# port. Override this whole line in the drop-in to change the URL (e.g. a
+# Tailscale hostname) without touching this tracked file.
+Environment="GITLAB_OMNIBUS_CONFIG=external_url 'http://localhost:8929'; gitlab_rails['gitlab_shell_ssh_port'] = 2224"
+Environment=TZ=Europe/Kyiv
+
+# GitLab bundles Postgres; its docker image ships with --shm-size 256m.
+ShmSize=256m
+
+[Service]
+Restart=on-failure
+# First boot runs a full omnibus reconfigure (Postgres init, migrations) — slow
+# on the 2.5" HDD.
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
