@@ -12,6 +12,7 @@
 		./hyprland
 		./browser
 		./media
+		./audio
 		./communication
 		./guitar
 		./gaming

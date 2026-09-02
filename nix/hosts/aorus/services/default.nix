@@ -5,7 +5,7 @@
 let
 	inherit (lib) mapAttrs' nameValuePair;
 
-	facts = import ./facts.nix;
+	facts = import ./../facts.nix;
 
 	# svc:<name> -> localhost:<port>. Default is an HTTPS proxy on 443 to a plain
 	# HTTP backend. Two escape hatches:

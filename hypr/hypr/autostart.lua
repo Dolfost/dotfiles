@@ -25,7 +25,8 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
 
 	exec_cmd_uwsm('openrgb -p ~/.config/OpenRGB/OFF.orp')
-	exec_cmd_uwsm('easyeffects --hide-window --service-mode')
+	-- easyeffects runs as a home-manager user service
+	-- (nix/modules/user/audio)
 	exec_cmd_uwsm('signal-desktop')
 	exec_cmd_uwsm('element-desktop --hidden')
 	exec_cmd_uwsm('Telegram -startintray')

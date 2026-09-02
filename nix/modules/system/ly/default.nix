@@ -3,6 +3,11 @@
 { ... }:
 
 {
+	# Unlock the gnome keyring with the login password on manual logins.
+	# Autologin types no password, so those sessions rely on the login
+	# keyring having a blank password instead.
+	security.pam.services.ly.enableGnomeKeyring = true;
+
 	services.displayManager.ly = {
 		enable = true;
 		settings = {

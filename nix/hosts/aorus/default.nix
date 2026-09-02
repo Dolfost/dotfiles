@@ -8,9 +8,11 @@ in
 	imports = [
 		# What this machine is.
 		./hardware-configuration.nix
-		./storage.nix
-		./services.nix
-		./coolercontrol.nix
+		./storage
+		./services
+		./coolercontrol
+		./audio
+		./hyprland
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -30,17 +32,6 @@ in
 		defaultSession = "hyprland-uwsm";
 	};
 
-	# This machine's monitors.
-	home-manager.users.${config.dotfiles.user}.dotfiles.hyprland.localConfig = ''
-		hl.monitor({
-			output = "DP-1", mode = "2560x1440@180",
-			position = "auto", scale = 1
-		})
-		hl.monitor({
-			output = "HDMI-A-2", mode = "3840x2160@60",
-			position = "2560x0", scale = 1, disabled = true
-		})
-	'';
 
 	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU); sunshine
 	# streams to the tailnet/VPN addresses.
