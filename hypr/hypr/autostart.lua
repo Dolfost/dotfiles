@@ -24,9 +24,8 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
 
-	exec_cmd_uwsm('openrgb -p ~/.config/OpenRGB/OFF.orp')
-	-- easyeffects runs as a home-manager user service
-	-- (nix/modules/user/audio)
+	-- easyeffects and openrgb run as home-manager user services
+	-- (nix/modules/user/{audio,openrgb})
 	exec_cmd_uwsm('signal-desktop')
 	exec_cmd_uwsm('element-desktop --hidden')
 	exec_cmd_uwsm('Telegram -startintray')

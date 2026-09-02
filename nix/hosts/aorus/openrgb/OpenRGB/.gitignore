@@ -1,0 +1,6 @@
+# OpenRGB writes runtime junk (logs, plugins, window sizes) next to its
+# config; only profiles and settings are worth versioning.
+*
+!.gitignore
+!*.orp
+!OpenRGB.json

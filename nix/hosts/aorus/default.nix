@@ -13,6 +13,7 @@ in
 		./coolercontrol
 		./audio
 		./hyprland
+		./openrgb
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -21,6 +22,7 @@ in
 		../../modules/system/ly
 		../../modules/system/gaming
 		../../modules/system/guitar
+		../../modules/system/openrgb
 	];
 
 	# Session: boot straight into Hyprland.

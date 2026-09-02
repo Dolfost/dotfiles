@@ -13,6 +13,7 @@
 		./browser
 		./media
 		./audio
+		./openrgb
 		./communication
 		./guitar
 		./gaming
