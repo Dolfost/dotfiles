@@ -1,0 +1,35 @@
+version: 6
+daemon:
+  log_level: info
+  admin_user: vladyslav
+  admin_group: vladyslav
+  disable_clocks_cleanup: false
+apply_settings_timer: 5
+gpus:
+  1002:7590-1DA2:493E-0000:03:00.0:
+    fan_control_enabled: false
+    fan_control_settings:
+      mode: static
+      static_speed: 0.5
+      temperature_key: edge
+      interval_ms: 500
+      curve:
+        40: 0.3
+        50: 0.35
+        60: 0.5
+        70: 0.75
+        80: 1.0
+    pmfw_options:
+      acoustic_limit: 3500
+      acoustic_target: 1500
+      minimum_pwm: 15
+      target_temperature: 59
+      zero_rpm: true
+    power_cap: 200.0
+    performance_level: manual
+    gpu_clock_offsets:
+      0: 100
+    voltage_offset: 0
+    power_profile_mode_index: 1
+current_profile: null
+auto_switch_profiles: false

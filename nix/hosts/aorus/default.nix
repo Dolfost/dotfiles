@@ -14,6 +14,7 @@ in
 		./audio
 		./hyprland
 		./openrgb
+		./lact
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -23,6 +24,7 @@ in
 		../../modules/system/gaming
 		../../modules/system/guitar
 		../../modules/system/openrgb
+		../../modules/system/amd
 	];
 
 	# Session: boot straight into Hyprland.
