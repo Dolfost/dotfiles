@@ -6,6 +6,10 @@ hl.monitor({
 	output = "sunshine-headless", disabled = true,
 })
 
+-- The cap_sys_nice wrapper strips TZDIR via glibc secure exec
+-- (nixpkgs#526193); without it flatpaks and some apps fall back to UTC.
+hl.env('TZDIR', '/etc/zoneinfo')
+
 TERMINAL = 'wezterm'
 CALCULATOR = 'qalculate-gtk --new-instance'
 WEB_BROWSER = 'firefox'

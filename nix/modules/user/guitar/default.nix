@@ -1,8 +1,9 @@
 # Guitar rig: DAW, plugin host, and the plugins they load.
 #
-# carla/reaper find pipewire's libjack via the session-wide LD_LIBRARY_PATH
-# from environment.sessionVariables; the uwsm env bridge in system/hyprland
-# carries it (and the plugin paths below) into the graphical session.
+# carla/reaper find pipewire's libjack via LD_LIBRARY_PATH. The uwsm env
+# bridge (system/hyprland) carries it into the session, but Hyprland's
+# cap_sys_nice wrapper makes glibc scrub it on exec (nixpkgs#526193), so
+# hl.env below re-injects it for everything Hyprland spawns.
 { osConfig ? { }, config, lib, pkgs, ... }:
 
 {
@@ -23,6 +24,10 @@
 			(callPackage ../../../packages/ratatouille.nix { })
 			dragonfly-reverb
 		];
+
+		dotfiles.hyprland.localConfig = ''
+			hl.env("LD_LIBRARY_PATH", "${pkgs.pipewire.jack}/lib")
+		'';
 
 		# Plugins land in the nix profile, not /usr/lib - point the hosts at them.
 		home.sessionVariables = {
