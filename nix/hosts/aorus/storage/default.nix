@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
 	fileSystems."/arch" = {
 		device = "/dev/disk/by-label/arch";
@@ -29,5 +29,14 @@
 		device = "/dev/disk/by-label/media3.5";
 		options = [ "nofail" ];
 		fsType = "btrfs";
+	};
+
+	home-manager.users.${config.dotfiles.user} = { config, ... }: {
+		home.file = {
+			"data".source =
+				config.lib.file.mkOutOfStoreSymlink "/storage/data";
+			"Downloads".source =
+				config.lib.file.mkOutOfStoreSymlink "/storage/data/Downloads";
+		};
 	};
 }
