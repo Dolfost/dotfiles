@@ -65,6 +65,7 @@ in
 
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
 			"hypr" = link "hypr";
+			"uwsm" = link "uwsm";
 		} // lib.optionalAttrs (cfg.localConfig != "") {
 			"hypr-local/hyprland.lua".text = cfg.localConfig;
 		} // lib.optionalAttrs (cfg.secondaryDisplay != "") {

@@ -45,9 +45,13 @@
 			});
 	};
 
+	# capSysNice stays off: the wrapped binary breaks when launched from inside
+	# Steam's FHS env, which is exactly how bin/gscope runs it.
+	programs.gamescope.enable = true;
+
 	programs.steam = {
 		enable = true;
-		extraPackages = [ pkgs.mangohud ];
+		extraPackages = [ pkgs.mangohud pkgs.gamescope ];
 	};
 
 	environment.systemPackages = with pkgs; [

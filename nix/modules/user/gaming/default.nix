@@ -1,5 +1,5 @@
 # Overlay config for games.
-{ osConfig ? { }, config, lib, ... }:
+{ osConfig ? { }, config, lib, pkgs, ... }:
 
 let
 	link = path: {
@@ -14,6 +14,8 @@ in
 	};
 
 	config = lib.mkIf config.dotfiles.gaming.enable {
+		home.packages = [ pkgs.protonplus ];
 		xdg.configFile."MangoHud" = link "MangoHud";
+		home.file.".local/bin/gscope" = link "bin/gscope";
 	};
 }
