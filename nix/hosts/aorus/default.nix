@@ -1,9 +1,6 @@
 # Desktop. AMD, Hyprland, all the extra disks.
-{ config, lib, ... }:
+{ config, ... }:
 
-let
-	facts = import ./facts.nix;
-in
 {
 	imports = [
 		# What this machine is.
@@ -15,6 +12,7 @@ in
 		./hyprland
 		./openrgb
 		./lact
+		./sunshine
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -38,19 +36,12 @@ in
 	};
 
 
-	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU); sunshine
-	# streams to the tailnet/VPN addresses.
+	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU).
 	programs.gamemode.settings.gpu = {
 		apply_gpu_optimisations = "accept-responsibility";
 		gpu_device = 1;
 		amd_performance_level = "high";
 	};
-	services.sunshine.settings.csrf_allowed_origins =
-		lib.concatMapStringsSep "," (h: "https://${h}:47990") [
-			"${facts.ts_hostname}.${facts.ts_network}"
-			"${facts.ts_hostname}.wg"
-			"10.8.0.4"
-		];
 
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";
