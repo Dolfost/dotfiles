@@ -18,13 +18,17 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ratatouille-lv2";
-  version = "0.9.11";
+	# Unreleased master: v0.9.11 (May 2025) ships a NAM core that only
+	# reads legacy A1 models; SlimmableContainer (A2, e.g. TONE3000
+	# exports) support landed in PR #52 (2026-05-08) after the last tagged
+	# release.
+  version = "0.9.11-unstable-2026-05-08";
 
   src = fetchFromGitHub {
     owner = "brummer10";
     repo = "Ratatouille.lv2";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-mig3yUGSNz1xuyz6ljKqJUjNqmEcsbXSH1vTxTGdOFk=";
+    rev = "30aa06683fcd5dd5985910b40530a334e662a433";
+    hash = "sha256-H5NB6B9yOE7icZ0njuNCFbFko/T4Pmb3IRbOmMq3PzY=";
     fetchSubmodules = true;
   };
 
