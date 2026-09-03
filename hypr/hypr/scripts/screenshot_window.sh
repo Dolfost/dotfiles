@@ -24,19 +24,14 @@ hyprctl keyword general:border_size 0
 
 sleep 0.1
 
+mkdir -p "$1"
 OUTFILE="$1/window_$(date +%F_%H-%M-%S).png"
 
-if command -v grim >/dev/null; then
-    grim -g "${X},${Y} ${W}x${H}" "$OUTFILE"
-elif command -v hyprshot >/dev/null; then
-    hyprshot -o "$OUTFILE" -m region -r "${X},${Y},${W},${H}"
-else
-    echo "Error: neither grim nor hyprshot found."
-fi
+grim -g "${X},${Y} ${W}x${H}" "$OUTFILE"
 
 hyprctl keyword decoration:rounding "$ROUNDING"
 hyprctl keyword general:border_size "$BORDER"
 
 echo "Screenshot saved to: $OUTFILE"
 
-notify-send -a screenshot -u low "  window saved at" $OUTFILE
+notify-send -a screenshot -u low "  window saved at" "$OUTFILE"

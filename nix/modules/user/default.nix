@@ -2,7 +2,7 @@
 # what the host enabled (via osConfig), standalone everything defaults off
 # and is flipped with dotfiles.<feature>.enable (or dotfiles.graphical for
 # all the GUI app groups at once).
-{ osConfig ? { }, lib, ... }:
+{ osConfig ? { }, config, lib, ... }:
 
 {
 	imports = [
@@ -32,5 +32,12 @@
 				|| (osConfig.services.desktopManager.gnome.enable or false);
 			description = "This home sits on a host with a graphical session; the GUI app groups follow it.";
 		};
+	};
+
+	# Shared wallpapers for whatever desktop runs: GNOME's picker scans
+	# ~/.local/share/backgrounds, hyprpaper points there too.
+	config = lib.mkIf config.dotfiles.graphical {
+		xdg.dataFile."backgrounds".source =
+			config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/wallpapers";
 	};
 }

@@ -1,5 +1,5 @@
-# Desktop audio effects. EasyEffects is its own DSP engine — the window
-# is only a front-end — so it runs headless as a user service bound to
+# Desktop audio effects. EasyEffects is its own DSP engine - the window is only
+# a front-end - so it runs headless as a user service bound to
 # graphical-session.target; launching the GUI attaches to that instance.
 { config, lib, pkgs, ... }:
 
@@ -39,13 +39,12 @@ in
 		{
 			home.packages = with pkgs; [ coppwr ];
 		}
-
 		(lib.mkIf config.dotfiles.audio.enable {
 			services.easyeffects.enable = true;
 
-			# Presets live in the repo — saving one from the GUI writes straight
-			# into it. Autoload rules are generated from the host's declarations;
-			# live state (db/) stays mutable in ~/.config/easyeffects.
+			# Presets live in the repo - saving one from the GUI writes straight into
+			# it. Autoload rules are generated from the host's declarations; live
+			# state (db/) stays mutable in ~/.config/easyeffects.
 			xdg.dataFile = {
 				"easyeffects/output" = link "easyeffects/output";
 				"easyeffects/input" = link "easyeffects/input";

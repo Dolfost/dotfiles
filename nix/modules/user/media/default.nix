@@ -25,9 +25,10 @@ in
 
 		(lib.mkIf config.dotfiles.media.enable {
 			home.packages = with pkgs; [
-				nomacs   # images
-				mpv      # video
-				zathura  # documents
+				nomacs
+				mpv
+				zathura
+				feishin
 			];
 
 			xdg.configFile."zathura" = link "zathura";

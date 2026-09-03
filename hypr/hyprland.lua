@@ -11,7 +11,6 @@ hl.monitor({
 hl.env('TZDIR', '/etc/zoneinfo')
 
 TERMINAL = 'wezterm'
-CALCULATOR = 'qalculate-gtk --new-instance'
 WEB_BROWSER = 'firefox'
 FILE_MANAGER = TERMINAL .. ' -e yazi'
 MENU = 'fuzzel'

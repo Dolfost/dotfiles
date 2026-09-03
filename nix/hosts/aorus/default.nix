@@ -25,6 +25,7 @@ in
 		../../modules/system/guitar
 		../../modules/system/openrgb
 		../../modules/system/amd
+		../../modules/system/android
 	];
 
 	# Session: boot straight into Hyprland.

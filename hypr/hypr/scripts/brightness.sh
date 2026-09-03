@@ -1,11 +1,11 @@
 #!/bin/sh 
 
 USAGE=$(cat << EOF
-Change screen brightness. Avaliable commands:
+Change screen brightness. Available commands:
   max                set screen brightness to maximum
-  min                set screen brightness to minimux
+  min                set screen brightness to minimum
   small-dec          decrease brightness by small step
-  samll-inc          increase brightness by small step
+  small-inc          increase brightness by small step
   dec                decrease brightness by step
   inc                increase brightness by step
   big-dec            decrease brightness by big step

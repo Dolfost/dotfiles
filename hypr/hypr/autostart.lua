@@ -10,13 +10,11 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
 	hl.exec_cmd('hyprctl monitors all | grep -q sunshine-headless || hyprctl output create headless sunshine-headless')
 
-	hl.exec_cmd('systemctl --user start waybar.service')
-
 	start_systemd_service('waybar.service')
 	start_systemd_service('hypridle')
 	start_systemd_service('hyprpaper')
 	start_systemd_service('hyprpolkitagent')
-	-- start_systemd_service('hyprsunset')
+	start_systemd_service('hyprsunset')
 	start_systemd_service('dunst')
 	hl.exec_cmd('wl-paste --type text  --watch cliphist store')
 	hl.exec_cmd('wl-paste --type image --watch cliphist store')

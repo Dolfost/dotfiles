@@ -11,5 +11,13 @@
 				position = "2560x0", scale = 1, disabled = true
 			})
 		'';
+
+		# What SUPER+D/C/G toggle the TV into on this machine.
+		hyprland.secondaryDisplay = ''
+			SECONDARY_MONITOR="HDMI-A-2"
+			horizontal_args="mode='3840x2160@60', position='2560x0', scale=1.333334, transform=0, disabled=false"
+			vertical_args="mode='3840x2160@60', position='2560x-900', scale=1.333334, transform=3, disabled=false"
+			mirror_args="mode='preferred', position='auto', scale=1, mirror='DP-1', disabled=false"
+		'';
 	};
 }
