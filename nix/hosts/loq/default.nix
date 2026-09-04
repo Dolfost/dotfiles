@@ -7,6 +7,7 @@
 	imports = [
 		./hardware-configuration.nix
 		../../modules/system
+		../../modules/system/nvidia-gpu
 		../../modules/system/hyprland
 		../../modules/system/gnome
 		../../modules/system/ly

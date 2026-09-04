@@ -22,7 +22,7 @@
 		../../modules/system/gaming
 		../../modules/system/guitar
 		../../modules/system/openrgb
-		../../modules/system/amd
+		../../modules/system/amd-gpu
 		../../modules/system/android
 	];
 
