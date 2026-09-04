@@ -1,12 +1,21 @@
 # The ly display manager. Session-agnostic: it lists whatever sessions
 # the other modules install (hyprland, gnome).
-{ ... }:
+{ config, lib, ... }:
 
 {
 	# Unlock the gnome keyring with the login password on manual logins.
 	# Autologin types no password, so those sessions rely on the login
 	# keyring having a blank password instead.
 	security.pam.services.ly.enableGnomeKeyring = true;
+
+	# When hyprland is installed, boot straight into it. mkDefault so a host can
+	# opt out.
+	services.displayManager.autoLogin = lib.mkIf config.programs.hyprland.enable {
+		enable = lib.mkDefault true;
+		user = lib.mkDefault config.dotfiles.user;
+	};
+	services.displayManager.defaultSession =
+		lib.mkIf config.programs.hyprland.enable (lib.mkDefault "hyprland-uwsm");
 
 	services.displayManager.ly = {
 		enable = true;

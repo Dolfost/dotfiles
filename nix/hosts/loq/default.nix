@@ -12,6 +12,9 @@
 		../../modules/system/hyprland
 		../../modules/system/gnome
 		../../modules/system/ly
+		../../modules/system/gaming
+		../../modules/system/openrgb
+		../../modules/system/android
 	];
 
 	services.power-profiles-daemon.enable = true;

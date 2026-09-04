@@ -1,5 +1,5 @@
 # Desktop. AMD, Hyprland, all the extra disks.
-{ config, ... }:
+{ ... }:
 
 {
 	imports = [
@@ -25,16 +25,6 @@
 		../../modules/system/amd-gpu
 		../../modules/system/android
 	];
-
-	# Session: boot straight into Hyprland.
-	services.displayManager = {
-		autoLogin = {
-			enable = true;
-			user = config.dotfiles.user;
-		};
-		defaultSession = "hyprland-uwsm";
-	};
-
 
 	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU).
 	programs.gamemode.settings.gpu = {
