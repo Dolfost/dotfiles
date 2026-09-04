@@ -7,7 +7,7 @@
 { config, ... }:
 
 let
-	facts = import ../facts.nix;
+	facts = import ../../../facts.nix;
 in
 {
 	dotfiles.serve.gitlab = { port = 8929; ssh = 2224; };

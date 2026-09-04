@@ -7,6 +7,7 @@
 		./hardware-configuration.nix
 		./storage
 		./services
+		./ssh
 		./coolercontrol
 		./audio
 		./hyprland

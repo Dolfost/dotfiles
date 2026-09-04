@@ -7,6 +7,7 @@
 	imports = [
 		./hardware-configuration.nix
 		./storage
+		./ssh
 		../../modules/system
 		../../modules/system/nvidia-gpu
 		../../modules/system/hyprland

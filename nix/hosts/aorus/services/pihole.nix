@@ -2,7 +2,7 @@
 { config, ... }:
 
 let
-	facts = import ../facts.nix;
+	facts = import ../../../facts.nix;
 in
 {
 	# Pi-hole is rootless but publishes on the real :53. Without this the
@@ -14,7 +14,7 @@ in
 		."systemd/user/pihole.service.d/env.conf".text = ''
 [Service]
 Environment=PIHOLE_DIR=/storage/2.5/pihole
-Environment=PIHOLE_TS_IP=${facts.ts_ipv4}
-Environment=PIHOLE_LAN_IP=${facts.lan_ipv4}
+Environment=PIHOLE_TS_IP=${facts.hosts.aorus.ts_ipv4}
+Environment=PIHOLE_LAN_IP=${facts.hosts.aorus.lan_ipv4}
 '';
 }

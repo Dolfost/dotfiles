@@ -7,6 +7,7 @@
 {
 	imports = [
 		./shell
+		./ssh
 		./terminal
 		./fonts
 		./hyprland

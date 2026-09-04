@@ -4,13 +4,14 @@
 { lib, ... }:
 
 let
-	facts = import ../facts.nix;
+	facts = import ../../../facts.nix;
+	me = facts.hosts.aorus;
 in
 {
 	services.sunshine.settings.csrf_allowed_origins =
 		lib.concatMapStringsSep "," (h: "https://${h}:47990") [
-			"${facts.ts_hostname}.${facts.ts_network}"
-			"${facts.ts_hostname}.wg"
+			"${me.ts_hostname}.${facts.ts_network}"
+			"${me.ts_hostname}.wg"
 			"10.8.0.4"
 		];
 }

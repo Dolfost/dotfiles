@@ -4,7 +4,7 @@
 { config, ... }:
 
 let
-	facts = import ../facts.nix;
+	facts = import ../../../facts.nix;
 in
 {
 	home-manager.users.${config.dotfiles.user} = { config, ... }: {
@@ -16,7 +16,7 @@ in
 [Service]
 Environment=NICOTINE_DIR=/storage/2.5/nicotine
 Environment=NICOTINE_DOWNLOADS=/storage/data/soulseek
-Environment=NICOTINE_BIND_IP=${facts.ts_ipv4}
+Environment=NICOTINE_BIND_IP=${facts.hosts.aorus.ts_ipv4}
 Environment=NICOTINE_SHARE_BOOKS=/storage/2.5/media/books
 Environment=NICOTINE_SHARE_MOVIES=/storage/2.5/media/movies
 Environment=NICOTINE_SHARE_MUSIC=/storage/2.5/media/music
