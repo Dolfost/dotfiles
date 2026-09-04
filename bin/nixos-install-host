@@ -2,7 +2,7 @@
 # Flake install from the NixOS ISO. After
 # partitioning and mounting at /mnt:
 #
-#   ./bin/nixos-install-host <host>
+#   sudo ./bin/nixos-install-host <host>
 #
 # Beyond plain `nixos-install --flake` this regenerates the per-host hardware
 # facts and seeds this checkout into the new home, because every
@@ -14,7 +14,12 @@ set -euo pipefail
 host="${1:?usage: nixos-install-host <host>}"
 repo="$(cd "$(dirname "$0")/.." && pwd)"
 
+[ "$(id -u)" -eq 0 ] || { echo "run as root (sudo)" >&2; exit 1; }
 mountpoint -q /mnt || { echo "nothing mounted at /mnt" >&2; exit 1; }
+
+# The ISO clone is usually owned by the live user; without this, root's git and
+# nix's flake fetcher refuse it as dubiously owned.
+git config --global --add safe.directory "$repo"
 
 # The flake only sees tracked files, hence the add.
 nixos-generate-config --root /mnt --show-hardware-config \
@@ -26,3 +31,7 @@ nixos-install --root /mnt --flake "$repo#$host"
 mkdir -p /mnt/home/vladyslav
 cp -aT "$repo" /mnt/home/vladyslav/dotfiles
 nixos-enter --root /mnt -c "chown -R vladyslav: /home/vladyslav/dotfiles"
+
+# nixos-install already prompted for root's password just above.
+echo "setting password for vladyslav..."
+nixos-enter --root /mnt -c "passwd vladyslav"
