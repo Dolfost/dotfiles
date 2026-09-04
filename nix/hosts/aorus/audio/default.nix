@@ -10,13 +10,6 @@
 				"device-profile" = "Microphone";
 				"preset-name" = "mic noise red | autogain | stereo";
 			}
-			{
-				kind = "output";
-				device = "alsa_output.pci-0000_03_00.1.hdmi-stereo";
-				"device-description" = "Navi 48 HDMI/DP Audio Controller Digital Stereo (HDMI)";
-				"device-profile" = "HDMI / DisplayPort";
-				"preset-name" = "None";
-			}
 		];
 	};
 }

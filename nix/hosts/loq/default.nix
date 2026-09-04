@@ -1,13 +1,10 @@
-# Lenovo LOQ laptop. NOT INSTALLED YET — see ./hardware-configuration.nix.
-#
-# No storage.nix here, and the firewall stays at its default (on).
-{ ... }:
-
-{
+{ ... }: {
 	imports = [
 		./hardware-configuration.nix
 		./storage
+		./audio
 		./ssh
+		./hyprland
 		../../modules/system
 		../../modules/system/nvidia-gpu
 		../../modules/system/hyprland
