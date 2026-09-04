@@ -1,5 +1,9 @@
+-- No-op on hosts where the binary is not installed (e.g. steam without
+-- the gaming module) instead of a uwsm error notification.
 function exec_cmd_uwsm(cmd, opts)
-	return hl.exec_cmd('uwsm app -p After=waybar.service -- ' .. cmd, opts)
+	local bin = cmd:match('^%S+')
+	return hl.exec_cmd('command -v ' .. bin ..
+		' >/dev/null && exec uwsm app -p After=waybar.service -- ' .. cmd, opts)
 end
 
 function start_systemd_service(service, opts)
@@ -22,13 +26,11 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
 
-	-- easyeffects and openrgb run as home-manager user services
-	-- (nix/modules/user/{audio,openrgb})
-	exec_cmd_uwsm('signal-desktop')
-	exec_cmd_uwsm('element-desktop --hidden')
-	exec_cmd_uwsm('Telegram -startintray')
-	exec_cmd_uwsm('discord --start-minimized')
-	exec_cmd_uwsm('steam -silent')
+	exec_cmd_uwsm('signal-desktop --start-in-tray', { workspace = '10 silent' })
+	exec_cmd_uwsm('element-desktop --hidden', { workspace = '10 silent' })
+	exec_cmd_uwsm('Telegram -startintray', { workspace = '10 silent' })
+	exec_cmd_uwsm('discord --start-minimized', { workspace = '10 silent' })
+	exec_cmd_uwsm('steam -silent', { workspace = '7 silent' })
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins
 end)

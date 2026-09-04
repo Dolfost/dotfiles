@@ -1,7 +1,7 @@
 { config, lib, ... }: {
 	home-manager.users.${config.dotfiles.user}.dotfiles = {
-		# This machine's audio: the mic chain follows the Fifine, HDMI out
-		# gets no processing.
+		# This machine's audio: the mic chain follows the Fifine, HDMI out gets no
+		# processing.
 		audio.autoload = [
 			{
 				kind = "input";
