@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Flake install from the NixOS ISO. After
+# partitioning and mounting at /mnt:
+#
+#   ./bin/nixos-install-host <host>
+#
+# Beyond plain `nixos-install --flake` this regenerates the per-host hardware
+# facts and seeds this checkout into the new home, because every
+# mkOutOfStoreSymlink resolves against /home/vladyslav/dotfiles at runtime and
+# nixos-install leaves /home empty. Commit and push the hardware file from the
+# installed machine afterwards.
+set -euo pipefail
+
+host="${1:?usage: nixos-install-host <host>}"
+repo="$(cd "$(dirname "$0")/.." && pwd)"
+
+mountpoint -q /mnt || { echo "nothing mounted at /mnt" >&2; exit 1; }
+
+# The flake only sees tracked files, hence the add.
+nixos-generate-config --root /mnt --show-hardware-config \
+	> "$repo/nix/hosts/$host/hardware-configuration.nix"
+git -C "$repo" add "nix/hosts/$host/hardware-configuration.nix"
+
+nixos-install --root /mnt --flake "$repo#$host"
+
+mkdir -p /mnt/home/vladyslav
+cp -aT "$repo" /mnt/home/vladyslav/dotfiles
+nixos-enter --root /mnt -c "chown -R vladyslav: /home/vladyslav/dotfiles"
