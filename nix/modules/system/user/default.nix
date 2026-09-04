@@ -23,9 +23,10 @@ in
 			isNormalUser = true;
 			uid = 1000;
 			group = user;
-			# `users` is kept so files already written under gid 100 stay
-			# reachable.
-			extraGroups = [ "users" "wheel" "networkmanager" ];
+			# `users` is kept so files already written under gid 100 stay reachable.
+			# netdev: iwd's D-Bus policy lets this group manage wifi, so impala works
+			# without root.
+			extraGroups = [ "users" "wheel" "networkmanager" "netdev" ];
 			shell = pkgs.zsh;
 		};
 		programs.zsh.enable = true;
