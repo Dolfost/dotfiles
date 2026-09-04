@@ -2,7 +2,7 @@
 # what the host enabled (via osConfig), standalone everything defaults off
 # and is flipped with dotfiles.<feature>.enable (or dotfiles.graphical for
 # all the GUI app groups at once).
-{ osConfig ? { }, config, lib, ... }:
+{ osConfig ? { }, config, lib, pkgs, ... }:
 
 {
 	imports = [
@@ -40,5 +40,22 @@
 	config = lib.mkIf config.dotfiles.graphical {
 		xdg.dataFile."backgrounds".source =
 			config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/wallpapers";
+
+		# One cursor everywhere: pointerCursor exports XCURSOR_THEME/SIZE (Hyprland
+		# itself and Wayland-native apps) and links the theme into ~/.icons and
+		# ~/.local/share/icons (XWayland apps like Steam). GNOME and portal-served
+		# GTK apps read dconf instead, gtk.enable writes the settings.ini fallback
+		# GTK apps use under Hyprland.
+		home.pointerCursor = {
+			package = pkgs.apple-cursor;
+			name = "macOS";
+			size = 24;
+			gtk.enable = true;
+		};
+		gtk.enable = true;
+		dconf.settings."org/gnome/desktop/interface" = {
+			cursor-theme = "macOS";
+			cursor-size = 24;
+		};
 	};
 }
