@@ -18,7 +18,7 @@
 	];
 
 	services.power-profiles-daemon.enable = true;
-	hardware.bluetooth.enable = true;
+	hardware.bluetooth.powerOnBoot = true;
 
 	# Set this to the release you actually install with, then never change it.
 	system.stateVersion = "26.05";

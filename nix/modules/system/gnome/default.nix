@@ -20,4 +20,10 @@
 		gnome-tour
 		gnome-user-docs
 	];
+
+	# Numpad types numbers out of the box. A default only: GNOME remembers the
+	# last state once the user toggles it.
+	programs.dconf.profiles.user.databases = [{
+		settings."org/gnome/desktop/peripherals/keyboard".numlock-state = true;
+	}];
 }

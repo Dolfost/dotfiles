@@ -46,7 +46,7 @@
 
 			default_input = "password";
 			clear_password = false;
-			numlock = false;
+			numlock = true;
 			save = true;
 			shell = true;
 			lang = "en";

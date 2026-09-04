@@ -7,6 +7,7 @@
 		./boot
 		./locale
 		./audio
+		./bluetooth
 		./network
 		./nix
 		./input
