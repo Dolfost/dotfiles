@@ -16,7 +16,7 @@ hl.env('TZDIR', '/etc/zoneinfo')
 TERMINAL = 'wezterm'
 WEB_BROWSER = 'firefox'
 FILE_MANAGER = TERMINAL .. ' -e yazi'
-MENU = 'fuzzel'
+MENU = 'walker'
 PDF_VIEWER = 'zathura'
 SCRIPTS = '~/.config/hypr/hypr/scripts/'
 SCREENSHOTS_DIR = '~/Pictures/Screenshots'

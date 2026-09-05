@@ -1,3 +1,3 @@
 #!/usr/bin/env bash 
 
-hyprctl dispatch resizeactive exact $(fuzzel --dmenu --prompt 'Resize window: ' --lines 0 --placeholder "width height or width% heigth%")
+hyprctl dispatch resizeactive exact $(walker --dmenu --inputonly --placeholder "Resize window: width height or width% height%")

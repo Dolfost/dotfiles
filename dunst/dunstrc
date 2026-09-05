@@ -33,7 +33,7 @@ show_age_threshold = 1m
 stack_duplicates = true
 show_indicators = true
 history_length = 200
-dmenu = fuzzel --dmenu -p dunst:
+dmenu = walker --dmenu --placeholder dunst
 corner_radius = 15
 
 mouse_left_click = do_action, remove_current

@@ -1,4 +1,4 @@
-# Fonts the GUI features render with (waybar, wezterm, dunst, fuzzel).
+# Fonts the GUI features render with (waybar, wezterm, dunst, walker).
 { config, lib, pkgs, ... }:
 
 {

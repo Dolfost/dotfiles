@@ -1,0 +1,16 @@
+# Reference:
+# https://github.com/abenz1267/walker/blob/master/resources/config.toml
+# Provider behavior (app history, aliases, blacklists) is configured in
+# elephant, not here: ~/.config/elephant/<provider>.toml (`elephant generate
+# doc` documents every option).
+
+# pressing the bind while walker is open closes it
+close_when_open = true
+
+# ./themes/iosevka: default theme with the desktop font
+theme = "iosevka"
+
+# shift+tab reaches GTK as the ISO_Left_Tab keysym, not "shift Tab"
+[keybinds]
+next = ["Down", "Tab"]
+previous = ["Up", "shift ISO_Left_Tab"]

@@ -20,8 +20,6 @@ hl.on("hyprland.start", function()
 	start_systemd_service('hyprpolkitagent')
 	start_systemd_service('hyprsunset')
 	start_systemd_service('dunst')
-	hl.exec_cmd('wl-paste --type text  --watch cliphist store')
-	hl.exec_cmd('wl-paste --type image --watch cliphist store')
 
 	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })

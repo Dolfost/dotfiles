@@ -106,7 +106,7 @@ hl.bind(l..'CTRL + W', hl.dsp.exec_raw(TERMINAL..' -e impala'))
 hl.bind(l..'CTRL + S', hl.dsp.exec_raw(TERMINAL..' -e btop'))
 hl.bind(l..'CTRL + P', hl.dsp.exec_raw('hyprpicker -a'))
 hl.bind(l..'CTRL + Z', hl.dsp.exec_raw(PDF_VIEWER))
-hl.bind(l..'CTRL + H', hl.dsp.exec_raw('cliphist list | '..MENU..' --dmenu --with-nth 2 | cliphist decode | wl-copy'))
+hl.bind(l..'CTRL + H', hl.dsp.exec_cmd(MENU..' -m clipboard'))
 
 -- screenshots (macOS ⌘ ⇧ 3/4/5: screen / region / window)
 hl.bind('ALT + SHIFT + 3', hl.dsp.exec_raw('hyprshot -m output -m active -o '.. SCREENSHOTS_DIR))

@@ -6,12 +6,12 @@ let
 		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
 	};
 
-	apps = { inherit (pkgs) waybar fuzzel dunst; };
+	apps = { inherit (pkgs) waybar walker dunst; };
 
 	# Everything the binds and scripts shell out to.
 	tools = with pkgs; [
 		hyprshot grim slurp # screenshots
-		wl-clipboard cliphist # clipboard history
+		wl-clipboard imagemagick # clipboard history (elephant's provider shells out to these)
 		hyprpicker # color picker
 		jq libnotify # scripts: hyprctl parsing, notify-send
 		playerctl brightnessctl # media keys, laptop backlight
@@ -62,6 +62,16 @@ in
 		services.hyprpaper.enable = true;
 		services.hyprsunset.enable = true;
 		services.hyprpolkitagent.enable = true;
+
+		# Walker runs resident (--gapplication-service) so the bind opens it
+		# instantly; elephant is its data/exec backend and launches apps with uwsm
+		# on its own (auto-detected). Config stays a linked dir via apps; settings
+		# here are left empty so the module writes no config.toml.
+		services.elephant.enable = true;
+		services.walker = {
+			enable = true;
+			systemd.enable = true;
+		};
 
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
 			"hypr" = link "hypr";
