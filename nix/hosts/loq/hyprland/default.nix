@@ -5,6 +5,10 @@
 		# feels sluggish on a pad, and input.touchpad has no accel/sensitivity
 		# overrides, so per-device by exact name.
 		hyprland.localConfig = ''
+			hl.monitor({
+				output = "eDP-1", mode = "1920x1080@165",
+				position = "auto", scale = 1
+			})
 			hl.device({
 				name = "logitech-g102-lightsync-gaming-mouse",
 				sensitivity = -0.3,
