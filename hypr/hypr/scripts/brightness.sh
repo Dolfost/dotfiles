@@ -1,72 +1,63 @@
-#!/bin/sh 
+#!/bin/sh
+# Unified brightness control for laptops and desktops: adjusts the internal
+# panel (brightnessctl) if present, plus every DDC-capable external monitor
+# (ddcutil). DDC buses are detected once and cached, because `ddcutil detect`
+# takes seconds; the cache lives in XDG_RUNTIME_DIR so it resets on login. Run
+# `brightness.sh refresh` after plugging/unplugging monitors.
+#
+# Usage: brightness.sh <command>
+#   max | min                 set brightness to maximum / minimum
+#   small-inc | small-dec     +-1%
+#   inc | dec                 +-5%
+#   large-inc | large-dec     +-10%
+#   refresh                   re-detect DDC monitors
 
-USAGE=$(cat << EOF
-Change screen brightness. Available commands:
-  max                set screen brightness to maximum
-  min                set screen brightness to minimum
-  small-dec          decrease brightness by small step
-  small-inc          increase brightness by small step
-  dec                decrease brightness by step
-  inc                increase brightness by step
-  big-dec            decrease brightness by big step
-  big-inc            increase brightness by big step
-  large-dec          decrease brightness by big step
-  large-inc          increase brightness by big step
-	help               print this message
-EOF
-)
-
-# config
-min_brightness=0
-max_brightness=100
 small_step=1
 step=5
-big_step=10
 large_step=10
-bus=8
 
-cmd="ddcutil --noverify --sleep-multiplier .1 --bus $bus"
-cmd_get="$cmd getvcp 0x10 -t"
-cmd_set="$cmd setvcp 0x10"
+cache=${XDG_RUNTIME_DIR:-/tmp}/ddc-buses
+
+detect_buses() {
+	# skip "Invalid display" sections: eDP panels and other non-DDC outputs
+	ddcutil detect -t 2>/dev/null | awk '
+		/^Display /{ok=1} /^Invalid display/{ok=0}
+		ok && /I2C bus:/{sub(".*\\/dev\\/i2c-", ""); print}' > "$cache"
+}
 
 case $1 in
-	max)
-		$cmd_set $max_brightness
-		;;
-	min)
-		$cmd_set $min_brightness
-		;;
-	small-inc)
-		$cmd_set + $small_step
-		;;
-	small-dec)
-		$cmd_set - $small_step
-		;;
-	inc)
-		$cmd_set + $step
-		;;
-	dec)
-		$cmd_set - $step
-		;;
-	big-inc)
-		$cmd_set + $big_step
-		;;
-	big-dec)
-		$cmd_set - $big_step
-		;;
-	large-inc)
-		$cmd_set + $large_step
-		;;
-	large-dec)
-		$cmd_set - $large_step
-		;;
-	help | -h | --help)
-		echo -e $USAGE
-		;;
-	*)
-		echo "No action specified. "
-		exit 1
-		;;
+	max)       bctl='100%';            ddc="100"           ;;
+	min)       bctl='0%';              ddc="0"             ;;
+	small-inc) bctl="${small_step}%+"; ddc="+ $small_step" ;;
+	small-dec) bctl="${small_step}%-"; ddc="- $small_step" ;;
+	inc)       bctl="${step}%+";       ddc="+ $step"       ;;
+	dec)       bctl="${step}%-";       ddc="- $step"       ;;
+	large-inc) bctl="${large_step}%+"; ddc="+ $large_step" ;;
+	large-dec) bctl="${large_step}%-"; ddc="- $large_step" ;;
+	refresh)   detect_buses; exit                          ;;
+	*)         sed -n '2,15p' "$0"; exit 1                 ;;
 esac
 
-notify-send -u low -a ddcutil -h int:value:$($cmd_get | awk '{print $4}') -r 7423790 '󰃝  Brightness'
+value= # resulting percent, shown as the notification progress bar
+
+# internal panel
+if command -v brightnessctl >/dev/null && [ -n "$(ls /sys/class/backlight 2>/dev/null)" ]; then
+	brightnessctl set "$bctl" >/dev/null
+	value=$(( $(brightnessctl get) * 100 / $(brightnessctl max) ))
+fi
+
+# external DDC monitors, all in parallel
+if command -v ddcutil >/dev/null; then
+	[ -f "$cache" ] || detect_buses
+	ddc_cmd='ddcutil --noverify --sleep-multiplier .1'
+	for bus in $(cat "$cache" 2>/dev/null); do
+		$ddc_cmd --bus "$bus" setvcp 0x10 $ddc 2>/dev/null &
+	done
+	wait
+	if [ -z "$value" ]; then
+		bus=$(head -n1 "$cache" 2>/dev/null)
+		[ -n "$bus" ] && value=$($ddc_cmd --bus "$bus" getvcp 0x10 -t 2>/dev/null | awk '{print $4}')
+	fi
+fi
+
+[ -n "$value" ] && notify-send -u low -a brightness -h int:value:"$value" -r 7423790 '󰃝  Brightness'

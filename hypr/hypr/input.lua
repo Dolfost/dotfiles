@@ -137,10 +137,10 @@ hl.bind('XF86AudioRaiseVolume',          hl.dsp.exec_raw('wpctl set-volume -l 1 
 hl.bind('XF86AudioLowerVolume',          hl.dsp.exec_raw('wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-'),      { locked = true, repeating = true })
 hl.bind('XF86AudioMute',                 hl.dsp.exec_raw('wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'),     { locked = true, repeating = true })
 hl.bind('XF86AudioMicMute',              hl.dsp.exec_raw('wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle'),   { locked = true, repeating = true })
-hl.bind('XF86MonBrightnessUp',           hl.dsp.exec_raw('brightnessctl s 10%+'),  { locked = true, repeating = true })
-hl.bind('XF86MonBrightnessDown',         hl.dsp.exec_raw('brightnessctl s 10%-'),  { locked = true, repeating = true })
-hl.bind('SHIFT + XF86MonBrightnessUp',   hl.dsp.exec_raw('brightnessctl s 100%'),  { locked = true, repeating = true })
-hl.bind('SHIFT + XF86MonBrightnessDown', hl.dsp.exec_raw('brightnessctl s 0%'),    { locked = true, repeating = true })
+hl.bind('XF86MonBrightnessUp',           hl.dsp.exec_raw(SCRIPTS..'brightness.sh inc'),  { locked = true, repeating = true })
+hl.bind('XF86MonBrightnessDown',         hl.dsp.exec_raw(SCRIPTS..'brightness.sh dec'),  { locked = true, repeating = true })
+hl.bind('SHIFT + XF86MonBrightnessUp',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh max'),  { locked = true })
+hl.bind('SHIFT + XF86MonBrightnessDown', hl.dsp.exec_raw(SCRIPTS..'brightness.sh min'),  { locked = true })
 
 -- media controls (locked)
 hl.bind('XF86AudioNext',  hl.dsp.exec_raw('playerctl next'),       { locked = true })
@@ -148,7 +148,8 @@ hl.bind('XF86AudioPause', hl.dsp.exec_raw('playerctl play-pause'), { locked = tr
 hl.bind('XF86AudioPlay',  hl.dsp.exec_raw('playerctl play-pause'), { locked = true })
 hl.bind('XF86AudioPrev',  hl.dsp.exec_raw('playerctl previous'),   { locked = true })
 
--- DDC screen brightness (locked)
+-- brightness without function keys; same script as XF86 binds above,
+-- drives the internal panel and all DDC monitors alike (locked)
 hl.bind(l..'CTRL + comma',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-dec'),  { locked = true })
 hl.bind(l..'CTRL + period',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-inc'),  { locked = true })
 hl.bind(l..'comma',          hl.dsp.exec_raw(SCRIPTS..'brightness.sh dec'),        { locked = true })
