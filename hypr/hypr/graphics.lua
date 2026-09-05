@@ -43,6 +43,9 @@ hl.config({
 			passes = 2,
 			ignore_opacity = true,
 			xray = true,
+			-- neutral, so translucent drawer windows don't inherit extra
+			-- darkness from the dimmed background they blur
+			brightness = 1.0,
 			vibrancy = 0.1696,
 		},
 

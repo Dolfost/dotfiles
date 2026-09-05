@@ -27,7 +27,3 @@ require('hypr.graphics')
 require('hypr.input')
 require('hypr.rules')
 require('hypr.misc')
-
-hl.on("config.reloaded", function()
-	hl.exec_cmd('pgrep -x hyprlock >/dev/null || hyprlock')
-end)
