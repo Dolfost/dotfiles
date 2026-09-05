@@ -1,5 +1,5 @@
-# Themeless desktop apps: the terminal emulator, notes, and whatever GUI
-# app has no dedicated group of its own.
+# Themeless desktop apps: the terminal emulator, notes, and whatever GUI app
+# has no dedicated group of its own.
 { config, lib, pkgs, ... }:
 
 let

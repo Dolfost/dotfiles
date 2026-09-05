@@ -43,10 +43,11 @@ local l = 'SUPER + '
 
 -- Keybind layers, kept relocatable between systems (macOS parity where
 -- it exists):
---   SUPER + number        -> focus workspace (SHIFT: move window there)
---   SUPER + letter        -> toggle drawer   (SHIFT: move window there)
---   SUPER + CTRL + letter -> launch apps
---   SUPER + M / Y         -> other: exit hyprland / reload waybar
+--   SUPER + number         -> focus workspace (SHIFT: move window there)
+--   SUPER + letter         -> toggle drawer   (SHIFT: move window there)
+--   SUPER + CTRL + letter  -> launch apps
+--   SUPER + Y              -> reload waybar
+--   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
 -- map to ALT-chords with the same physical keys:
@@ -58,7 +59,7 @@ local l = 'SUPER + '
 -- window management
 hl.bind(l..'Q',         hl.dsp.window.close())
 hl.bind(l..'SHIFT + Q', hl.dsp.window.kill())
-hl.bind(l..'M', hl.dsp.exit())
+hl.bind(l..'CTRL + ALT + M', hl.dsp.exec_raw(SCRIPTS..'confirm_exit.sh'))
 hl.bind(l..'SHIFT + F', hl.dsp.window.float({ action = 'toggle' }))
 hl.bind(l..'P', hl.dsp.window.pseudo())
 hl.bind(l..'F', hl.dsp.window.fullscreen_state({ internal = 1, client = 2 }))

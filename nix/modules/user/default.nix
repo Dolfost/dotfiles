@@ -8,8 +8,7 @@
 	imports = [
 		./shell
 		./ssh
-		./desktop
-		./file-picker
+		./terminal
 		./fonts
 		./hyprland
 		./browser
@@ -41,6 +40,13 @@
 	config = lib.mkIf config.dotfiles.graphical {
 		xdg.dataFile."backgrounds".source =
 			config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/wallpapers";
+
+		# Wrapper config for the yazi portal file picker (host side:
+		# modules/system/file-picker). Graphical-wide: any DE may route FileChooser
+		# to termfilechooser, and wezterm follows the same gate.
+		xdg.configFile."xdg-desktop-portal-termfilechooser".source =
+			config.lib.file.mkOutOfStoreSymlink
+				"${config.dotfiles.dir}/xdg-desktop-portal-termfilechooser";
 
 		# One cursor everywhere: pointerCursor exports XCURSOR_THEME/SIZE (Hyprland
 		# itself and Wayland-native apps) and links the theme into ~/.icons and
