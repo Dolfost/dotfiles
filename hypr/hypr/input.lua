@@ -62,6 +62,26 @@ hl.bind(l..'SHIFT + Q', hl.dsp.window.kill())
 hl.bind(l..'CTRL + ALT + M', hl.dsp.exec_raw(SCRIPTS..'confirm_exit.sh'))
 hl.bind(l..'SHIFT + F', hl.dsp.window.float({ action = 'toggle' }))
 hl.bind(l..'P', hl.dsp.window.pseudo())
+-- pin: window follows across workspaces; floats tiled windows first (pin only
+-- works on floating), and re-tiles on unpin only if the pin floated it
+local pin_floated = {}
+hl.bind(l..'SHIFT + P', function()
+	local win = hl.get_active_window()
+	if not win then return end
+	if win.pinned then
+		hl.dispatch(hl.dsp.window.pin())
+		if pin_floated[win.address] then
+			pin_floated[win.address] = nil
+			hl.dispatch(hl.dsp.window.float({ action = 'toggle' }))
+		end
+	else
+		if not win.floating then
+			pin_floated[win.address] = true
+			hl.dispatch(hl.dsp.window.float({ action = 'toggle' }))
+		end
+		hl.dispatch(hl.dsp.window.pin())
+	end
+end)
 hl.bind(l..'F', hl.dsp.window.fullscreen_state({ internal = 1, client = 2 }))
 hl.bind(l..'R', hl.dsp.exec_raw(SCRIPTS..'resize_active.sh'))
 hl.bind(l..'B', hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
