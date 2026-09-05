@@ -3,6 +3,8 @@
 { config, lib, pkgs, ... }:
 
 {
+	imports = [ ../file-picker ];
+
 	programs.hyprland = {
 		enable = true;
 		withUWSM = true;

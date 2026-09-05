@@ -8,7 +8,8 @@
 	imports = [
 		./shell
 		./ssh
-		./terminal
+		./desktop
+		./file-picker
 		./fonts
 		./hyprland
 		./browser

@@ -3,6 +3,8 @@
 { config, lib, pkgs, ... }:
 
 {
+	imports = [ ../file-picker ];
+
 	services.desktopManager.gnome.enable = true;
 	services.gnome.core-apps.enable = false;
 

@@ -1,0 +1,7 @@
+[filechooser]
+; yazi-wrapper.sh ships with the portal package and is found on its share path
+cmd=yazi-wrapper.sh
+default_dir=$HOME
+env=TERMCMD=wezterm start --always-new-process --class termfilechooser --
+open_mode=suggested
+save_mode=suggested

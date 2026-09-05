@@ -27,6 +27,15 @@ hl.window_rule { -- but keep fullscreened drawer windows (videos) fully opaque
 	rounding = 0,
 }
 
+-- The portal file picker (yazi in a wezterm window) floats centered.
+hl.window_rule {
+	name = 'termfilechooser-float',
+	match = { class = '^termfilechooser$' },
+	float = true,
+	size = '60% 60%',
+	center = true,
+}
+
 hl.workspace_rule { workspace = 'special:chat', layout = 'master' }
 
 -- Inset the scratchpad drawers so the workspace behind stays visible around
