@@ -11,7 +11,9 @@ hl.window_rule {
 hl.window_rule {
 	name = 'special-transparent',
 	match = { workspace = 's[true]' },
-	opacity = '0.5',
+	-- keep this high: drawer windows blend with the dimmed background
+	-- behind them, so low opacity reads as "dimmed text" in the drawer
+	opacity = '1',
 	-- xray would make the blur sample the wallpaper and hide the
 	-- background workspace entirely; keep it off so the drawer is
 	-- actually see-through to the workspace below.

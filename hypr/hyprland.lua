@@ -2,6 +2,9 @@ hl.monitor({
 	output = "", mode = "preferred",
 	position = "auto", scale = 1
 })
+-- This one must ALWAYS be registered: without it a reload re-enables the
+-- sunshine-headless output. Targets only the headless output, so it cannot
+-- modeset the real panel.
 hl.monitor({
 	output = "sunshine-headless", disabled = true,
 })
