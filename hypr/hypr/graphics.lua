@@ -33,14 +33,14 @@ hl.config({
 		dim_inactive = false,
 		dim_modal = true,
 		dim_strength = 0.1,
-		dim_special = 0.2,
+		dim_special = 0.4,
 		dim_around = 0.4,
 		border_part_of_window = true,
 
 		blur = {
 			enabled = true,
-			size = 3,
-			passes = 1,
+			size = 6,
+			passes = 2,
 			ignore_opacity = true,
 			xray = true,
 			vibrancy = 0.1696,

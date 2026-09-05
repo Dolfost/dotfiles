@@ -26,10 +26,12 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
 
-	exec_cmd_uwsm('signal-desktop --start-in-tray', { workspace = '10 silent' })
-	exec_cmd_uwsm('element-desktop --hidden', { workspace = '10 silent' })
-	exec_cmd_uwsm('Telegram -startintray', { workspace = '10 silent' })
-	exec_cmd_uwsm('discord --start-minimized', { workspace = '10 silent' })
+	exec_cmd_uwsm('signal-desktop', { workspace = 'special:work silent' })
+	exec_cmd_uwsm('element-desktop', { workspace = 'special:work silent' })
+	exec_cmd_uwsm('Telegram', { workspace = 'special:chat silent' })
+	exec_cmd_uwsm('discord', { workspace = 'special:chat silent' })
+	exec_cmd_uwsm('obsidian', { workspace = 'special:notes silent' })
+	exec_cmd_uwsm('feishin', { workspace = 'special:notes silent' })
 	exec_cmd_uwsm('steam -silent', { workspace = '7 silent' })
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins

@@ -98,9 +98,17 @@ hl.bind(l..'SHIFT + 0', hl.dsp.window.move({ workspace = 10 }))
 hl.bind(l..'CTRL + SHIFT + H', hl.dsp.focus({ monitor = '-1' }))
 hl.bind(l..'CTRL + SHIFT + L', hl.dsp.focus({ monitor = '+1' }))
 
--- special workspace (scratchpad)
+-- special workspaces (scratchpads)
 hl.bind(l..'S',         hl.dsp.workspace.toggle_special('magic'))
 hl.bind(l..'SHIFT + S', hl.dsp.window.move({ workspace = 'special:magic' }))
+hl.bind(l..'T',         hl.dsp.workspace.toggle_special('chat'))
+hl.bind(l..'SHIFT + T', hl.dsp.window.move({ workspace = 'special:chat' }))
+hl.bind(l..'Z',         hl.dsp.workspace.toggle_special('notes'))
+hl.bind(l..'SHIFT + Z', hl.dsp.window.move({ workspace = 'special:notes' }))
+hl.bind(l..'U',         hl.dsp.workspace.toggle_special('work'))
+hl.bind(l..'SHIFT + U', hl.dsp.window.move({ workspace = 'special:work' }))
+hl.bind(l..'I',         hl.dsp.workspace.toggle_special('call'))
+hl.bind(l..'SHIFT + I', hl.dsp.window.move({ workspace = 'special:call' }))
 
 -- workspace scroll with mouse
 hl.bind(l..'mouse_down', hl.dsp.focus({ workspace = 'e+1' }))
