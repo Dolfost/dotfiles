@@ -16,6 +16,11 @@
 		../../modules/system/android
 	];
 
+	# Nested gamescope is broken on this machine in every GPU mode (hybrid:
+	# cross-GPU judder / gamescope#2081; MUX discrete: sluggish mouse), and the
+	# laptop panel gains nothing from it - run games direct.
+	dotfiles.gscope.defaults.GAMESCOPE = 0;
+
 	services.power-profiles-daemon.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
 

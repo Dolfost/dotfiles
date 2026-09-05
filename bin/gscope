@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # steam launch wrapper: gamescope + mangohud + gamemode. Usage in Steam launch
 # options: gscope %command% Resolution/refresh auto-detected from focused
-# Hyprland monitor. Per-game overrides: ~/.config/gscope/<SteamAppId>.env
+# Hyprland monitor. Overrides: ~/.config/gscope/default.env (per-host), then
+# ~/.config/gscope/<SteamAppId>.env (per-game)
 
 # fallback defaults if Hyprland query fails
 WIDTH=2560
@@ -9,10 +10,21 @@ HEIGHT=1440
 REFRESH=180
 OUTPUT=""
 
-# gamescope feature toggles (override per-game in ~/.config/gscope/<AppId>.env)
+# gamescope feature toggles (override in ~/.config/gscope/*.env)
+GAMESCOPE=1    # 0: run the game directly under gamemode + mangohud layer.
+               # Nested gamescope is broken on NVIDIA hybrids (judder on the
+               # iGPU path, gamescope#2081 on the dGPU path) and on a laptop
+               # panel it adds nothing over Hyprland fullscreen anyway.
 HDR=1
 VRR=1
 HUD_HIDDEN=1   # 1: start with HUD hidden (toggle with Shift+F12); 0: start visible
+VK_DEVICE=""   # vendor:device (e.g. 10de:2d58) to pin gamescope compositing to
+               # one GPU; on hybrid laptops it defaults to the iGPU while the
+               # game renders on the dGPU, and that cross-GPU import judders
+BACKEND=""     # nested backend override; NVIDIA compositing needs "sdl" - the
+               # default wayland backend's dmabuf export never maps a window
+               # there (ValveSoftware/gamescope#2081)
+GRAB=1         # 0: drop --force-grab-cursor (stalls with the sdl backend)
 
 export LD_PRELOAD=""
 export AMD_USERQ=1
@@ -32,6 +44,7 @@ read -r WIDTH HEIGHT REFRESH OUTPUT < <(
 )
 fi
 
+[[ -r "$HOME/.config/gscope/default.env" ]] && source "$HOME/.config/gscope/default.env"
 if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
 	source "$HOME/.config/gscope/$SteamAppId.env"
 fi
@@ -42,16 +55,20 @@ MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
 [[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"
 export MANGOHUD_CONFIG
 
+[[ "$GAMESCOPE" == 0 ]] && exec gamemoderun mangohud "$@"
+
 GS_ARGS=(-W "$WIDTH"
 	-H "$HEIGHT"
 	-r "$REFRESH"
-	--force-grab-cursor
 	--fullscreen
 	--mangoapp
 )
+[[ "$GRAB" == 1 ]] && GS_ARGS+=(--force-grab-cursor)
 
 [[ "$HDR" == 1 ]] && GS_ARGS+=(--hdr-enabled)
 [[ "$VRR" == 1 ]] && GS_ARGS+=(--adaptive-sync)
 [[ -n "$OUTPUT" ]] && GS_ARGS+=(--prefer-output "$OUTPUT")
+[[ -n "$VK_DEVICE" ]] && GS_ARGS+=(--prefer-vk-device "$VK_DEVICE")
+[[ -n "$BACKEND" ]] && GS_ARGS+=(--backend "$BACKEND")
 
 exec gamemoderun gamescope "${GS_ARGS[@]}" -- "$@"
