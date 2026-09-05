@@ -5,6 +5,7 @@
 		./audio
 		./ssh
 		./hyprland
+		./syncthing
 		../../modules/system
 		../../modules/system/nvidia-gpu
 		../../modules/system/hyprland

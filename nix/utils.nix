@@ -9,6 +9,7 @@
 		modules = [
 			./hosts/${hostname}
 			home-manager.nixosModules.home-manager
+			inputs.sops-nix.nixosModules.sops
 			{ networking.hostName = hostname; }
 		];
 	};

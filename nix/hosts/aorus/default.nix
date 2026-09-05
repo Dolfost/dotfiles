@@ -14,6 +14,7 @@
 		./openrgb
 		./lact
 		./sunshine
+		./syncthing
 
 		# Baseline and the features this host opts into.
 		../../modules/system

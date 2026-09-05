@@ -1,0 +1,14 @@
+# Who can decrypt nix/secrets.yaml: the admin key (~/.config/sops/age/keys.txt)
+# and each host's ssh host key (ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub).
+# After changing recipients here: sops updatekeys nix/secrets.yaml
+keys:
+  - &admin age18pljuz8zf4wxppvcr2yewm4yc3q7rj0gfh4433d7460ltvhmvqvqjfr282
+  - &loq age1rus4luqpmkddhqshu5k9m0kzl02gwjr7nfqwmy407zyqd6c50egsdsp4ms
+  - &aorus age1sk8ujrj6fqxgft9w9f04rd5vxk7wpcl74dujy2q6p662a52j7ffscv3l0u
+creation_rules:
+  - path_regex: nix/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *loq
+          - *aorus

@@ -13,6 +13,7 @@
 		./input
 		./user
 		./kernel
+		./sops
 	];
 
 	# Cross-feature contract: the desktop module that knows how to move the
