@@ -20,8 +20,8 @@
 #   3. Create nix/hosts/<name>/syncthing/default.nix mapping those folders to
 #      local paths, importing this module - same shape as loq's.
 #   4. Store its secrets in nix/secrets.yaml: the two pem files as
-#      syncthing/cert_<name> + key_<name>, and a gui hash (mkpasswd -m bcrypt)
-#      as syncthing/gui_hash_<name>.
+#      syncthing/<name>/cert + key, and a gui hash (mkpasswd -m bcrypt)
+#      as syncthing/<name>/gui_hash.
 #   5. Rebuild everywhere. Existing hosts pick the new device up from facts
 #      automatically; nothing manual in any GUI. (After the machine's first
 #      boot, also enroll it in sops: ssh-to-age its host key into .sops.yaml
@@ -103,9 +103,9 @@ in
 		# ends up world-readable in the nix store - so it comes from sops and is
 		# pushed into the running instance over the local REST api instead.
 		sops.secrets = {
-			syncthing_cert = { key = "syncthing/cert_${me}"; owner = user; };
-			syncthing_key = { key = "syncthing/key_${me}"; owner = user; };
-			syncthing_gui_hash = { key = "syncthing/gui_hash_${me}"; owner = user; };
+			syncthing_cert = { key = "syncthing/${me}/cert"; owner = user; };
+			syncthing_key = { key = "syncthing/${me}/key"; owner = user; };
+			syncthing_gui_hash = { key = "syncthing/${me}/gui_hash"; owner = user; };
 		};
 		systemd.services.syncthing-gui-auth = {
 			description = "Syncthing GUI password from sops";

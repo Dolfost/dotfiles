@@ -5,9 +5,9 @@
 let
 	# syncthing_id is the device's syncthing identity, derived from its keypair.
 	# For the NixOS hosts the keypair lives in sops (nix/secrets.yaml under
-	# syncthing/cert_<name> + key_<name>) and is installed on every start, so the
-	# id survives reinstalls. New machine: `syncthing generate` anywhere, record
-	# the printed id here, `sops` the two pem files in.
+	# syncthing/<name>/cert + key) and is installed on every start, so the id
+	# survives reinstalls. New machine: `syncthing generate` anywhere, record the
+	# printed id here, `sops` the two pem files in.
 	machines = {
 		aorus = {
 			ts_ipv4 = "100.91.220.75";

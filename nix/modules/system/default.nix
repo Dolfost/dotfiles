@@ -29,6 +29,7 @@
 	config = {
 		environment.systemPackages = with pkgs; [
 			neovim wget git tmux btop
+			sops age ssh-to-age
 		];
 
 		home-manager = {
