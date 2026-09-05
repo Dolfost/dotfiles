@@ -1,7 +1,7 @@
 hl.config({
 	input = {
 		kb_layout = "us,ua",
-		kb_options = 'grp:alt_shift_toggle',
+		kb_options = 'grp:win_space_toggle',
 		repeat_rate = 50,
 		repeat_delay = 150,
 		numlock_by_default = true,
@@ -41,30 +41,44 @@ hl.gesture({ fingers = 3, direction = "down",       mods  = "ALT", action = "clo
 
 local l = 'SUPER + '
 
+-- Keybind layers, kept relocatable between systems (macOS parity where
+-- it exists):
+--   SUPER + number        -> focus workspace (SHIFT: move window there)
+--   SUPER + letter        -> toggle drawer   (SHIFT: move window there)
+--   SUPER + CTRL + letter -> launch apps
+--   SUPER + M / Y         -> other: exit hyprland / reload waybar
+--
+-- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
+-- map to ALT-chords with the same physical keys:
+--   ALT + SPACE           -> menu        (⌘ Space Spotlight)
+--   ALT + SHIFT + 3/4/5   -> screenshots (⌘ ⇧ 3/4/5)
+--   CTRL + ALT + Q        -> lock        (⌃ ⌘ Q)
+--   SUPER + SPACE         -> keyboard layout (Windows-like, xkb win_space_toggle)
+
 -- window management
-hl.bind(l..'W', hl.dsp.window.close())
-hl.bind(l..'Q', hl.dsp.window.kill())
+hl.bind(l..'Q',         hl.dsp.window.close())
+hl.bind(l..'SHIFT + Q', hl.dsp.window.kill())
 hl.bind(l..'M', hl.dsp.exit())
-hl.bind(l..'E', hl.dsp.exec_cmd(FILE_MANAGER))
-hl.bind(l..'V', hl.dsp.window.float({ action = 'toggle' }))
+hl.bind(l..'SHIFT + F', hl.dsp.window.float({ action = 'toggle' }))
 hl.bind(l..'P', hl.dsp.window.pseudo())
 hl.bind(l..'F', hl.dsp.window.fullscreen_state({ internal = 1, client = 2 }))
 hl.bind(l..'R', hl.dsp.exec_raw(SCRIPTS..'resize_active.sh'))
 hl.bind(l..'B', hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
-hl.bind(l..'D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
-hl.bind(l..'C', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))
-hl.bind(l..'G', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh mirror'))
+hl.bind(l..'D',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
+hl.bind(l..'SHIFT + D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))
+hl.bind(l..'G',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh mirror'))
 hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications
-hl.bind(l..'N', hl.dsp.exec_raw('dunstctl close-all'))
-hl.bind(l..'O', hl.dsp.exec_raw('dunstctl history-pop'))
-hl.bind(l..'X', hl.dsp.exec_raw(SCRIPTS..'dunstctl_toggle.sh'))
+hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('dunstctl close-all'))
+hl.bind(l..'O',         hl.dsp.exec_raw('dunstctl history-pop'))
+hl.bind(l..'X',         hl.dsp.exec_raw(SCRIPTS..'dunstctl_toggle.sh'))
 
 -- apps
-hl.bind(l..'CTRL + L', hl.dsp.exec_raw('hyprlock'))
+hl.bind('CTRL + ALT + Q', hl.dsp.exec_raw('hyprlock'))
 hl.bind(l..'CTRL + T', hl.dsp.exec_cmd(TERMINAL))
+hl.bind(l..'CTRL + E', hl.dsp.exec_cmd(FILE_MANAGER))
 hl.bind(l..'CTRL + A', hl.dsp.exec_raw(TERMINAL..' -e pulsemixer'))
 hl.bind(l..'CTRL + B', hl.dsp.exec_raw(TERMINAL..' -e bluetui'))
 hl.bind(l..'CTRL + W', hl.dsp.exec_raw(TERMINAL..' -e impala'))
@@ -73,10 +87,10 @@ hl.bind(l..'CTRL + P', hl.dsp.exec_raw('hyprpicker -a'))
 hl.bind(l..'CTRL + Z', hl.dsp.exec_raw(PDF_VIEWER))
 hl.bind(l..'CTRL + H', hl.dsp.exec_raw('cliphist list | '..MENU..' --dmenu --with-nth 2 | cliphist decode | wl-copy'))
 
--- screenshots
-hl.bind(l..'SHIFT + D', hl.dsp.exec_raw('hyprshot -m output -m active -o '.. SCREENSHOTS_DIR))
-hl.bind(l..'SHIFT + W', hl.dsp.exec_raw(SCRIPTS..'screenshot_window.sh '.. SCREENSHOTS_DIR))
-hl.bind(l..'SHIFT + R', hl.dsp.exec_raw('hyprshot -m region -o '.. SCREENSHOTS_DIR))
+-- screenshots (macOS ⌘ ⇧ 3/4/5: screen / region / window)
+hl.bind('ALT + SHIFT + 3', hl.dsp.exec_raw('hyprshot -m output -m active -o '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 4', hl.dsp.exec_raw('hyprshot -m region -o '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 5', hl.dsp.exec_raw('hyprshot -m window -m active -o '.. SCREENSHOTS_DIR))
 
 -- move focus
 hl.bind(l..'H', hl.dsp.focus({ direction = 'l' }))
@@ -98,17 +112,17 @@ hl.bind(l..'SHIFT + 0', hl.dsp.window.move({ workspace = 10 }))
 hl.bind(l..'CTRL + SHIFT + H', hl.dsp.focus({ monitor = '-1' }))
 hl.bind(l..'CTRL + SHIFT + L', hl.dsp.focus({ monitor = '+1' }))
 
--- special workspaces (scratchpads)
-hl.bind(l..'S',         hl.dsp.workspace.toggle_special('magic'))
+-- special workspaces (drawers), mnemonic letters
+hl.bind(l..'S',         hl.dsp.workspace.toggle_special('magic')) -- Scratch
 hl.bind(l..'SHIFT + S', hl.dsp.window.move({ workspace = 'special:magic' }))
-hl.bind(l..'T',         hl.dsp.workspace.toggle_special('chat'))
-hl.bind(l..'SHIFT + T', hl.dsp.window.move({ workspace = 'special:chat' }))
-hl.bind(l..'Z',         hl.dsp.workspace.toggle_special('notes'))
-hl.bind(l..'SHIFT + Z', hl.dsp.window.move({ workspace = 'special:notes' }))
-hl.bind(l..'U',         hl.dsp.workspace.toggle_special('work'))
-hl.bind(l..'SHIFT + U', hl.dsp.window.move({ workspace = 'special:work' }))
-hl.bind(l..'I',         hl.dsp.workspace.toggle_special('call'))
-hl.bind(l..'SHIFT + I', hl.dsp.window.move({ workspace = 'special:call' }))
+hl.bind(l..'C',         hl.dsp.workspace.toggle_special('chat'))
+hl.bind(l..'SHIFT + C', hl.dsp.window.move({ workspace = 'special:chat' }))
+hl.bind(l..'N',         hl.dsp.workspace.toggle_special('notes'))
+hl.bind(l..'SHIFT + N', hl.dsp.window.move({ workspace = 'special:notes' }))
+hl.bind(l..'W',         hl.dsp.workspace.toggle_special('work'))
+hl.bind(l..'SHIFT + W', hl.dsp.window.move({ workspace = 'special:work' }))
+hl.bind(l..'V',         hl.dsp.workspace.toggle_special('call')) -- Voice
+hl.bind(l..'SHIFT + V', hl.dsp.window.move({ workspace = 'special:call' }))
 
 -- workspace scroll with mouse
 hl.bind(l..'mouse_down', hl.dsp.focus({ workspace = 'e+1' }))
