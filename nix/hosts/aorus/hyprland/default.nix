@@ -16,6 +16,7 @@
 			})
 		'';
 
+		services.hypridle.enable = false;
 		# What SUPER+D/C/G toggle the TV into on this machine.
 		hyprland.secondaryDisplay = ''
 			SECONDARY_MONITOR="HDMI-A-2"
