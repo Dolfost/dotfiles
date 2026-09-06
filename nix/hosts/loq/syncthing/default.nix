@@ -5,7 +5,8 @@
 	imports = [ ../../../modules/system/syncthing ];
 
 	dotfiles.syncthing.folders = {
-		books = "/home/vladyslav/books";
-		obsidian = "/home/vladyslav/obsidian";
+		books = "/home/vladyslav/data/books";
+		obsidian = "/home/vladyslav/data/obsidian";
+		avatars = "/home/vladyslav/data/avatars";
 	};
 }

@@ -34,9 +34,10 @@ let
 	user = config.dotfiles.user;
 
 	topology = {
-		books = { id = "n9zmf-v33nw"; members = [ "aorus" "loq" "rodin" "mac" ]; };
+		books    = { id = "n9zmf-v33nw"; members = [ "aorus" "loq" "rodin" "mac" ]; };
 		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" ]; };
-		shared = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" ]; };
+		shared   = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" ]; };
+		avatars  = { id = "fuck1-fuck1"; members = [ "aorus" "rodin" "mac" "loq" ]; };
 	};
 
 	peers = lib.filterAttrs
