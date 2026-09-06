@@ -36,6 +36,8 @@
 		amd_performance_level = "high";
 	};
 
+	dotfiles.gscope.defaults.GAMESCOPE = 0;
+
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";
 	networking.firewall.enable = false;

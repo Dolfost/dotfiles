@@ -10,6 +10,10 @@
 				output = "HDMI-A-2", mode = "3840x2160@60",
 				position = "2560x0", scale = 1, disabled = true
 			})
+			hl.device({
+				name = "logitech-g102-lightsync-gaming-mouse",
+				sensitivity = -0.65,
+			})
 		'';
 
 		# What SUPER+D/C/G toggle the TV into on this machine.
