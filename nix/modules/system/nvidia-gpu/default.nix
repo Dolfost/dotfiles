@@ -12,4 +12,8 @@
 	};
 
 	environment.systemPackages = [ (lib.hiPrio pkgs.btop-cuda) ];
+
+	# Nested gamescope is broken on nvidia devices in every GPU mode hybrid:
+	# cross-GPU judder / gamescope#2081; MUX discrete: sluggish mouse)
+	dotfiles.gscope.defaults.GAMESCOPE = 0;
 }
