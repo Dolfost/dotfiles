@@ -1,6 +1,6 @@
 map ` mark_evaluate
 
-set font 'Iosevka Nerd Mono 11'
+set font 'Iosevka Nerd Font Mono 11'
 set database 'sqlite'
 set selection-clipboard clipboard
 set show-recent 0
