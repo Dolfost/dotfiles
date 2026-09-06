@@ -29,7 +29,7 @@ in
 			viber
 		]
 		++ map pinSecretStore (with pkgs; [
-			discord
+			vesktop
 			signal-desktop
 			element-desktop
 		]);

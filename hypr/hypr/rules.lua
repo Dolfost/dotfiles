@@ -53,7 +53,7 @@ hl.window_rule {
 -- Pin Discord windows to the chat drawer by class, like Telegram above.
 hl.window_rule {
 	name = 'discord-to-chat',
-	match = { class = '^discord$' },
+	match = { class = '^(discord|vesktop)$' },
 	workspace = 'special:chat silent',
 }
 
@@ -62,7 +62,7 @@ hl.window_rule {
 -- so its overrides win.
 hl.window_rule {
 	name = 'discord-popout-to-call',
-	match = { class = '^discord$', title = '^Discord Popout$' },
+	match = { class = '^(discord|vesktop)$', title = '^Discord Popout$' },
 	workspace = 'special:call',
 	opacity = '1 override 1 override',
 	rounding = 0,
