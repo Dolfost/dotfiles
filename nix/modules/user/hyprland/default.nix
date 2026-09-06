@@ -64,13 +64,26 @@ in
 		services.hyprpolkitagent.enable = true;
 
 		# Walker runs resident (--gapplication-service) so the bind opens it
-		# instantly; elephant is its data/exec backend and launches apps with uwsm
-		# on its own (auto-detected). Config stays a linked dir via apps; settings
-		# here are left empty so the module writes no config.toml.
+		# instantly; elephant is its data/exec backend and spawns apps as transient
+		# scopes. Config stays a linked dir via apps; settings here are left empty
+		# so the module writes no config.toml.
 		services.elephant.enable = true;
 		services.walker = {
 			enable = true;
 			systemd.enable = true;
+		};
+
+		# The stock units only carry WantedBy=graphical-session.target, so at login
+		# they race uwsm finalize and capture an environment without
+		# WAYLAND_DISPLAY - every app elephant then spawns inherits it and dies on
+		# startup. Order them after the session so they see the full env.
+		systemd.user.services.elephant.Unit = {
+			After = [ "graphical-session.target" ];
+			PartOf = [ "graphical-session.target" ];
+		};
+		systemd.user.services.walker.Unit = {
+			After = [ "graphical-session.target" ];
+			PartOf = [ "graphical-session.target" ];
 		};
 
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
