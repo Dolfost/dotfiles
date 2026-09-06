@@ -14,6 +14,7 @@
 		../../modules/system/gaming
 		../../modules/system/openrgb
 		../../modules/system/android
+		../../modules/system/latex
 	];
 
 	# Nested gamescope is broken on this machine in every GPU mode (hybrid:

@@ -26,6 +26,7 @@
 		../../modules/system/openrgb
 		../../modules/system/amd-gpu
 		../../modules/system/android
+		../../modules/system/latex
 	];
 
 	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU).
