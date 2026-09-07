@@ -8,7 +8,8 @@ now=$(date +%s)
 
 if [ -f "$flag" ] && [ $((now - $(cat "$flag"))) -le $window ]; then
 	rm -f "$flag"
-	hyprctl dispatch "hl.dsp.exit()"
+	hyprshutdown
+	# hyprctl dispatch "hl.dsp.exit()"
 	exit
 fi
 

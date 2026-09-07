@@ -12,7 +12,7 @@ let
 	tools = with pkgs; [
 		hyprshot grim slurp # screenshots
 		wl-clipboard imagemagick # clipboard history (elephant's provider shells out to these)
-		hyprpicker # color picker
+		hyprpicker hyprshutdown
 		jq libnotify # scripts: hyprctl parsing, notify-send
 		playerctl brightnessctl # media keys, laptop backlight
 		ddcutil # brightness.sh; i2c access comes from the openrgb host module
