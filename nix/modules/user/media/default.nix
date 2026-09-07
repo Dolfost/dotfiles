@@ -29,6 +29,7 @@ in
 				mpv
 				zathura
 				feishin
+				gimp
 			];
 
 			xdg.configFile."zathura" = link "zathura";
