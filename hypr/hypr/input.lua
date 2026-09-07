@@ -85,17 +85,17 @@ end)
 hl.bind(l..'F', hl.dsp.window.fullscreen_state({ internal = 1, client = 2 }))
 hl.bind(l..'R', hl.dsp.exec_raw(SCRIPTS..'resize_active.sh'))
 hl.bind(l..'B', hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
+hl.bind(l..'I', hl.dsp.exec_raw(SCRIPTS..'caffeine.sh toggle')) -- inhibit idle
 hl.bind(l..'D',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
 hl.bind(l..'SHIFT + D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))
 hl.bind(l..'G',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh mirror'))
--- hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
-hl.bind(l..'Y', hl.dsp.exec_raw('ashell msg toggle-visibility'))
+hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications
-hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('dunstctl close-all'))
-hl.bind(l..'O',         hl.dsp.exec_raw('dunstctl history-pop'))
-hl.bind(l..'X',         hl.dsp.exec_raw(SCRIPTS..'dunstctl_toggle.sh'))
+hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('swaync-client --close-all'))
+hl.bind(l..'O',         hl.dsp.exec_raw('swaync-client --toggle-panel'))
+hl.bind(l..'X',         hl.dsp.exec_raw('swaync-client --toggle-dnd'))
 
 -- apps
 hl.bind('CTRL + ALT + Q', hl.dsp.exec_raw('hyprlock'))

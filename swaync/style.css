@@ -1,0 +1,153 @@
+/* Tokyo Night, matching ashell [appearance]:
+ * base #1a1b26  weak #24273a  strong #414868
+ * primary #7aa2f7  text #a9b1d6  warning #e0af68  danger #f7768e */
+
+* {
+	font-family: "Iosevka Nerd Font";
+	font-size: 14px;
+}
+
+/* ── Toasts + control-center cards ─────────────────────────────────── */
+
+.notification-row {
+	outline: none;
+	margin: 0;
+	padding: 0;
+}
+
+.notification {
+	background: #24273a;
+	border: 1px solid #414868;
+	border-radius: 12px;
+	margin: 6px 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.notification-content {
+	padding: 8px;
+}
+
+.notification.critical {
+	border-color: #f7768e;
+}
+
+.summary {
+	color: #a9b1d6;
+	font-weight: bold;
+}
+
+.time {
+	color: #565f89;
+}
+
+.body {
+	color: #a9b1d6;
+}
+
+.close-button {
+	background: transparent;
+	color: #a9b1d6;
+	border-radius: 8px;
+	margin: 4px;
+	padding: 0;
+}
+
+.close-button:hover {
+	background: #414868;
+}
+
+.notification-default-action,
+.notification-action {
+	background: transparent;
+	border: none;
+	border-radius: 12px;
+	color: #a9b1d6;
+}
+
+.notification-action {
+	background: #1a1b26;
+	border: 1px solid #414868;
+	border-radius: 8px;
+	margin: 4px;
+}
+
+.notification-action:hover {
+	background: #414868;
+	color: #7aa2f7;
+}
+
+.notification progressbar,
+.notification progress,
+.notification trough {
+	border-radius: 7px;
+}
+
+.notification progressbar progress {
+	background: #e0af68;
+}
+
+/* ── Control center ────────────────────────────────────────────────── */
+
+.control-center {
+	background: #1a1b26;
+	border: 1px solid #7aa2f7;
+	border-radius: 15px;
+	padding: 4px;
+}
+
+.control-center-list {
+	background: transparent;
+}
+
+.widget-title {
+	color: #a9b1d6;
+	font-size: 16px;
+	margin: 4px 8px;
+}
+
+.widget-title > button {
+	background: #24273a;
+	border: 1px solid #414868;
+	border-radius: 8px;
+	color: #a9b1d6;
+	padding: 2px 10px;
+}
+
+.widget-title > button:hover {
+	background: #414868;
+	color: #7aa2f7;
+}
+
+.widget-dnd {
+	color: #a9b1d6;
+	margin: 4px 8px;
+}
+
+.widget-dnd > switch {
+	background: #24273a;
+	border: 1px solid #414868;
+	border-radius: 10px;
+}
+
+.widget-dnd > switch:checked {
+	background: #7aa2f7;
+}
+
+.widget-dnd > switch slider {
+	background: #a9b1d6;
+	border-radius: 8px;
+}
+
+/* group header shown when notification-grouping collapses an app */
+.notification-group-headers {
+	color: #a9b1d6;
+}
+
+.notification-group-close-all-button,
+.notification-group-collapse-button {
+	background: #24273a;
+	border: 1px solid #414868;
+	border-radius: 8px;
+	color: #a9b1d6;
+	margin: 2px;
+}

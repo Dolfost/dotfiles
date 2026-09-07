@@ -14,13 +14,12 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
 	hl.exec_cmd('hyprctl monitors all | grep -q sunshine-headless || hyprctl output create headless sunshine-headless')
 
-	-- start_systemd_service('waybar.service')
-	hl.exec_cmd('ashell')
+	start_systemd_service('waybar.service')
 	start_systemd_service('hypridle')
 	start_systemd_service('hyprpaper')
 	start_systemd_service('hyprpolkitagent')
 	start_systemd_service('hyprsunset')
-	start_systemd_service('dunst')
+	start_systemd_service('swaync')
 
 	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })

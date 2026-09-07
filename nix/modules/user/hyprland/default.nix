@@ -6,11 +6,7 @@ let
 		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
 	};
 
-	# ashell in the stable channel is 0.8, which predates the `msg` IPC
-	# subcommand the binds rely on; take it from unstable instead.
-	unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-
-	apps = { inherit (unstable) ashell; inherit (pkgs) walker dunst; };
+	apps = { inherit (pkgs) waybar walker; swaync = pkgs.swaynotificationcenter; };
 
 	# Everything the binds and scripts shell out to.
 	tools = with pkgs; [

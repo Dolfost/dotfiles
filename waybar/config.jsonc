@@ -1,132 +1,150 @@
+// Layout mirrors the ashell setup it replaced:
+// left [Workspaces] [MediaPlayer] - center WindowTitle - right [Tray] [Tempo Privacy Settings]
 {
-  "layer": "top",
-  "position": "top",
-  "height": 5,
-  "spacing": 0,
-  "modules-left": [
-    "hyprland/workspaces", "mpd"
-  ],
-  "modules-center": ["hyprland/window"],
-  "modules-right": [
-    "tray",
-    "network",
-    "bluetooth",
-    "battery",
-    "pulseaudio",
-    "clock"
-	],
+	"layer": "top",
+	"position": "top",
+	"spacing": 0,
+	"reload_style_on_change": true,
+	"modules-left": ["hyprland/workspaces", "mpris"],
+	"modules-center": ["hyprland/window"],
+	"modules-right": ["tray", "group/status"],
+
 	"hyprland/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-			"1": "1",
-			"2": "2",
-			"3": "3",
-			"4": "4",
-			"5": "5",
-			"6": "6",
-			"7": "7",
-			"8": "8",
-			"9": "9",
-			"10": "10",
-			"11": "11",
-			"12": "12",
-			"13": "13",
-			"14": "14",
-			"15": "15",
-			"16": "16",
-			"17": "17",
-			"18": "18",
-			"19": "19",
-			"20": "20",
-      "urgent": " ",
-      // "active": " ", // focused workspace on current monitor 
-      "visible": "󰏥 ", // focused workspace on other monitors
-      "default": " ",
-      "empty": " " // persistent (created by this plugin)
-    },
-    "all-outputs": false // recommended
-  },
-	"mpd": {
-		"format": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {album} - {title}   {elapsedTime:%M:%S}/{totalTime:%M:%S}",
-		"format-disconnected": "Disconnected ",
-		"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-		"interval": 10,
-		"consume-icons": {
-			"on": " "
-		},
-		"random-icons": {
-			"off": "<span color=\"#f53c3c\">󰑗</span> ",
-			"on": "󰒟 ",
-		},
-		"repeat-icons": {
-			"on": " "
-		},
-		"single-icons": {
-			"on": "1 "
-		},
-		"state-icons": {
-			"paused": "󰏤",
-			"playing": "󰐊"
-		},
-		"tooltip-format": "MPD (connected)",
-		"tooltip-format-disconnected": "MPD (disconnected)"
+		"format": "{name}",
+		"all-outputs": true,
+		"show-special": true
 	},
-  "network": {
-    "format-wifi": "󰤨  {essid} ",
-    "format-ethernet": "  Wired ",
-    "tooltip-format": "<span color='#FF1493'>󰅧  </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢   </span>{bandwidthDownBytes}",
-    "format-linked": "󱘖  {ifname} (No IP) ",
-    "format-disconnected": "  Disconnected ",
-    "format-alt": "󰤨  {signalStrength}% ",
-    "interval": 1
-  },
-  "pulseaudio": {
-    "format": "{icon}{volume}% ",
-    "format-muted": "󰖁 ",
-    "format-icons": {
-      "headphone": "  ",
-      "hands-free": "  ",
-      "headset": "  ",
-      "phone": "  ",
-      "portable": "  ",
-      "car": "  ",
-      "default": [
-        " ",
-        " ",
-        " "
-      ]
-    },
-    "on-click-right": "pavucontrol -t 3",
-    "on-click": "pactl -- set-sink-mute 0 toggle",
-  },
-  "clock": {
-   "interval": 1,
-    "timezone": "Europe/Kyiv",
-    "format": "{:L%a %m.%d.%y %H:%M:%S}",
-  },
-  "tray": {
-    "icon-size": 15,
-    "spacing": 10
-  },
-	"battery": {
+
+	"mpris": {
+		"format": "{status_icon} {artist} - {title}",
+		"status-icons": {
+			"playing": "󰐊",
+			"paused": "󰏤",
+			"stopped": "󰓛"
+		},
+		"artist-len": 30,
+		"title-len": 60
+	},
+
+	"hyprland/window": {
+		"max-length": 150,
+		"separate-outputs": true
+	},
+
+	"tray": {
+		"icon-size": 15,
+		"spacing": 8
+	},
+
+	"group/status": {
+		"orientation": "inherit",
+		"modules": [
+			"clock",
+			"privacy",
+			"custom/caffeine",
+			"custom/notification",
+			"pulseaudio",
+			"bluetooth",
+			"network",
+			"battery"
+		]
+	},
+
+	"clock": {
 		"interval": 1,
+		"format": "{:%a %d %b %H:%M:%S}"
+	},
+
+	"privacy": {
+		"icon-size": 14,
+		"icon-spacing": 6,
+		"modules": [
+			{ "type": "screenshare" },
+			{ "type": "audio-in" }
+		]
+	},
+
+	// caffeine.sh stops/starts hypridle; SUPER+I runs the same toggle
+	"custom/caffeine": {
+		"format": "{icon}",
+		"format-icons": {
+			"on": "󰅶",
+			"off": "󰾪"
+		},
+		"return-type": "json",
+		"exec": "~/.config/hypr/hypr/scripts/caffeine.sh status",
+		"interval": "once",
+		"signal": 8,
+		"on-click": "~/.config/hypr/hypr/scripts/caffeine.sh toggle",
+		"tooltip": false
+	},
+
+	// swaync state: bell w/ badge when notifications pending, crossed when DND
+	"custom/notification": {
+		"format": "{icon}",
+		"format-icons": {
+			"notification": "󱅫",
+			"none": "󰂚",
+			"dnd-notification": "󰂛",
+			"dnd-none": "󰂛",
+			"inhibited-notification": "󱅫",
+			"inhibited-none": "󰂚",
+			"dnd-inhibited-notification": "󰂛",
+			"dnd-inhibited-none": "󰂛"
+		},
+		"return-type": "json",
+		"exec": "swaync-client -swb",
+		"on-click": "swaync-client -t -sw",
+		"on-click-right": "swaync-client -d -sw",
+		"tooltip": false,
+		"escape": true
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-muted": "󰖁 {volume}%",
+		"format-icons": {
+			"headphone": "󰋋",
+			"headset": "󰋎",
+			"default": ["󰕿", "󰖀", "󰕾"]
+		},
+		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click-right": "pavucontrol -t 3"
+	},
+
+	"bluetooth": {
+		"format": "󰂯",
+		"format-off": "󰂲",
+		"format-connected": "󰂱",
+		"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+		"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+		"on-click": "blueberry"
+	},
+
+	"network": {
+		"format-wifi": "󰤨",
+		"format-ethernet": "󰈀",
+		"format-linked": "󱘖",
+		"format-disconnected": "󰤮",
+		"tooltip-format": "{ifname}: {ipaddr}\n󰅧 {bandwidthUpBytes}  󰅢 {bandwidthDownBytes}",
+		"tooltip-format-wifi": "{essid} {signalStrength}%\n󰅧 {bandwidthUpBytes}  󰅢 {bandwidthDownBytes}",
+		"interval": 2,
+		"on-click": "nm-connection-editor"
+	},
+
+	// no-op on aorus (no battery), populated on loq
+	"battery": {
+		"interval": 5,
 		"format": "{icon} {capacity}%",
+		"states": {
+			"warning": 30,
+			"critical": 15
+		},
 		"format-icons": {
 			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
 			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-		},
-	},
-  "bluetooth": {
-    "format": "󰂯 {status}",
-    "format-on": "",
-    "format-off": "󰂲",
-    "format-connected": " {device_alias}",
-    "format-no-controller": "󰂯 ?",
-    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-    "on-click": "blueman-manager"
-  }
+		}
+	}
 }

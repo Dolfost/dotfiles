@@ -1,104 +1,133 @@
+/* Tokyo Night, matching the ashell [appearance] it replaced:
+ * base #1a1b26  weak #24273a  strong #414868
+ * primary #7aa2f7  success #9ece6a  warning #e0af68  danger #f7768e
+ * text #a9b1d6 */
+
+/* not the "Mono" variant: NF Mono squeezes icons into one monospace cell,
+ * making them tiny; the plain family renders them up to double-width */
 * {
-  font-family: "Iosevka Nerd Font";
-  font-size: 15px;
-  border-radius: 0;
-  min-height: 0;
-  border: none;
-  font-weight: bold;
+	font-family: "Iosevka Nerd Font";
+	font-size: 15px;
+	border: none;
+	border-radius: 0;
+	min-height: 0;
 }
 
-#workspaces{
-  background-color: rgba(24,24,37,1.0);
-  border: none;
-  box-shadow: none;
+window#waybar {
+	background: transparent;
+	color: #a9b1d6;
 }
 
-#tray{
-  margin: 6px 3px;
-  background-color: rgba(36, 36, 52, 1.0);
-  padding: 0px 12px;
-  border-radius: 1px;
-  border-width: 0px;
+window#waybar.hidden {
+	opacity: 0;
 }
 
-#waybar {
-  background-color: #181825;
-  transition-property: background-color;
-  transition-duration: 0.5s;
-}
-
-#mpd,
-#clock,
+/* floating pills, like ashell's transparent bar surface */
+#workspaces,
+#mpris,
 #window,
+#tray,
+#status {
+	background-color: #1a1b26;
+	border-radius: 15px;
+	margin: 4px 3px;
+	padding: 0 8px;
+}
+
+/* modules inside the right-hand status pill */
+#clock,
+#privacy,
+#custom-caffeine,
+#custom-notification,
+#pulseaudio,
+#bluetooth,
 #network,
-#battery,
-#bluetooth,
-#pulseaudio {
-  border-radius: 1px;
-  margin: 6px 3px;
-  padding: 0px 12px;
-  color: #181825;
-}
-
-#mpd{
-  background-color: #89dceb;
-}
-#clock {
-  background-color: #89b4fa;
-}
-#battery{
-  background-color: #f9e2af;
-}
-#bluetooth,
-#pulseaudio{
-  background-color: #89dceb;
-}
-#network{
-  background-color: #fab387;
-}
-#window{
-  background-color: #74c7ec;
-}
-
-#waybar.hidden {
-  opacity: 0.5;
+#battery {
+	padding: 0 7px;
+	color: #a9b1d6;
 }
 
 #workspaces button {
-  all: initial;
-  /* Remove GTK theme values (waybar #1351) */
-  min-width: 0;
-  /* Fix weird spacing in materia (waybar #450) */
-  box-shadow: inset 0 -3px transparent;
-  /* Use box-shadow instead of border so the text isn't offset */
-  padding: 0px 12px;
-  margin: 6px 3px;
-  border-radius: 1px;
-  background-color: rgba(36, 36, 52, 1.0);
-  color: #cdd6f4;
+	all: initial;
+	min-width: 0;
+	padding: 0 8px;
+	margin: 3px 2px;
+	border-radius: 12px;
+	color: #a9b1d6;
 }
 
 #workspaces button.active {
-  color: #1e1e2e;
-  background-color: #cdd6f4;
+	background-color: #7aa2f7;
+	color: #1a1b26;
+}
+
+#workspaces button.visible {
+	color: #9ece6a;
+}
+
+#workspaces button.urgent {
+	background-color: #f7768e;
+	color: #1a1b26;
 }
 
 #workspaces button:hover {
-  box-shadow: inherit;
-  text-shadow: inherit;
-  color: #1e1e2e;
-  background-color: #cdd6f4;
+	background-color: #414868;
+	color: #a9b1d6;
+}
+
+#mpris {
+	color: #7aa2f7;
+}
+
+#privacy {
+	color: #e0af68;
+}
+
+#custom-caffeine.on {
+	color: #e0af68;
+}
+
+#custom-notification.notification,
+#custom-notification.inhibited-notification {
+	color: #e0af68;
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-inhibited-none,
+#custom-notification.dnd-inhibited-notification {
+	color: #f7768e;
+}
+
+#pulseaudio.muted {
+	color: #565f89;
+}
+
+#bluetooth.off,
+#network.disconnected {
+	color: #565f89;
+}
+
+#battery.warning {
+	color: #e0af68;
+}
+
+#battery.critical {
+	color: #f7768e;
+}
+
+#battery.charging {
+	color: #9ece6a;
 }
 
 tooltip {
-  border-radius: 8px;
-  padding: 16px;
-  background-color: #131822;
-  color: #C0C0C0;
+	background-color: #1a1b26;
+	border: 1px solid #414868;
+	border-radius: 10px;
+	color: #a9b1d6;
 }
 
 tooltip label {
-  padding: 5px;
-  background-color: #131822;
-  color: #C0C0C0;
+	padding: 5px;
+	color: #a9b1d6;
 }
