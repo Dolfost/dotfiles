@@ -1,6 +1,7 @@
 { config, ... }: {
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	nix.settings.auto-optimise-store = true;
 
 	# Lets plain `nixos-rebuild switch` find the flake: it defaults to
 	# /etc/nixos/flake.nix#<hostname> when that file exists. The source is a

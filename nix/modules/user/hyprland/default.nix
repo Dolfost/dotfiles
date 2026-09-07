@@ -6,7 +6,7 @@ let
 		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
 	};
 
-	apps = { inherit (pkgs) waybar walker dunst; };
+	apps = { inherit (pkgs) ashell walker dunst; };
 
 	# Everything the binds and scripts shell out to.
 	tools = with pkgs; [

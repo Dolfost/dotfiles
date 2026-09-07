@@ -1,7 +1,7 @@
-# Home halves of the features. Each one gates itself: on NixOS it follows
-# what the host enabled (via osConfig), standalone everything defaults off
-# and is flipped with dotfiles.<feature>.enable (or dotfiles.graphical for
-# all the GUI app groups at once).
+# Home halves of the features. Each one gates itself: on NixOS it follows what
+# the host enabled (via osConfig), standalone everything defaults off and is
+# flipped with dotfiles.<feature>.enable (or dotfiles.graphical for all the GUI
+# app groups at once).
 { osConfig ? { }, config, lib, pkgs, ... }:
 
 {
@@ -49,8 +49,6 @@
 		dconf.settings."org/gnome/desktop/interface" = {
 			cursor-theme = "macOS";
 			cursor-size = 24;
-			# Pinned so shell experiments (e.g. DankMaterialShell) can't leave the
-			# whole desktop stuck in dark mode; portal-following Qt reads this too.
 			color-scheme = "default";
 		};
 	};

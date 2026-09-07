@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
 	imports = [ ../../modules/user ];
 
 	home.username = "vladyslav";
-	home.homeDirectory = "/home/vladyslav";
+	home.homeDirectory = "/home/${config.home.username}";
 
 	home.packages = with pkgs; [
 		tree claude-code
