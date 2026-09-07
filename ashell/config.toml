@@ -4,7 +4,7 @@
 # region   = "it-IT"        # date format + unit system; defaults to $LC_TIME / $LANG
 # outputs = "All"            # "All" (default), "Active", or { Targets = ["eDP-1"] }
 position = "Top"             # "Top" (default) or "Bottom"
-# layer = "Bottom"           # "Bottom" (default), "Top", or "Overlay"
+layer = "Top"                # "Bottom" (default), "Top", or "Overlay" — Top keeps the bar above dim_special
 # enable_esc_key = false     # Pressing Escape closes open menus
 
 # ── Logging ───────────────────────────────────────────────────────────────────
@@ -17,24 +17,16 @@ position = "Top"             # "Top" (default) or "Bottom"
 # ── Modules ───────────────────────────────────────────────────────────────────
 
 [modules]
-left = [ [ "Workspaces" ] ]
+left   = [ [ "Workspaces" ], [ "MediaPlayer" ] ]
 center = [ "WindowTitle" ]
-right = [ "SystemInfo", "MediaPlayer", [ "Tray", "Tempo", "Privacy", "Settings" ] ]
+right  = [ [ "Tray" ], [ "Tempo", "Privacy", "Settings" ] ]
 
 # Default module layout:
 # left = [ "Workspaces" ]
 # center = [ "WindowTitle" ]
 # right = [ [ "Tempo", "Privacy", "Settings" ] ]
 
-# ── Updates ───────────────────────────────────────────────────────────────────
-
-[updates]
-# check_cmd = "checkupdates; paru -Qua"
-# update_cmd = 'alacritty -e bash -c "paru; echo Done - Press enter to exit; read" &'
-# interval = 3600             # seconds; minimum enforced to 1
-
 # ── Workspaces ────────────────────────────────────────────────────────────────
-
 [workspaces]
 visibility_mode = "All"           # "All" (default), "MonitorSpecific", "MonitorSpecificExclusive"
 indicator_format = "Name"         # "Name" (default) or "NameAndIcons" to show app icons
@@ -63,7 +55,7 @@ truncate_title_after_length = 150 # (default) 0 means no truncation; capped at 2
 indicators = [ "Cpu", "Memory", "Temperature" ]
 # indicators = [ "Cpu", "Memory", "MemorySwap", "Temperature", "IpAddress", "DownloadSpeed", "UploadSpeed" ]
 # indicators = [ { Disk = { Disk = "/dev/sda1", Name = "Root" } } ]
-interval = 5
+interval = 1
 
 [system_info.cpu]
 warn_threshold = 60
@@ -92,8 +84,8 @@ alert_threshold = 85
 # indicator_format = "IconAndText"  # (default), "Text", or "Icon"
 # indicator_fields = ["Artist", "Title"] # (default), also supports "Album"
 # max_text_length = 100         # (default)
-# indicator_visualizer = "Background" # (default: None = disabled), "Before", or "After"
-menu_visualizer = false       # (default) bars behind the menu cards; cava runs only while the menu is open
+indicator_visualizer = "Background" # (default: None = disabled), "Before", or "After"
+menu_visualizer = true       # (default) bars behind the menu cards; cava runs only while the menu is open
 # visualizer_framerate = 30     # (default) cava frames per second, clamped to 1-144
 
 # ── Tray ──────────────────────────────────────────────────────────────────────
@@ -105,7 +97,7 @@ menu_visualizer = false       # (default) bars behind the menu cards; cava runs 
 # ── Tempo ─────────────────────────────────────────────────────────────────────
 
 [tempo]
-clock_format = "%a %d %b %R"
+clock_format = "%a %d %b %H:%M:%S"
 # formats = [ "%a %d %b %R", "%Y-%m-%d %H:%M:%S", "%H:%M:%S" ]
 # timezones = [ "UTC", "America/New_York", "Europe/London" ]
 # weather_location = { City = "Rome" }
@@ -149,7 +141,7 @@ battery_format = "IconAndPercentage"  # (default), "Icon", "Percentage", "Time",
 # peripheral_indicators = "All"   # (default) or { Specific = ["Keyboard", "Mouse", "Headphones", "Gamepad"] }
 peripheral_battery_format = "Icon"  # (default), "IconAndPercentage", "Percentage", etc.
 # peripheral_expanded_by_default = false  # (default)
-audio_indicator_format = "Icon"        # (default), "IconAndPercentage", "Percentage", etc.
+audio_indicator_format = "IconAndPercentage"  # (default: "Icon"), "Percentage", etc.
 microphone_indicator_format = "Icon"   # (default)
 network_indicator_format = "Icon"      # (default), "IconAndPercentage", "Percentage", "Name", "IconAndName" (Name/IconAndName show the SSID/interface/VPN name)
 bluetooth_indicator_format = "Icon"    # (default)
@@ -161,31 +153,24 @@ max_volume = 100   # (default) max volume level, range 1..=200 (>100 enables ove
 indicators = [ "IdleInhibitor", "PowerProfile", "Audio", "Microphone", "Bluetooth", "Network", "Vpn", "Battery", "Brightness" ]
 # indicators = [ "IdleInhibitor", "PowerProfile", "Audio", "Microphone", "Bluetooth", "Network", "Vpn", "Battery", "PeripheralBattery", "Brightness" ]
 
-[[settings.CustomButton]]
-name = "Virtual Keyboard"
-icon = "⌨️"
-command = "/path/to/toggle-keyboard.sh"
-status_command = "/path/to/check-keyboard-status.sh"
-tooltip = "Toggle On-Screen Keyboard"
-
 # ── OSD ───────────────────────────────────────────────────────────────────────
 
 [osd]
 enabled = false   # (default)
 timeout = 1500    # milliseconds
-show_volume_percentage = false      # (default) show numeric volume value in the OSD
-show_brightness_percentage = false  # (default) show numeric brightness value in the OSD
+show_volume_percentage = true      # (default) show numeric volume value in the OSD
+show_brightness_percentage = true  # (default) show numeric brightness value in the OSD
 
 # ── Animations ────────────────────────────────────────────────────────────────
 
 [animations]
-enabled = false   # (default)
+enabled = true   # (default)
 
 # ── Appearance ────────────────────────────────────────────────────────────────
 
 [appearance]
-# font_name = "Sans"           # (default: None) custom font family
-# scale_factor = 1.0           # (default) range: 0.0 < x <= 2.0
+font_name = "Iosevka Nerd Font Mono"
+scale_factor = 1.05           # (default) range: 0.0 < x <= 2.0
 # opacity = 1.0                # (default) range: 0.0 to 1.0, every surface ashell draws
                                # or a table: [appearance.opacity] with default/bar/menu/osd/notifications
 # blur = "auto"                # (default) auto|always|never, compositor blur
