@@ -26,7 +26,7 @@ hl.on("hyprland.start", function()
 
 	exec_cmd_uwsm('signal-desktop', { workspace = 'special:work silent' })
 	exec_cmd_uwsm('element-desktop', { workspace = 'special:work silent' })
-	exec_cmd_uwsm('Telegram', { workspace = 'special:chat silent' })
+	exec_cmd_uwsm('AyuGram', { workspace = 'special:chat silent' })
 	exec_cmd_uwsm('vesktop', { workspace = 'special:chat silent' })
 	exec_cmd_uwsm('obsidian', { workspace = 'special:notes silent' })
 	exec_cmd_uwsm('feishin', { workspace = 'special:notes silent' })

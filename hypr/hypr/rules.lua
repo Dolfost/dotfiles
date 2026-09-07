@@ -5,7 +5,7 @@ hl.layer_rule { -- disable outline around screenshots
 }
 hl.window_rule {
 	name = 'telegram-to-chat',
-	match = { class = '^org\\.telegram\\.desktop$' },
+	match = { class = '^org\\.ayugram\\.desktop$' },
 	workspace = 'special:chat silent',
 }
 hl.window_rule {

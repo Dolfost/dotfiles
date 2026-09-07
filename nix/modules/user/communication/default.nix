@@ -25,7 +25,7 @@ in
 
 	config = lib.mkIf config.dotfiles.communication.enable {
 		home.packages = with pkgs; [
-			telegram-desktop
+			ayugram-desktop
 			viber
 		]
 		++ map pinSecretStore (with pkgs; [
