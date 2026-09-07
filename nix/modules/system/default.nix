@@ -1,6 +1,6 @@
 # Baseline every host imports. Features (./desktop, ./gaming) are picked
 # per host.
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
 	imports = [
@@ -24,6 +24,7 @@
 		home-manager = {
 			useGlobalPkgs = true;
 			useUserPackages = false;
+			extraSpecialArgs = { inherit inputs; };
 			startAsUserService = true;
 			backupFileExtension = "hm-bak";
 			# One entry point per user, shared with the standalone flake output. The

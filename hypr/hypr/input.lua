@@ -88,7 +88,8 @@ hl.bind(l..'B', hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
 hl.bind(l..'D',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
 hl.bind(l..'SHIFT + D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))
 hl.bind(l..'G',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh mirror'))
-hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
+-- hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
+hl.bind(l..'Y', hl.dsp.exec_raw('ashell msg toggle-visibility'))
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications
