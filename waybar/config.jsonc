@@ -5,7 +5,7 @@
 	"position": "top",
 	"spacing": 0,
 	"reload_style_on_change": true,
-	"modules-left": ["hyprland/workspaces", "mpris"],
+	"modules-left": ["hyprland/workspaces", "group/media"],
 	"modules-center": ["hyprland/window"],
 	"modules-right": ["tray", "group/status"],
 
@@ -13,6 +13,22 @@
 		"format": "{name}",
 		"all-outputs": true,
 		"show-special": true
+	},
+
+	"group/media": {
+		"orientation": "inherit",
+		"modules": ["mpris", "cava"]
+	},
+
+	"cava": {
+		"method": "pipewire",
+		"framerate": 60,
+		"bars": 10,
+		"bar_delimiter": 0,
+		"noise_reduction": 0.77,
+		"hide_on_silence": true,
+		"sleep_timer": 2,
+		"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 	},
 
 	"mpris": {

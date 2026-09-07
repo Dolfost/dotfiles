@@ -24,7 +24,7 @@ window#waybar.hidden {
 
 /* floating pills, like ashell's transparent bar surface */
 #workspaces,
-#mpris,
+#media,
 #window,
 #tray,
 #status {
@@ -77,6 +77,12 @@ window#waybar.hidden {
 
 #mpris {
 	color: #7aa2f7;
+}
+
+#cava {
+	color: #7aa2f7;
+	padding-left: 6px;
+	font-size: 10px; /* glyph bars: smaller font = narrower (and shorter) bars */
 }
 
 #privacy {
