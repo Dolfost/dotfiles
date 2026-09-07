@@ -63,6 +63,9 @@
 		dconf.settings."org/gnome/desktop/interface" = {
 			cursor-theme = "macOS";
 			cursor-size = 24;
+			# Pinned so shell experiments (e.g. DankMaterialShell) can't leave the
+			# whole desktop stuck in dark mode; portal-following Qt reads this too.
+			color-scheme = "default";
 		};
 	};
 }
