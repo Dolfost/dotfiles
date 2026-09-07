@@ -4,6 +4,7 @@
 
 {
 	imports = [
+		./dotfiles
 		./boot
 		./locale
 		./audio
@@ -15,23 +16,11 @@
 		./kernel
 		./sops
 	];
-
-	# Cross-feature contract: the desktop module that knows how to move the
-	# session onto a virtual display at the client's resolution (../hyprland)
-	# publishes its Sunshine prep-cmd here; consumers (../gaming's Steam Big
-	# Picture) pick it up without depending on the desktop module.
-	options.dotfiles.sunshine.virtualDisplayPrep = lib.mkOption {
-		type = with lib.types; nullOr (attrsOf str);
-		default = null;
-		description = "Sunshine prep-cmd ({ do, undo }) that streams on a virtual display, if this host's desktop can.";
-	};
-
 	config = {
 		environment.systemPackages = with pkgs; [
 			neovim ripgrep wget git tmux btop
 			sops age ssh-to-age
 		];
-
 		home-manager = {
 			useGlobalPkgs = true;
 			useUserPackages = false;
@@ -40,8 +29,13 @@
 			# One entry point per user, shared with the standalone flake output. The
 			# desktop/gaming home halves gate themselves on osConfig, so hosts only
 			# ever pick system features.
-			users.${config.dotfiles.user}.imports =
-				[ (../../homes + "/${config.dotfiles.user}") ];
+			users.${config.dotfiles.user} = {
+				imports = [ (../../homes + "/${config.dotfiles.user}") ];
+				# The home speaks the same dotfiles vocabulary but can't see the
+				# host's DE; hand it the answers so the GUI groups follow along.
+				dotfiles.graphical = lib.mkDefault config.dotfiles.graphical;
+				dotfiles.dir = lib.mkDefault config.dotfiles.dir;
+			};
 		};
 	};
 }

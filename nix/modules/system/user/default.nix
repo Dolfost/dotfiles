@@ -8,11 +8,6 @@ let
 	user = config.dotfiles.user;
 in
 {
-	options.dotfiles.user = lib.mkOption {
-		type = lib.types.str;
-		default = "vladyslav";
-		description = "Login name of the primary account.";
-	};
 
 	config = {
 		# uid and PRIMARY gid are pinned to match the Arch install on this

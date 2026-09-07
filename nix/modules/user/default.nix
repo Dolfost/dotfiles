@@ -6,6 +6,7 @@
 
 {
 	imports = [
+		../system/dotfiles
 		./shell
 		./ssh
 		./desktop
@@ -19,21 +20,6 @@
 		./guitar
 		./gaming
 	];
-
-	options.dotfiles = {
-		dir = lib.mkOption {
-			type = lib.types.str;
-			default = "/home/vladyslav/dotfiles";
-			description = "The one checkout all config links point at, whoever's home this is.";
-		};
-
-		graphical = lib.mkOption {
-			type = lib.types.bool;
-			default = (osConfig.programs.hyprland.enable or false)
-				|| (osConfig.services.desktopManager.gnome.enable or false);
-			description = "This home sits on a host with a graphical session; the GUI app groups follow it.";
-		};
-	};
 
 	# Shared wallpapers for whatever desktop runs: GNOME's picker scans
 	# ~/.local/share/backgrounds, hyprpaper points there too.
