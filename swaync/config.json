@@ -25,6 +25,13 @@
   "image-visibility": "when-available",
   "transition-time": 150,
 
+  "scripts": {
+    "notification-click-focus": {
+      "exec": "/home/vladyslav/.config/hypr/hypr/scripts/notification_focus.sh",
+      "run-on": "action"
+    }
+  },
+
   "widgets": ["title", "dnd", "notifications"],
   "widget-config": {
     "title": {

@@ -37,6 +37,7 @@
 			alias = {
 				s = "status --short --branch";
 				l = "log --oneline --graph --decorate";
+				d = "diff";
 			};
 			init.defaultBranch = "main";
 			push.autoSetupRemote = true;
