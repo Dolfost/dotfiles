@@ -21,9 +21,10 @@ pkgs.writeShellScript "sunshine-virtual-display" ''
 			done
 			;;
 		stop)
+			hyprctl dispatch "hl.dsp.exec_cmd('pidof hyprlock && hyprlock')"
+			sleep 2s
 			hyprctl eval "hl.monitor({output = \"$HEADLESS\", disabled = true})"
 			hyprctl reload
-			hyprlock
 			;;
 		*)
 			echo "Usage: $0 {start|stop}" >&2
