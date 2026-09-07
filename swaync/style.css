@@ -1,13 +1,15 @@
-/* Tokyo Night, matching ashell [appearance]:
+/* Matches waybar/style.css: Tokyo Night, flat #1a1b26 pills (radius 15, no
+ * border), #414868 hairline on popups, #7aa2f7 accents, dim #565f89.
  * base #1a1b26  weak #24273a  strong #414868
- * primary #7aa2f7  text #a9b1d6  warning #e0af68  danger #f7768e */
+ * primary #7aa2f7  success #9ece6a  warning #e0af68  danger #f7768e
+ * text #a9b1d6 */
 
 * {
 	font-family: "Iosevka Nerd Font";
-	font-size: 14px;
+	font-size: 15px;
 }
 
-/* ── Toasts + control-center cards ─────────────────────────────────── */
+/* ── Toasts: float like waybar pills ───────────────────────────────── */
 
 .notification-row {
 	outline: none;
@@ -16,19 +18,19 @@
 }
 
 .notification {
-	background: #24273a;
-	border: 1px solid #414868;
-	border-radius: 12px;
-	margin: 6px 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+	background: #1a1b26;
+	border: none;
+	border-radius: 15px;
+	margin: 4px 3px;
+	box-shadow: none;
 }
 
 .notification-content {
-	padding: 8px;
+	padding: 8px 10px;
 }
 
 .notification.critical {
-	border-color: #f7768e;
+	border: 1px solid #f7768e;
 }
 
 .summary {
@@ -47,7 +49,7 @@
 .close-button {
 	background: transparent;
 	color: #a9b1d6;
-	border-radius: 8px;
+	border-radius: 12px;
 	margin: 4px;
 	padding: 0;
 }
@@ -60,20 +62,19 @@
 .notification-action {
 	background: transparent;
 	border: none;
-	border-radius: 12px;
+	border-radius: 15px;
 	color: #a9b1d6;
 }
 
 .notification-action {
-	background: #1a1b26;
-	border: 1px solid #414868;
-	border-radius: 8px;
+	background: #24273a;
+	border-radius: 12px;
 	margin: 4px;
 }
 
 .notification-action:hover {
 	background: #414868;
-	color: #7aa2f7;
+	color: #a9b1d6;
 }
 
 .notification progressbar,
@@ -86,11 +87,11 @@
 	background: #e0af68;
 }
 
-/* ── Control center ────────────────────────────────────────────────── */
+/* ── Control center: like a waybar tooltip, pill cards inside ──────── */
 
 .control-center {
 	background: #1a1b26;
-	border: 1px solid #7aa2f7;
+	border: 1px solid #414868;
 	border-radius: 15px;
 	padding: 4px;
 }
@@ -99,23 +100,27 @@
 	background: transparent;
 }
 
+.control-center .notification {
+	background: #24273a;
+	border-radius: 12px;
+}
+
 .widget-title {
 	color: #a9b1d6;
-	font-size: 16px;
 	margin: 4px 8px;
 }
 
 .widget-title > button {
 	background: #24273a;
-	border: 1px solid #414868;
-	border-radius: 8px;
+	border: none;
+	border-radius: 12px;
 	color: #a9b1d6;
 	padding: 2px 10px;
 }
 
 .widget-title > button:hover {
 	background: #414868;
-	color: #7aa2f7;
+	color: #a9b1d6;
 }
 
 .widget-dnd {
@@ -125,8 +130,8 @@
 
 .widget-dnd > switch {
 	background: #24273a;
-	border: 1px solid #414868;
-	border-radius: 10px;
+	border: none;
+	border-radius: 12px;
 }
 
 .widget-dnd > switch:checked {
@@ -135,7 +140,7 @@
 
 .widget-dnd > switch slider {
 	background: #a9b1d6;
-	border-radius: 8px;
+	border-radius: 10px;
 }
 
 /* group header shown when notification-grouping collapses an app */
@@ -146,8 +151,13 @@
 .notification-group-close-all-button,
 .notification-group-collapse-button {
 	background: #24273a;
-	border: 1px solid #414868;
-	border-radius: 8px;
+	border: none;
+	border-radius: 12px;
 	color: #a9b1d6;
 	margin: 2px;
+}
+
+.notification-group-close-all-button:hover,
+.notification-group-collapse-button:hover {
+	background: #414868;
 }

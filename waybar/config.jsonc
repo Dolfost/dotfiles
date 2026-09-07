@@ -74,6 +74,10 @@
 	"privacy": {
 		"icon-size": 14,
 		"icon-spacing": 6,
+		// our own visualizer taps the audio stream; not a recording concern
+		"ignore": [
+			{ "type": "audio-in", "name": "cava" }
+		],
 		"modules": [
 			{ "type": "screenshare" },
 			{ "type": "audio-in" }
