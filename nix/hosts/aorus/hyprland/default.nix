@@ -1,9 +1,5 @@
 { config, lib, ... }: {
 	home-manager.users.${config.dotfiles.user} = {
-		# hyprlock never renders again after the dpms off->on
-		# round-trip on this dual-AMD-GPU machine, so idle dpms/lock is
-		# a black-screen lockout risk.
-		services.hypridle.enable = lib.mkForce false;
 
 		dotfiles = {
 			# This machine's monitors.

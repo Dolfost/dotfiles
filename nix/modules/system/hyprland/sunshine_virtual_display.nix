@@ -12,7 +12,7 @@ pkgs.writeShellScript "sunshine-virtual-display" ''
 			height="''${SUNSHINE_CLIENT_HEIGHT:-1080}"
 			fps="''${SUNSHINE_CLIENT_FPS:-60}"
 
-			hyprctl dispatch dpms on
+			hyprctl dispatch "hl.dsp.dpms({action='enable'})"
 			sleep 5s
 			hyprctl eval "hl.monitor({output = \"$HEADLESS\", mode = \"''${width}x''${height}@''${fps}\", position = \"auto\", scale = 1, disabled = false})"
 			for m in $(hyprctl monitors -j | ${lib.getExe pkgs.jq} -r '.[].name'); do
@@ -23,6 +23,7 @@ pkgs.writeShellScript "sunshine-virtual-display" ''
 		stop)
 			hyprctl eval "hl.monitor({output = \"$HEADLESS\", disabled = true})"
 			hyprctl reload
+			hyprlock
 			;;
 		*)
 			echo "Usage: $0 {start|stop}" >&2
