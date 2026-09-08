@@ -1,7 +1,10 @@
 { config, ... }: {
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
-	nix.settings.auto-optimise-store = true;
+
+	nix.gc = { automatic = true; dates = "weekly"; options = "--delete-older-than 14d"; };
+	nix.optimise.automatic = true;
+	boot.loader.systemd-boot.configurationLimit = 10;
 
 	# Lets plain `nixos-rebuild switch` find the flake: it defaults to
 	# /etc/nixos/flake.nix#<hostname> when that file exists. The source is a
