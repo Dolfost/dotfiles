@@ -14,7 +14,6 @@
 		../../modules/system/gaming
 		../../modules/system/openrgb
 		../../modules/system/android
-		../../modules/system/latex
 		../../modules/system/work
 	];
 

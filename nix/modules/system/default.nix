@@ -18,7 +18,8 @@
 	];
 	config = {
 		environment.systemPackages = with pkgs; [
-			neovim tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
+			# nodejs: nvim's pandoc-preview plugin serves via `npx browser-sync`
+			neovim nodejs tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
 		];
 		home-manager = {
 			useGlobalPkgs = true;

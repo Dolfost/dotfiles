@@ -26,7 +26,6 @@
 		../../modules/system/openrgb
 		../../modules/system/amd-gpu
 		../../modules/system/android
-		../../modules/system/latex
 		../../modules/system/work
 	];
 
