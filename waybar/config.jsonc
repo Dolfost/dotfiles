@@ -55,6 +55,7 @@
 	"group/status": {
 		"orientation": "inherit",
 		"modules": [
+			"hyprland/language",
 			"clock",
 			"privacy",
 			"custom/caffeine",
@@ -64,6 +65,15 @@
 			"network",
 			"battery"
 		]
+	},
+
+	// kb_layout us,ua (hypr/input.lua); SUPER+SPACE toggles via xkb
+	"hyprland/language": {
+		"format": "{}",
+		"format-en": "EN",
+		"format-uk": "UA",
+		// keyd (ids=*) grabs every keyboard, so its virtual device is the main one everywhere
+		"on-click": "hyprctl switchxkblayout keyd-virtual-keyboard next"
 	},
 
 	"clock": {

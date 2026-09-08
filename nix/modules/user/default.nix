@@ -28,6 +28,13 @@
 		xdg.dataFile."backgrounds".source =
 			config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/wallpapers";
 
+		# Numlock is on everywhere (ly, GNOME, Hyprland all enable it) but its LED
+		# is noise: ~/.config/xkb shadows xkeyboard-config's compat/lednum so the
+		# Num Lock indicator binds to nothing and xkbcommon compositors keep the
+		# LED dark. Console half: udev rule in modules/system/input.
+		xdg.configFile."xkb".source =
+			config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/xkb";
+
 		# Wrapper config for the yazi portal file picker (host side:
 		# modules/system/file-picker). Graphical-wide: any DE may route FileChooser
 		# to termfilechooser, and wezterm follows the same gate.

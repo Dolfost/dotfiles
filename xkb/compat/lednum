@@ -1,0 +1,24 @@
+// Shadows xkeyboard-config's compat/lednum (~/.config/xkb wins the include
+// search): the Num Lock indicator binds to nothing, so xkbcommon compositors
+// (Hyprland, GNOME) keep the numlock LED dark while numlock itself stays on.
+default partial xkb_compatibility "num_lock" {
+    virtual_modifiers  NumLock;
+
+    indicator "Num Lock" {
+	!allowExplicit;
+	whichModState= None;
+	modifiers= None;
+    };
+};
+
+partial xkb_compatibility "group_lock" {
+    indicator "Num Lock" {
+	modifiers= None;
+    };
+};
+
+partial xkb_compatibility "shift_lock" {
+    indicator "Num Lock" {
+	modifiers= None;
+    };
+};

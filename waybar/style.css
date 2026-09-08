@@ -35,6 +35,7 @@ window#waybar.hidden {
 }
 
 /* modules inside the right-hand status pill */
+#language,
 #clock,
 #privacy,
 #custom-caffeine,
