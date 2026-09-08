@@ -1,5 +1,6 @@
-# Music library tagging and QC. Picard already wraps chromaprint, so
-# AcoustID fingerprinting works without a separate fpcalc install.
+# Music library tagging and QC. The CLI tools are useful headless too - only
+# the GUI apps are gated. Picard already wraps chromaprint, so AcoustID
+# fingerprinting works without a separate fpcalc install.
 { config, lib, pkgs, ... }:
 
 {
@@ -9,13 +10,20 @@
 		description = "Music tagging tools.";
 	};
 
-	config = lib.mkIf config.dotfiles.music.enable {
-		home.packages = with pkgs; [
-			picard
-			rsgain
-			lrcget
-			flac
-			spek
-		];
-	};
+	config = lib.mkMerge [
+		{
+			home.packages = with pkgs; [
+				rsgain
+				flac
+			];
+		}
+
+		(lib.mkIf config.dotfiles.music.enable {
+			home.packages = with pkgs; [
+				picard
+				lrcget
+				sonic-visualiser
+			];
+		})
+	];
 }
