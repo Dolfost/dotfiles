@@ -3,9 +3,7 @@
 { config, lib, pkgs, ... }:
 
 let
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 in
 {
 	options.dotfiles.desktop.enable = lib.mkOption {

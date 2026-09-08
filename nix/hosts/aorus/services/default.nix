@@ -80,9 +80,8 @@ in
 			listToAttrs (concatLists (mapAttrsToList mkServe config.dotfiles.serve));
 
 		home-manager.users.${config.dotfiles.user} = { config, ... }: {
-			xdg.configFile."containers/systemd".source =
-				config.lib.file.mkOutOfStoreSymlink
-					"${config.dotfiles.dir}/containers/systemd";
+			xdg.configFile."containers/systemd" =
+				config.lib.dotfiles.link "containers/systemd";
 		};
 	};
 }

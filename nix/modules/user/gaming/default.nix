@@ -2,9 +2,7 @@
 { osConfig ? { }, config, lib, pkgs, ... }:
 
 let
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 
 	# gscope env files: repo-wide game defaults (games.nix), host defaults and
 	# host game overrides (dotfiles.gscope.* set by the NixOS host).

@@ -2,9 +2,7 @@
 { osConfig ? { }, config, lib, pkgs, inputs, ... }:
 
 let
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 
 	apps = { inherit (pkgs) waybar walker; swaync = pkgs.swaynotificationcenter; };
 

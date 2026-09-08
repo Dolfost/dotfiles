@@ -9,9 +9,7 @@ in
 {
 	home-manager.users.${config.dotfiles.user} = { config, ... }: {
 		xdg.configFile = {
-			"containers/nicotine".source =
-				config.lib.file.mkOutOfStoreSymlink
-					"${config.dotfiles.dir}/containers/nicotine";
+			"containers/nicotine" = config.lib.dotfiles.link "containers/nicotine";
 			"systemd/user/nicotine.service.d/env.conf".text = ''
 [Service]
 Environment=NICOTINE_DIR=/storage/2.5/nicotine

@@ -5,9 +5,7 @@
 
 let
 	cfg = config.dotfiles.openrgb;
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 in
 {
 	options.dotfiles.openrgb = {

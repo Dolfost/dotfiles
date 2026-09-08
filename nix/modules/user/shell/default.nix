@@ -3,9 +3,7 @@
 { config, pkgs, ... }:
 
 let
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 in
 {
 	# The zsh config loads sheldon, so it travels with the links.

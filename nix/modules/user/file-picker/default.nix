@@ -11,8 +11,7 @@
 	};
 
 	config = lib.mkIf config.dotfiles.filePicker.enable {
-		xdg.configFile."xdg-desktop-portal-termfilechooser".source =
-			config.lib.file.mkOutOfStoreSymlink
-				"${config.dotfiles.dir}/xdg-desktop-portal-termfilechooser";
+		xdg.configFile."xdg-desktop-portal-termfilechooser" =
+			config.lib.dotfiles.link "xdg-desktop-portal-termfilechooser";
 	};
 }

@@ -4,9 +4,7 @@
 { config, lib, pkgs, ... }:
 
 let
-	link = path: {
-		source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.dir}/${path}";
-	};
+	link = config.lib.dotfiles.link;
 
 	# <device>:<profile>.json, slashes flattened the way easyeffects does it.
 	ruleFile = rule: lib.nameValuePair
