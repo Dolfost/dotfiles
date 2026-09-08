@@ -18,7 +18,13 @@
 			ExecStart = "${pkgs.util-linux}/bin/rfkill block wlan";
 		};
 	};
-	services.openssh.enable = true;
+	services.openssh = {
+		enable = true;
+		settings = {
+			PasswordAuthentication = false;
+			KbdInteractiveAuthentication = false;
+		};
+	};
 	services.tailscale = {
 		enable = true;
 		openFirewall = true;
