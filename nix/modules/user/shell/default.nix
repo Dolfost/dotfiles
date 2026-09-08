@@ -11,6 +11,11 @@ in
 	# The zsh config loads sheldon, so it travels with the links.
 	home.packages = [ pkgs.sheldon ];
 
+	programs.direnv = {
+		enable = true;
+		nix-direnv.enable = true;
+	};
+
 	home.file = {
 		".zshrc" = link "zsh/zshrc";
 		".zprofile" = link "zsh/zprofile";
