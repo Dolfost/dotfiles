@@ -24,6 +24,7 @@ in
 		./hyprland
 		./browser
 		./media
+		./music
 		./audio
 		./openrgb
 		./communication

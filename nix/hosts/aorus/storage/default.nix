@@ -37,6 +37,8 @@
 				config.lib.file.mkOutOfStoreSymlink "/storage/data";
 			"Downloads".source =
 				config.lib.file.mkOutOfStoreSymlink "/storage/data/Downloads";
+			".local/share/PrismLauncher".source =
+				config.lib.file.mkOutOfStoreSymlink "/games/PrismLauncher";
 		};
 	};
 }
