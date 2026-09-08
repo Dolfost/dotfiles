@@ -18,8 +18,7 @@
 	];
 	config = {
 		environment.systemPackages = with pkgs; [
-			neovim ripgrep wget git tmux btop
-			sops age ssh-to-age
+			neovim tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
 		];
 		home-manager = {
 			useGlobalPkgs = true;

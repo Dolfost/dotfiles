@@ -7,10 +7,8 @@
 	home.homeDirectory = "/home/${config.home.username}";
 
 	home.packages = with pkgs; [
-		tree claude-code
-		gnumake cmake
+		claude-code tree
 		lua-language-server
-		clang
 	];
 
 	systemd.user.services.tmux = {
@@ -30,8 +28,10 @@
 
 	programs.git = {
 		enable = true;
+		package = pkgs.git.override { withLibsecret = true; };
 		ignores = [ "*~" ".direnv/" ];
 		settings = {
+			credential.helper = "libsecret";
 			user.name = "Vladyslav Rehan";
 			user.email = "rehanvladyslav@gmail.com";
 			alias = {
