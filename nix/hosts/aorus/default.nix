@@ -27,6 +27,7 @@
 		../../modules/system/amd-gpu
 		../../modules/system/android
 		../../modules/system/latex
+		../../modules/system/work
 	];
 
 	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU).

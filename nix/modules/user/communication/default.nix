@@ -31,7 +31,6 @@ in
 		++ map pinSecretStore (with pkgs; [
 			vesktop
 			signal-desktop
-			element-desktop
 		]);
 	};
 }

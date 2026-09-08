@@ -17,6 +17,7 @@
 		./audio
 		./openrgb
 		./communication
+		./work
 		./guitar
 		./gaming
 	];
