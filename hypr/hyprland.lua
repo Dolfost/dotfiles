@@ -27,6 +27,7 @@ load_local_config()
 
 require('hypr.autostart')
 require('hypr.graphics')
+require('hypr.animations')
 require('hypr.input')
 require('hypr.rules')
 require('hypr.misc')

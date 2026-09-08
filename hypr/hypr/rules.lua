@@ -8,6 +8,14 @@ hl.window_rule {
 	match = { class = '^org\\.ayugram\\.desktop$' },
 	workspace = 'special:chat silent',
 }
+-- Without this, toggling the drawer on another monitor slides its windows
+-- across the screen (windowsMove animates the reposition). The workspace-level
+-- fade from the specialWorkspace animation still applies.
+hl.window_rule {
+	name = 'special-no-window-anim',
+	match = { workspace = 's[true]' },
+	no_anim = true,
+}
 hl.window_rule {
 	name = 'special-transparent',
 	match = { workspace = 's[true]' },
