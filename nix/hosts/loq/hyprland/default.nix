@@ -9,6 +9,10 @@
 				output = "eDP-1", mode = "1920x1080@165",
 				position = "auto", scale = 1
 			})
+			hl.monitor({
+				output = "HDMI-A-3", mode = "1920x1080@60",
+				position = "-1920x0", scale = 1
+			})
 			hl.device({
 				name = "logitech-g102-lightsync-gaming-mouse",
 				sensitivity = -0.3,
