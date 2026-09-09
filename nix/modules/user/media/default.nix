@@ -28,6 +28,7 @@ in
 				zathura
 				feishin
 				gimp
+				drawio
 			];
 
 			xdg.configFile."zathura" = link "zathura";
