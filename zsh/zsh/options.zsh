@@ -8,7 +8,6 @@ setopt correct
 setopt chase_links
 setopt autocd
 setopt braceccl
-setopt extended_glob
 
 zmodload zsh/net/tcp
 
