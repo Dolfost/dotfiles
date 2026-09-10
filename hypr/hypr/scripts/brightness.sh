@@ -60,6 +60,17 @@ if command -v ddcutil >/dev/null; then
 	fi
 fi
 
-# -e (transient) keeps every repeat out of the notification-center history;
-# -r replaces the popup in place instead of stacking a new one per keypress
-[ -n "$value" ] && notify-send -e -u low -t 1500 -a brightness -h int:value:"$value" -r 7423790 '󰃝  Brightness'
+# -e (transient) keeps every repeat out of the notification-center history.
+# swaync only replaces notifications by IDs it assigned itself, so a fixed -r
+# value stacks a new popup per keypress: persist the ID that -p prints and feed
+# it back on the next run instead. flock serializes concurrent runs from a
+# held-down key so they can't race past the file and each spawn their own
+# popup.
+id_file=${XDG_RUNTIME_DIR:-/tmp}/brightness-notify-id
+if [ -n "$value" ]; then
+	exec 9>>"$id_file"
+	flock 9
+	id=$(cat "$id_file")
+	notify-send -p -e -u low -t 1500 -a brightness -h int:value:"$value" \
+		${id:+-r "$id"} '󰃝  Brightness' > "$id_file"
+fi

@@ -84,6 +84,24 @@ in
 			PartOf = [ "graphical-session.target" ];
 		};
 
+		# Per-window keyboard layout. Hyprland has no native option, so this daemon
+		# tracks focus and layout events on the IPC socket and restores each
+		# window's layout via switchxkblayout on the main keyboard - keyd's virtual
+		# device, the one every keystroke comes through. Any toggle (xkb
+		# SUPER+SPACE, waybar click) is picked up from activelayout events.
+		systemd.user.services.hyprland-per-window-layout = {
+			Unit = {
+				Description = "Per-window keyboard layout for Hyprland";
+				After = [ "graphical-session.target" ];
+				PartOf = [ "graphical-session.target" ];
+			};
+			Service = {
+				ExecStart = lib.getExe pkgs.hyprland-per-window-layout;
+				Restart = "on-failure";
+			};
+			Install.WantedBy = [ "graphical-session.target" ];
+		};
+
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
 			"hypr" = link "hypr";
 			"uwsm" = link "uwsm";
