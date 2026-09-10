@@ -13,11 +13,14 @@ status)
 toggle)
 	if systemctl --user --quiet is-active hypridle; then
 		systemctl --user stop hypridle
-		notify-send -r 40238435 -u low -a caffeine "Caffeine" "󰅶 Enabled"
+		msg="󰅶 Enabled"
 	else
 		systemctl --user start hypridle
-		notify-send -r 40238435 -u low -a caffeine "Caffeine" "󰾪 Disabled"
+		msg="󰾪 Disabled"
 	fi
+	id_file=${XDG_RUNTIME_DIR:-/tmp}/caffeine-notify-id
+	id=$(cat "$id_file" 2>/dev/null)
+	notify-send -p -u low -a caffeine ${id:+-r "$id"} "Caffeine" "$msg" > "$id_file"
 	pkill -RTMIN+8 waybar
 	;;
 esac
