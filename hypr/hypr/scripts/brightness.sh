@@ -1,9 +1,9 @@
 #!/bin/sh
 # Unified brightness control for laptops and desktops: adjusts the internal
 # panel (brightnessctl) if present, plus every DDC-capable external monitor
-# (ddcutil). DDC buses are detected once and cached, because `ddcutil detect`
-# takes seconds; the cache lives in XDG_RUNTIME_DIR so it resets on login. Run
-# `brightness.sh refresh` after plugging/unplugging monitors.
+# (ddcutil). DDC buses are detected once and cached, because `ddcutil
+# detect` takes seconds; the cache lives in XDG_RUNTIME_DIR so it resets on
+# login. Run `brightness.sh refresh` after plugging/unplugging monitors.
 #
 # Usage: brightness.sh <command>
 #   max | min                 set brightness to maximum / minimum
@@ -60,4 +60,6 @@ if command -v ddcutil >/dev/null; then
 	fi
 fi
 
-[ -n "$value" ] && notify-send -u low -a brightness -h int:value:"$value" -r 7423790 '󰃝  Brightness'
+# -e (transient) keeps every repeat out of the notification-center history;
+# -r replaces the popup in place instead of stacking a new one per keypress
+[ -n "$value" ] && notify-send -e -u low -t 1500 -a brightness -h int:value:"$value" -r 7423790 '󰃝  Brightness'

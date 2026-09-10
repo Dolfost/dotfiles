@@ -5,7 +5,8 @@ hl.layer_rule { -- disable outline around screenshots
 }
 hl.window_rule {
 	name = 'telegram-to-chat',
-	match = { class = '^org\\.ayugram\\.desktop$' },
+	-- the class flipped org. -> com. in an AyuGram update; match both
+	match = { class = '^(org|com)\\.ayugram\\.desktop$' },
 	workspace = 'special:chat silent',
 }
 -- Without this, toggling the drawer on another monitor slides its windows
@@ -56,6 +57,20 @@ hl.window_rule {
 	name = 'element-to-work',
 	match = { class = '^element$' },
 	workspace = 'special:work silent',
+}
+
+-- Notes drawer is Obsidian-only; Feishin gets its own music drawer. Pinned
+-- by class so late-spawning windows land right regardless of exec-time
+-- assignment.
+hl.window_rule {
+	name = 'obsidian-to-notes',
+	match = { class = '^md\\.Obsidian$' },
+	workspace = 'special:notes silent',
+}
+hl.window_rule {
+	name = 'feishin-to-music',
+	match = { class = '^feishin$' },
+	workspace = 'special:music silent',
 }
 
 -- Pin Discord windows to the chat drawer by class, like Telegram above.

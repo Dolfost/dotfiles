@@ -29,7 +29,7 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm('AyuGram', { workspace = 'special:chat silent' })
 	exec_cmd_uwsm('vesktop', { workspace = 'special:chat silent' })
 	exec_cmd_uwsm('obsidian', { workspace = 'special:notes silent' })
-	exec_cmd_uwsm('feishin', { workspace = 'special:notes silent' })
+	exec_cmd_uwsm('feishin', { workspace = 'special:music silent' })
 	exec_cmd_uwsm('steam -silent', { workspace = '7 silent' })
 
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins

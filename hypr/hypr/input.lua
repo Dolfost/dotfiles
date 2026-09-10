@@ -93,9 +93,9 @@ hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications
-hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('swaync-client --close-all'))
+hl.bind(l..'X',         hl.dsp.exec_raw('swaync-client --close-all'))
 hl.bind(l..'O',         hl.dsp.exec_raw('swaync-client --toggle-panel'))
-hl.bind(l..'X',         hl.dsp.exec_raw('swaync-client --toggle-dnd'))
+hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('swaync-client --toggle-dnd'))
 
 -- apps
 hl.bind('CTRL + ALT + Q', hl.dsp.exec_raw('hyprlock'))
@@ -110,9 +110,9 @@ hl.bind(l..'CTRL + Z', hl.dsp.exec_raw(PDF_VIEWER))
 hl.bind(l..'CTRL + H', hl.dsp.exec_cmd(MENU..' -m clipboard'))
 
 -- screenshots (macOS ⌘ ⇧ 3/4/5: screen / region / window)
-hl.bind('ALT + SHIFT + 3', hl.dsp.exec_raw('hyprshot -m output -m active -o '.. SCREENSHOTS_DIR))
-hl.bind('ALT + SHIFT + 4', hl.dsp.exec_raw('hyprshot -m region -o '.. SCREENSHOTS_DIR))
-hl.bind('ALT + SHIFT + 5', hl.dsp.exec_raw('hyprshot -m window -m active -o '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 3', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh output '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 4', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh region '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 5', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh window '.. SCREENSHOTS_DIR))
 
 -- move focus
 hl.bind(l..'H', hl.dsp.focus({ direction = 'l' }))
@@ -141,6 +141,8 @@ hl.bind(l..'C',         hl.dsp.workspace.toggle_special('chat'))
 hl.bind(l..'SHIFT + C', hl.dsp.window.move({ workspace = 'special:chat' }))
 hl.bind(l..'N',         hl.dsp.workspace.toggle_special('notes'))
 hl.bind(l..'SHIFT + N', hl.dsp.window.move({ workspace = 'special:notes' }))
+hl.bind(l..'M',         hl.dsp.workspace.toggle_special('music'))
+hl.bind(l..'SHIFT + M', hl.dsp.window.move({ workspace = 'special:music' }))
 hl.bind(l..'W',         hl.dsp.workspace.toggle_special('work'))
 hl.bind(l..'SHIFT + W', hl.dsp.window.move({ workspace = 'special:work' }))
 hl.bind(l..'V',         hl.dsp.workspace.toggle_special('call')) -- Voice
@@ -170,8 +172,8 @@ hl.bind('XF86AudioPause', hl.dsp.exec_raw('playerctl play-pause'), { locked = tr
 hl.bind('XF86AudioPlay',  hl.dsp.exec_raw('playerctl play-pause'), { locked = true })
 hl.bind('XF86AudioPrev',  hl.dsp.exec_raw('playerctl previous'),   { locked = true })
 
--- brightness without function keys; same script as XF86 binds above,
--- drives the internal panel and all DDC monitors alike (locked)
+-- brightness without function keys; same script as XF86 binds above, drives
+-- the internal panel and all DDC monitors alike (locked)
 hl.bind(l..'CTRL + comma',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-dec'),  { locked = true })
 hl.bind(l..'CTRL + period',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-inc'),  { locked = true })
 hl.bind(l..'comma',          hl.dsp.exec_raw(SCRIPTS..'brightness.sh dec'),        { locked = true })
