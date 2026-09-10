@@ -45,6 +45,11 @@
 			User = "admin";
 			IdentityFile = "~/.ssh/lab35-rasp";
 		};
+		"rasp" = {
+			HostName = "192.168.144.70";
+			User = "pi";
+			IdentityFile = "~/.ssh/lab35-ml";
+		};
 		"drone" = {
 			HostName = "192.168.144.22";
 			User = "admin";
