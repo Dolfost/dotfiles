@@ -12,12 +12,14 @@ let
 		aorus = {
 			ts_ipv4 = "100.91.220.75";
 			lan_ipv4 = "192.168.0.70";
+			mac = "10:ff:e0:c5:85:82";
 			syncthing_id = "2RT4OHQ-IQGQ7U4-LYVSLOG-XFTHTOG-FGEKQ7W-JYLVK6L-PSGXMXS-NMP2YQL";
 		};
 		loq = {
 			ts_ipv4 = "100.76.130.38";
 			lan_ipv4 = "192.168.0.73";
 			lan_wifi_ipv4 = "192.168.0.74";
+			mac = "38:a7:46:49:fd:8e";
 			syncthing_id = "FAGJ2ZS-NLCFK5F-7KWATND-MUBB6A3-QXRZ5II-NQSB7BY-URY3OST-JZGGXAI";
 		};
 		# Phones run sshd under termux: their own user, port 8022.

@@ -42,6 +42,8 @@
 	services.tailscale.useRoutingFeatures = "server";
 	networking.firewall.enable = false;
 
+	networking.interfaces.enp10s0.wakeOnLan.enable = true;
+
 	services.printing.enable = true;
 
 	system.stateVersion = "26.05"; # DO NOT CHANGE

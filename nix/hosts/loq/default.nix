@@ -20,6 +20,8 @@
 	services.power-profiles-daemon.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
 
+	networking.interfaces.enp7s0.wakeOnLan.enable = true;
+
 	networking.networkmanager.ensureProfiles.profiles = {
 		wired = {
 			connection = {
