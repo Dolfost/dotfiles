@@ -1,5 +1,3 @@
-export ZSH="$HOME/.oh-my-zsh"
-
 if [[ "$(uname -s)" == "Darwin"* ]]; then
 	PATH="$PATH:$HOME/.cargo/bin"
 	PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
@@ -16,7 +14,6 @@ PATH="$PATH:$HOME/.local/bin"
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=8000
-export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 export VISUAL='nvim'
 export EDITOR='nvim'

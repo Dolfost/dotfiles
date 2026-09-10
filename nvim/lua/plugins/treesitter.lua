@@ -1,52 +1,38 @@
----@diagnostic disable: missing-fields
+-- nvim-treesitter main branch. On NixOS the plugin comes pre-built from
+-- nixpkgs (all grammars + queries, linked by home-manager — see
+-- nix/modules/user/shell); elsewhere lazy clones it and :TSUpdate compiles
+-- parsers, which needs the tree-sitter CLI and a C compiler.
+local nix_pack = vim.fn.stdpath("data") .. "/nix/nvim-treesitter"
+local from_nix = vim.uv.fs_stat(nix_pack) ~= nil
+
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
-		build = ":TSUpdate",
+		branch = 'main',
 		lazy = false,
-		enabled = true,
+		dir = from_nix and nix_pack or nil,
+		build = from_nix and nil or ':TSUpdate',
 
-		config = {
-				-- A list of parser names, or "all" (the five listed parsers should always be installed)
-				ensure_installed = {'c', 'cpp', 'bash', 'python', 'c_sharp', 'git_rebase', 'git_config', 'gitignore',
-					'doxygen',
-					'vimdoc', 'lua', 'luadoc', 'vim', 'query', 'markdown', 'markdown_inline',
-					-- 'latex', 'bibtex'
-				},
-
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				sync_install = true,
-
-				-- Automatically install missing parsers when entering buffer
-				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-				auto_install = true,
-
-				-- List of parsers to ignore installing (for "all")
-				ignore_install = { "latex", 'bibtex' },
-
-				-- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-				-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-				highlight = {
-					enable = true,
-					disable = { 'markdown', 'markdown_inline', 'latex', 'bibtex' };
-
-					-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-					-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-					-- the name of the parser)
-					-- list of language that will be disabled
-					-- disable = {'latex', 'gitcommit', 'markdown'},
-					-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-
-					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-					-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-					-- Using this option may slow down your editor, and you may see some duplicate highlights.
-					-- Instead of true it can also be a list of languages
-					additional_vim_regex_highlighting = true,
-				},
-				-- indent = { enable = true,
-				-- 	disable = { "latex", 'bibtex' },
-				-- }
+		config = function()
+			local disabled = {
+				markdown = true, markdown_inline = true,
+				latex = true, bibtex = true,
 			}
+
+			vim.api.nvim_create_autocmd('FileType', {
+				group = vim.api.nvim_create_augroup('treesitter_highlight', {}),
+				callback = function(args)
+					local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+					if not lang or disabled[lang] then
+						return
+					end
+					if pcall(vim.treesitter.start, args.buf, lang) then
+						-- keep regex highlighting alongside treesitter (was
+						-- additional_vim_regex_highlighting = true)
+						vim.bo[args.buf].syntax = 'on'
+					end
+				end,
+			})
+		end,
 	},
 }
