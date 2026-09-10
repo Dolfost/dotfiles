@@ -19,5 +19,10 @@ in
 		];
 
 		xdg.configFile."wezterm" = link "wezterm";
+
+		xdg.userDirs = {
+			enable = true;
+			createDirectories = true;
+		};
 	};
 }
