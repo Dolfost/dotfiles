@@ -55,6 +55,7 @@
 	"group/status": {
 		"orientation": "inherit",
 		"modules": [
+			"custom/airraid",
 			"hyprland/language",
 			"clock",
 			"privacy",
@@ -65,6 +66,18 @@
 			"network",
 			"battery"
 		]
+	},
+
+	// air_raid.sh polls the siren feed; the plane tracks the home region (nix
+	// airRaidRegion, 󱡺  alerted / 󱡻  clear) next to the nationwide count, the
+	// tooltip lists alerted regions (SUPER+A shows the same list as a popup),
+	// and home level changes fire notifications. Click opens the live map.
+	"custom/airraid": {
+		"format": "{}",
+		"return-type": "json",
+		"exec": "~/.config/hypr/hypr/scripts/air_raid.sh",
+		"interval": 30,
+		"on-click": "xdg-open https://alerts.in.ua"
 	},
 
 	// kb_layout us,ua (hypr/input.lua); SUPER+SPACE toggles via xkb

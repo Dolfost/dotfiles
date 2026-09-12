@@ -48,6 +48,18 @@ in
 				host has no toggleable secondary display.
 			'';
 		};
+
+		airRaidRegion = lib.mkOption {
+			type = lib.types.str;
+			default = "";
+			example = "Харківська область";
+			description = ''
+				Home region for the waybar air raid module (air_raid.sh): its siren
+				turns the pill red and fires a critical notification. Must match the
+				feed's naming exactly: "<Name> область", "м. Київ". Empty means the
+				module only shows the nationwide count.
+			'';
+		};
 	};
 
 	config = lib.mkIf cfg.enable {
@@ -109,6 +121,8 @@ in
 			"hypr-local/hyprland.lua".text = cfg.localConfig;
 		} // lib.optionalAttrs (cfg.secondaryDisplay != "") {
 			"hypr-local/secondary_display.sh".text = cfg.secondaryDisplay;
+		} // lib.optionalAttrs (cfg.airRaidRegion != "") {
+			"hypr-local/air_raid.sh".text = ''HOME_REGION="${cfg.airRaidRegion}"'';
 		};
 	};
 }

@@ -148,6 +148,9 @@ hl.bind(l..'SHIFT + W', hl.dsp.window.move({ workspace = 'special:work' }))
 hl.bind(l..'V',         hl.dsp.workspace.toggle_special('call')) -- Voice
 hl.bind(l..'SHIFT + V', hl.dsp.window.move({ workspace = 'special:call' }))
 
+-- Air raid list on demand: the bar widget's tooltip as a toggleable popup.
+hl.bind(l..'A', hl.dsp.exec_raw(SCRIPTS..'air_raid.sh toggle'))
+
 -- workspace scroll with mouse
 hl.bind(l..'mouse_down', hl.dsp.focus({ workspace = 'e+1' }))
 hl.bind(l..'mouse_up',   hl.dsp.focus({ workspace = 'e-1' }))

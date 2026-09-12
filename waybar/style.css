@@ -35,6 +35,7 @@ window#waybar.hidden {
 }
 
 /* modules inside the right-hand status pill */
+#custom-airraid,
 #language,
 #clock,
 #privacy,
@@ -89,6 +90,9 @@ window#waybar.hidden {
 #privacy {
 	color: #e0af68;
 }
+
+/* airraid colors itself with pango spans - plane by home region level, count
+ * by nationwide level - since one module only gets one CSS color */
 
 #custom-caffeine.on {
 	color: #e0af68;

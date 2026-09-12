@@ -1,5 +1,8 @@
 { config, ... }: {
 	home-manager.users.${config.dotfiles.user}.dotfiles = {
+		# Home region for the air raid widget.
+		hyprland.airRaidRegion = "м. Київ";
+
 		# This machine's input devices: the external mouse a notch slower than the
 		# shared input defaults, the touchpad faster and adaptive - flat accel
 		# feels sluggish on a pad, and input.touchpad has no accel/sensitivity

@@ -2,6 +2,9 @@
 	home-manager.users.${config.dotfiles.user} = {
 
 		dotfiles = {
+			# Home region for the air raid widget.
+			hyprland.airRaidRegion = "м. Київ";
+
 			# This machine's monitors.
 			hyprland.localConfig = ''
 				hl.monitor({
