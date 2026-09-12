@@ -29,14 +29,16 @@
 		../../modules/system/work
 	];
 
-	# Gaming runs on the discrete AMD card (gpu_device 0 is the iGPU).
 	programs.gamemode.settings.gpu = {
 		apply_gpu_optimisations = "accept-responsibility";
 		gpu_device = 1;
 		amd_performance_level = "high";
 	};
 
-	dotfiles.gscope.defaults.GAMESCOPE = 0;
+	dotfiles.gscope.defaults = {
+		GAMESCOPE = 0;
+		MANGOHUD_EXTRA = "gpu_list=0"; # show only discrete graphics
+	};
 
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";

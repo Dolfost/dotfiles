@@ -25,6 +25,10 @@ BACKEND=""     # nested backend override; NVIDIA compositing needs "sdl" - the
                # default wayland backend's dmabuf export never maps a window
                # there (ValveSoftware/gamescope#2081)
 GRAB=1         # 0: drop --force-grab-cursor (stalls with the sdl backend)
+MANGOHUD_EXTRA=""  # comma-separated MangoHud params layered over MangoHud.conf,
+									 # for host hardware knowledge (e.g. gpu_list=0 to pin stats to
+									 # one GPU on multi-GPU machines; pci_dev won't work here - the
+									 # MANGOHUD_CONFIG parser splits on its colons)
 
 export LD_PRELOAD=""
 export AMD_USERQ=1
@@ -53,6 +57,7 @@ REFRESH=$(printf "%.0f" "$REFRESH")
 
 MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
 [[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"
+[[ -n "$MANGOHUD_EXTRA" ]] && MANGOHUD_CONFIG+=",$MANGOHUD_EXTRA"
 export MANGOHUD_CONFIG
 
 [[ "$GAMESCOPE" == 0 ]] && exec gamemoderun mangohud "$@"
