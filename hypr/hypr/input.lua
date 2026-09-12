@@ -93,9 +93,10 @@ hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications
-hl.bind(l..'X',         hl.dsp.exec_raw('swaync-client --close-all'))
+hl.bind(l..'X',         hl.dsp.exec_raw('swaync-client --hide-all')) -- hide popups, keep history
 hl.bind(l..'O',         hl.dsp.exec_raw('swaync-client --toggle-panel'))
-hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('swaync-client --toggle-dnd'))
+hl.bind(l..'SHIFT + X', hl.dsp.exec_raw('swaync-client --close-all'))
+hl.bind(l..'CTRL + X',  hl.dsp.exec_raw('swaync-client --toggle-dnd'))
 
 -- apps
 hl.bind('CTRL + ALT + Q', hl.dsp.exec_raw('hyprlock'))
