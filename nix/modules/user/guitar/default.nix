@@ -13,27 +13,34 @@
 		description = "Guitar rig. Follows the host's JACK support on NixOS.";
 	};
 
-	config = lib.mkIf config.dotfiles.guitar.enable {
-		home.packages = with pkgs; [
-			carla
-			reaper
-			lsp-plugins
-			calf
-			guitarix              # also provides gxtuner.lv2
-			neural-amp-modeler-lv2
-			(callPackage ../../../packages/ratatouille.nix { })
-			dragonfly-reverb
-		];
+	config = lib.mkMerge [ 
+		( lib.mkIf config.dotfiles.guitar.enable {
+			home.packages = with pkgs; [
+				lsp-plugins
+				calf
+				guitarix              # also provides gxtuner.lv2
+				neural-amp-modeler-lv2
+				(callPackage ../../../packages/ratatouille.nix { })
+				dragonfly-reverb
+			];
+			dotfiles.hyprland.localConfig = ''
+				hl.env("LD_LIBRARY_PATH", "${pkgs.pipewire.jack}/lib")
+			'';
 
-		dotfiles.hyprland.localConfig = ''
-			hl.env("LD_LIBRARY_PATH", "${pkgs.pipewire.jack}/lib")
-		'';
+			# Plugins land in the nix profile, not /usr/lib - point the hosts at them.
+			home.sessionVariables = {
+				LV2_PATH = "${config.home.profileDirectory}/lib/lv2";
+				LADSPA_PATH = "${config.home.profileDirectory}/lib/ladspa";
+				VST3_PATH = "${config.home.profileDirectory}/lib/vst3";
+			};
+		})
 
-		# Plugins land in the nix profile, not /usr/lib - point the hosts at them.
-		home.sessionVariables = {
-			LV2_PATH = "${config.home.profileDirectory}/lib/lv2";
-			LADSPA_PATH = "${config.home.profileDirectory}/lib/ladspa";
-			VST3_PATH = "${config.home.profileDirectory}/lib/vst3";
-		};
-	};
+		( lib.mkIf config.dotfiles.graphical {
+			home.packages = with pkgs; [
+				carla
+				reaper
+				alsa-scarlett-gui
+			];
+		})
+	];
 }
