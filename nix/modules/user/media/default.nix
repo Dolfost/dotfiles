@@ -29,6 +29,7 @@ in
 				feishin
 				gimp
 				drawio
+				freecad
 			];
 
 			xdg.configFile."zathura" = link "zathura";
