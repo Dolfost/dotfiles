@@ -26,6 +26,7 @@ window#waybar.hidden {
 #workspaces,
 #media,
 #window,
+#custom-airraid,
 #tray,
 #status {
 	background-color: #1a1b26;
@@ -35,7 +36,6 @@ window#waybar.hidden {
 }
 
 /* modules inside the right-hand status pill */
-#custom-airraid,
 #language,
 #clock,
 #privacy,

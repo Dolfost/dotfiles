@@ -149,8 +149,8 @@ if [ "$home_state" != "none" ]; then
 		id_file=${XDG_RUNTIME_DIR:-/tmp}/air-raid-notify-id
 		id=$(cat "$id_file" 2>/dev/null)
 		case "$home_state" in
-		red)    notify-send -p -u critical -a air-raid ${id:+-r "$id"} "󱡺 Air raid alert" "$HOME_REGION" > "$id_file" ;;
-		yellow) notify-send -p -u normal   -a air-raid ${id:+-r "$id"} "󱡺 Threat advisory (yellow)" "$HOME_REGION" > "$id_file" ;;
+		red)    notify-send -p -u critical -a air-raid ${id:+-r "$id"} "󱡺  Air raid alert" "$HOME_REGION" > "$id_file" ;;
+		yellow) notify-send -p -u normal   -a air-raid ${id:+-r "$id"} "󱡺  Threat advisory" "$HOME_REGION" > "$id_file" ;;
 		off)    [ -n "$prev" ] &&
 		        notify-send -p -u normal   -a air-raid ${id:+-r "$id"} "All clear" "$HOME_REGION" > "$id_file" ;;
 		esac
