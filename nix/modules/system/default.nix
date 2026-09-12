@@ -21,6 +21,7 @@
 			# nodejs: nvim's pandoc-preview plugin serves via `npx browser-sync`
 			neovim nodejs tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
 			gnutar zip unzip unrar p7zip
+			zellij
 		];
 		home-manager = {
 			useGlobalPkgs = true;

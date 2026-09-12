@@ -11,21 +11,6 @@
 		lua-language-server
 	];
 
-	systemd.user.services.tmux = {
-		Unit.Description = "tmux session";
-		Service = {
-			Type = "oneshot";
-			RemainAfterExit = true;
-			ExecStart = pkgs.writeShellScript "tmux-main" ''
-				${pkgs.tmux}/bin/tmux has-session -t main 2>/dev/null \
-					|| ${pkgs.tmux}/bin/tmux new-session -d -s main
-			'';
-			ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t main";
-			KillMode = "none";
-		};
-		Install.WantedBy = [ "default.target" ];
-	};
-
 	programs.git = {
 		enable = true;
 		package = pkgs.git.override { withLibsecret = true; };

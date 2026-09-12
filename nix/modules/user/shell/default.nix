@@ -1,12 +1,12 @@
-# Shell and editor config links. Always on — every account that gets a
-# home gets a shell.
+# Shell and editor config links. Always on - every account that gets a home
+# gets a shell.
 { config, pkgs, ... }:
 
 let
 	link = config.lib.dotfiles.link;
 	# nvim-treesitter with every grammar and its queries from nixpkgs, flattened
 	# into one plugin dir (lua/, parser/*.so, queries/*). lazy.nvim uses it as
-	# the plugin when the link exists — see nvim/lua/plugins/treesitter.lua.
+	# the plugin when the link exists - see nvim/lua/plugins/treesitter.lua.
 	treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
 	treesitterPack = pkgs.symlinkJoin {
 		name = "nvim-treesitter-with-grammars";
@@ -15,7 +15,9 @@ let
 in
 {
 	# The zsh config loads sheldon, so it travels with the links.
-	home.packages = [ pkgs.sheldon ];
+	home.packages = with pkgs; [
+		sheldon zellij neovim
+	];
 
 	programs.direnv = {
 		enable = true;
@@ -35,5 +37,6 @@ in
 		"zsh" = link "zsh/zsh";
 		"sheldon" = link "zsh/sheldon";
 		"nvim" = link "nvim";
+		"zellij" = link "zellij";
 	};
 }

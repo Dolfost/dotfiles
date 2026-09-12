@@ -21,7 +21,7 @@ hl.on("hyprland.start", function()
 	start_systemd_service('hyprsunset')
 	start_systemd_service('swaync')
 
-	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'tmux attach -t main'", { workspace = 1 })
+	exec_cmd_uwsm(TERMINAL..' start -- '..SHELL.." -lc 'zellij attach --create main'", { workspace = 1 })
 	exec_cmd_uwsm(WEB_BROWSER, { workspace = '2 silent' })
 
 	exec_cmd_uwsm('signal-desktop', { workspace = 'special:work silent' })
