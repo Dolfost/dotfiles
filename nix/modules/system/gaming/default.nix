@@ -8,7 +8,7 @@ in
 {
 	# bin/gscope tuning is hardware knowledge too: hosts say how their GPUs
 	# misbehave, the user gaming module renders it into ~/.config/gscope/*.env.
-	options.dotfiles.gscope = {
+	options.dotfiles.gaming.gscope = {
 		defaults = lib.mkOption {
 			type = envAttrs;
 			default = { };
@@ -23,7 +23,7 @@ in
 
 	# Where recordings land is host knowledge too (which disk has the space); the
 	# user gaming module reads these and falls back to ~/Videos.
-	options.dotfiles.gsr = {
+	options.dotfiles.gaming.gsr = {
 		recordDir = lib.mkOption {
 			type = lib.types.nullOr lib.types.str;
 			default = null;

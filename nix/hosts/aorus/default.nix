@@ -36,13 +36,13 @@
 		amd_performance_level = "high";
 	};
 
-	dotfiles.gscope.defaults = {
+	dotfiles.gaming.gscope.defaults = {
 		GAMESCOPE = 0;
 		MANGOHUD_EXTRA = "gpu_list=0"; # show only discrete graphics
 		REPLAY = 180; # rolling clip buffer for every game; ALT+SHIFT+6 saves
 	};
 
-	dotfiles.gsr = {
+	dotfiles.gaming.gsr = {
 		recordDir = "/storage/3.5/recordings";
 		replayDir = "/storage/3.5/replays";
 	};
