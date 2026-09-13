@@ -12,6 +12,7 @@
 		../../modules/system/gnome
 		../../modules/system/ly
 		../../modules/system/gaming
+		../../modules/system/media
 		../../modules/system/openrgb
 		../../modules/system/android
 		../../modules/system/work

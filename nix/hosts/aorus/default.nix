@@ -22,6 +22,7 @@
 		../../modules/system/gnome
 		../../modules/system/ly
 		../../modules/system/gaming
+		../../modules/system/media
 		../../modules/system/guitar
 		../../modules/system/openrgb
 		../../modules/system/amd-gpu
