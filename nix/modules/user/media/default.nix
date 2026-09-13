@@ -47,6 +47,7 @@ in
 						obs-vkcapture
 					];
 				})
+				remmina
 			];
 
 			xdg.configFile."zathura" = link "zathura";
