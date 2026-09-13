@@ -78,6 +78,7 @@ in
 					prep-cmd = [ virtualDisplay ] ++ steamBigPicture.prep-cmd;
 				});
 		};
+		services.ratbagd.enable = true;
 
 		programs.gamescope.enable = true;
 

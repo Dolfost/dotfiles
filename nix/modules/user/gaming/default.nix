@@ -52,7 +52,9 @@ in
 	};
 
 	config = lib.mkIf config.dotfiles.gaming.enable {
-		home.packages = [ pkgs.protonplus pkgs.gpu-screen-recorder-gtk ];
+		home.packages = with pkgs; [
+			protonplus gpu-screen-recorder-gtk piper
+		];
 		xdg.configFile = { "MangoHud" = link "MangoHud"; } // envFiles;
 		home.file.".local/bin/gscope" = link "bin/gscope";
 
