@@ -114,6 +114,7 @@ hl.bind(l..'CTRL + H', hl.dsp.exec_cmd(MENU..' -m clipboard'))
 hl.bind('ALT + SHIFT + 3', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh output '.. SCREENSHOTS_DIR))
 hl.bind('ALT + SHIFT + 4', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh region '.. SCREENSHOTS_DIR))
 hl.bind('ALT + SHIFT + 5', hl.dsp.exec_raw(SCRIPTS..'screenshot.sh window '.. SCREENSHOTS_DIR))
+hl.bind('ALT + SHIFT + 6', hl.dsp.exec_raw('pkill -USR1 -f "gpu-screen-recorder [-]w"'))
 
 -- move focus
 hl.bind(l..'H', hl.dsp.focus({ direction = 'l' }))

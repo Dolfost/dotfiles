@@ -38,6 +38,12 @@
 	dotfiles.gscope.defaults = {
 		GAMESCOPE = 0;
 		MANGOHUD_EXTRA = "gpu_list=0"; # show only discrete graphics
+		REPLAY = 180; # rolling clip buffer for every game; ALT+SHIFT+6 saves
+	};
+
+	dotfiles.gsr = {
+		recordDir = "/storage/3.5/recordings";
+		replayDir = "/storage/3.5/replays";
 	};
 
 	# Network: this box routes for the tailnet and trusts its LAN.

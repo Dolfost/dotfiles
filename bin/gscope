@@ -25,6 +25,10 @@ BACKEND=""     # nested backend override; NVIDIA compositing needs "sdl" - the
                # default wayland backend's dmabuf export never maps a window
                # there (ValveSoftware/gamescope#2081)
 GRAB=1         # 0: drop --force-grab-cursor (stalls with the sdl backend)
+REPLAY=0       # seconds of gameplay kept in a rolling gpu-screen-recorder
+               # buffer, saved as a clip on SIGUSR1 (ALT+SHIFT+6). 0: off.
+               # Captures the same monitor the game is detected/placed on.
+REPLAY_FPS=60  # replay recording framerate, independent of the game's
 MANGOHUD_EXTRA=""  # comma-separated MangoHud params layered over MangoHud.conf,
 									 # for host hardware knowledge (e.g. gpu_list=0 to pin stats to
 									 # one GPU on multi-GPU machines; pci_dev won't work here - the
@@ -59,6 +63,17 @@ MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
 [[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"
 [[ -n "$MANGOHUD_EXTRA" ]] && MANGOHUD_CONFIG+=",$MANGOHUD_EXTRA"
 export MANGOHUD_CONFIG
+
+if [[ "$REPLAY" != 0 ]] && command -v gpu-screen-recorder >/dev/null; then
+	UNIT="gscope-replay-$$"
+	systemd-run --user --collect --quiet --unit="$UNIT" \
+		gpu-screen-recorder -w "${OUTPUT:-screen}" -f "$REPLAY_FPS" \
+		-a default_output -r "$REPLAY" -c mp4 \
+		-o "${REPLAY_DIR:-$HOME/Videos/Replays}"
+	setsid -f bash -c \
+		"while kill -0 $$ 2>/dev/null; do sleep 5; done; systemctl --user stop $UNIT" \
+		>/dev/null 2>&1
+fi
 
 [[ "$GAMESCOPE" == 0 ]] && exec gamemoderun mangohud "$@"
 

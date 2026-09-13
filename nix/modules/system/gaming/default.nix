@@ -21,6 +21,21 @@ in
 		};
 	};
 
+	# Where recordings land is host knowledge too (which disk has the space); the
+	# user gaming module reads these and falls back to ~/Videos.
+	options.dotfiles.gsr = {
+		recordDir = lib.mkOption {
+			type = lib.types.nullOr lib.types.str;
+			default = null;
+			description = "Host override for where GPU Screen Recorder saves recordings.";
+		};
+		replayDir = lib.mkOption {
+			type = lib.types.nullOr lib.types.str;
+			default = null;
+			description = "Host override for where GPU Screen Recorder saves replay clips.";
+		};
+	};
+
 	config = {
 		programs.gamemode.enable = true;
 
@@ -64,9 +79,9 @@ in
 				});
 		};
 
-		# capSysNice stays off: the wrapped binary breaks when launched from inside
-		# Steam's FHS env, which is exactly how bin/gscope runs it.
 		programs.gamescope.enable = true;
+
+		programs.gpu-screen-recorder.enable = true;
 
 		programs.steam = {
 			enable = true;
@@ -77,6 +92,8 @@ in
 			mangohud
 			adwsteamgtk
 			prismlauncher
+			nvtopPackages.full
+			amdgpu_top
 		];
 	};
 }
