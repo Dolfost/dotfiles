@@ -1,6 +1,6 @@
 # Viewers, players, and the tools that feed them. The CLI tools are
 # useful everywhere, headless included — only the viewers are gated.
-{ config, lib, pkgs, ... }:
+{ osConfig ? { }, config, lib, pkgs, ... }:
 
 let
 	link = config.lib.dotfiles.link;
@@ -10,6 +10,14 @@ in
 		type = lib.types.bool;
 		default = config.dotfiles.graphical;
 		description = "Media viewers and players.";
+	};
+
+	options.dotfiles.media.recordDir = lib.mkOption {
+		type = lib.types.str;
+		default =
+			let host = (osConfig.dotfiles.media or { }).recordDir or null;
+			in if host == null then "${config.home.homeDirectory}/Videos" else host;
+		description = "Where OBS saves recordings. Follows the host's dotfiles.media.recordDir on NixOS.";
 	};
 
 	config = lib.mkMerge [
@@ -42,6 +50,23 @@ in
 			];
 
 			xdg.configFile."zathura" = link "zathura";
+
+			# OBS rewrites its ini wholesale on every settings change, so (like the
+			# GSR config in ../gaming) it stays mutable and nix re-pins just the
+			# save locations on each switch, in every profile that exists by then.
+			# Each substitution is scoped to its ini section so a same-named key
+			# appearing elsewhere someday can't be clobbered.
+			home.activation.obsRecordDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+				run mkdir -p "${config.dotfiles.media.recordDir}"
+				for ini in ${config.xdg.configHome}/obs-studio/basic/profiles/*/basic.ini; do
+					[ -e "$ini" ] || continue
+					run ${pkgs.gnused}/bin/sed -i \
+						-e '/^\[SimpleOutput\]/,/^\[/ s|^FilePath=.*|FilePath=${config.dotfiles.media.recordDir}|' \
+						-e '/^\[AdvOut\]/,/^\[/ s|^RecFilePath=.*|RecFilePath=${config.dotfiles.media.recordDir}|' \
+						-e '/^\[AdvOut\]/,/^\[/ s|^FFFilePath=.*|FFFilePath=${config.dotfiles.media.recordDir}|' \
+						"$ini"
+				done
+			'';
 
 			# Default handlers (~/.config/mimeapps.list): mpv for video, nomacs for
 			# images, zathura for documents, nvim for text.

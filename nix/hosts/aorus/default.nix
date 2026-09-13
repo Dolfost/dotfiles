@@ -46,6 +46,7 @@
 		recordDir = "/storage/3.5/recordings";
 		replayDir = "/storage/3.5/replays";
 	};
+	dotfiles.media.recordDir = "/storage/3.5/recordings";
 
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";
