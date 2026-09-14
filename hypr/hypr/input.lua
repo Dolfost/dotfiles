@@ -46,7 +46,7 @@ local l = 'SUPER + '
 --   SUPER + number         -> focus workspace (SHIFT: move window there)
 --   SUPER + letter         -> toggle drawer   (SHIFT: move window there)
 --   SUPER + CTRL + letter  -> launch apps
---   SUPER + Y              -> reload waybar
+--   SUPER + Y              -> toggle waybar on focused monitor (SHIFT: all)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
@@ -89,7 +89,8 @@ hl.bind(l..'I', hl.dsp.exec_raw(SCRIPTS..'caffeine.sh toggle')) -- inhibit idle
 hl.bind(l..'D',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
 hl.bind(l..'SHIFT + D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))
 hl.bind(l..'G',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh mirror'))
-hl.bind(l..'Y', hl.dsp.exec_raw('pkill -USR1 waybar'))
+hl.bind(l..'Y',         hl.dsp.exec_raw(SCRIPTS..'waybar_output.sh toggle'))
+hl.bind(l..'SHIFT + Y', hl.dsp.exec_raw('pkill -USR1 waybar')) -- every instance
 hl.bind('ALT + SPACE', hl.dsp.exec_cmd(MENU))
 
 -- notifications

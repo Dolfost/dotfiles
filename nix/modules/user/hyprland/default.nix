@@ -114,6 +114,23 @@ in
 			Install.WantedBy = [ "graphical-session.target" ];
 		};
 
+		# One waybar instance per monitor so a bar can be hidden per output
+		# (SIGUSR1 toggles a whole waybar process). waybar_output.sh pins the
+		# shared config to %i; autostart.lua starts an instance per monitor and
+		# follows hotplug via hl.on monitor.added/removed.
+		systemd.user.services."waybar@" = {
+			Unit = {
+				Description = "Waybar on output %i";
+				After = [ "graphical-session.target" ];
+				PartOf = [ "graphical-session.target" ];
+			};
+			Service = {
+				ExecStart = "%h/.config/hypr/hypr/scripts/waybar_output.sh run %i";
+				ExecReload = "kill -SIGUSR2 $MAINPID";
+				Restart = "on-failure";
+			};
+		};
+
 		xdg.configFile = lib.mapAttrs (name: _: link name) apps // {
 			"hypr" = link "hypr";
 			"uwsm" = link "uwsm";

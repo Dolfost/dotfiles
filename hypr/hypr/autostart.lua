@@ -3,18 +3,31 @@
 function exec_cmd_uwsm(cmd, opts)
 	local bin = cmd:match('^%S+')
 	return hl.exec_cmd('command -v ' .. bin ..
-		' >/dev/null && exec uwsm app -p After=waybar.service -- ' .. cmd, opts)
+		' >/dev/null && exec uwsm app -- ' .. cmd, opts)
 end
 
 function start_systemd_service(service, opts)
 	return hl.exec_cmd('systemctl --user ' .. (opts or '') .. ' start ' .. service)
 end
 
+-- One waybar instance per monitor (waybar@.service, hyprland nix module) so
+-- SUPER+Y can hide the bar on just the focused output. Registered at top level
+-- so instances follow hotplug; start/stop is idempotent, which matters because
+-- monitor.removed can fire several times per removal.
+hl.on('monitor.added', function(mon)
+	start_systemd_service('waybar@' .. mon.name .. '.service')
+end)
+hl.on('monitor.removed', function(mon)
+	hl.exec_cmd('systemctl --user stop waybar@' .. mon.name .. '.service')
+end)
+
 hl.on("hyprland.start", function()
 	hl.exec_cmd('hyprlock') --  WARN: IMPORTANT
 	hl.exec_cmd('hyprctl monitors all | grep -q sunshine-headless || hyprctl output create headless sunshine-headless')
 
-	start_systemd_service('waybar.service')
+	-- monitors already present fired no monitor.added while the config loaded
+	hl.exec_cmd("hyprctl monitors -j | jq -r '.[].name' | " ..
+		"xargs -I{} systemctl --user start 'waybar@{}.service'")
 	start_systemd_service('hypridle')
 	start_systemd_service('hyprpaper')
 	start_systemd_service('hyprpolkitagent')
