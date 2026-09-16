@@ -20,6 +20,25 @@ in
 			};
 		};
 
+		# Apps record from "Virtual Microphone"; it mixes whatever is linked into
+		# its input ports. Only direct port links (a patchbay, pw-link, carla) can
+		# feed it - wireplumber cannot route playback streams into an
+		# Audio/Source/Virtual node, so there is no automatic mic feed.
+		extraConfig.pipewire."20-virtual-mic" = {
+			"context.objects" = [
+			{
+				factory = "adapter";
+				args = {
+					"factory.name" = "support.null-audio-sink";
+					"node.name" = "virtual-mic";
+					"node.description" = "Virtual Microphone";
+					"media.class" = "Audio/Source/Virtual";
+					"audio.position" = [ "FL" "FR" ];
+				};
+			}
+			];
+		};
+
 		wireplumber.extraConfig."10-alsa-rate" = {
 			"monitor.alsa.rules" = [
 			{
