@@ -21,6 +21,15 @@ in
 		};
 	};
 
+	# Lossless Scaling frame generation (lsfg-vk) is opt-in per host: the user
+	# gaming module needs the proprietary Lossless.dll in the store, so enabling
+	# it on a host that never ran `nix-store --add-fixed` would break its build.
+	options.dotfiles.gaming.lsfg.enable = lib.mkOption {
+		type = lib.types.bool;
+		default = false;
+		description = "lsfg-vk frame generation. Needs Lossless.dll added to the store once per host; see modules/user/gaming.";
+	};
+
 	# Where recordings land is host knowledge too (which disk has the space); the
 	# user gaming module reads these and falls back to ~/Videos.
 	options.dotfiles.gaming.gsr = {

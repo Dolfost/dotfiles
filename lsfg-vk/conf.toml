@@ -1,0 +1,31 @@
+version = 1
+
+[global]
+dll = "/home/vladyslav/.local/share/lossless-scaling/Lossless.dll"
+
+# Arma Reforger
+[[game]]
+exe = "reforger"
+multiplier = 3
+flow_scale = 0.68
+performance_mode = true
+hdr_mode = false
+experimental_present_mode = "fifo"
+
+# Red Dead Redemption 2
+[[game]]
+exe = "rdr2"
+multiplier = 2
+flow_scale = 0.75
+performance_mode = true
+hdr_mode = false
+experimental_present_mode = "fifo"
+
+# smoke test: LSFG_PROCESS=vkcube vkcube
+[[game]]
+exe = "vkcube"
+multiplier = 4
+flow_scale = 1.0
+performance_mode = true
+hdr_mode = false
+experimental_present_mode = "fifo"
