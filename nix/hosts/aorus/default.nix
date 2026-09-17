@@ -36,8 +36,6 @@
 		amd_performance_level = "high";
 	};
 
-	dotfiles.gaming.lsfg.enable = true;
-
 	dotfiles.gaming.gscope.defaults = {
 		GAMESCOPE = 0;
 		MANGOHUD_EXTRA = "gpu_list=0"; # show only discrete graphics

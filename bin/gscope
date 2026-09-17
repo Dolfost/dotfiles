@@ -29,8 +29,6 @@ REPLAY=0       # seconds of gameplay kept in a rolling gpu-screen-recorder
                # buffer, saved as a clip on SIGUSR1 (ALT+SHIFT+6). 0: off.
                # Captures the same monitor the game is detected/placed on.
 REPLAY_FPS=60  # replay recording framerate, independent of the game's
-LSFG_PROCESS="" # lsfg-vk frame-gen preset: must match a [[game]] exe in
-                # ~/.config/lsfg-vk/conf.toml. Empty: no frame generation.
 MANGOHUD_EXTRA=""  # comma-separated MangoHud params layered over MangoHud.conf,
 									 # for host hardware knowledge (e.g. gpu_list=0 to pin stats to
 									 # one GPU on multi-GPU machines; pci_dev won't work here - the
@@ -60,8 +58,6 @@ if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
 fi
 
 REFRESH=$(printf "%.0f" "$REFRESH")
-
-[[ -n "$LSFG_PROCESS" ]] && export LSFG_PROCESS
 
 MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
 [[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"

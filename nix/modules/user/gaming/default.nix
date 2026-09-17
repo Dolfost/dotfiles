@@ -13,27 +13,6 @@ let
 	gsrFromHost = key: fallback:
 		let host = (osConfig.dotfiles.gaming.gsr or { }).${key} or null;
 		in if host == null then fallback else host;
-	# lsfg-vk: Lossless Scaling frame generation as an implicit Vulkan layer.
-	# Presets live in lsfg-vk/conf.toml in the repo (linked below, edits land in
-	# git); bin/gscope exports LSFG_PROCESS (set per game in games.nix) to pick
-	# one. Host opt-in (dotfiles.gaming.lsfg.enable) because of the DLL below.
-	lsfgEnable = osConfig.dotfiles.gaming.lsfg.enable or false;
-
-	# The frame-gen shaders live in the proprietary Windows app's Lossless.dll -
-	# unredistributable, so it stays out of the repo and each host provides it
-	# once: nix-store --add-fixed sha256 <path>. Linked to the stable home path
-	# conf.toml names, which also keeps it alive across GC.
-	losslessDll = pkgs.requireFile {
-		name = "Lossless.dll";
-		sha256 = "1szh3618qx3dnnxx39anrxqap4l64829xcmpa11cs1lng5nijsv2";
-		message = ''
-			Lossless.dll is proprietary (part of Lossless Scaling). Take it from a
-			Steam install (steamapps/common/Lossless Scaling/Lossless.dll) or the
-			LosslessScaling.tar.zst backup, then run:
-				nix-store --add-fixed sha256 /path/to/Lossless.dll
-		'';
-	};
-
 	globalGames = import ./games.nix;
 	gameEnv = id: (globalGames.${id} or { }) // (gscope.games.${id} or { });
 	envFile = attrs: {
@@ -75,13 +54,9 @@ in
 	config = lib.mkIf config.dotfiles.gaming.enable {
 		home.packages = with pkgs; [
 			protonplus gpu-screen-recorder-gtk piper
-		] ++ lib.optional lsfgEnable lsfg-vk;
-		xdg.configFile = { "MangoHud" = link "MangoHud"; } // envFiles
-			// lib.optionalAttrs lsfgEnable { "lsfg-vk" = link "lsfg-vk"; };
-		home.file = { ".local/bin/gscope" = link "bin/gscope"; }
-			// lib.optionalAttrs lsfgEnable {
-				".local/share/lossless-scaling/Lossless.dll".source = losslessDll;
-			};
+		];
+		xdg.configFile = { "MangoHud" = link "MangoHud"; } // envFiles;
+		home.file.".local/bin/gscope" = link "bin/gscope";
 
 		# The GTK app rewrites its whole config file on every settings change, so
 		# it can't be a store link. Nix owns only the save locations: each switch
