@@ -59,6 +59,14 @@ fi
 
 REFRESH=$(printf "%.0f" "$REFRESH")
 
+# Wine enumerates display modes from the X primary output; with none set it
+# falls back to the first one, so a game launched on any other monitor caps its
+# resolution list at that first monitor's max. XWayland outputs keep Hyprland's
+# names, so the detected launch monitor can be made primary.
+if [[ -n "$OUTPUT" ]] && command -v xrandr >/dev/null; then
+	xrandr --output "$OUTPUT" --primary 2>/dev/null
+fi
+
 MANGOHUD_CONFIG="read_cfg,fps_limit=$((REFRESH - 3))"
 [[ "$HUD_HIDDEN" == 1 ]] && MANGOHUD_CONFIG+=",no_display"
 [[ -n "$MANGOHUD_EXTRA" ]] && MANGOHUD_CONFIG+=",$MANGOHUD_EXTRA"

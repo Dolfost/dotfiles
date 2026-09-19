@@ -12,5 +12,12 @@ hl.config({
 		-- Let a fresh hyprlock take over if the running one dies mid-lock;
 		-- otherwise the session stays locked with no way to enter a password.
 		allow_session_lock_restore = true,
+	},
+
+	xwayland = {
+		-- Without this, XWayland apps on a scaled monitor see its logical size
+		-- (e.g. 2880x1620 on a 4K panel at scale 1.33), so Proton games cap their
+		-- resolution lists below native and can't fill the screen.
+		force_zero_scaling = true,
 	}
 })

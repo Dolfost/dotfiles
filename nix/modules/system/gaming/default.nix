@@ -90,6 +90,7 @@ in
 		};
 
 		environment.systemPackages = with pkgs; [
+			xrandr
 			mangohud
 			adwsteamgtk
 			prismlauncher
