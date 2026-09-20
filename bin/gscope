@@ -33,8 +33,12 @@ MANGOHUD_EXTRA=""  # comma-separated MangoHud params layered over MangoHud.conf,
 									 # for host hardware knowledge (e.g. gpu_list=0 to pin stats to
 									 # one GPU on multi-GPU machines; pci_dev won't work here - the
 									 # MANGOHUD_CONFIG parser splits on its colons)
+OVERLAY=1      # 0: wipe LD_PRELOAD, stripping Steam's gameoverlayrenderer.so.
+               # That kills the in-game overlay: the guide button then routes
+               # input to the Big Picture window hidden behind the fullscreen
+               # game (sounds, no picture). Only for games that stutter or
+               # crash with the overlay hooked.
 
-export LD_PRELOAD=""
 export AMD_USERQ=1
 export PROTON_USE_NTSYNC=1
 export MANGOHUD=1   # required for the --mangoapp overlay to hook the game
@@ -58,6 +62,8 @@ if [[ -n "$SteamAppId" && -r "$HOME/.config/gscope/$SteamAppId.env" ]]; then
 fi
 
 REFRESH=$(printf "%.0f" "$REFRESH")
+
+[[ "$OVERLAY" == 0 ]] && export LD_PRELOAD=""
 
 # Wine enumerates display modes from the X primary output; with none set it
 # falls back to the first one, so a game launched on any other monitor caps its

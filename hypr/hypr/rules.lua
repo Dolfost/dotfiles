@@ -91,3 +91,14 @@ hl.window_rule {
 	rounding = 0,
 }
 hl.workspace_rule { workspace = 'special:call', gaps_out = 0, gaps_in = 0 }
+
+-- The in-game Steam overlay is painted inside the Big Picture window and
+-- shipped to the game from there. A fullscreen game fully occludes BPM, so
+-- Hyprland stops its frame callbacks and the overlay drops to a slideshow
+-- (sound keeps up, picture lags seconds behind). Keep BPM rendering while
+-- hidden; misc.render_unfocused_fps sets how smooth the overlay is.
+hl.window_rule {
+	name = 'bigpicture-render-occluded',
+	match = { class = '^steam$', title = '^Steam Big Picture Mode$' },
+	render_unfocused = true,
+}

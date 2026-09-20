@@ -12,6 +12,9 @@ hl.config({
 		-- Let a fresh hyprlock take over if the running one dies mid-lock;
 		-- otherwise the session stays locked with no way to enter a password.
 		allow_session_lock_restore = true,
+		-- Occluded Big Picture keeps rendering at this rate (rules.lua
+		-- bigpicture-render-occluded) - it is the in-game overlay's framerate.
+		render_unfocused_fps = 60,
 	},
 
 	xwayland = {
