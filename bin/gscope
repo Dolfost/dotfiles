@@ -38,6 +38,10 @@ OVERLAY=1      # 0: wipe LD_PRELOAD, stripping Steam's gameoverlayrenderer.so.
                # input to the Big Picture window hidden behind the fullscreen
                # game (sounds, no picture). Only for games that stutter or
                # crash with the overlay hooked.
+HIDE_BAR=1     # 1: toggle waybar visibility (SIGUSR1, same as SUPER+Y) on the
+               # game's monitor at launch and again on exit. Blind toggles:
+               # SUPER+Y still works mid-game, but manual toggles around a
+               # game can leave the bar state inverted afterwards.
 
 export AMD_USERQ=1
 export PROTON_USE_NTSYNC=1
@@ -86,6 +90,14 @@ if [[ "$REPLAY" != 0 ]] && command -v gpu-screen-recorder >/dev/null; then
 		-o "${REPLAY_DIR:-$HOME/Videos/Replays}"
 	setsid -f bash -c \
 		"while kill -0 $$ 2>/dev/null; do sleep 5; done; systemctl --user stop $UNIT" \
+		>/dev/null 2>&1
+fi
+
+if [[ "$HIDE_BAR" == 1 && -n "$OUTPUT" ]]; then
+	systemctl --user kill -s USR1 --kill-whom=main "waybar@$OUTPUT.service" 2>/dev/null
+	setsid -f bash -c \
+		"while kill -0 $$ 2>/dev/null; do sleep 5; done; \
+		systemctl --user kill -s USR1 --kill-whom=main 'waybar@$OUTPUT.service'" \
 		>/dev/null 2>&1
 fi
 
