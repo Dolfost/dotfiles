@@ -1,0 +1,15 @@
+# Steam Input injects chord keyboard presses via XTEST inside XWayland, so
+# Hyprland binds never see them - only X clients can. This catches the media
+# keys from controller chords (PS+stick etc.) and routes them to wpctl.
+# Physical media keys are consumed by Hyprland's own binds before XWayland, so
+# these fire for the injected ones only. 5% steps: chords are taps, not holds,
+# unlike the repeating 1% keyboard binds.
+
+"wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+    XF86AudioRaiseVolume
+
+"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    XF86AudioLowerVolume
+
+"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    XF86AudioMute

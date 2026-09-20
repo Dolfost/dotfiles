@@ -17,7 +17,7 @@ GAMESCOPE=1    # 0: run the game directly under gamemode + mangohud layer.
                # panel it adds nothing over Hyprland fullscreen anyway.
 HDR=1
 VRR=1
-HUD_HIDDEN=1   # 1: start with HUD hidden (toggle with Shift+F12); 0: start visible
+HUD_HIDDEN=1   # 1: start with HUD hidden (toggle with Shift+F9); 0: start visible
 VK_DEVICE=""   # vendor:device (e.g. 10de:2d58) to pin gamescope compositing to
                # one GPU; on hybrid laptops it defaults to the iGPU while the
                # game renders on the dGPU, and that cross-GPU import judders

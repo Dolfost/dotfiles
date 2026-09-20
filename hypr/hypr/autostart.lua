@@ -45,6 +45,11 @@ hl.on("hyprland.start", function()
 	exec_cmd_uwsm('feishin', { workspace = 'special:music silent' })
 	exec_cmd_uwsm('steam -silent', { workspace = '7 silent' })
 
+
+	-- X-side hotkey catcher for Steam Input chord media keys (XTEST lands in
+	-- XWayland, invisible to Hyprland binds); config: xbindkeys/xbindkeysrc
+	exec_cmd_uwsm('xbindkeys -n')
+
 	-- hl.exec_cmd('hyprpm reload -n') -- load plugins
 end)
 

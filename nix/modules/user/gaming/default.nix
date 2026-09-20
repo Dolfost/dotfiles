@@ -53,10 +53,13 @@ in
 
 	config = lib.mkIf config.dotfiles.gaming.enable {
 		home.packages = with pkgs; [
-			protonplus gpu-screen-recorder-gtk piper
+			protonplus gpu-screen-recorder-gtk piper xbindkeys
 		];
 		xdg.configFile = { "MangoHud" = link "MangoHud"; } // envFiles;
 		home.file.".local/bin/gscope" = link "bin/gscope";
+		# Catches media keys that Steam Input chords inject via XTEST into
+		# XWayland, where Hyprland binds can't see them (started in autostart.lua).
+		home.file.".xbindkeysrc" = link "xbindkeys/xbindkeysrc";
 
 		# The GTK app rewrites its whole config file on every settings change, so
 		# it can't be a store link. Nix owns only the save locations: each switch
