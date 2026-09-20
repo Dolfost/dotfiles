@@ -92,13 +92,25 @@ hl.window_rule {
 }
 hl.workspace_rule { workspace = 'special:call', gaps_out = 0, gaps_in = 0 }
 
--- The in-game Steam overlay is painted inside the Big Picture window and
--- shipped to the game from there. A fullscreen game fully occludes BPM, so
+-- The in-game Steam overlay in Big Picture is painted inside the BPM window
+-- and shipped to the game from there. A fullscreen game fully occludes BPM, so
 -- Hyprland stops its frame callbacks and the overlay drops to a slideshow
 -- (sound keeps up, picture lags seconds behind). Keep BPM rendering while
--- hidden; misc.render_unfocused_fps sets how smooth the overlay is.
+-- hidden; misc.render_unfocused_fps sets how smooth the overlay is. Scoped to
+-- the BPM title on purpose: matching all steam windows broke the BPM overlay
+-- and didn't help the desktop-mode one (host window unknown).
 hl.window_rule {
 	name = 'bigpicture-render-occluded',
 	match = { class = '^steam$', title = '^Steam Big Picture Mode$' },
+	render_unfocused = true,
+}
+-- Same for the desktop-mode main window, which hosts the desktop overlay. Only
+-- effective while the window sits on a *visible* workspace (e.g. moved behind
+-- the game, the BPM geometry) - on hidden ws7 the rule can't tick it
+-- (hyprwm/Hyprland#12463). Scoped to the exact title: matching all steam
+-- windows (helpers like VRStream) broke the BPM overlay.
+hl.window_rule {
+	name = 'steam-desktop-render-occluded',
+	match = { class = '^steam$', title = '^Steam$' },
 	render_unfocused = true,
 }
