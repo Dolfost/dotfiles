@@ -38,6 +38,13 @@ OVERLAY=1      # 0: wipe LD_PRELOAD, stripping Steam's gameoverlayrenderer.so.
                # input to the Big Picture window hidden behind the fullscreen
                # game (sounds, no picture). Only for games that stutter or
                # crash with the overlay hooked.
+SUNSET_OFF=1   # 1: stop hyprsunset for the game's lifetime so the night tint
+               # doesn't sit on the game, restart it on exit (restart re-picks
+               # the scheduled profile; a mere `identity` would be re-tinted by
+               # the next profile transition mid-game). Global, not per-monitor:
+               # hyprsunset v0.3 applies one CTM to every output, so the other
+               # monitor loses the tint during games too. Skipped if hyprsunset
+               # wasn't running, so it never turns the tint *on*.
 
 export AMD_USERQ=1
 export PROTON_USE_NTSYNC=1
@@ -86,6 +93,14 @@ if [[ "$REPLAY" != 0 ]] && command -v gpu-screen-recorder >/dev/null; then
 		-o "${REPLAY_DIR:-$HOME/Videos/Replays}"
 	setsid -f bash -c \
 		"while kill -0 $$ 2>/dev/null; do sleep 5; done; systemctl --user stop $UNIT" \
+		>/dev/null 2>&1
+fi
+
+if [[ "$SUNSET_OFF" == 1 ]] && systemctl --user is-active -q hyprsunset.service; then
+	systemctl --user stop hyprsunset.service
+	setsid -f bash -c \
+		"while kill -0 $$ 2>/dev/null; do sleep 5; done; \
+		systemctl --user start hyprsunset.service" \
 		>/dev/null 2>&1
 fi
 
