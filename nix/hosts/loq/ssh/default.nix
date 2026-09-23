@@ -14,46 +14,33 @@
 		"mlpc" = {
 			HostName = "10.10.200.48";
 			User = "lab35";
-			IdentityFile = "~/.ssh/lab35-ml";
-		};
-		"lloq" = {
-			HostName = "10.10.200.56";
-			IdentityFile = "~/.ssh/home";
 		};
 		"zbook" = {
 			HostName = "10.10.200.72";
 			User = "dolf";
-			IdentityFile = "~/.ssh/lab35-ml";
 		};
 		"jet" = {
 			HostName = "192.168.144.30";
 			User = "jetson";
-			IdentityFile = "~/.ssh/lab35-ml";
+		};
+		"jet_default" = {
+			HostName = "192.168.144.222";
+			User = "jetson";
 		};
 		"jetw" = {
 			HostName = "10.10.200.80";
 			User = "jetson";
-			IdentityFile = "~/.ssh/lab35-ml";
 		};
 		"jet2w" = {
 			HostName = "10.10.200.61";
 			User = "jetson";
-			IdentityFile = "~/.ssh/lab35-ml";
-		};
-		"raspw" = {
-			HostName = "10.10.200.95";
-			User = "admin";
-			IdentityFile = "~/.ssh/lab35-rasp";
 		};
 		"rasp" = {
 			HostName = "192.168.144.70";
 			User = "pi";
-			IdentityFile = "~/.ssh/lab35-ml";
 		};
-		"drone" = {
-			HostName = "192.168.144.22";
-			User = "admin";
-			IdentityFile = "~/.ssh/lab35-rasp";
+		"192.168.144.*" = {
+			IdentityFile = "~/.ssh/lab35-ml";
 		};
 	};
 }
