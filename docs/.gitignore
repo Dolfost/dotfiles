@@ -1,0 +1,3 @@
+# mdbook serve/build output when previewing locally; the real site is built
+# into the nix store.
+book

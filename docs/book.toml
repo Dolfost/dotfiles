@@ -1,0 +1,11 @@
+# The tailnet guide (in Ukrainian). Rendered by mdBook at rebuild time (see
+# nix/hosts/aorus/services/docs.nix) and served at https://docs.faun-castor.ts.net.
+# Preview locally with: mdbook serve docs
+[book]
+title = "faun-castor tailnet"
+authors = ["Vladyslav Rehan"]
+language = "uk"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"

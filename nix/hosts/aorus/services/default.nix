@@ -48,6 +48,7 @@ in
 		./crafty.nix
 		./nicotine.nix
 		./pihole.nix
+		./docs.nix
 	];
 
 	options.dotfiles.serve = lib.mkOption {
