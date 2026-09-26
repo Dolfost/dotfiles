@@ -67,6 +67,18 @@ in
 			}
 			];
 		};
+
+		# The pad's built-in speaker is a tinny mono effects driver sitting a few
+		# centimetres from the mic we do want, so never offer it as an output. The
+		# headphone-jack sink stays for a headset plugged into the pad.
+		wireplumber.extraConfig."12-dualsense-speaker" = {
+			"monitor.alsa.rules" = [
+			{
+				matches = [ { "node.name" = "~alsa_output\\..*DualSense.*HiFi__Speaker__sink"; } ];
+				actions.update-props = { "node.disabled" = true; };
+			}
+			];
+		};
 	};
 
 	# Over USB the DualSense is also a sound card whose hardware volume (the

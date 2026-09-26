@@ -61,6 +61,27 @@ in
 		# XWayland, where Hyprland binds can't see them (started in autostart.lua).
 		home.file.".xbindkeysrc" = link "xbindkeys/xbindkeysrc";
 
+		# The DualSense over USB doubles as a mic (two ridge mics, or the headset
+		# jack - PipeWire swaps the source node). Sony's button-click suppression
+		# runs on the PS5, so rnnoise stands in. The pad travels between hosts and
+		# carries no USB serial, so these node names are the same on every machine.
+		dotfiles.audio.autoload = [
+			{
+				kind = "input";
+				device = "alsa_input.usb-Sony_Interactive_Entertainment_DualSense_Wireless_Controller-00.HiFi__Mic__source";
+				"device-description" = "DualSense wireless controller (PS5) Internal Microphone";
+				"device-profile" = "Internal Microphone";
+				"preset-name" = "mic noise red | autogain | stereo";
+			}
+			{
+				kind = "input";
+				device = "alsa_input.usb-Sony_Interactive_Entertainment_DualSense_Wireless_Controller-00.HiFi__Headset__source";
+				"device-description" = "DualSense wireless controller (PS5) Headset Microphone";
+				"device-profile" = "Headset Microphone";
+				"preset-name" = "mic noise red | autogain | stereo";
+			}
+		];
+
 		# The GTK app rewrites its whole config file on every settings change, so
 		# it can't be a store link. Nix owns only the save locations: each switch
 		# re-pins the two keys, everything else stays GUI-managed.
