@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
 rate = 44100;
 quantum = 256;
@@ -50,7 +50,32 @@ in
 			}
 			];
 		};
+
+		# The DualSense's USB audio (speaker, jack, mic, haptics) is 48 kHz only.
+		# Pinned to the global rate above the node never starts ("Start error:
+		# Operation not supported") and anything routed to it stalls - browsers
+		# buffer forever. Fragments merge by file name, so this wins over 10-*. The
+		# hardware volume it also needs is the udev rule below.
+		wireplumber.extraConfig."11-dualsense-rate" = {
+			"monitor.alsa.rules" = [
+			{
+				matches = [ { "alsa.card_name" = "~DualSense.*"; } ];
+				actions.update-props = {
+					"audio.rate" = 48000;
+					"audio.allowed-rates" = [ 48000 ];
+				};
+			}
+			];
+		};
 	};
+
+	# Over USB the DualSense is also a sound card whose hardware volume (the
+	# HID-backed 'PCM Playback Volume' snd-usb-audio exposes) comes up at 0 on
+	# every plug-in, and its UCM profile has no mixer element for PipeWire to
+	# manage it. Park it at 0 dB once; PipeWire does the soft volume.
+	services.udev.extraRules = ''
+		ACTION=="add", SUBSYSTEM=="sound", KERNEL=="controlC*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6|0df2", RUN+="${pkgs.alsa-utils}/bin/amixer -c $attr{device/number} sset PCM 100"
+	'';
 
 	# The default for every host; features that depend on realtime scheduling
 	# (../guitar) pin it with a plain definition.
