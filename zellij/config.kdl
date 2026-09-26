@@ -125,6 +125,9 @@ keybinds clear-defaults=true {
 			SwitchToMode "locked"
 		}
 		bind "d" { Detach; }
+		bind "[" { FocusGuestSession; SwitchToMode "locked"; }
+		bind "]" { FocusHostSession; SwitchToMode "locked"; }
+		bind "f" { ToggleHostFullscreen; SwitchToMode "locked"; }
 		bind "l" {
 			LaunchOrFocusPlugin "zellij:layout-manager" {
 				floating true
@@ -515,6 +518,18 @@ serialize_pane_viewport true
 // Default: true
 // 
 show_startup_tips false
+
+// What to do when a pane contains a nested zellij session (e.g. zellij over
+// ssh). Needs zellij >= 0.45 on both ends. While descended, the guest gets all
+// input; Ctrl+B o ] inside the guest ascends back, Ctrl+B o [ on the host
+// descends.
+// Options:
+//   - ask (default, prompt on focus)
+//   - fullscreen (zoom into the nested session on focus)
+//   - descend (route input to the nested session on focus)
+//   - never
+//
+nested_session_handling "descend"
 
 // Whether to show release notes on first version run
 // Default: true

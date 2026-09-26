@@ -56,5 +56,21 @@
 
 	services.printing.enable = true;
 
+	networking.networkmanager.ensureProfiles.profiles = {
+		wired = {
+			connection = {
+				id = "wired";
+				type = "ethernet";
+				interface-name = "enp10s0";
+				autoconnect-priority = 10;
+			};
+			ipv4 = {
+				method = "auto";
+				address1 = "192.168.144.66/24";
+			};
+			ipv6.method = "auto";
+		};
+	};
+
 	system.stateVersion = "26.05"; # DO NOT CHANGE
 }

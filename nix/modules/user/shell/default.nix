@@ -1,9 +1,12 @@
 # Shell and editor config links. Always on - every account that gets a home
 # gets a shell.
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
 	link = config.lib.dotfiles.link;
+	unstable = import inputs.nixpkgs-unstable {
+		system = pkgs.stdenv.hostPlatform.system;
+	};
 	# nvim-treesitter with every grammar and its queries from nixpkgs, flattened
 	# into one plugin dir (lua/, parser/*.so, queries/*). lazy.nvim uses it as
 	# the plugin when the link exists - see nvim/lua/plugins/treesitter.lua.
@@ -16,7 +19,7 @@ in
 {
 	# The zsh config loads sheldon, so it travels with the links.
 	home.packages = with pkgs; [
-		sheldon zellij neovim
+		sheldon unstable.zellij neovim
 	];
 
 	programs.direnv = {

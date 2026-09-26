@@ -2,6 +2,11 @@
 # per host.
 { config, lib, pkgs, inputs, ... }:
 
+let
+	unstable = import inputs.nixpkgs-unstable {
+		system = pkgs.stdenv.hostPlatform.system;
+	};
+in
 {
 	imports = [
 		./dotfiles
@@ -21,7 +26,7 @@
 			# nodejs: nvim's pandoc-preview plugin serves via `npx browser-sync`
 			neovim nodejs tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
 			gnutar zip unzip unrar p7zip
-			zellij
+			unstable.zellij
 		];
 		home-manager = {
 			useGlobalPkgs = true;
