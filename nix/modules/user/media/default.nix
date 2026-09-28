@@ -51,6 +51,7 @@ in
 			];
 
 			xdg.configFile."zathura" = link "zathura";
+			xdg.configFile."mpv" = link "mpv";
 
 			# OBS rewrites its ini wholesale on every settings change, so (like the
 			# GSR config in ../gaming) it stays mutable and nix re-pins just the
