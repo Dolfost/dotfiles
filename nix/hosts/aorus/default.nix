@@ -50,6 +50,13 @@
 
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";
+	# Volz routes customer-to-customer traffic without CGNAT, so a Moonlight
+	# client on another Volz line reaches this box with a 100.64.0.0/10 source
+	# on enp10s0. tailscaled's ts-input chain drops those as spoofed tailnet
+	# addresses, which killed Sunshine (public IP or tailnet) from such sites.
+	# nodivert builds the chains but never hooks them; safe here because this
+	# box advertises no subnet routes and is not an exit node.
+	services.tailscale.extraSetFlags = [ "--netfilter-mode=nodivert" ];
 	networking.firewall.enable = false;
 
 	networking.interfaces.enp10s0.wakeOnLan.enable = true;
