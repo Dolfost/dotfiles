@@ -7,6 +7,12 @@
 -- series of fragments. The encode runs in the background through ffmpeg and
 -- reports on the OSD when it is done.
 --
+-- When a config.toml sits next to the video, its `state = [ {t=..., ...} ]`
+-- keyframes are cut to the same range and written as <clip>.toml: the first
+-- entry at t = 0 carries the full state accumulated up to A (entries only
+-- hold changed fields), the rest are the loop's entries rebased to the clip
+-- start. Everything else in the toml is copied unchanged.
+--
 -- `script-message ab-loop-export-as <name>` exports without the prompt.
 -- Tunables: ../script-opts/ab-loop-export.conf.
 
@@ -26,6 +32,7 @@ local o = {
 	pix_fmt = "yuv420p",
 	extra_args = "",
 	state_file = "~~state/ab-loop-export.name",
+	sidecar = "config.toml",
 }
 options.read_options(o, "ab-loop-export")
 
@@ -122,14 +129,90 @@ local function source_stem()
 	return name
 end
 
-local function free_path(dir, base, ext)
-	local candidate = utils.join_path(dir, base .. "." .. ext)
-	local n = 0
-	while utils.file_info(candidate) do
+-- First of base, base_1, base_2, ... that is taken by none of the
+-- extensions, so a clip and its sidecar always share a number.
+local function free_base(dir, base, exts)
+	local function taken(b)
+		for _, ext in ipairs(exts) do
+			if utils.file_info(utils.join_path(dir, b .. "." .. ext)) then return true end
+		end
+		return false
+	end
+	local candidate, n = base, 0
+	while taken(candidate) do
 		n = n + 1
-		candidate = utils.join_path(dir, string.format("%s_%d.%s", base, n, ext))
+		candidate = string.format("%s_%d", base, n)
 	end
 	return candidate
+end
+
+-- Sidecar keyframes. Parses `state = [ { t = 0.1, y = -8.2 }, ... ]` into a
+-- list of { t, fields, order } keeping every value's original spelling, and
+-- returns the text before and after the array so it can be reassembled.
+local function parse_state(text)
+	local open_s, open_e = text:find("state%s*=%s*%[")
+	if not open_s then return nil end
+	local close = text:find("%]", open_e + 1)
+	if not close then return nil end
+	local entries = {}
+	for item in text:sub(open_e + 1, close - 1):gmatch("%b{}") do
+		local entry = { fields = {}, order = {} }
+		for k, v in item:gmatch("([%w_]+)%s*=%s*([^,%s}]+)") do
+			if k == "t" then
+				entry.t = tonumber(v)
+			else
+				if not entry.fields[k] then entry.order[#entry.order + 1] = k end
+				entry.fields[k] = v
+			end
+		end
+		if entry.t then entries[#entries + 1] = entry end
+	end
+	return entries, text:sub(1, open_s - 1), text:sub(close + 1)
+end
+
+local function slice_state(entries, a, b)
+	local head = { t = 0, fields = {}, order = {} }
+	local out = { head }
+	for _, en in ipairs(entries) do
+		if en.t <= a then
+			for _, k in ipairs(en.order) do
+				if not head.fields[k] then head.order[#head.order + 1] = k end
+				head.fields[k] = en.fields[k]
+			end
+		elseif en.t <= b then
+			out[#out + 1] = { t = en.t - a, fields = en.fields, order = en.order }
+		end
+	end
+	return out
+end
+
+local function format_state(entries)
+	local lines = { "state = [" }
+	for _, en in ipairs(entries) do
+		local parts = { string.format("t = %.3f", en.t) }
+		for _, k in ipairs(en.order) do
+			parts[#parts + 1] = k .. " = " .. en.fields[k]
+		end
+		lines[#lines + 1] = "    { " .. table.concat(parts, ", ") .. " },"
+	end
+	lines[#lines + 1] = "]"
+	return table.concat(lines, "\n")
+end
+
+-- Writes <out_base>.toml from the sidecar next to src, if there is one.
+-- Returns the written path, or nil and a reason when skipped/failed.
+local function export_sidecar(src, a, b, dir, base)
+	if o.sidecar == "" or is_url(src) then return nil end
+	local sidecar = utils.join_path((utils.split_path(src)), o.sidecar)
+	local text = read_file(sidecar)
+	if not text then return nil end
+	local entries, before, after = parse_state(text)
+	if not entries then return nil, o.sidecar .. " has no state array" end
+	local out = utils.join_path(dir, base .. ".toml")
+	if not write_file(out, before .. format_state(slice_state(entries, a, b)) .. after) then
+		return nil, "cannot write " .. out
+	end
+	return out
 end
 
 local function split_args(s)
@@ -251,8 +334,9 @@ local function export(name)
 		return
 	end
 
-	local out = free_path(dir, base, o.ext)
-	local _, out_name = utils.split_path(out)
+	base = free_base(dir, base, { o.ext, "toml" })
+	local out = utils.join_path(dir, base .. "." .. o.ext)
+	local out_name = base .. "." .. o.ext
 	local args = ffmpeg_args(src, a, b, out)
 	msg.info("exporting " .. out .. ": " .. table.concat(args, " "))
 	mp.osd_message(string.format("Exporting %s (%.1fs)…", out_name, b - a), 3600)
@@ -265,7 +349,16 @@ local function export(name)
 		capture_stderr = true,
 	}, function(ok, res, err)
 		if ok and res and res.status == 0 and utils.file_info(out) then
-			mp.osd_message("Saved " .. out, 4)
+			local sidecar, why = export_sidecar(src, a, b, dir, base)
+			local note = ""
+			if sidecar then
+				note = " + " .. base .. ".toml"
+				msg.info("saved " .. sidecar)
+			elseif why then
+				note = " (sidecar skipped: " .. why .. ")"
+				msg.warn(why)
+			end
+			mp.osd_message("Saved " .. out .. note, 4)
 			msg.info("saved " .. out)
 			return
 		end
