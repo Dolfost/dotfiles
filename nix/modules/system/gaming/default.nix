@@ -93,6 +93,8 @@ in
 			xrandr
 			mangohud
 			adwsteamgtk
+			bombsquad
+			xonotic
 			prismlauncher
 			nvtopPackages.full
 			amdgpu_top

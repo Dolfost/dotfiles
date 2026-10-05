@@ -23,7 +23,12 @@ pkgs.writeShellScript "sunshine-virtual-display" ''
 		stop)
 			pidof hyprlock || hyprctl dispatch "hl.dsp.exec_cmd('hyprlock')"
 			sleep 2s
-			hyprctl eval "hl.monitor({output = \"$HEADLESS\", disabled = true})"
+			# Only a reload here, on purpose. A reload walks outputs in creation
+			# order, so the real monitors come back before the always-registered
+			# config rule disables the headless one, and its workspaces move to a
+			# live monitor. Disabling the headless first, while it is the only
+			# enabled output, strands every workspace created during the stream on it
+			# (Hyprland does not move workspaces off the last monitor).
 			hyprctl reload
 			;;
 		*)
