@@ -15,27 +15,15 @@
 			HostName = "10.10.200.48";
 			User = "lab35";
 		};
-		"zbook" = {
-			HostName = "10.10.200.72";
-			User = "dolf";
-		};
-		"jet" = {
-			HostName = "192.168.144.30";
+		"jet1" = {
+			HostName = "192.168.144.231";
 			User = "jetson";
 		};
 		"jet_default" = {
 			HostName = "192.168.144.222";
 			User = "jetson";
 		};
-		"jetw" = {
-			HostName = "10.10.200.80";
-			User = "jetson";
-		};
-		"jet2w" = {
-			HostName = "10.10.200.61";
-			User = "jetson";
-		};
-		"rasp" = {
+		"rasp1" = {
 			HostName = "192.168.144.70";
 			User = "pi";
 		};
