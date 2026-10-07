@@ -23,7 +23,7 @@
 			HostName = "192.168.144.222";
 			User = "jetson";
 		};
-		"rasp1" = {
+		"rpi1" = {
 			HostName = "192.168.144.70";
 			User = "pi";
 		};
