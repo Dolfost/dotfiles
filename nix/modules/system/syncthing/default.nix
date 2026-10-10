@@ -37,6 +37,7 @@ let
 		books    = { id = "n9zmf-v33nw"; members = [ "aorus" "loq" "rodin" "mac" ]; };
 		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" ]; };
 		shared   = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" ]; };
+		guitar   = { id = "fuck2-fuck2"; members = [ "aorus" "mac" "loq" ]; };
 		avatars  = { id = "fuck1-fuck1"; members = [ "aorus" "rodin" "mac" "loq" ]; };
 	};
 
