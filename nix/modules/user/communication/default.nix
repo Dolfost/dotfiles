@@ -1,6 +1,4 @@
-# Messengers. The terminal client (tgt) is always on so a headless home still
-# has Telegram; the GUI messengers follow dotfiles.graphical.
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
 	# Chromium doesn't recognise Hyprland as a desktop it knows a keyring
@@ -17,27 +15,22 @@ let
 			done
 		'';
 	};
-	tgt = inputs.tgt.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
 	options.dotfiles.communication.enable = lib.mkOption {
 		type = lib.types.bool;
-		default = true;
-		description = "Messengers. Terminal client everywhere, GUI ones only on graphical hosts.";
+		default = config.dotfiles.graphical;
+		description = "Messengers.";
 	};
 
-	config = lib.mkIf config.dotfiles.communication.enable (lib.mkMerge [
-		{ home.packages = [ tgt ]; }
-
-		(lib.mkIf config.dotfiles.graphical {
-			home.packages = with pkgs; [
-				ayugram-desktop
-				viber
-			]
-			++ map pinSecretStore (with pkgs; [
-				vesktop
-				signal-desktop
-			]);
-		})
-	]);
+	config = lib.mkIf config.dotfiles.communication.enable {
+		home.packages = with pkgs; [
+			ayugram-desktop
+			viber
+		]
+		++ map pinSecretStore (with pkgs; [
+			vesktop
+			signal-desktop
+		]);
+	};
 }
