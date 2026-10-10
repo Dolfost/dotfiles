@@ -58,7 +58,8 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "tgt": "tgt"
       }
     },
     "sops-nix": {
@@ -78,6 +79,26 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "tgt": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791192972,
+        "narHash": "sha256-mbsS7uTMCAVaQnyVGBSrRPjJrQG8MN2JtVey9C+d9fo=",
+        "owner": "FedericoBruzzone",
+        "repo": "tgt",
+        "rev": "c054d41ebcb429b184249a5c5c1f515e30dad1da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FedericoBruzzone",
+        "repo": "tgt",
         "type": "github"
       }
     }

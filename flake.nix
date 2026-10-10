@@ -12,6 +12,10 @@
 			url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		tgt = {
+			url = "github:FedericoBruzzone/tgt";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... }:

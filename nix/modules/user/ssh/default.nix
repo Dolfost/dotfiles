@@ -66,13 +66,6 @@ in
 				IdentityFile = "~/.ssh/gitea";
 				IdentitiesOnly = "yes";
 			};
-
-			# job, but wanted from every machine
-			"jet2" = {
-				HostName = "192.168.144.67";
-				User = "jetson";
-				IdentityFile = "~/.ssh/lab35-ml";
-			};
 		};
 	};
 }

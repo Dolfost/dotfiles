@@ -19,6 +19,10 @@
 			HostName = "192.168.144.231";
 			User = "jetson";
 		};
+		"jet2" = {
+			HostName = "192.168.144.30";
+			User = "jetson";
+		};
 		"jet_default" = {
 			HostName = "192.168.144.222";
 			User = "jetson";
@@ -26,6 +30,10 @@
 		"rpi1" = {
 			HostName = "192.168.144.70";
 			User = "pi";
+		};
+		"rpi2" = {
+			HostName = "192.168.144.31";
+			User = "admin";
 		};
 		"192.168.144.*" = {
 			IdentityFile = "~/.ssh/lab35-ml";
