@@ -2,6 +2,10 @@
 let
 rate = 44100;
 quantum = 256;
+# The floor any client may pull the graph down to while it runs. JACK
+# clients (../guitar) ask for 64; lower is for experiments via
+# PIPEWIRE_LATENCY. Nothing on the desktop asks for less than the default.
+minQuantum = 16;
 in
 {
 	services.pipewire = {
@@ -15,7 +19,7 @@ in
 				"default.clock.rate" = rate;
 				"default.clock.allowed-rates" = [ rate ];
 				"default.clock.quantum" = quantum;
-				"default.clock.min-quantum" = quantum;
+				"default.clock.min-quantum" = minQuantum;
 				"default.clock.max-quantum" = quantum;
 			};
 		};

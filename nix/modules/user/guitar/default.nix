@@ -6,6 +6,11 @@
 # hl.env below re-injects it for everything Hyprland spawns.
 { osConfig ? { }, config, lib, pkgs, ... }:
 
+let
+	ratatouille = pkgs.callPackage ../../../packages/ratatouille.nix { };
+	tone3000 = pkgs.callPackage ../../../packages/tone3000.nix { };
+	pluginDir = fmt: "${config.home.profileDirectory}/lib/${fmt}";
+in
 {
 	options.dotfiles.guitar.enable = lib.mkOption {
 		type = lib.types.bool;
@@ -20,7 +25,8 @@
 				calf
 				guitarix              # also provides gxtuner.lv2
 				neural-amp-modeler-lv2
-				(callPackage ../../../packages/ratatouille.nix { })
+				ratatouille
+				tone3000
 				dragonfly-reverb
 			];
 			dotfiles.hyprland.localConfig = ''
@@ -29,9 +35,26 @@
 
 			# Plugins land in the nix profile, not /usr/lib - point the hosts at them.
 			home.sessionVariables = {
-				LV2_PATH = "${config.home.profileDirectory}/lib/lv2";
-				LADSPA_PATH = "${config.home.profileDirectory}/lib/ladspa";
-				VST3_PATH = "${config.home.profileDirectory}/lib/vst3";
+				LV2_PATH = pluginDir "lv2";
+				LADSPA_PATH = pluginDir "ladspa";
+				VST3_PATH = pluginDir "vst3";
+				CLAP_PATH = pluginDir "clap";
+			};
+
+			# Reaper reads only CLAP_PATH; its VST and LV2 scans use ~/.vst{,3}
+			# and ~/.lv2 (or a path typed into its preferences). Link those at the
+			# profile so every host sees the same plugins with no per-app setup.
+			# Out-of-store so the links follow the profile across generations.
+			home.file = lib.genAttrs [ ".vst" ".vst3" ".lv2" ] (dir: {
+				source = config.lib.file.mkOutOfStoreSymlink
+					(pluginDir (lib.removePrefix "." dir));
+			});
+
+			# TONE3000 reads factory presets from its config dir, next to the
+			# user's own presets. Per-file links keep the rest of the tree writable.
+			xdg.configFile."TONE3000/Presets/Factory" = {
+				source = "${tone3000}/share/tone3000/factory-presets";
+				recursive = true;
 			};
 		})
 
