@@ -48,6 +48,10 @@
 	};
 	dotfiles.media.recordDir = "/storage/3.5/recordings";
 
+	# The POCO X7 Pro as a webcam over Wi-Fi. Give it a DHCP reservation on the
+	# router or this goes stale; `phone-cam usb` for the cable.
+	dotfiles.android.phoneCam.address = "192.168.0.175";
+
 	# Network: this box routes for the tailnet and trusts its LAN.
 	services.tailscale.useRoutingFeatures = "server";
 	# Volz routes customer-to-customer traffic without CGNAT, so a Moonlight
