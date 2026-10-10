@@ -1,14 +1,14 @@
 # Android tooling: adb/fastboot and scrcpy screen mirroring. Device access is
 # handled by systemd's uaccess rules, no adbusers group needed.
 #
-# phone-cam streams the phone's camera into the "Phone Camera" loopback device
-# (../media creates it at /dev/video11). On demand only: a plugged-in phone is
-# usually just charging, so nothing starts on plug. scrcpy exits when the phone
-# goes away, so an idle or absent phone costs nothing.
+# phone-cam (./phone-cam.sh) streams the phone's camera into a "Phone Camera"
+# virtual webcam. On demand only: a plugged-in phone is usually just charging,
+# so nothing starts on plug. scrcpy exits when the phone goes away, so an idle
+# or absent phone costs nothing.
 #
 #   systemctl --user start phone-cam            the configured defaults
 #   systemctl --user start phone-cam@portrait   same, other orientation
-#   phone-cam [portrait|landscape|...] [usb|wifi] [scrcpy args]
+#   phone-cam portrait usb                      in a terminal, any keywords
 { config, lib, pkgs, ... }:
 
 let
@@ -22,41 +22,26 @@ let
 		portrait-flipped = 270;
 	};
 
-	phone-cam = pkgs.writeShellScriptBin "phone-cam" ''
-		export ADB=${pkgs.android-tools}/bin/adb
-		orientation=${cfg.orientation}
-		address=${if cfg.address == null then "" else cfg.address}
-		# Leading keywords override the configured defaults; the rest goes to scrcpy.
-		while [ $# -gt 0 ]; do
-			case "$1" in
-				landscape|portrait|landscape-flipped|portrait-flipped) orientation=$1 ;;
-				usb) address= ;;
-				wifi) address=${if cfg.address == null then "" else cfg.address} ;;
-				*) break ;;
-			esac
-			shift
-		done
-		case "$orientation" in
-			landscape) rotation=0 ;;
-			portrait) rotation=90 ;;
-			landscape-flipped) rotation=180 ;;
-			portrait-flipped) rotation=270 ;;
-		esac
-		exec ${pkgs.scrcpy}/bin/scrcpy \
-			''${address:+--tcpip=$address} \
-			--video-source=camera \
-			--camera-facing=${cfg.facing} \
-			--camera-size=${cfg.size} \
-			--camera-fps=${toString cfg.fps} \
-			--video-codec=${cfg.codec} ${lib.optionalString (cfg.bitRate != null) "--video-bit-rate=${cfg.bitRate}"} \
-			--capture-orientation=$rotation \
-			--no-audio --no-window \
-			--v4l2-sink=${cfg.device} \
-			"$@"
-	'';
+	phone-cam = pkgs.replaceVarsWith {
+		name = "phone-cam";
+		src = ./phone-cam.sh;
+		dir = "bin";
+		isExecutable = true;
+		replacements = {
+			bash = pkgs.runtimeShell;
+			adb = "${pkgs.android-tools}/bin/adb";
+			scrcpy = "${pkgs.scrcpy}/bin/scrcpy";
+			address = if cfg.address == null then "" else cfg.address;
+			rotation = toString rotation.${cfg.orientation};
+			inherit (cfg) facing size codec;
+			fps = toString cfg.fps;
+			bitRate = if cfg.bitRate == null then "" else "--video-bit-rate=${cfg.bitRate}";
+			device = "/dev/video${toString cfg.videoNr}";
+		};
+	};
 
 	unit = args: {
-		description = "Phone camera into ${cfg.device} via scrcpy";
+		description = "Phone camera into /dev/video${toString cfg.videoNr} via scrcpy";
 		serviceConfig = {
 			ExecStart = "${phone-cam}/bin/phone-cam ${args}";
 			# scrcpy exiting with the phone is the normal stop, not a failure.
@@ -65,6 +50,8 @@ let
 	};
 in
 {
+	imports = [ ../v4l2loopback ];
+
 	options.dotfiles.android.phoneCam = {
 		address = lib.mkOption {
 			type = lib.types.nullOr lib.types.str;
@@ -105,14 +92,16 @@ in
 			default = "20M";
 			description = "Encoder bit rate; null falls back to scrcpy's 8M.";
 		};
-		device = lib.mkOption {
-			type = lib.types.str;
-			default = "/dev/video11";
-			description = "The v4l2loopback device to write to (../media creates it).";
+		videoNr = lib.mkOption {
+			type = lib.types.int;
+			default = 11;
+			description = "N in the /dev/videoN the camera appears as.";
 		};
 	};
 
 	config = {
+		dotfiles.v4l2loopback.devices.phone = { nr = cfg.videoNr; label = "Phone Camera"; };
+
 		environment.systemPackages = with pkgs; [
 			android-tools # adb + fastboot
 			scrcpy
