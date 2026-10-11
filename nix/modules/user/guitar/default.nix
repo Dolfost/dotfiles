@@ -28,6 +28,16 @@ in
 				ratatouille
 				tone3000
 				dragonfly-reverb
+				chow-centaur          # klon-style drive
+				chow-tape-model
+				chow-phaser
+				airwindows-lv2
+				# Windows VST2/VST3 plugins through wine. Install a plugin in the
+				# prefix, then `yabridgectl add <its directory>` once and `yabridgectl
+				# sync` after every install; the bridged .so files land in ~/.vst and
+				# ~/.vst3.
+				yabridge
+				yabridgectl
 			];
 			dotfiles.hyprland.localConfig = ''
 				hl.env("LD_LIBRARY_PATH", "${pkgs.pipewire.jack}/lib")
@@ -63,6 +73,8 @@ in
 				carla
 				reaper
 				alsa-scarlett-gui
+				sooperlooper          # looper; jack app, drive it from a footswitch
+				tuxguitar             # plays guitar pro tabs
 			];
 		})
 	];
