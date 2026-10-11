@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-	environment.systemPackages = [ pkgs.keyd ];
+	# footswitch programs PCsensor-style USB foot pedals (what key each pedal
+	# sends); its udev rules give the logged-in user access to the device.
+	environment.systemPackages = [ pkgs.keyd pkgs.footswitch ];
+	services.udev.packages = [ pkgs.footswitch ];
 
 	# Graphical sessions keep the numlock LED dark via an xkb indicator override
 	# (xkb/compat/lednum, linked by modules/user); this covers the console and
