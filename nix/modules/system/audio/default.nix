@@ -2,10 +2,10 @@
 let
 rate = 44100;
 quantum = 256;
-# The floor any client may pull the graph down to while it runs. JACK
-# clients (../guitar) ask for 64; lower is for experiments via
-# PIPEWIRE_LATENCY. Nothing on the desktop asks for less than the default.
-minQuantum = 16;
+# The floor any client may pull the graph down to while it runs. JACK clients
+# (../guitar) ask for 64, the lowest that is clean on aorus; 32 crackles
+# (2026-10-11). Nothing on the desktop asks for less than the default.
+minQuantum = 64;
 in
 {
 	services.pipewire = {

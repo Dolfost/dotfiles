@@ -5,9 +5,11 @@
 {
 	services.pipewire.jack.enable = true;
 
-	# DAWs and plugin hosts ask for a 64-frame buffer (1.5 ms at ../audio's
-	# 44.1 kHz) and pull the graph down to it while they run; everything else
-	# keeps the default quantum. ../audio's min-quantum is what allows it.
+	# DAWs and plugin hosts ask for a 64-frame buffer (1.5 ms at ../audio's 44.1
+	# kHz) and pull the graph down to it while they run; everything else keeps
+	# the default quantum. ../audio's min-quantum is what allows it. Whether 64
+	# is clean depends on the host's USB path to the interface; see
+	# hosts/aorus/audio.
 	services.pipewire.extraConfig.jack."10-guitar-latency" = {
 		"jack.properties" = {
 			"node.latency" = "64/44100";
