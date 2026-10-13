@@ -1,4 +1,12 @@
-{ ... }: {
+{ pkgs, inputs, ... }:
+
+let
+	unstable = import inputs.nixpkgs-unstable {
+		system = pkgs.stdenv.hostPlatform.system;
+		config.allowUnfree = true;
+	};
+in
+{
 	imports = [
 		./hardware-configuration.nix
 		./storage
@@ -17,6 +25,13 @@
 		../../modules/system/android
 		../../modules/system/work
 	];
+
+	# linuxPackages_zen tracks the newest zen release even on the stable
+	# branch, but the stable branch's nvidia driver lags behind it (26.05's
+	# 595.71.05 does not compile against linux 7.2). Take the whole kernel
+	# package set from unstable so kernel and nvidiaPackages move together
+	# and are both built by hydra.
+	boot.kernelPackages = unstable.linuxPackages_zen;
 
 	services.power-profiles-daemon.enable = true;
 	hardware.bluetooth.powerOnBoot = true;

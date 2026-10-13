@@ -33,7 +33,7 @@
 		};
 		"rpi2" = {
 			HostName = "192.168.144.31";
-			User = "admin";
+			User = "pi";
 		};
 		"192.168.144.*" = {
 			IdentityFile = "~/.ssh/lab35-ml";
