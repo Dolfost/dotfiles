@@ -27,6 +27,18 @@ in
 		nix-direnv.enable = true;
 	};
 
+	systemd.user.services."zellij@" = {
+		Unit = {
+			Description = "Zellij session %i";
+			After = [ "graphical-session.target" ];
+		};
+		Service = {
+			Type = "forking";
+			ExecStart = "${unstable.zellij}/bin/zellij attach --create-background %i";
+			ExecStop = "-${unstable.zellij}/bin/zellij kill-session %i";
+		};
+	};
+
 	home.file = {
 		".zshrc" = link "zsh/zshrc";
 		".zprofile" = link "zsh/zprofile";
