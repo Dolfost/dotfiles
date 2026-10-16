@@ -31,6 +31,10 @@
 			HostName = "192.168.144.70";
 			User = "pi";
 		};
+		"opi1" = {
+			HostName = "192.168.144.66";
+			User = "orangepi";
+		};
 		"rpi2" = {
 			HostName = "192.168.144.31";
 			User = "pi";
