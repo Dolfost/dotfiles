@@ -18,6 +18,7 @@ in
 	imports = [
 		../system/dotfiles
 		./shell
+		./agents
 		./ssh
 		./desktop
 		./fonts

@@ -14,4 +14,7 @@ if command -v direnv 1>/dev/null 2>&1; then
 fi
 
 eval "$(sheldon source)"
-eval "$(zellij setup --generate-auto-start zsh)"
+# herdr panes already are a multiplexer - don't nest zellij inside them.
+if [[ -z "$HERDR_PANE_ID" ]]; then
+	eval "$(zellij setup --generate-auto-start zsh)"
+fi

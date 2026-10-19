@@ -20,6 +20,7 @@ in
 		./user
 		./kernel
 		./sops
+		./agents
 	];
 	config = {
 		environment.systemPackages = with pkgs; [

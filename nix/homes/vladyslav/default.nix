@@ -1,11 +1,5 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, ... }:
 
-let
-	unstable = import inputs.nixpkgs-unstable {
-		system = pkgs.stdenv.hostPlatform.system;
-		config.allowUnfree = true;
-	};
-in
 {
 	imports = [ ../../modules/user ];
 
@@ -13,7 +7,7 @@ in
 	home.homeDirectory = "/home/${config.home.username}";
 
 	home.packages = with pkgs; [
-		unstable.claude-code tree
+		tree
 		lua-language-server
 	];
 

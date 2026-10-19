@@ -10,7 +10,10 @@
 		'')
 		(lib.filterAttrs
 			(name: machine: machine ? mac && name != config.networking.hostName)
-			(import ../../../facts.nix).hosts);
+			(import ../../../facts.nix).hosts)
+	# Link diagnostics: ethtool for negotiated speed / cable test, Ookla's
+	# official speedtest for throughput.
+	++ [ pkgs.ethtool pkgs.ookla-speedtest ];
 	# iwd instead of wpa_supplicant: impala drives iwd over D-Bus.
 	networking.networkmanager.wifi.backend = "iwd";
 	networking.wireless.iwd.enable = true;

@@ -12,6 +12,8 @@
 			url = "github:Mic92/sops-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		herdr.url = "github:herdrdev/herdr/v0.9.5";
+		hermes-agent.url = "github:NousResearch/hermes-agent";
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... }:
