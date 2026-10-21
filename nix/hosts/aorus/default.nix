@@ -15,6 +15,7 @@
 		./lact
 		./sunshine
 		./syncthing
+		./printing
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -64,8 +65,6 @@
 	networking.firewall.enable = false;
 
 	networking.interfaces.enp10s0.wakeOnLan.enable = true;
-
-	services.printing.enable = true;
 
 	networking.networkmanager.ensureProfiles.profiles = {
 		wired = {

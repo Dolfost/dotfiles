@@ -34,6 +34,7 @@ in
 		};
 		Service = {
 			Type = "forking";
+			Environment = [ "TERM=xterm-256color" "COLORTERM=truecolor" ];
 			ExecStart = "${unstable.zellij}/bin/zellij attach --create-background %i";
 			ExecStop = "-${unstable.zellij}/bin/zellij kill-session %i";
 		};

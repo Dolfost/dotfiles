@@ -48,6 +48,7 @@ in
 					];
 				})
 				remmina
+				qbittorrent
 			];
 
 			xdg.configFile."zathura" = link "zathura";
@@ -107,6 +108,10 @@ in
 					// assign "nvim.desktop" [
 						"text/plain"
 						"text/markdown"
+					]
+					// assign "org.qbittorrent.qBittorrent.desktop" [
+						"x-scheme-handler/magnet"
+						"application/x-bittorrent"
 					]
 					# carried over from the previously unmanaged mimeapps.list
 					// assign "org.telegram.desktop.desktop" [
