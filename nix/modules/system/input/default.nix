@@ -1,13 +1,8 @@
 { pkgs, ... }: {
-	# footswitch programs PCsensor-style USB foot pedals (what key each pedal
-	# sends); its udev rules give the logged-in user access to the device.
-	environment.systemPackages = [ pkgs.keyd pkgs.footswitch ];
-	services.udev.packages = [ pkgs.footswitch ];
-
 	# Graphical sessions keep the numlock LED dark via an xkb indicator override
 	# (xkb/compat/lednum, linked by modules/user); this covers the console and
 	# the ly greeter, whose VT keyboard drives LEDs through the kbd-* led-class
-	# triggers. Numlock itself stays on — only the light dies.
+	# triggers. Numlock itself stays on - only the light dies.
 	services.udev.extraRules = ''
 		ACTION=="add", SUBSYSTEM=="leds", KERNEL=="input*::numlock", ATTR{trigger}="none", ATTR{brightness}="0"
 	'';
@@ -17,6 +12,10 @@
 	# nothing. 2 = F-keys primary, fn+F for the media layer.
 	boot.extraModprobeConfig = "options hid_apple fnmode=2";
 
+	# keyd remaps every keyboard on the host. Device-specific configs (the pedal
+	# in ../pedal) add their own keyboards entries; an explicit id there outranks
+	# this wildcard.
+	environment.systemPackages = [ pkgs.keyd ];
 	services.keyd = {
 		enable = true;
 		keyboards.default = {
