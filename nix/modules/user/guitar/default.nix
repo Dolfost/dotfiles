@@ -10,6 +10,10 @@ let
 	ratatouille = pkgs.callPackage ../../../packages/ratatouille.nix { };
 	tone3000 = pkgs.callPackage ../../../packages/tone3000.nix { };
 	pluginDir = fmt: "${config.home.profileDirectory}/lib/${fmt}";
+	link = config.lib.dotfiles.link;
+	# REAPER's resource path, where it looks for Scripts/.
+	reaperDir =
+		if pkgs.stdenv.isDarwin then "Library/Application Support/REAPER" else ".config/REAPER";
 in
 {
 	options.dotfiles.guitar.enable = lib.mkOption {
@@ -76,6 +80,12 @@ in
 				sooperlooper          # looper; jack app, drive it from a footswitch
 				tuxguitar             # plays guitar pro tabs
 			];
+
+			# Pedal scripts for REAPER (reaper/Scripts/amp-switch, one per F-key),
+			# linked into its resource path so they show up under ReaScript: Load.
+			# Key bindings stay out of the repo: REAPER rewrites reaper-kb.ini on
+			# exit, so they are assigned once per machine in the action list.
+			home.file."${reaperDir}/Scripts/amp-switch" = link "reaper/Scripts/amp-switch";
 		})
 	];
 }
