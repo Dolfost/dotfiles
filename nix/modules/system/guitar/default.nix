@@ -36,6 +36,13 @@
 # guitar that only the journal reports, as "snd_pcm_mmap_commit error ...
 # Broken pipe" (2026-10-13). Only the driver priority is raised;
 # priority.session would make the Scarlett the default microphone.
+#
+# Raising the Scarlett's priority moved the short read onto the other USB mic,
+# which now follows the Scarlett at 64 frames and restarts twice a second; the
+# restart blocks PipeWire's one realtime thread long enough to starve this
+# output's cushion, so the guitar drops out instead (2026-10-24). A full-speed
+# mic that a DAW will link needs headroom of its own; that is host knowledge
+# (hosts/<host>/audio, the Fifine on aorus).
 	services.pipewire.wireplumber.extraConfig."30-scarlett" = {
 		"monitor.alsa.rules" = [
 		{
