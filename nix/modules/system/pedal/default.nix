@@ -67,6 +67,10 @@ in
 
 		users.groups.keyd = { };
 		users.users.${config.dotfiles.user}.extraGroups = [ "keyd" ];
+		# keyd setgid()s to that group before creating the socket and exits on
+		# failure; the NixOS unit's bounding set has no CAP_SETGID, so without this
+		# the service dies with status 255 once the group exists.
+		systemd.services.keyd.serviceConfig.CapabilityBoundingSet = [ "CAP_SETGID" ];
 
 		environment.etc = lib.mapAttrs'
 			(name: keys: lib.nameValuePair "pedal-mode/games/${name}" {
