@@ -64,8 +64,9 @@ menu() {
 		echo desktop
 		echo app
 		profiles | sed 's/^/game:/'
-	} | walker --dmenu --placeholder 'Pedal mode' --current "$(current)") || true
-[ -n "$choice" ] && set_mode "$choice"
+	} | walker --dmenu --placeholder "Pedal mode (now: $(current))") || true
+	[ -n "$choice" ] || return 0 # cancelled
+	set_mode "$choice"
 }
 
 case ${1-} in
