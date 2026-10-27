@@ -16,6 +16,7 @@ in
 		home.packages = with pkgs; [
 			wezterm
 			obsidian
+			bitwarden-desktop
 		];
 
 		xdg.configFile."wezterm" = link "wezterm";
