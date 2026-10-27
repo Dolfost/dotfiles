@@ -21,6 +21,7 @@ in
 		../../modules/system/ly
 		../../modules/system/gaming
 		../../modules/system/media
+		../../modules/system/pedal
 		../../modules/system/openrgb
 		../../modules/system/android
 		../../modules/system/work
