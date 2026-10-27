@@ -14,11 +14,26 @@
 # F13..F24 would be the obvious free keys, but they do not survive the trip:
 # the default xkb map turns FK13..FK23 into XF86Tools/Launch/Touchpad keysyms,
 # and REAPER's SWELL only translates F1..F12 to begin with.
+#
+# Modes (pedal-mode.sh, SUPER + Z in Hyprland): the chords serve both the
+# desktop and REAPER, Hyprland decides which by binding them or not. Games want
+# a real held key instead, identical to the keyboard's (one bind per action),
+# and only keyd can produce that. The macros therefore live in a layout named
+# `pedal` rather than in main: `keyd bind` applies an expression to every
+# loaded config, but `pedal.f1 = w` is refused wherever that layer does not
+# exist, so it rebinds the pedal alone. The socket is root-only unless the
+# `keyd` group exists, in which case keyd hands it to that group; whoever is in
+# it can bind command() actions, i.e. is root on this host.
 { config, lib, pkgs, ... }:
 
 let
-	cfg = config.dotfiles.pedal;
-	fkeys = map (n: "f${toString n}") (lib.range 1 12);
+cfg = config.dotfiles.pedal;
+fkeys = map (n: "f${toString n}") (lib.range 1 12);
+pedal-mode = pkgs.writeShellApplication {
+	name = "pedal-mode";
+	runtimeInputs = [ pkgs.keyd ];
+	text = builtins.readFile ./pedal-mode.sh;
+};
 in
 {
 	options.dotfiles.pedal = {
@@ -32,23 +47,48 @@ in
 			default = map (key: "C-A-S-${key}") fkeys;
 			description = "What the pedal's F1..F12 come out as, in order, as keyd macro expressions.";
 		};
+		games = lib.mkOption {
+			type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
+# The four pedals wired so far are F7, F8, F9, F10, left to right.
+			default = {
+				walk = { f7 = "w"; };
+				dst = { f7 = "space"; }; # Don't Starve Together
+			};
+			description = ''
+				Game profiles for `pedal-mode game <name>`: pedal F-key to the plain
+				key it holds down while stepped on, in keyd's names (`keyd list-keys`).
+				'';
+		};
 	};
 
 	config = {
-		environment.systemPackages = [ pkgs.footswitch ];
+		environment.systemPackages = [ pkgs.footswitch pedal-mode ];
 		services.udev.packages = [ pkgs.footswitch ];
+
+		users.groups.keyd = { };
+		users.users.${config.dotfiles.user}.extraGroups = [ "keyd" ];
+
+		environment.etc = lib.mapAttrs'
+			(name: keys: lib.nameValuePair "pedal-mode/games/${name}" {
+			 text = lib.concatLines (lib.mapAttrsToList (key: to: "${key} = ${to}") keys);
+			 })
+		cfg.games;
 
 		services.keyd = {
 			enable = true;
-			# An explicit id outranks ../input's wildcard config.
+# An explicit id outranks ../input's wildcard config.
 			keyboards.pedal = {
 				ids = [ cfg.id ];
 				settings = {
-					# A held macro key starts repeating after this; at ~25 days it never
-					# does.
-					global.macro_timeout = 2147483647;
-					main = lib.listToAttrs (lib.zipListsWith
-						(from: to: lib.nameValuePair from "macro(${to})") fkeys cfg.keys);
+					global = {
+# A held macro key starts repeating after this; at ~25 days it never
+# does.
+						macro_timeout = 2147483647;
+						default_layout = "pedal";
+					};
+					main = { };
+					"pedal:layout" = lib.listToAttrs (lib.zipListsWith
+							(from: to: lib.nameValuePair from "macro(${to})") fkeys cfg.keys);
 				};
 			};
 		};

@@ -47,6 +47,7 @@ local l = 'SUPER + '
 --   SUPER + letter         -> toggle drawer   (SHIFT: move window there)
 --   SUPER + CTRL + letter  -> launch apps
 --   SUPER + Y              -> toggle waybar on focused monitor (SHIFT: all)
+--   SUPER + Z              -> pedal mode menu (pedal-mode: desktop / app / game profile)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
@@ -188,5 +189,38 @@ hl.bind(l..'SHIFT + comma',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh min'),     
 hl.bind(l..'SHIFT + period', hl.dsp.exec_raw(SCRIPTS..'brightness.sh max'),        { locked = true })
 hl.bind(l..'ALT + comma',    hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-dec'),  { locked = true })
 hl.bind(l..'ALT + period',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-inc'),  { locked = true })
+
+-- Foot pedals. keyd turns each pedal into a Ctrl+Alt+Shift+Fn tap (see
+-- nix/modules/system/pedal), one chord per pedal, which nothing else types.
+-- `pedal-mode` (SUPER + Z opens its walker menu) picks what they mean:
+--   desktop  the chords listed here are desktop actions
+--   app      every chord reaches the focused window (REAPER switches amps on
+--            them; it has to be focused)
+--   game:*   keyd turns the pedals into plain held keys; nothing to bind here
+-- The script keeps the mode in $XDG_RUNTIME_DIR/pedal-mode and calls
+-- pedals_apply(mode) through `hyprctl eval`; a config reload re-reads the
+-- file. Pedals not listed here pass through in every mode. Four pedals are
+local pedal_actions = {
+	[7] = hl.dsp.workspace.toggle_special('music'),
+	[8] = hl.dsp.workspace.toggle_special('notes'),
+}
+local function pedal_chord(n) return 'CTRL + ALT + SHIFT + F'..n end
+local pedals_bound = false
+function pedals_apply(mode, quiet)
+	local on = mode == 'desktop'
+	if on ~= pedals_bound then
+		for n, action in pairs(pedal_actions) do
+			if on then hl.bind(pedal_chord(n), action) else hl.unbind(pedal_chord(n)) end
+		end
+		pedals_bound = on
+	end
+	if not quiet then
+		hl.notification.create({ text = 'pedals: '..mode, duration = 1500 })
+	end
+end
+hl.bind(l..'Z', hl.dsp.exec_raw('pedal-mode'))
+local mode_file = io.open((os.getenv('XDG_RUNTIME_DIR') or '/tmp')..'/pedal-mode')
+pedals_apply(mode_file and mode_file:read('*l') or 'desktop', true)
+if mode_file then mode_file:close() end
 
 load_local_config()
