@@ -48,7 +48,8 @@ in
 			};
 			ipv4 = {
 				method = "auto";
-				address1 = "192.168.144.68/24";
+				address1 = "192.168.144.117/24";
+				address2 = "10.0.0.5/24";
 			};
 			ipv6.method = "auto";
 		};
