@@ -87,13 +87,22 @@ in
 		# they race uwsm finalize and capture an environment without
 		# WAYLAND_DISPLAY - every app elephant then spawns inherits it and dies on
 		# startup. Order them after the session so they see the full env.
+		#
+		# Elephant scans the desktop entries once at startup, so a newly installed
+		# package is invisible to the launcher until it restarts. home.path is the
+		# profile holding every home.packages entry, so naming it as a restart
+		# trigger makes home-manager's sd-switch restart the launcher on any
+		# rebuild that changed the package set. Walker Requires= elephant, but the
+		# trigger is on both so a stop/start of elephant never leaves walker down.
 		systemd.user.services.elephant.Unit = {
 			After = [ "graphical-session.target" ];
 			PartOf = [ "graphical-session.target" ];
+			X-Restart-Triggers = [ "${config.home.path}" ];
 		};
 		systemd.user.services.walker.Unit = {
 			After = [ "graphical-session.target" ];
 			PartOf = [ "graphical-session.target" ];
+			X-Restart-Triggers = [ "${config.home.path}" ];
 		};
 
 		# Per-window keyboard layout. Hyprland has no native option, so this daemon
