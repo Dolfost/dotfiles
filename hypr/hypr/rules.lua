@@ -45,6 +45,33 @@ hl.window_rule {
 	center = true,
 }
 
+local firefox_popups = {
+	-- fake fullscreen: the page thinks it is fullscreen, the window stays a float
+	{ title = 'Google Accounts', w = 500, h = 700, fake_fullscreen = true },
+	-- every extension popout window is titled "Extension: (<name>) - ..."
+	{ title = 'Extension: (', w = 420, h = 680 },
+}
+local popup_floated = {}
+hl.on('window.title', function(win)
+	if win.class ~= 'firefox' or win.floating or popup_floated[win.address] then return end
+	for _, popup in ipairs(firefox_popups) do
+		if win.title:find(popup.title, 1, true) then
+			popup_floated[win.address] = true
+			local target = 'address:' .. win.address
+			hl.dispatch(hl.dsp.window.float({ action = 'enable', window = target }))
+			hl.dispatch(hl.dsp.window.resize({ x = popup.w, y = popup.h, exact = true, window = target }))
+			hl.dispatch(hl.dsp.window.center({ window = target }))
+			if popup.fake_fullscreen then
+				hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 0, client = 2, window = target }))
+			end
+			return
+		end
+	end
+end)
+hl.on('window.close', function(win)
+	popup_floated[win.address] = nil
+end)
+
 hl.workspace_rule { workspace = 'special:chat', layout = 'master' }
 
 -- Inset the scratchpad drawers so the workspace behind stays visible around
