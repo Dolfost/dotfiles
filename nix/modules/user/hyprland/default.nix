@@ -135,7 +135,8 @@ in
 			};
 			Service = {
 				ExecStart = "%h/.config/hypr/hypr/scripts/waybar_output.sh run %i";
-				ExecReload = "kill -SIGUSR2 $MAINPID";
+				# absolute: systemd units get no PATH lookup for kill
+				ExecReload = "${pkgs.util-linux}/bin/kill -SIGUSR2 $MAINPID";
 				Restart = "on-failure";
 			};
 		};

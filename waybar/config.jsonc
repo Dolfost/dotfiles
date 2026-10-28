@@ -12,7 +12,10 @@
 	"hyprland/workspaces": {
 		"format": "{name}",
 		"all-outputs": true,
-		"show-special": true
+		"show-special": true,
+		// the lchat overlay parks on special:lchat while hidden (hypr/lchat.lua);
+		// a pill for it would give the hidden chat away
+		"ignore-workspaces": ["^special:lchat$"]
 	},
 
 	"group/media": {

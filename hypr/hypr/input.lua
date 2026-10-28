@@ -48,6 +48,7 @@ local l = 'SUPER + '
 --   SUPER + CTRL + letter  -> launch apps
 --   SUPER + Y              -> toggle waybar on focused monitor (SHIFT: all)
 --   SUPER + Z              -> pedal mode menu (pedal-mode: desktop / app / game profile)
+--   SUPER + T              -> LAN chat overlay toggle (hypr/lchat.lua)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
