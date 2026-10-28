@@ -1,5 +1,5 @@
 # AI coding agents: herdr (the multiplexer that tracks them), Claude Code,
-# and Hermes talking to DeepSeek on DeepInfra. Always on, like the shell.
+# Pi, and Hermes talking to DeepSeek on DeepInfra. Always on, like the shell.
 #
 # The DeepInfra key lives in sops (deepinfra_api_key) and reaches Hermes
 # through the hermes.env template rendered on the host side
@@ -22,6 +22,7 @@ in
 	home.packages = [
 		inputs.herdr.packages.${system}.default
 		unstable.claude-code
+		inputs.pi.packages.${system}.default
 	];
 
 	# Only the file: ~/.config/herdr also holds sockets, logs and session

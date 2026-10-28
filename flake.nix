@@ -14,6 +14,9 @@
 		};
 		herdr.url = "github:herdrdev/herdr/v0.9.5";
 		hermes-agent.url = "github:NousResearch/hermes-agent";
+		# Pi ships its own flake; stable is fast-forwarded to each release by
+		# upstream CI, so bumping it is just `nix flake update pi`.
+		pi.url = "github:earendil-works/pi/stable";
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... }:
