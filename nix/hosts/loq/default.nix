@@ -27,6 +27,7 @@ in
 		../../modules/system/openrgb
 		../../modules/system/android
 		../../modules/system/work
+		../../modules/system/laptop
 	];
 
 	# linuxPackages_zen tracks the newest zen release even on the stable
