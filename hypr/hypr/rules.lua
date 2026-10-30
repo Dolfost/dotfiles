@@ -41,7 +41,7 @@ hl.window_rule {
 	name = 'termfilechooser-float',
 	match = { class = '^termfilechooser$' },
 	float = true,
-	size = '60% 60%',
+	size = '80% 80%',
 	center = true,
 }
 
@@ -51,9 +51,18 @@ local firefox_popups = {
 	-- every extension popout window is titled "Extension: (<name>) - ..."
 	{ title = 'Extension: (', w = 420, h = 680 },
 }
+-- A real popup sets its title right after mapping; the main window's title
+-- changes with every tab, and a "Google Accounts" sign-in tab would otherwise
+-- float the whole browser. So only windows opened in the last few seconds
+-- qualify.
 local popup_floated = {}
+local opened_at = {}
+hl.on('window.open', function(win)
+	if win.class == 'firefox' then opened_at[win.address] = os.time() end
+end)
 hl.on('window.title', function(win)
 	if win.class ~= 'firefox' or win.floating or popup_floated[win.address] then return end
+	if not opened_at[win.address] or os.time() - opened_at[win.address] > 5 then return end
 	for _, popup in ipairs(firefox_popups) do
 		if win.title:find(popup.title, 1, true) then
 			popup_floated[win.address] = true
@@ -70,6 +79,7 @@ hl.on('window.title', function(win)
 end)
 hl.on('window.close', function(win)
 	popup_floated[win.address] = nil
+	opened_at[win.address] = nil
 end)
 
 hl.workspace_rule { workspace = 'special:chat', layout = 'master' }
