@@ -23,6 +23,7 @@ in
 		../../modules/system/gaming
 		../../modules/system/media
 		../../modules/system/pedal
+		../../modules/system/diy
 		../../modules/system/openrgb
 		../../modules/system/android
 		../../modules/system/work

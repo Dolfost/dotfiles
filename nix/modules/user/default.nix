@@ -31,6 +31,7 @@ in
 		./communication
 		./work
 		./guitar
+		./diy
 		./gaming
 	];
 

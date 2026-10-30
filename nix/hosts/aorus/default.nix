@@ -26,6 +26,7 @@
 		../../modules/system/media
 		../../modules/system/guitar
 		../../modules/system/pedal
+		../../modules/system/diy
 		../../modules/system/openrgb
 		../../modules/system/amd-gpu
 		../../modules/system/android

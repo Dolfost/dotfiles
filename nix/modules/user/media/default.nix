@@ -37,7 +37,6 @@ in
 				feishin
 				gimp
 				drawio
-				freecad
 				# Screen capture works through the PipeWire portal out of the box; the
 				# plugins add per-application audio capture and Vulkan/GL game capture
 				# (run the game with `obs-gamecapture` or OBS_VKCAPTURE=1).
