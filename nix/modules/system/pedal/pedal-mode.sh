@@ -20,6 +20,25 @@ games=/etc/pedal-mode/games
 
 current() { cat "$state" 2>/dev/null || echo desktop; }
 
+# Errors would vanish into Hyprland's exec, so they go on screen too.
+fail() {
+	echo "pedal-mode: $1" >&2
+	hyprctl eval "hl.notification.create({ text = [[pedal-mode: $1]], duration = 5000 })" > /dev/null 2>&1 || true
+	exit 1
+}
+
+# The socket belongs to group keyd; a session started before that group
+# existed lacks it until the next login, and sg steps into it without a
+# password for a member listed in /etc/group.
+keyd_bind() {
+	local out
+	if id -nG | grep -qw keyd; then
+		out=$(keyd bind "$@" 2>&1) || fail "$out"
+	else
+		out=$(sg keyd -c "$(printf '%q ' keyd bind "$@")" 2>&1) || fail "$out"
+	fi
+}
+
 profiles() {
 	local f
 	for f in "$games"/*; do [ -e "$f" ] || continue; basename "$f"; done
@@ -40,22 +59,22 @@ set_mode() {
 	case $mode in
 		desktop | app)
 			# Only a game profile leaves bindings behind.
-			case $(current) in game:*) keyd bind reset > /dev/null ;; esac
+			case $(current) in game:*) keyd_bind reset ;; esac
 			;;
 		game:*)
 			local file=$games/${mode#game:} key value
 			local -a exprs=()
-			[ -f "$file" ] || { echo "pedal-mode: no game profile '${mode#game:}' in $games" >&2; exit 1; }
+			[ -f "$file" ] || fail "no game profile '${mode#game:}' in $games"
 			while IFS='=' read -r key value; do
 				key=${key//[[:space:]]/}
 				[ -z "$key" ] && continue
 				exprs+=("pedal.$key = ${value#"${value%%[![:space:]]*}"}")
 			done < "$file"
-			keyd bind reset "${exprs[@]}" > /dev/null
+			keyd_bind reset "${exprs[@]}"
 			;;
 	esac
 	printf '%s\n' "$mode" > "$state"
-	hyprctl eval "pedals_apply('$mode')" > /dev/null
+	hyprctl eval "pedals_apply('$mode')" > /dev/null || fail "hyprctl eval failed"
 }
 
 menu() {
