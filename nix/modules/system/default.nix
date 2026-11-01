@@ -26,6 +26,7 @@ in
 		environment.systemPackages = with pkgs; [
 			# nodejs: nvim's pandoc-preview plugin serves via `npx browser-sync`
 			neovim nodejs tree ripgrep wget git git-lfs tmux btop sops age ssh-to-age
+			file
 			gnutar zip unzip unrar p7zip
 			unstable.zellij
 		];
