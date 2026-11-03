@@ -5,9 +5,15 @@
 # nixpkgs has the package but no service, so this is the service: a hardened
 # DynamicUser unit, a server host key generated once into /var/lib/ssh-chat
 # (clients pin it on first connect; losing it across rebuilds would greet
-# everyone with a "host key changed" scare), the room history in the journal,
-# a `lchat [nick]` command that connects with the fleet key so the admin
-# rights land on the right identity, and a notification per incoming message.
+# everyone with a "host key changed" scare), the room history in the journal, a
+# `lchat [nick]` command that connects with the fleet key so the admin rights
+# land on the right identity, a notification per incoming message, and
+# optionally a claude bot: "@claude <question>" in the room gets a short answer
+# back from Claude Code, posted as nick "claude". Not a slash command: ssh-chat
+# has no plugin hook, the server refuses an unknown /command and it never
+# reaches the room. The bot is a user service (claude lives in the user profile
+# and uses the user's login) following the same journal the notifier does, with
+# one ssh session kept open to talk.
 #
 # Admin keys get /kick /ban /op /mute and friends. An empty whitelist means
 # the room is open to whoever can reach the port; fill it to lock the room
@@ -47,6 +53,74 @@ let
 			${pkgs.libnotify}/bin/notify-send -a lchat -t 5000 -- "$nick" "$msg"
 		done
 	'';
+
+	# The claude bot. One ssh session as the bot nick (its own key, generated
+	# once into the state dir so the identity survives restarts) is fed through a
+	# fifo on fd 3 and its output dropped; the questions come from the journal
+	# like the notifier's. The server reads a line up to a carriage return (no
+	# pty, the terminal library does the line editing), takes at most 1024 bytes
+	# per line and 3 lines per 3 seconds. `claude -c` in the state dir continues
+	# the chat's own conversation - nothing else is ever run there.
+	bot = pkgs.writeShellScript "lchat-claude" ''
+		set -u
+		export LC_ALL=C.UTF-8
+		export PATH=$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:$PATH
+		nick=${cfg.claude.nick}
+		state=''${XDG_STATE_HOME:-$HOME/.local/state}/lchat-claude
+		mkdir -p "$state" && cd "$state" || exit 1
+		[ -f key ] || ${pkgs.openssh}/bin/ssh-keygen -q -t ed25519 -N "" -C lchat-claude -f key
+
+		# The session is a background job on a fifo, the journal loop another:
+		# whichever ends first (the chat restarted, journalctl died) ends the
+		# script, and systemd brings it back with a fresh session.
+		rm -f in && mkfifo -m 600 in
+		${pkgs.openssh}/bin/ssh -T -p ${toString cfg.port} -i key \
+			-o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+			-o UserKnownHostsFile="$state/known_hosts" -o ServerAliveInterval=30 \
+			-o LogLevel=ERROR "$nick@localhost" <in >/dev/null &
+		exec 3>in
+
+		say() { printf "%s\r\n" "$1" >&3 || exit 1; }
+
+		answer() {
+			local who=$1 question=$2 reply first=1 line
+			reply=$(printf "%s: %s" "$who" "$question" |
+				claude -p -c --append-system-prompt ${lib.escapeShellArg cfg.claude.prompt} \
+					${lib.escapeShellArgs (lib.optionals cfg.claude.web [ "--allowedTools" "WebSearch" "WebFetch" ] ++ cfg.claude.extraArgs)}) ||
+				reply="claude failed, see journalctl --user -u lchat-claude"
+			# Said "nick: text" is the input format, it answers "nick: text" too.
+			[[ $reply =~ ^(@?"$who"[,:]?[[:space:]]+)+(.*)$ ]] && reply=''${BASH_REMATCH[2]}
+			reply=''${reply:0:1024}
+			# Folded by characters: a line must stay under 1024 bytes and
+			# cyrillic is two bytes a letter.
+			printf "%s\n" "$reply" | ${pkgs.coreutils}/bin/fold -s -w 480 |
+			while IFS= read -r line; do
+				line=''${line%"''${line##*[![:space:]]}"} # fold leaves the trailing blank
+				[ -z "$line" ] && continue
+				if [ "$first" = 1 ]; then
+					line="@$who $line"
+					first=0
+				else
+					${pkgs.coreutils}/bin/sleep 1.1
+				fi
+				case $line in /*) line=" $line" ;; esac # never a command
+				say "$line"
+			done
+		}
+
+		${pkgs.systemd}/bin/journalctl -u ssh-chat -f -n 0 -o cat |
+		while IFS= read -r line; do
+			[[ $line =~ ^\[[0-9-]+\ [0-9:]+\]\ ([^\ :]+):\ (.*)$ ]] || continue
+			from=''${BASH_REMATCH[1]}
+			msg=''${BASH_REMATCH[2]}
+			[ "$from" = "$nick" ] && continue
+			[[ $msg =~ ^@"$nick"[,:]?[[:space:]]+(.+)$ ]] || continue
+			answer "$from" "''${BASH_REMATCH[1]}"
+		done &
+
+		wait -n
+		exit 1
+	'';
 in
 {
 	options.dotfiles.ssh-chat = {
@@ -70,11 +144,41 @@ in
 			default = "vlad";
 			description = "Nick `lchat` joins with when given none; its messages don't notify.";
 		};
+		claude = {
+			enable = lib.mkEnableOption "the claude bot: `@claude <question>` in the room";
+			nick = lib.mkOption {
+				type = lib.types.str;
+				default = "claude";
+				description = "Nick the bot joins as; `@<nick>` at the start of a message asks it.";
+			};
+			prompt = lib.mkOption {
+				type = lib.types.str;
+				default = lib.concatStringsSep " " ([
+					"You are answering inside a small plain-text chat room over SSH on a home LAN."
+					"Several people read it and every message is one line, so reply in plain text only:"
+					"no markdown, no headings, no bullet points, no code fences."
+					"Keep it short: one to three sentences, never more than 1024 characters."
+					"Answer in the language of the question."
+					"Each message arrives as \"nick: text\" so you know who is asking;"
+					"reply with the answer alone, never prefixed with a nick or \"nick:\"."
+				] ++ lib.optional cfg.claude.web
+					"Search the web when the question needs current facts (weather, news, prices)."
+				);
+				description = "Appended to the system prompt: the chat context and the length limit.";
+			};
+			web = lib.mkEnableOption "web access for the bot (WebSearch and WebFetch) and a prompt line saying so";
+			extraArgs = lib.mkOption {
+				type = lib.types.listOf lib.types.str;
+				default = [ ];
+				example = [ "--allowedTools" "WebSearch" "--model" "haiku" ];
+				description = "Extra `claude -p` arguments.";
+			};
+		};
 		motd = lib.mkOption {
 			type = lib.types.lines;
 			# A list, not an indented string: Nix only strips leading spaces from
 			# '' strings and this file is tab-indented.
-			default = lib.concatLines [
+			default = lib.concatLines ([
 				"  === ${me} chat ===  nothing here leaves the LAN"
 				""
 				"  /nick <name>        change your name"
@@ -83,9 +187,12 @@ in
 				"  /names              who is here"
 				"  /whois <nick>       their key fingerprint"
 				"  /help               the rest"
+			] ++ lib.optional cfg.claude.enable
+				"  @${cfg.claude.nick} <question>  ask claude, it answers in the room, briefly"
+			++ [
 				""
 				"  Rejoin with the same key to keep your identity."
-			];
+			]);
 			description = "Message of the day, shown on join.";
 		};
 		openFirewall = lib.mkOption {
@@ -165,8 +272,8 @@ in
 			'')
 		];
 
-		home-manager.users.${user}.systemd.user.services.lchat-notify =
-			lib.mkIf config.dotfiles.graphical {
+		home-manager.users.${user}.systemd.user.services = {
+			lchat-notify = lib.mkIf config.dotfiles.graphical {
 				Unit = {
 					Description = "Notifications for new LAN chat messages";
 					After = [ "graphical-session.target" ];
@@ -179,5 +286,20 @@ in
 				};
 				Install.WantedBy = [ "graphical-session.target" ];
 			};
+
+			lchat-claude = lib.mkIf cfg.claude.enable {
+				Unit = {
+					Description = "Claude bot in the LAN chat";
+					After = [ "network.target" ];
+				};
+				Service = {
+					ExecStart = "${bot}";
+					# Exits when the session drops (the chat restarted); back in 5 s.
+					Restart = "always";
+					RestartSec = 5;
+				};
+				Install.WantedBy = [ "default.target" ];
+			};
+		};
 	};
 }
