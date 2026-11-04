@@ -35,7 +35,7 @@ let
 
 	topology = {
 		books    = { id = "n9zmf-v33nw"; members = [ "aorus" "loq" "rodin" "mac" ]; };
-		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" ]; };
+		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" "mac" ]; };
 		shared   = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" ]; };
 		guitar   = { id = "fuck2-fuck2"; members = [ "aorus" "mac" "loq" ]; };
 		avatars  = { id = "fuck1-fuck1"; members = [ "aorus" "rodin" "mac" "loq" ]; };
@@ -73,6 +73,9 @@ in
 			cert = config.sops.secrets.syncthing_cert.path;
 			key = config.sops.secrets.syncthing_key.path;
 			openDefaultPorts = true;
+			# Not settings.gui.address: the module also passes --gui-address on the
+			# command line, which wins over config.xml.
+			guiAddress = "0.0.0.0:8384";
 			overrideDevices = true;
 			overrideFolders = true;
 
@@ -94,7 +97,6 @@ in
 				# The tailnet already authenticates and encrypts the transport;
 				# the password (pushed by syncthing-gui-auth below) is just a
 				# second fence.
-				gui.address = "0.0.0.0:8384";
 				gui.insecureSkipHostcheck = true;
 				gui.user = user;
 				options.urAccepted = -1;
@@ -103,7 +105,10 @@ in
 
 		# The password hash can't go through services.syncthing.settings - that
 		# ends up world-readable in the nix store - so it comes from sops and is
-		# pushed into the running instance over the local REST api instead.
+		# pushed into the running instance over the local REST api instead. It has to
+		# land after syncthing-init: that PUTs the whole gui object without a
+		# password, which syncthing stores as bcrypt("") - so it also reruns
+		# whenever init does.
 		sops.secrets = {
 			syncthing_cert = { key = "syncthing/${me}/cert"; owner = user; };
 			syncthing_key = { key = "syncthing/${me}/key"; owner = user; };
@@ -111,9 +116,9 @@ in
 		};
 		systemd.services.syncthing-gui-auth = {
 			description = "Syncthing GUI password from sops";
-			after = [ "syncthing.service" ];
+			after = [ "syncthing.service" "syncthing-init.service" ];
 			requires = [ "syncthing.service" ];
-			wantedBy = [ "multi-user.target" ];
+			wantedBy = [ "multi-user.target" "syncthing-init.service" ];
 			serviceConfig = {
 				Type = "oneshot";
 				User = user;
