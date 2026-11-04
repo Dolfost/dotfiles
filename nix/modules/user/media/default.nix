@@ -36,6 +36,7 @@ in
 				zathura
 				feishin
 				gimp
+				inkscape
 				drawio
 				# Screen capture works through the PipeWire portal out of the box; the
 				# plugins add per-application audio capture and Vulkan/GL game capture

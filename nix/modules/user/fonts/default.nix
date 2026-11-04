@@ -9,7 +9,12 @@
 	};
 
 	config = lib.mkIf config.dotfiles.fonts.enable {
-		home.packages = [ pkgs.nerd-fonts.iosevka ];
+		home.packages = [
+			pkgs.nerd-fonts.iosevka
+			# For Inkscape/GIMP work. Not pkgs.lobster - that is the programming
+			# language.
+			(pkgs.google-fonts.override { fonts = [ "Lobster" ]; })
+		];
 
 		# Wires profile fonts into the user fontconfig - on NixOS and bare distros
 		# alike.
