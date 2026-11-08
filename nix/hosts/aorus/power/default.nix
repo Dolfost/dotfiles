@@ -14,13 +14,13 @@
 		ups = {
 			enable = true;
 			driver = "usbhid-ups"; # NUT driver
-				port = "auto"; # scan USB for it
-				description = "EcoFlow Delta 3 Max Plus";
+			port = "auto"; # scan USB for it
+			description = "EcoFlow Delta 3 Max Plus";
 			directives = [ "vendorid = 3746" "productid = ffff" ]; # extra ups.conf lines
-				lowBattery = {
-					charge = 30; # percent at or below: low battery (null: device's own flag)
-						runtime = 300; # seconds left at or below: low battery (null: device's own flag)
-				};
+			lowBattery = {
+				charge = 20; # percent at or below: low battery (null: device's own flag)
+				runtime = 300; # seconds left at or below: low battery (null: device's own flag)
+			};
 			onLowBattery = "hibernate"; # or "poweroff"
 		};
 		outage = {
@@ -37,18 +37,22 @@
 
 	home-manager.users.${config.dotfiles.user}.dotfiles.power = {
 		enable = true; # follows ups.enable above by default
-			warnCharge = 40; # critical notification at this percent (default: lowBattery.charge + 10; null: off)
-			outage = {
-# DP-1 at 180 Hz keeps the dGPU memory clock up whenever the screen
-# moves; 60 Hz is about 10 W less.
-				refreshRate = 60; # every enabled monitor on battery (null: keep modes)
-					brightness = null; # DDC brightness 0..100 for external panels on battery (null: leave)
-					stopUnits = [ "nicotine.service" "crafty.service" ]; # user units stopped on battery
-					dpmsTimeout = 120; # idle seconds before the screen turns off on battery (0: never)
-					idle = {
-						timeout = 1200; # idle seconds before idle.command
-							command = null; # e.g. "systemctl hibernate"; null keeps the server up
-					};
+		warnCharge = 30; # critical notification at this percent (default: lowBattery.charge + 10; null: off)
+		outage = {
+			# DP-1 at 180 Hz keeps the dGPU memory clock up whenever the screen
+			# moves; 60 Hz is about 10 W less.
+			refreshRate = 60; # every enabled monitor on battery (null: keep modes)
+			brightness = null; # DDC brightness 0..100 for external panels on battery (null: leave)
+			stopUnits = [ "nicotine.service" "crafty.service" ]; # user units stopped on battery
+			dpmsTimeout = 120; # idle seconds before the screen turns off on battery (0: never)
+			idle = {
+				timeout = 1200; # idle seconds before idle.command
+				command = null; # e.g. "systemctl hibernate"; null keeps the server up
 			};
+			# Discord (Vesktop) is the one app that stays busy while hidden; frozen it
+			# costs nothing, and nothing from it arrives until the next input.
+			freezeApps = [ "vesktop" ]; # app-*.scope substrings frozen while idle on battery
+			freezeAfter = 120; # idle seconds before they freeze (thaw on input or grid)
+		};
 	};
 }

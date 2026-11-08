@@ -29,7 +29,8 @@ let
 	tools = with pkgs; [ nut libnotify jq ddcutil coreutils gawk ];
 
 	withDisplay = (cfg.outage.refreshRate != null && hyprland) || cfg.outage.brightness != null;
-	withIdle = hyprland && (cfg.outage.dpmsTimeout > 0 || cfg.outage.idle.command != null);
+	withFreeze = hyprland && cfg.outage.freezeApps != [ ];
+	withIdle = hyprland && (cfg.outage.dpmsTimeout > 0 || cfg.outage.idle.command != null || withFreeze);
 
 	script = name: text: lib.getExe (pkgs.writeShellApplication {
 		inherit name text;
@@ -169,10 +170,37 @@ let
 		fi
 	'';
 
+	# The generic hammer: freezes the systemd scopes of the listed apps (every
+	# GUI app runs in its own app-*.scope) while the machine idles on battery,
+	# thaws them on the first input. Frozen means no wake-ups at all; the
+	# price is no notifications or calls from them until then. `thaw` also
+	# catches scopes a stale state file no longer lists.
+	freeze = script "power-freeze" ''
+		${prelude}
+		matching() {
+			systemctl --user list-units --type=scope --all --no-legend --plain 'app-*' |
+				awk '{ print $1 }' | grep -iE '${lib.concatStringsSep "|" (map lib.escapeRegex cfg.outage.freezeApps)}' || true
+		}
+		case "$1" in
+		freeze)
+			for scope in $(matching); do
+				systemctl --user freeze "$scope" && echo "$scope" >> "$state/frozen" || true
+			done
+			;;
+		thaw | restore) # restore: the lever's ExecStop
+			for scope in $(matching) $(cat "$state/frozen" 2>/dev/null); do
+				[ "$(systemctl --user show -p FreezerState --value "$scope" 2>/dev/null)" = running ] ||
+					systemctl --user thaw "$scope" || true
+			done
+			rm -f "$state/frozen"
+			;;
+		esac
+	'';
+
 	# One saving = one unit under the target: start applies, stop reverts.
 	# Session-bound levers also stop with the graphical session; power-session
 	# starts them again for the next one.
-	lever = { name, description, exe, session ? false }: {
+	lever = { name, description, exe, session ? false, apply ? "apply" }: {
 		"power-outage-${name}" = {
 			Unit = {
 				Description = description;
@@ -181,7 +209,7 @@ let
 			Service = {
 				Type = "oneshot";
 				RemainAfterExit = true;
-				ExecStart = "${exe} apply";
+				ExecStart = "${exe} ${apply}";
 				ExecStop = "${exe} restore";
 			};
 			Install.WantedBy = [ "power-outage.target" ];
@@ -245,6 +273,22 @@ in
 					'';
 				};
 			};
+			freezeApps = mkOption {
+				type = types.listOf types.str;
+				default = [ ];
+				example = [ "vesktop" ];
+				description = ''
+					Apps whose systemd scopes (app-*.scope, matched case-insensitively
+					by these substrings) are frozen after freezeAfter idle seconds on
+					battery and thawed on input or when the grid returns. A frozen app
+					costs nothing and delivers nothing.
+				'';
+			};
+			freezeAfter = mkOption {
+				type = types.int;
+				default = 120;
+				description = "Idle seconds before freezeApps freeze on battery.";
+			};
 		};
 	};
 
@@ -291,6 +335,13 @@ in
 			exe = display;
 			session = true;
 		})
+		// optionalAttrs withFreeze (lever {
+			name = "freeze";
+			description = "Thaw the frozen apps when the outage or the session ends";
+			exe = freeze;
+			session = true;
+			apply = "thaw";
+		})
 		// optionalAttrs (cfg.outage.stopUnits != [ ]) (lever {
 			name = "units";
 			description = "Stop the chosen user units on battery";
@@ -328,6 +379,13 @@ in
 						timeout = ${toString cfg.outage.dpmsTimeout}
 						on-timeout = hyprctl dispatch "hl.dsp.dpms({action='disable'})"
 						on-resume = hyprctl dispatch "hl.dsp.dpms({action='enable'})"
+					}
+				''
+				+ optionalString withFreeze ''
+					listener {
+						timeout = ${toString cfg.outage.freezeAfter}
+						on-timeout = ${freeze} freeze
+						on-resume = ${freeze} thaw
 					}
 				''
 				+ optionalString (cfg.outage.idle.command != null) ''
