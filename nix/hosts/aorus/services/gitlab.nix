@@ -1,5 +1,5 @@
-# GitLab: the heavyweight git forge (web 8929, ssh 2224 - clear of gitea's
-# 3000/2222; tailnet serves ssh on plain 22). The omnibus override points
+# GitLab: the git forge (web 8929, ssh 2224; tailnet serves ssh on plain 22).
+# The omnibus override points
 # external_url at the tailscale hostname so clone/redirect URLs come out right
 # - including ssh port 22, matching the tailnet forward rather than the
 # host-side 2224 publish; nginx inside the container still listens plain http

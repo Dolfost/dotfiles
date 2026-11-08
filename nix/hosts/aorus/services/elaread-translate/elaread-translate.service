@@ -1,0 +1,48 @@
+# Elaread translation relay as a system service, for a host other than evictus
+# (evictus runs it as a user unit from dotfiles). Settings and the Claude token
+# come from /etc/elaread-translate.env; see README.md here.
+[Unit]
+Description=Elaread translation relay to claude -p
+# It listens on the host's tailnet address, which exists once tailscaled is up;
+# until then the bind fails and Restart= tries again.
+Wants=network-online.target
+After=network-online.target tailscaled.service
+
+[Service]
+EnvironmentFile=/etc/elaread-translate.env
+ExecStart=/usr/bin/python3 -I /opt/elaread-translate/elaread-translate.py
+Restart=always
+RestartSec=10
+
+# A user of its own that exists only while the service runs; claude keeps its
+# small state (~/.claude) in the state directory, the empty working dir has no
+# CLAUDE.md for it to pick up.
+DynamicUser=yes
+StateDirectory=elaread-translate
+WorkingDirectory=/var/lib/elaread-translate
+Environment=HOME=/var/lib/elaread-translate
+Environment=DISABLE_AUTOUPDATER=1
+
+# Nothing but the network and its own directory.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+# Up to ELAREAD_PARALLEL claude processes at a few hundred MB each.
+MemoryMax=3G
+TasksMax=512
+
+[Install]
+WantedBy=multi-user.target

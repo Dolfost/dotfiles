@@ -43,12 +43,12 @@ in
 		./navidrome.nix
 		./immich.nix
 		./paperless.nix
-		./gitea.nix
 		./gitlab.nix
 		./crafty.nix
 		./nicotine.nix
 		./pihole.nix
 		./docs.nix
+		./elaread.nix
 	];
 
 	options.dotfiles.serve = lib.mkOption {
