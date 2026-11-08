@@ -28,6 +28,7 @@ in
 		./music
 		./audio
 		./openrgb
+		./power
 		./communication
 		./work
 		./guitar

@@ -48,6 +48,7 @@ local l = 'SUPER + '
 --   SUPER + CTRL + letter  -> launch apps
 --   SUPER + Y              -> toggle waybar on focused monitor (SHIFT: all)
 --   SUPER + Z              -> pedal mode menu (pedal-mode: desktop / app / game profile)
+--   SUPER + SHIFT + B      -> refresh rate menu for the focused monitor (refresh_rate.sh)
 --   SUPER + T              -> LAN chat overlay toggle (hypr/lchat.lua)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
@@ -86,7 +87,8 @@ hl.bind(l..'SHIFT + P', function()
 end)
 hl.bind(l..'F', hl.dsp.window.fullscreen_state({ internal = 1, client = 2 }))
 hl.bind(l..'R', hl.dsp.exec_raw(SCRIPTS..'resize_active.sh'))
-hl.bind(l..'B', hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
+hl.bind(l..'B',         hl.dsp.exec_raw(SCRIPTS..'hyprsunset.sh'))
+hl.bind(l..'SHIFT + B', hl.dsp.exec_raw(SCRIPTS..'refresh_rate.sh'))
 hl.bind(l..'I', hl.dsp.exec_raw(SCRIPTS..'caffeine.sh toggle')) -- inhibit idle
 hl.bind(l..'D',         hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh horizontal'))
 hl.bind(l..'SHIFT + D', hl.dsp.exec_raw(SCRIPTS..'toggle_secondary_display.sh vertical'))

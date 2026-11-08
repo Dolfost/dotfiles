@@ -16,6 +16,7 @@
 		./sunshine
 		./syncthing
 		./printing
+		./power
 
 		# Baseline and the features this host opts into.
 		../../modules/system
@@ -31,6 +32,7 @@
 		../../modules/system/amd-gpu
 		../../modules/system/android
 		../../modules/system/work
+		../../modules/system/power
 	];
 
 	programs.gamemode.settings.gpu = {

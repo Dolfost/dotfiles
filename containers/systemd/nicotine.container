@@ -84,6 +84,9 @@ Exec=xpra start :100 --start=nicotine --bind-tcp=0.0.0.0:8085 --html=on --daemon
 # up on PATH instead. systemd expands ${NICOTINE_BIND_IP} before sh sees the
 # string — which is also why this loop uses no shell variables of its own.
 ExecStartPre=/bin/sh -c 'timeout 120 sh -c "until ip -4 addr show tailscale0 2>/dev/null | grep -q ${NICOTINE_BIND_IP}/; do sleep 2; done"'
+# xpra answers SIGTERM by exiting 143 (128+15), which systemd would record
+# as a failure after every ordinary stop; it is the clean exit here.
+SuccessExitStatus=143
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=900

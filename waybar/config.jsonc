@@ -7,7 +7,7 @@
 	"reload_style_on_change": true,
 	"modules-left": ["hyprland/workspaces", "group/media"],
 	"modules-center": ["hyprland/window"],
-	"modules-right": ["custom/airraid", "tray", "group/status"],
+	"modules-right": ["custom/ups", "custom/airraid", "tray", "group/status"],
 
 	"hyprland/workspaces": {
 		"format": "{name}",
@@ -68,6 +68,14 @@
 			"network",
 			"battery"
 		]
+	},
+
+	// UPS charge (nix/modules/system/power): plain on grid, coloured on battery
+	"custom/ups": {
+		"format": "{}",
+		"return-type": "json",
+		"exec": "~/.config/hypr/hypr/scripts/ups.sh",
+		"interval": 15
 	},
 
 	// air_raid.sh polls the siren feed; the plane tracks the home region (nix

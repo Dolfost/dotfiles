@@ -4,7 +4,19 @@
 let
 	link = config.lib.dotfiles.link;
 
-	apps = { inherit (pkgs) waybar walker; swaync = pkgs.swaynotificationcenter; };
+	# waybar ships its own waybar.service; it is dropped from the package. The
+	# bar here runs as waybar@<output> (below), and the stock unit only ever
+	# launched a second, unmanaged bar when someone typed
+	# `systemctl --user restart waybar`.
+	apps = {
+		inherit (pkgs) walker;
+		swaync = pkgs.swaynotificationcenter;
+		waybar = pkgs.symlinkJoin {
+			name = "waybar-${pkgs.waybar.version}";
+			paths = [ pkgs.waybar ];
+			postBuild = "rm -rf $out/share/systemd $out/lib/systemd";
+		};
+	};
 
 	# Everything the binds and scripts shell out to.
 	tools = with pkgs; [
@@ -132,6 +144,11 @@ in
 				Description = "Waybar on output %i";
 				After = [ "graphical-session.target" ];
 				PartOf = [ "graphical-session.target" ];
+				# waybar reads config.jsonc only at start, and nix cannot see the
+				# linked file change, so its hash goes into the unit: sd-switch then
+				# restarts the running instances on a rebuild that edited it.
+				# style.css needs nothing, reload_style_on_change covers it.
+				X-Restart-Triggers = [ (builtins.hashFile "sha256" ../../../../waybar/config.jsonc) ];
 			};
 			Service = {
 				ExecStart = "%h/.config/hypr/hypr/scripts/waybar_output.sh run %i";

@@ -26,6 +26,7 @@ window#waybar.hidden {
 #workspaces,
 #media,
 #window,
+#custom-ups,
 #custom-airraid,
 #tray,
 #status {
@@ -89,6 +90,20 @@ window#waybar.hidden {
 
 #privacy {
 	color: #e0af68;
+}
+
+/* ups: plain on grid power, green while charging, warning on battery,
+ * danger near low battery */
+#custom-ups.charging {
+	color: #9ece6a;
+}
+
+#custom-ups.battery {
+	color: #e0af68;
+}
+
+#custom-ups.low {
+	color: #f7768e;
 }
 
 /* airraid colors itself with pango spans - plane by home region level, count
