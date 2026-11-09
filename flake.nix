@@ -17,6 +17,12 @@
 		# Pi ships its own flake; stable is fast-forwarded to each release by
 		# upstream CI, so bumping it is just `nix flake update pi`.
 		pi.url = "github:earendil-works/pi/stable";
+		# The UPS dashboard and its history recorder (hosts/aorus/power), pinned
+		# to a release tag like herdr; a new release is a new tag here.
+		upst = {
+			url = "github:Dolfost/upst/v0.1.1";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... }:

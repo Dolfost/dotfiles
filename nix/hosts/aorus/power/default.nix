@@ -1,22 +1,63 @@
 # The EcoFlow Delta 3 Max Plus on USB (3746:ffff). It shows up as a HID
 # power device that NUT's EcoFlow subdriver claims (status, charge,
 # runtime) plus a CDC serial port with the live wattage, which NUT reads
-# only from 2.8.6 on. The spinning disks are the two media drives; the
-# NVMe carries everything else. Low battery hibernates into the 32 GB swap
-# partition. The box is a server during an outage, so no idle action here.
+# from 2.8.6 on (built from master below). The spinning disks are the two
+# media drives; the NVMe carries everything else. Low battery hibernates into
+# the 32 GB swap partition. The box is a server during an outage, so no idle
+# action here.
 #
 # Every knob of modules/system/power and modules/user/power is listed, at
 # its default where nothing says otherwise, so tuning is an edit here.
-{ config, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
+	imports = [ inputs.upst.nixosModules.default ];
+
+	# NUT from its development branch until 2.8.6 reaches nixpkgs: 2.8.4 leaks
+	# 128 bytes a poll in the EcoFlow subdriver (measured here: 4 KB a minute),
+	# and only the new one has ecoflow_cdc_port. See packages/nut.nix.
+	power.ups.package = pkgs.callPackage ../../../packages/nut.nix { };
+
+	# The CDC port under a fixed name: /dev/serial/by-id/ would work too, but
+	# that name carries the unit's serial number.
+	services.udev.extraRules = ''
+		SUBSYSTEM=="tty", ATTRS{idVendor}=="3746", ATTRS{idProduct}=="ffff", SYMLINK+="ecoflow-cdc"
+	'';
+
+	# upst, the terminal dashboard for this UPS, and its recorder, which keeps a
+	# journal in /var/lib/upst so upst opens with the last day of charts and
+	# events. settings becomes /etc/upst/config.toml: the defaults for every upst
+	# here (~/.config/upst/config.toml and flags win), and the recorder's own
+	# under record. Keys: github.com/Dolfost/upst/blob/main/docs/setup.md
+	services.upst = {
+		enable = true;
+		settings = {
+			targets = [ "ups@localhost" ]; # NUT's name for it (default: every UPS on localhost)
+			charge-style = "battery"; # battery, lcd, segments, blocks or bar; b cycles in upst
+			history = "48h"; # loaded from the recorder at start, and kept while upst runs
+			record = {
+				interval = "5s"; # time between polls
+				keep = "7d"; # history kept on disk
+				listen = [ ]; # besides /run/upst/upst.sock, e.g. "0.0.0.0:3494" for upst on loq
+			};
+		};
+	};
+
 	dotfiles.power = {
 		ups = {
 			enable = true;
 			driver = "usbhid-ups"; # NUT driver
 			port = "auto"; # scan USB for it
 			description = "EcoFlow Delta 3 Max Plus";
-			directives = [ "vendorid = 3746" "productid = ffff" ]; # extra ups.conf lines
+			directives = [
+				"vendorid = 3746"
+				"productid = ffff"
+				# Live watts, voltage, frequency and temperatures from the CDC port,
+				# polled with a read-only request. Upstream checked it on a River 3
+				# Plus; this unit (EMS firmware 2.1.1.104) answers it too. HID stays
+				# the source for status, charge and runtime.
+				"ecoflow_cdc_port = /dev/ecoflow-cdc"
+			]; # extra ups.conf lines
 			lowBattery = {
 				charge = 20; # percent at or below: low battery (null: device's own flag)
 				runtime = 300; # seconds left at or below: low battery (null: device's own flag)

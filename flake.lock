@@ -302,7 +302,8 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pi": "pi",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "upst": "upst"
       }
     },
     "rust-overlay": {
@@ -343,6 +344,27 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "upst": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794236865,
+        "narHash": "sha256-dXlJMgWdb9afK/x9tvVaMum24+08VCYtrJ3orETz0bU=",
+        "owner": "Dolfost",
+        "repo": "upst",
+        "rev": "b47399209d230c86f80af94a292b25fa24653fed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Dolfost",
+        "ref": "v0.1.1",
+        "repo": "upst",
         "type": "github"
       }
     },
