@@ -17,8 +17,8 @@ buildGoModule rec {
 	src = fetchFromGitHub {
 		owner = "Dolfost";
 		repo = "Ecoflow-BLE-NUTd";
-		rev = "b12d242fdda8dcd041188603f79eeb9e3b0f57bd";
-		hash = "sha256-gjcdgrYWVrM+F5qAfzedlhOJVitZwLPvFxz5YFYXuEQ=";
+		rev = "5edf66bfe7c488442bf536c0872621c5a10c9640";
+		hash = "sha256-hnX4n8xzqxmVb72K5gV9gUbJEx0tFMFJpHtm2FaIvJE=";
 	};
 
 	vendorHash = "sha256-2B+VYR7cS+HdKmQ/7WsJ3DtW1yuAt0J9bzePRNFDu2o=";
