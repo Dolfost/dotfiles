@@ -6,7 +6,10 @@
 # the module.
 
 command -v upsc > /dev/null 2>&1 || exit 0
-data=$(upsc ups@localhost 2> /dev/null) || exit 0
+# The target comes from nix/modules/user/power (a NUT server elsewhere when
+# the host watches one, e.g. the phone); the local upsd otherwise.
+target=$(cat "${XDG_CONFIG_HOME:-$HOME/.config}/power/ups" 2> /dev/null || echo ups@localhost)
+data=$(upsc "$target" 2> /dev/null) || exit 0
 
 get() { awk -F': ' -v key="$1" '$1 == key { print $2 }' <<< "$data"; }
 status=$(get ups.status)

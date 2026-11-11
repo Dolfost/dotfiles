@@ -1,0 +1,9 @@
+# Services of the NixOS guest (same network namespace as this host):
+# Pi-hole DNS, guest sshd, ntfy, Pi-hole web, Syncthing GUI/sync/discovery,
+# the EcoFlow NUT server, upst's recorder, tailscale's WireGuard port.
+table inet filter {
+	chain input {
+		tcp dport { 53, 2222, 2586, 8080, 8384, 22000, 3493, 3494 } accept comment "NixOS guest services"
+		udp dport { 53, 22000, 21027, 41641 } accept comment "NixOS guest services (udp)"
+	}
+}

@@ -19,7 +19,11 @@ let
 	cfg = config.dotfiles.power;
 	inherit (lib) mkOption types mkIf optional optionalAttrs optionalString;
 
-	ups = "ups@localhost";
+	# The UPS as upsc names it: the local USB one, or the NUT server the host
+	# watches instead (dotfiles.power.ups.remote, the phone). The waybar tile
+	# (hypr/hypr/scripts/ups.sh) reads the same target from ~/.config/power/ups.
+	remote = osConfig.dotfiles.power.ups.remote or null;
+	ups = if remote == null then "ups@localhost" else remote.system;
 	hostLow = osConfig.dotfiles.power.ups.lowBattery.charge or null;
 	hostAction = {
 		hibernate = "hibernates";
@@ -30,7 +34,7 @@ let
 
 	withDisplay = (cfg.outage.refreshRate != null && hyprland) || cfg.outage.brightness != null;
 	withFreeze = hyprland && cfg.outage.freezeApps != [ ];
-	withIdle = hyprland && (cfg.outage.dpmsTimeout > 0 || cfg.outage.idle.command != null || withFreeze);
+	withIdle = hyprland && (cfg.outage.lockTimeout != null || cfg.outage.dpmsTimeout > 0 || cfg.outage.idle.command != null || withFreeze);
 
 	script = name: text: lib.getExe (pkgs.writeShellApplication {
 		inherit name text;
@@ -139,6 +143,12 @@ let
 			# Starting an active target re-enqueues its wants, so the levers the
 			# last session took down with it (display, idle) come back for this one.
 			systemctl --user start power-outage.target
+			# Battery, and it already was: the host rewrote the file after a
+			# resume, and the compositor came back with the everyday modes. The
+			# session-bound levers run again.
+			if [ "$mode" != session ] && [ "$last" = battery ]; then
+				systemctl --user restart power-outage-display.service 2>/dev/null || true
+			fi
 			if [ "$mode" = session ]; then
 				notify-send -a power -u critical "Running on the UPS" "Charge at $(charge)%" || true
 			elif [ "$last" != battery ]; then
@@ -251,6 +261,16 @@ in
 				default = [ ];
 				example = [ "nicotine.service" ];
 				description = "User units stopped on battery; those that were running start again with the grid.";
+			};
+			lockTimeout = mkOption {
+				type = types.nullOr types.int;
+				default = 120;
+				description = ''
+					Idle seconds before the session locks on battery, sooner than the
+					everyday hypridle does (hypr/hypridle.conf); the host hibernates a
+					few minutes after the lock (modules/system/power,
+					outage.hibernateAfterLock). null leaves locking to the everyday one.
+				'';
 			};
 			dpmsTimeout = mkOption {
 				type = types.int;
@@ -372,9 +392,18 @@ in
 			};
 		};
 
-		xdg.configFile = optionalAttrs withIdle {
+		xdg.configFile = {
+			# The waybar tile's UPS target (hypr/hypr/scripts/ups.sh reads it).
+			"power/ups".text = ups;
+		} // optionalAttrs withIdle {
 			"hypr-local/hypridle-outage.conf".text =
-				optionalString (cfg.outage.dpmsTimeout > 0) ''
+				optionalString (cfg.outage.lockTimeout != null) ''
+					listener {
+						timeout = ${toString cfg.outage.lockTimeout}
+						on-timeout = loginctl lock-session
+					}
+				''
+				+ optionalString (cfg.outage.dpmsTimeout > 0) ''
 					listener {
 						timeout = ${toString cfg.outage.dpmsTimeout}
 						on-timeout = hyprctl dispatch "hl.dsp.dpms({action='disable'})"

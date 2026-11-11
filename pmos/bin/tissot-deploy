@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Push the pmos/etc tree to the phone and (re)enable the units in it.
+#   pmos/bin/tissot-deploy [host]
+# The phone is postmarketOS (Alpine + systemd); nothing here is Nix. Secrets
+# and the Wi-Fi profile are baked into the image by pmbootstrap, not pushed.
+set -euo pipefail
+host="${1:-tissot.local}"
+dir="$(cd "$(dirname "$0")/.." && pwd)"
+ssh_opts=(-i "$HOME/.ssh/home" -o ConnectTimeout=8)
+# -rltp, not -a: no -o/-g, so root-side rsync owns what it writes and /etc itself
+# keeps its owner (sudo refuses to run when /etc is not root-owned).
+rsync -rltpv --rsync-path="sudo rsync" -e "ssh ${ssh_opts[*]}" "$dir/etc/" "vladyslav@$host:/etc/"
+ssh "${ssh_opts[@]}" "vladyslav@$host" 'sudo systemctl daemon-reload && for u in $(find /etc/systemd/system -maxdepth 1 -type f -name "*.service" -exec basename {} \;); do sudo systemctl enable --now "$u"; done'

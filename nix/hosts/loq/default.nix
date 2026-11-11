@@ -26,6 +26,7 @@ in
 		../../modules/system/diy
 		../../modules/system/openrgb
 		../../modules/system/android
+		../../modules/system/ntfy
 		../../modules/system/work
 		../../modules/system/laptop
 	];
@@ -73,5 +74,8 @@ in
 	};
 
 	# Set this to the release you actually install with, then never change it.
+	# `ntfy-cmd aorus-cmd wake|hold|release|hibernate|status` (modules/system/ntfy).
+	dotfiles.ntfy.enable = true;
+
 	system.stateVersion = "26.05";
 }

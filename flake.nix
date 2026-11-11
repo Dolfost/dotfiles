@@ -18,9 +18,11 @@
 		# upstream CI, so bumping it is just `nix flake update pi`.
 		pi.url = "github:earendil-works/pi/stable";
 		# The UPS dashboard and its history recorder (hosts/aorus/power), pinned
-		# to a release tag like herdr; a new release is a new tag here.
+		# to a release tag like herdr; a new release is a new tag here. Until
+		# the next one, the outlets-fit-rows branch (the Load card lists every
+		# outlet a power station has instead of eight).
 		upst = {
-			url = "github:Dolfost/upst/v0.1.1";
+			url = "github:Dolfost/upst/d5e6525feeaaee7d626de22a1bbb22000aaca20b";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
@@ -32,6 +34,8 @@
 		nixosConfigurations = {
 			aorus = utils.make_host "aorus";
 			loq = utils.make_host "loq";
+			# aarch64 container on the postmarketOS phone, see nix/hosts/tissot.
+			tissot = utils.make_host "tissot";
 		};
 		homeConfigurations = {
 			vladyslav = utils.make_home "vladyslav";

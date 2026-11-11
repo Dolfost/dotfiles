@@ -1,0 +1,16 @@
+[Unit]
+Description=Keep the Mi A1's USB port in host mode for the powered hub
+# The phone runs from 4-5 V on the battery pads, so USB-C is free to be a
+# host: the self-powered CM473 hub (Ethernet, drives) hangs off it. The
+# kernel flips the role back to device whenever it sees VBUS on the port, so
+# a loop re-asserts host instead of a one-shot write. The charger input is
+# suspended in host mode anyway; power never comes in through USB here.
+After=sysinit.target
+
+[Service]
+ExecStart=/bin/sh -c 'R=/sys/class/usb_role/7000000.usb-role-switch/role; while :; do [ "$(cat $R)" = host ] || echo host > $R; sleep 2; done'
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

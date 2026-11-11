@@ -1,0 +1,21 @@
+# The NixOS guest (nix/hosts/tissot in the flake), imported with
+#   machinectl import-tar <image>.tar.xz nixos
+# It shares the host's network namespace, so its services bind the phone's
+# own addresses, and sees the host's system D-Bus at /run/host-dbus for
+# BlueZ. No user namespace: uids are the guest's own (vladyslav = 1000).
+[Exec]
+Boot=yes
+# nspawn drops CAP_NET_ADMIN unless the guest has its own network namespace;
+# the guest's tailscaled needs it for the tun interface and its nftables.
+Capability=CAP_NET_ADMIN
+PrivateUsers=no
+ResolvConf=off
+Timezone=off
+LinkJournal=no
+
+[Network]
+Private=no
+
+[Files]
+Bind=/run/dbus/system_bus_socket:/run/host-dbus/system_bus_socket
+Bind=/dev/net/tun

@@ -1,70 +1,60 @@
-# The EcoFlow Delta 3 Max Plus on USB (3746:ffff). It shows up as a HID
-# power device that NUT's EcoFlow subdriver claims (status, charge,
-# runtime) plus a CDC serial port with the live wattage, which NUT reads
-# from 2.8.6 on (built from master below). The spinning disks are the two
-# media drives; the NVMe carries everything else. Low battery hibernates into
-# the 32 GB swap partition. The box is a server during an outage, so no idle
-# action here.
+# The EcoFlow Delta 3 Max Plus, watched through the phone: tissot's
+# Bluetooth link to it is the NUT server (nix/hosts/tissot), this box is a
+# client that hibernates on low battery and runs the outage levers. The USB
+# link (HID + the CDC port with live wattage) is gone from here: the phone
+# stays up through an outage, this one does not. The spinning disks are the
+# two media drives; the NVMe carries everything else. Low battery hibernates
+# into the 32 GB swap partition. The box is a server during an outage, so no
+# idle action here.
 #
 # Every knob of modules/system/power and modules/user/power is listed, at
 # its default where nothing says otherwise, so tuning is an edit here.
 { config, inputs, pkgs, ... }:
 
+let
+	facts = import ../../../facts.nix;
+in
 {
-	imports = [ inputs.upst.nixosModules.default ];
 
-	# NUT from its development branch until 2.8.6 reaches nixpkgs: 2.8.4 leaks
-	# 128 bytes a poll in the EcoFlow subdriver (measured here: 4 KB a minute),
-	# and only the new one has ecoflow_cdc_port. See packages/nut.nix.
-	power.ups.package = pkgs.callPackage ../../../packages/nut.nix { };
+	# The publishing token, shared with the phone's notifier: the phone's
+	# secrets file lists this host's key as a reader (.sops.yaml).
+	sops.secrets."ntfy/token".sopsFile = ../../../secrets-tissot.yaml;
 
-	# The CDC port under a fixed name: /dev/serial/by-id/ would work too, but
-	# that name carries the unit's serial number.
-	services.udev.extraRules = ''
-		SUBSYSTEM=="tty", ATTRS{idVendor}=="3746", ATTRS{idProduct}=="ffff", SYMLINK+="ecoflow-cdc"
-	'';
-
-	# upst, the terminal dashboard for this UPS, and its recorder, which keeps a
-	# journal in /var/lib/upst so upst opens with the last day of charts and
-	# events. settings becomes /etc/upst/config.toml: the defaults for every upst
-	# here (~/.config/upst/config.toml and flags win), and the recorder's own
-	# under record. Keys: github.com/Dolfost/upst/blob/main/docs/setup.md
-	services.upst = {
-		enable = true;
-		settings = {
-			targets = [ "ups@localhost" ]; # NUT's name for it (default: every UPS on localhost)
-			charge-style = "battery"; # battery, lcd, segments, blocks or bar; b cycles in upst
-			history = "48h"; # loaded from the recorder at start, and kept while upst runs
-			record = {
-				interval = "5s"; # time between polls
-				keep = "7d"; # history kept on disk
-				listen = [ ]; # besides /run/upst/upst.sock, e.g. "0.0.0.0:3494" for upst on loq
-			};
-		};
+	# upst, the terminal dashboard, pointed at the phone: the UPS it serves and
+	# the recorder it runs (nix/hosts/tissot), so upst opens with the last day
+	# of charts and events wherever it runs. settings becomes
+	# /etc/upst/config.toml (~/.config/upst/config.toml and flags win). Keys:
+	# github.com/Dolfost/upst/blob/main/docs/setup.md
+	environment.systemPackages = [ inputs.upst.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+	environment.etc."upst/config.toml".source = (pkgs.formats.toml { }).generate "upst.toml" {
+		targets = [ "ups@${facts.hosts.tissot.lan_ipv4}" ];
+		recorder = facts.hosts.tissot.lan_ipv4;
+		charge-style = "battery"; # battery, lcd, segments, blocks or bar; b cycles in upst
+		history = "48h"; # loaded from the recorder at start, and kept while upst runs
 	};
 
 	dotfiles.power = {
 		ups = {
 			enable = true;
-			driver = "usbhid-ups"; # NUT driver
-			port = "auto"; # scan USB for it
-			description = "EcoFlow Delta 3 Max Plus";
-			directives = [
-				"vendorid = 3746"
-				"productid = ffff"
-				# Live watts, voltage, frequency and temperatures from the CDC port,
-				# polled with a read-only request. Upstream checked it on a River 3
-				# Plus; this unit (EMS firmware 2.1.1.104) answers it too. HID stays
-				# the source for status, charge and runtime.
-				"ecoflow_cdc_port = /dev/ecoflow-cdc"
-			]; # extra ups.conf lines
-			lowBattery = {
-				charge = 20; # percent at or below: low battery (null: device's own flag)
-				runtime = 300; # seconds left at or below: low battery (null: device's own flag)
+			# The phone's NUT server; its thresholds (20 %, 300 s) decide low battery.
+			remote = {
+				system = "ups@${facts.hosts.tissot.lan_ipv4}";
+				inherit (facts.hosts.tissot.nut) user password;
 			};
 			onLowBattery = "hibernate"; # or "poweroff"
 		};
 		outage = {
+			hibernateAfterLock = 2; # minutes with the screen locked, on battery, before hibernating; the phone wakes it 10 min after the grid is back (null: only at low battery)
+			# Its own ntfy topic: "aorus hibernates" with the EcoFlow's numbers, "aorus is back" on resume.
+			notify = {
+				url = "http://${facts.hosts.tissot.lan_ipv4}:2586"; # the LAN address: an outage is no time to depend on the tailnet's DNS
+				topic = "aorus";
+				tokenFile = config.sops.secrets."ntfy/token".path;
+				click = "https://dash.${facts.ts_network}"; # a tap opens the phone's dashboard
+			};
+			# The phone's dashboard (nix/hosts/tissot/power/dashboard.nix) may hold,
+			# release and trigger the hibernate, as the power-remote user over ssh.
+			remote = [ facts.hosts.tissot.remote_key ];
 			cpuProfile = "power-saver"; # power-profiles-daemon profile on battery (null: leave CPU alone)
 			# The two spinning media drives, by filesystem label (the same labels
 			# ./storage mounts); the lever finds the disk behind each.
@@ -85,6 +75,7 @@
 			refreshRate = 60; # every enabled monitor on battery (null: keep modes)
 			brightness = null; # DDC brightness 0..100 for external panels on battery (null: leave)
 			stopUnits = [ "nicotine.service" "crafty.service" ]; # user units stopped on battery
+			lockTimeout = 120; # idle seconds before the session locks on battery (everyday: 600 in hypr/hypridle.conf); hibernateAfterLock counts from there
 			dpmsTimeout = 120; # idle seconds before the screen turns off on battery (0: never)
 			idle = {
 				timeout = 1200; # idle seconds before idle.command

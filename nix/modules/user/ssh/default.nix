@@ -33,10 +33,15 @@ let
 		User = "vladyslav";
 		IdentityFile = home_key;
 	};
+	# <name>-nix is a NixOS guest running beside the machine's own sshd (the
+	# phone): same address, its nix_port.
 	lan_blocks = lib.concatMapAttrs (name: machine:
 		lib.optionalAttrs (name != me) (
 			lib.optionalAttrs (machine ? lan_ipv4) { ${name} = lan_block machine.lan_ipv4; }
-			// lib.optionalAttrs (machine ? lan_wifi_ipv4) { "${name}w" = lan_block machine.lan_wifi_ipv4; }))
+			// lib.optionalAttrs (machine ? lan_wifi_ipv4) { "${name}w" = lan_block machine.lan_wifi_ipv4; }
+			// lib.optionalAttrs (machine ? lan_ipv4 && machine ? nix_port) {
+				"${name}-nix" = lan_block machine.lan_ipv4 // { Port = machine.nix_port; };
+			}))
 		facts.hosts;
 in
 {

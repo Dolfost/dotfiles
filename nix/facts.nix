@@ -28,9 +28,30 @@ let
 			port = 8022;
 			syncthing_id = "C3BWTUT-GNGSXH5-ODQ435X-X3SENEF-MWSLEZO-PFMQWNV-N2FUKWT-EYXFQQB";
 		};
+		# postmarketOS since 2026-11-10 (generic qcom-msm8953 port, lk2nd in both
+		# boot slots, rootfs in userdata; see pmos/) with the NixOS guest from
+		# nix/hosts/tissot on top. Ethernet is a Realtek RTL8153 dongle on a
+		# self-powered hub, Wi-Fi is the fallback; the Wi-Fi MAC is pinned in
+		# the NetworkManager profile because wcn36xx has none of its own.
 		tissot = {
-			user = "u0_a181";
-			port = 8022;
+			ts_ipv4 = "100.87.61.119";
+			lan_ipv4 = "192.168.0.248";
+			lan_wifi_ipv4 = "192.168.0.151";
+			mac = "00:e0:4c:68:28:88";
+			wifi_mac = "c6:7a:c0:e6:48:b7";
+			# The NixOS guest's own sshd, beside the postmarketOS one on 22:
+			# `ssh tissot-nix` (the ssh module makes the block).
+			nix_port = 2222;
+			# The EcoFlow as a NUT server (BLE daemon in the guest, :3493). The
+			# login gates nothing: reads are open and the daemon takes no
+			# commands, so it lives here rather than in sops.
+			nut = { user = "monuser"; password = "monitor"; };
+			# The dashboard's ssh identity, made on the phone on first boot
+			# (hosts/tissot/power/dashboard.nix); aorus lets it in as power-remote.
+			remote_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ00C/Q2kdzM2hDSFuhlfkxCiAn5jHpxQfmmpdloYb7l olivetin@tissot";
+			# Identity generated on the phone itself (not in sops): a reinstall
+			# means a new id here and re-pairing on the other peers.
+			syncthing_id = "LYNYS7A-IFWCZOQ-WF2WD32-AJI53BX-TPZSGOV-XZNLHF2-HLBTVKY-IXV2CAK";
 		};
 		# Not managed from here; only a syncthing peer.
 		mac = {

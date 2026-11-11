@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Rebuild the NixOS guest on the phone from this checkout. The tracked files
+# go to the guest's /home/vladyslav/dotfiles (where /etc/nixos/flake.nix
+# points, like on every other host), and nixos-rebuild runs inside the
+# guest, so the aarch64 closure comes from the cache natively. No aarch64
+# emulation needed anywhere.
+#   pmos/bin/tissot-rebuild [host] [nixos-rebuild action, default switch] [nixos-rebuild args...]
+set -euo pipefail
+host="${1:-192.168.0.151}"
+action="${2:-switch}"
+shift $(( $# < 2 ? $# : 2 ))
+extra="$*"
+dir="$(cd "$(dirname "$0")/../.." && pwd)" # the repo root, not pmos/
+ssh_opts=(-i "$HOME/.ssh/home" -o ConnectTimeout=8)
+guest=/var/lib/machines/nixos
+git -C "$dir" ls-files -z \
+	| rsync -rltp --from0 --files-from=- --rsync-path="sudo rsync" \
+		-e "ssh ${ssh_opts[*]}" "$dir/" "vladyslav@$host:$guest/home/vladyslav/dotfiles/"
+ssh -t "${ssh_opts[@]}" "vladyslav@$host" "sudo chown -R 1000:1000 $guest/home/vladyslav/dotfiles \
+	&& sudo machinectl shell nixos /run/current-system/sw/bin/nixos-rebuild $action --flake path:/home/vladyslav/dotfiles#tissot $extra"

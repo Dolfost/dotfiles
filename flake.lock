@@ -354,17 +354,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794236865,
-        "narHash": "sha256-dXlJMgWdb9afK/x9tvVaMum24+08VCYtrJ3orETz0bU=",
+        "lastModified": 1794358514,
+        "narHash": "sha256-KYDhYoZF+NPYroDhnHNFeVv3+qyevOVluo5qP0qhLTA=",
         "owner": "Dolfost",
         "repo": "upst",
-        "rev": "b47399209d230c86f80af94a292b25fa24653fed",
+        "rev": "d5e6525feeaaee7d626de22a1bbb22000aaca20b",
         "type": "github"
       },
       "original": {
         "owner": "Dolfost",
-        "ref": "v0.1.1",
         "repo": "upst",
+        "rev": "d5e6525feeaaee7d626de22a1bbb22000aaca20b",
         "type": "github"
       }
     },

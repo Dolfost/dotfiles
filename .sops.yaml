@@ -5,6 +5,9 @@ keys:
   - &admin age18pljuz8zf4wxppvcr2yewm4yc3q7rj0gfh4433d7460ltvhmvqvqjfr282
   - &loq age1rus4luqpmkddhqshu5k9m0kzl02gwjr7nfqwmy407zyqd6c50egsdsp4ms
   - &aorus age1sk8ujrj6fqxgft9w9f04rd5vxk7wpcl74dujy2q6p662a52j7ffscv3l0u
+  # The NixOS guest on the phone: its own age key at /var/lib/sops-nix/key.txt
+  # (no sshd host key worth tying it to), and its own file below.
+  - &tissot age17jx2jekzxqtrz2lurh3w04lrvul88szefxxs4r33py5hyu87xp0sd75rz4
 creation_rules:
   - path_regex: nix/secrets\.yaml$
     key_groups:
@@ -12,3 +15,12 @@ creation_rules:
           - *admin
           - *loq
           - *aorus
+  # tissot's secrets live apart so the phone can be re-keyed or wiped without
+  # touching the fleet file; the admin key reads both.
+  - path_regex: nix/secrets-tissot\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *tissot
+          - *aorus # the ntfy token, for its own outage notices (hosts/aorus/power)
+          - *loq # the ntfy token, for ntfy-cmd (modules/system/ntfy)

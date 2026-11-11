@@ -31,6 +31,7 @@
 		../../modules/system/openrgb
 		../../modules/system/amd-gpu
 		../../modules/system/android
+		../../modules/system/ntfy
 		../../modules/system/work
 		../../modules/system/power
 	];
@@ -85,6 +86,9 @@
 			ipv6.method = "auto";
 		};
 	};
+
+	# `ntfy-cmd aorus-cmd wake|hold|release|hibernate|status` (modules/system/ntfy).
+	dotfiles.ntfy.enable = true;
 
 	system.stateVersion = "26.05"; # DO NOT CHANGE
 }

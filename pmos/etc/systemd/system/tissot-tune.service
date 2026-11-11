@@ -1,0 +1,18 @@
+[Unit]
+Description=Headless server trims for the Mi A1: no modem, no audio DSP, screen off
+# The phone runs from a bench-style 4-5 V supply on the battery pads, so
+# every avoidable watt counts and boot-time spikes above the supply's limit
+# reset the PMIC. remoteproc1 is the audio DSP, remoteproc2 the cellular
+# modem (both also blacklisted in modprobe.d); remoteproc0 is WCNSS
+# (Wi-Fi + Bluetooth) and stays.
+After=sysinit.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'for r in /sys/class/remoteproc/remoteproc1 /sys/class/remoteproc/remoteproc2; do [ -e $r/state ] && echo stop > $r/state; done; true'
+ExecStart=/bin/sh -c 'echo 0 > /sys/class/backlight/backlight/brightness; true'
+
+[Install]
+WantedBy=multi-user.target

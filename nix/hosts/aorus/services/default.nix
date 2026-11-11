@@ -46,7 +46,6 @@ in
 		./gitlab.nix
 		./crafty.nix
 		./nicotine.nix
-		./pihole.nix
 		./docs.nix
 		./elaread.nix
 	];

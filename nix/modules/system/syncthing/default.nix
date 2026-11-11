@@ -35,10 +35,10 @@ let
 
 	topology = {
 		books    = { id = "n9zmf-v33nw"; members = [ "aorus" "loq" "rodin" "mac" ]; };
-		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" "mac" ]; };
-		shared   = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" ]; };
+		obsidian = { id = "qqank-em9du"; members = [ "aorus" "loq" "rodin" "mac" "tissot" ]; };
+		shared   = { id = "hwkjf-gy4hu"; members = [ "aorus" "rodin" "tissot" ]; };
 		guitar   = { id = "fuck2-fuck2"; members = [ "aorus" "mac" "loq" ]; };
-		avatars  = { id = "fuck1-fuck1"; members = [ "aorus" "rodin" "mac" "loq" ]; };
+		avatars  = { id = "fuck1-fuck1"; members = [ "aorus" "rodin" "mac" "loq" "tissot" ]; };
 	};
 
 	peers = lib.filterAttrs
@@ -52,6 +52,14 @@ in
 		type = lib.types.attrsOf lib.types.str;
 		default = { };
 		description = "Folder name (a key of the topology above) -> local path on this host.";
+	};
+	options.dotfiles.syncthing.identityFromSops = lib.mkOption {
+		type = lib.types.bool;
+		default = true;
+		description = ''
+			Install the cert/key (and GUI password) from sops on every start.
+			Off for a host whose identity lives only in its configDir (tissot).
+		'';
 	};
 
 	config = {
@@ -70,8 +78,8 @@ in
 			configDir = "/home/${user}/.local/state/syncthing";
 			# The identity behind syncthing_id in facts.nix, installed from sops
 			# on every start - a machine rebuilt from this repo keeps its id.
-			cert = config.sops.secrets.syncthing_cert.path;
-			key = config.sops.secrets.syncthing_key.path;
+			cert = lib.mkIf config.dotfiles.syncthing.identityFromSops config.sops.secrets.syncthing_cert.path;
+			key = lib.mkIf config.dotfiles.syncthing.identityFromSops config.sops.secrets.syncthing_key.path;
 			openDefaultPorts = true;
 			# Not settings.gui.address: the module also passes --gui-address on the
 			# command line, which wins over config.xml.
@@ -109,12 +117,12 @@ in
 		# land after syncthing-init: that PUTs the whole gui object without a
 		# password, which syncthing stores as bcrypt("") - so it also reruns
 		# whenever init does.
-		sops.secrets = {
+		sops.secrets = lib.mkIf config.dotfiles.syncthing.identityFromSops {
 			syncthing_cert = { key = "syncthing/${me}/cert"; owner = user; };
 			syncthing_key = { key = "syncthing/${me}/key"; owner = user; };
 			syncthing_gui_hash = { key = "syncthing/${me}/gui_hash"; owner = user; };
 		};
-		systemd.services.syncthing-gui-auth = {
+		systemd.services.syncthing-gui-auth = lib.mkIf config.dotfiles.syncthing.identityFromSops {
 			description = "Syncthing GUI password from sops";
 			after = [ "syncthing.service" "syncthing-init.service" ];
 			requires = [ "syncthing.service" ];
