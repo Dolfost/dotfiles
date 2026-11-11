@@ -14,6 +14,7 @@ in
 		./ssh
 		./hyprland
 		./syncthing
+		./sunshine
 		./ssh-chat
 		../../modules/system
 		../../modules/system/nvidia-gpu
