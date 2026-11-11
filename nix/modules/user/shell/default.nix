@@ -41,6 +41,8 @@ in
 	};
 
 	home.file = {
+		# zj: attach to a zellij session served by zellij@.service above.
+		".local/bin/zj" = link "bin/zj";
 		".zshrc" = link "zsh/zshrc";
 		".zprofile" = link "zsh/zprofile";
 		".tmux.conf" = link "tmux/tmux.conf";

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# zj [SESSION] - attach to a zellij session whose server runs in its own
+# systemd user unit (zellij@SESSION.service, see nix/modules/user/shell).
+#
+# A server forked by a plain `zellij` call stays in the cgroup of the terminal
+# that spawned it. Under uwsm that is a scope in app-graphical.slice, which
+# systemd kills when the compositor dies - and the server with it. Starting it
+# through the unit puts it in app-zellij.slice, where it outlives Hyprland.
+# Without a systemd user manager (macOS) this is a plain attach --create.
+set -eu
+
+if [ $# -gt 0 ]; then
+	name=$1
+else
+	# Fresh terminal, no name given: a new session with a random name, like
+	# bare `zellij` would make. Rename it inside zellij if it sticks around.
+	adj=(brave calm eager fuzzy gentle happy jolly keen lucky merry nimble quiet rapid sunny tidy witty)
+	noun=(badger comet ember falcon harbor island lantern meadow otter pebble quartz river summit thicket valley willow)
+	name="${adj[RANDOM % ${#adj[@]}]}-${noun[RANDOM % ${#noun[@]}]}"
+fi
+
+if [ -n "${XDG_RUNTIME_DIR:-}" ] && command -v systemctl >/dev/null 2>&1 &&
+	systemctl --user start "zellij@$name.service" 2>/dev/null; then
+	exec zellij attach "$name"
+fi
+exec zellij attach --create "$name"

@@ -15,6 +15,8 @@ fi
 
 eval "$(sheldon source)"
 # herdr panes already are a multiplexer - don't nest zellij inside them.
-if [[ -z "$HERDR_PANE_ID" ]]; then
-	eval "$(zellij setup --generate-auto-start zsh)"
+# zj (bin/zj) starts the session's server in its own systemd unit so it
+# outlives the compositor; bare `zellij` forks it inside the terminal's scope.
+if [[ -z "$ZELLIJ" && -z "$HERDR_PANE_ID" ]]; then
+	zj
 fi
