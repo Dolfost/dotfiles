@@ -34,6 +34,7 @@ in
 		./guitar
 		./diy
 		./gaming
+		./stickpile
 	];
 
 	config = lib.mkMerge [

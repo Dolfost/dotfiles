@@ -30,7 +30,9 @@ let
 		mode = if cfg ? tcp
 			then "--tcp=${toString cfg.tcp}"
 			else "--https=443";
-		target = if cfg ? scheme
+		target = if cfg ? unix
+			then "unix:${cfg.unix}"
+			else if cfg ? scheme
 			then "${cfg.scheme}://127.0.0.1:${toString cfg.port}"
 			else toString cfg.port;
 	in [ (mkUnit name "" mode target) ]
@@ -48,6 +50,7 @@ in
 		./nicotine.nix
 		./docs.nix
 		./elaread.nix
+		./stickpile.nix
 	];
 
 	options.dotfiles.serve = lib.mkOption {
@@ -62,6 +65,9 @@ in
 			  ssh    = <port>   ALSO forward tailnet port 22 to this backend
 			                    port, alongside the HTTPS proxy (git ssh -
 			                    every git forge here must set this)
+			  unix   = "<path>" backend is a unix socket instead of a port
+			                    (stickpile: identity headers are only trusted
+			                    on its socket)
 		'';
 	};
 

@@ -17,6 +17,15 @@
 		# Pi ships its own flake; stable is fast-forwarded to each release by
 		# upstream CI, so bumping it is just `nix flake update pi`.
 		pi.url = "github:earendil-works/pi/stable";
+		# stickpile, the sticker library. The server runs on aorus as a quadlet
+		# (hosts/aorus/services/stickpile.nix); this input brings the client and
+		# its home-manager module (modules/user/stickpile). Built against our
+		# nixpkgs so the GTK popup uses the same libraries as the session.
+		stickpile = {
+			url = "github:Dolfost/stickpile";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.home-manager.follows = "home-manager";
+		};
 		# The UPS dashboard and its history recorder (hosts/aorus/power), pinned
 		# to a release tag like herdr; a new release is a new tag here. Until
 		# the next one, the outlets-fit-rows branch (the Load card lists every

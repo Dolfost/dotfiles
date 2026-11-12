@@ -50,6 +50,7 @@ local l = 'SUPER + '
 --   SUPER + Z              -> pedal mode menu (pedal-mode: desktop / app / game profile)
 --   SUPER + SHIFT + B      -> refresh rate menu for the focused monitor (refresh_rate.sh)
 --   SUPER + T              -> LAN chat overlay toggle (hypr/lchat.lua)
+--   SUPER + ;              -> stickpile popup (modules/user/stickpile, hosts with the client)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
