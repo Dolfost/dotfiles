@@ -34,6 +34,9 @@
 	# Builds happen in here (pmos/bin/tissot-rebuild); an nspawn guest cannot
 	# create the namespaces Nix's build sandbox wants.
 	nix.settings.sandbox = false;
+	# Unsandboxed, logrotate's build-time check stats the guest's real log
+	# files and fails on the ones it can't read (Pi-hole's 0700 /var/log/pihole).
+	services.logrotate.checkConfig = false;
 
 	# Host network namespace (Private=no in the .nspawn unit): no veth, no
 	# DHCP, the host's interfaces are ours. DNS is the Pi-hole (services/),
