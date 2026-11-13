@@ -28,7 +28,6 @@ PublishPort=8096:8096
 # 	Environment=JELLYFIN_MOVIES=/storage/2.5_inch/media/movies
 # 	Environment=JELLYFIN_SHOWS=/storage/2.5_inch/media/shows
 # 	Environment=JELLYFIN_SHOWS_HDD=/storage/3.5_inch/media/shows
-# 	Environment=JELLYFIN_MUSIC=/storage/2.5_inch/media/music
 # 	Environment=JELLYFIN_BOOKS=/storage/2.5_inch/media/books
 
 # All Jellyfin state (settings, users, watch history, metadata, plugins) lives
@@ -59,7 +58,6 @@ Volume=${JELLYFIN_DIR}/cache:/cache:Z
 Volume=${JELLYFIN_MOVIES}:/media/movies:ro
 Volume=${JELLYFIN_SHOWS}:/media/shows:ro
 Volume=${JELLYFIN_SHOWS_HDD}:/media/shows2:ro
-Volume=${JELLYFIN_MUSIC}:/media/music:ro
 Volume=${JELLYFIN_BOOKS}:/media/books:ro
 
 # GPU for hardware transcoding (renderD128 is world-accessible, 0666, so the
