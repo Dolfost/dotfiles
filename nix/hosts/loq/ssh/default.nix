@@ -23,6 +23,10 @@
 			HostName = "192.168.144.30";
 			User = "jetson";
 		};
+		"jet3" = {
+			HostName = "192.168.144.245";
+			User = "jetson";
+		};
 		"jet_default" = {
 			HostName = "192.168.144.222";
 			User = "jetson";
