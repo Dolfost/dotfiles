@@ -50,7 +50,7 @@ local l = 'SUPER + '
 --   SUPER + Z              -> pedal mode menu (pedal-mode: desktop / app / game profile)
 --   SUPER + SHIFT + B      -> refresh rate menu for the focused monitor (refresh_rate.sh)
 --   SUPER + T              -> LAN chat overlay toggle (hypr/lchat.lua)
---   SUPER + ;              -> stickpile popup (modules/user/stickpile, hosts with the client)
+--   SUPER + .              -> stickpile popup (modules/user/stickpile)
 --   SUPER+CTRL+SHIFT+ALT+M -> exit hyprland (double press to confirm)
 --
 -- macOS parity is positional: ⌘ sits where ALT sits on PC, so ⌘-chords
@@ -159,6 +159,12 @@ hl.bind(l..'SHIFT + V', hl.dsp.window.move({ workspace = 'special:call' }))
 -- Air raid list on demand: the bar widget's tooltip as a toggleable popup.
 hl.bind(l..'A', hl.dsp.exec_raw(SCRIPTS..'air_raid.sh toggle'))
 
+-- stickpile quick-search popup (modules/user/stickpile): a second
+-- stickpile-desktop hands its command to the resident instance over D-Bus
+-- and exits. It reads the focused window before the popup appears, so it
+-- knows the chat app it copies for.
+hl.bind(l..'period', hl.dsp.exec_cmd('stickpile-desktop'))
+
 -- workspace scroll with mouse
 hl.bind(l..'mouse_down', hl.dsp.focus({ workspace = 'e+1' }))
 hl.bind(l..'mouse_up',   hl.dsp.focus({ workspace = 'e-1' }))
@@ -182,17 +188,6 @@ hl.bind('XF86AudioNext',  hl.dsp.exec_raw('playerctl next'),       { locked = tr
 hl.bind('XF86AudioPause', hl.dsp.exec_raw('playerctl play-pause'), { locked = true })
 hl.bind('XF86AudioPlay',  hl.dsp.exec_raw('playerctl play-pause'), { locked = true })
 hl.bind('XF86AudioPrev',  hl.dsp.exec_raw('playerctl previous'),   { locked = true })
-
--- brightness without function keys; same script as XF86 binds above, drives
--- the internal panel and all DDC monitors alike (locked)
-hl.bind(l..'CTRL + comma',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-dec'),  { locked = true })
-hl.bind(l..'CTRL + period',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh small-inc'),  { locked = true })
-hl.bind(l..'comma',          hl.dsp.exec_raw(SCRIPTS..'brightness.sh dec'),        { locked = true })
-hl.bind(l..'period',         hl.dsp.exec_raw(SCRIPTS..'brightness.sh inc'),        { locked = true })
-hl.bind(l..'SHIFT + comma',  hl.dsp.exec_raw(SCRIPTS..'brightness.sh min'),        { locked = true })
-hl.bind(l..'SHIFT + period', hl.dsp.exec_raw(SCRIPTS..'brightness.sh max'),        { locked = true })
-hl.bind(l..'ALT + comma',    hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-dec'),  { locked = true })
-hl.bind(l..'ALT + period',   hl.dsp.exec_raw(SCRIPTS..'brightness.sh large-inc'),  { locked = true })
 
 -- Foot pedals. keyd turns each pedal into a Ctrl+Alt+Shift+Fn tap (see
 -- nix/modules/system/pedal), one chord per pedal, which nothing else types.

@@ -45,6 +45,14 @@ hl.window_rule {
 	center = true,
 }
 
+-- The stickpile quick-search popup (modules/user/stickpile) floats centered.
+hl.window_rule {
+	name = 'stickpile-popup',
+	match = { class = '^io\\.github\\.dolfost\\.Stickpile$' },
+	float = true,
+	center = true,
+}
+
 local firefox_popups = {
 	-- fake fullscreen: the page thinks it is fullscreen, the window stays a float
 	{ title = 'Google Accounts', w = 500, h = 700, fake_fullscreen = true },

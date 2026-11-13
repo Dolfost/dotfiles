@@ -16,6 +16,7 @@ in
 		./syncthing
 		./sunshine
 		./ssh-chat
+		./stickpile
 		../../modules/system
 		../../modules/system/nvidia-gpu
 		../../modules/system/hyprland
