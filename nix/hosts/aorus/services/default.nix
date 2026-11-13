@@ -75,6 +75,11 @@ in
 		virtualisation.podman.enable = true;
 		users.users.${config.dotfiles.user}.linger = true;
 
+		# Pull new images for every quadlet with AutoUpdate=registry and restart
+		# it, daily (podman's own timer; it rolls back a unit that fails to
+		# start, then prunes dangling images).
+		systemd.user.timers.podman-auto-update.wantedBy = [ "timers.target" ];
+
 		# Quadlets that declare After=network-online.target make podman generate a
 		# podman-user-wait-network-online.service that polls until that target is
 		# active. Nothing pulls the target in by default, so it never activates and
