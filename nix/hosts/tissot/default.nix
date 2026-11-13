@@ -21,6 +21,7 @@
 		./tailscale
 		./power
 		./syncthing
+		./storage
 
 		# The shared baseline, minus everything that assumes a real machine.
 		../../modules/system/dotfiles

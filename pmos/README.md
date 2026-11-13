@@ -25,6 +25,10 @@ postmarketOS side: a few units and config files, nothing Nix.
   gigabit dongle behind it (`linux-firmware-rtl_nic` for its patch).
 - Guest: `etc/systemd/nspawn/nixos.nspawn` (host network namespace, host
   D-Bus bound in for BlueZ). Guest sshd is on :2222, the host's on :22.
+- Storage: the 64 GB SD card, one GPT partition named `storage`, btrfs.
+  The guest mounts it as `/home/vladyslav/storage` (`nix/hosts/tissot/storage`);
+  the host only allows it the device
+  (`etc/systemd/system/systemd-nspawn@nixos.service.d/storage.conf`).
 - Scripts: `bin/tissot-deploy` rsyncs `etc/` to the phone and enables the
   units in it; `bin/tissot-rebuild` rebuilds the NixOS guest from this
   checkout.
