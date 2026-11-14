@@ -374,11 +374,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794650668,
-        "narHash": "sha256-OGV0U/nYje9slc/zGnhRB1uHS3Fvaf6HpNAHvymMUzQ=",
+        "lastModified": 1794661741,
+        "narHash": "sha256-d5Y6uTzL1uSybPh2Q5Zid0zXwl+3D9MktLuR1cYxmoU=",
         "owner": "Dolfost",
         "repo": "stickpile",
-        "rev": "b0d1ea51bfb1650602f707a77c59e9dc7b71de31",
+        "rev": "01b78a92ba25f9657079f16426536bb13c197688",
         "type": "github"
       },
       "original": {
