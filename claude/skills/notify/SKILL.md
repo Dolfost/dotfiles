@@ -28,26 +28,33 @@ its own:
 ## When you need a decision
 
 If the notification is a question, use `ntfy-ask` instead. It sends the
-question with one button per option, waits for him to tap one, and prints
-his choice:
+question with one button per option, waits for his answer, and prints it.
+He answers by tapping a button, or by typing a reply into the topic that
+starts with the two-character code the script puts in the title:
 
 ```sh
 ntfy-ask "The migration needs a schema change that drops the old sessions table. How do I proceed?" \
 	"drop it, the data is stale (my pick)" \
 	"rename it to sessions_old and keep it" \
 	"stop here, you will look yourself"
-# stdout: 2) rename it to sessions_old and keep it
+# he taps Option 2:                  2) rename it to sessions_old and keep it
+# he types "k7 rename, and dump it": text: rename, and dump it
 ```
 
-- `ntfy-ask [-t SECONDS] QUESTION OPTION OPTION [OPTION]`: two or three
-  options, ntfy shows no more than three buttons. The script numbers them
-  and puts the hostname in the title, so add neither yourself.
+- `ntfy-ask [-t SECONDS] QUESTION [OPTION OPTION [OPTION]]`: two or three
+  options, ntfy shows no more than three buttons; or none at all for an
+  open question he can only answer in words. The script numbers the
+  options, adds the code and the hint how to reply, and puts the hostname
+  in the title, so add none of that yourself.
 - The question in one sentence, with what is at stake. Each option a
   complete action he can pick without reading anything else; say what it
   costs if that is not obvious. Mark the one you recommend with "(my pick)".
-- Exit 0 prints `N) option text`: act on it. Exit 2 means nobody tapped
-  within the timeout (an hour by default): do not guess, leave the question
-  open.
+- Exit 0 prints `N) option text` for a chosen option: act on it. Or
+  `text: ...` for a typed reply: that is his instruction in his own words,
+  and it overrides the options. If it is unclear, ask again rather than
+  guess.
+- Exit 2 means no answer within the timeout (an hour by default): do not
+  guess, leave the question open.
 - It blocks until the tap, so run it in the background and ask the same
   question with the same numbering in your terminal reply. Whichever answer
   comes first counts; if he answers in the terminal, stop the waiting
