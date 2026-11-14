@@ -21,8 +21,11 @@
 		# (hosts/aorus/services/stickpile.nix); this input brings the client and
 		# its home-manager module (modules/user/stickpile). Built against our
 		# nixpkgs so the GTK popup uses the same libraries as the session.
+		# stable is fast-forwarded to each release by upstream CI, so bumping
+		# it is just `nix flake update stickpile`, like pi. The server image
+		# follows releases on its own (podman-auto-update.timer).
 		stickpile = {
-			url = "github:Dolfost/stickpile";
+			url = "github:Dolfost/stickpile/stable";
 			inputs.nixpkgs.follows = "nixpkgs";
 			inputs.home-manager.follows = "home-manager";
 		};
