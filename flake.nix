@@ -32,9 +32,15 @@
 		# The UPS dashboard and its history recorder (hosts/aorus/power), pinned
 		# to a release tag like herdr; a new release is a new tag here. Until
 		# the next one, the outlets-fit-rows branch (the Load card lists every
-		# outlet a power station has instead of eight).
+		# outlet a power station has instead of eight; polls every second).
 		upst = {
-			url = "github:Dolfost/upst/d5e6525feeaaee7d626de22a1bbb22000aaca20b";
+			url = "github:Dolfost/upst/13e822f509c63726ec29002b763e8a31b857a9a4";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		# The EcoFlow's NUT server over Bluetooth (hosts/tissot/power), pinned
+		# to a commit until its first release tag.
+		nutflow = {
+			url = "github:Dolfost/nutflow/418985b11f99b9251e1ed9ca4919fdb1cdb42b9d";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};

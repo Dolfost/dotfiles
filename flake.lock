@@ -217,6 +217,27 @@
         "type": "github"
       }
     },
+    "nutflow": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794651594,
+        "narHash": "sha256-yj0TInfI1zr4Oz7XftUsx4K9LU5HCi3dEbYR8n24TRQ=",
+        "owner": "Dolfost",
+        "repo": "nutflow",
+        "rev": "418985b11f99b9251e1ed9ca4919fdb1cdb42b9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Dolfost",
+        "repo": "nutflow",
+        "rev": "418985b11f99b9251e1ed9ca4919fdb1cdb42b9d",
+        "type": "github"
+      }
+    },
     "pi": {
       "inputs": {
         "nixpkgs": "nixpkgs_4",
@@ -294,6 +315,7 @@
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nutflow": "nutflow",
         "pi": "pi",
         "sops-nix": "sops-nix",
         "stickpile": "stickpile",
@@ -373,17 +395,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794358514,
-        "narHash": "sha256-KYDhYoZF+NPYroDhnHNFeVv3+qyevOVluo5qP0qhLTA=",
+        "lastModified": 1794651526,
+        "narHash": "sha256-PjT67wEeAQ6mwmTPRV3SQ78ZCFMJCAYvAZ7prOEYdtk=",
         "owner": "Dolfost",
         "repo": "upst",
-        "rev": "d5e6525feeaaee7d626de22a1bbb22000aaca20b",
+        "rev": "13e822f509c63726ec29002b763e8a31b857a9a4",
         "type": "github"
       },
       "original": {
         "owner": "Dolfost",
         "repo": "upst",
-        "rev": "d5e6525feeaaee7d626de22a1bbb22000aaca20b",
+        "rev": "13e822f509c63726ec29002b763e8a31b857a9a4",
         "type": "github"
       }
     },
