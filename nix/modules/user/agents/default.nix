@@ -29,6 +29,12 @@ in
 	# state that don't belong in the repo.
 	xdg.configFile."herdr/config.toml" = link "herdr/config.toml";
 
+	# Claude Code's personal skills, one link per skill: ~/.claude/skills
+	# also holds what claude.ai syncs down (synced/), which is not ours.
+	# notify tells every session how to reach the phone (`ntfy-cmd claude`,
+	# modules/system/ntfy).
+	home.file.".claude/skills/notify" = link "claude/skills/notify";
+
 	programs.hermes-agent.enable = true;
 	services.hermes-agent = {
 		enable = true;
