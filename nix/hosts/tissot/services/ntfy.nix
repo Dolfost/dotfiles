@@ -2,7 +2,8 @@
 # https://ntfy.<tailnet> as a Tailscale service (../tailscale). Users
 # and tokens live in its database (`ntfy user`, `ntfy token`, run as root
 # with -c /etc/ntfy/server.yml); the UPS notifier's token is in sops
-# (power/notify.nix).
+# (power/notify.nix). claude-pub is the account behind the answer buttons of
+# ntfy-ask (modules/system/ntfy): write-only on `claude` and `claude-reply`.
 { ... }:
 
 let

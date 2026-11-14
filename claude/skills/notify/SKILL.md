@@ -27,25 +27,33 @@ its own:
 
 ## When you need a decision
 
-If the notification is a question, put the answer options in it, so he can
-decide from the lock screen and reply with a single character when he is
-back:
+If the notification is a question, use `ntfy-ask` instead. It sends the
+question with one button per option, waits for him to tap one, and prints
+his choice:
 
 ```sh
-ntfy-cmd claude "loq: the migration needs a schema change that drops the old sessions table. How do I proceed?
-1) drop it, the data is stale (my pick)
-2) rename it to sessions_old and keep it
-3) stop here, you will look yourself"
+ntfy-ask "The migration needs a schema change that drops the old sessions table. How do I proceed?" \
+	"drop it, the data is stale (my pick)" \
+	"rename it to sessions_old and keep it" \
+	"stop here, you will look yourself"
+# stdout: 2) rename it to sessions_old and keep it
 ```
 
-- The question first, in one sentence, with what is at stake.
-- Then two to four numbered options, one per line, each a complete action
-  he can pick without reading anything else. Say what each one costs if it
-  is not obvious.
-- Mark the one you recommend with "(my pick)".
-- Ask the same question with the same numbering in your reply in the
-  terminal, so "2" there means what it meant on the phone. He cannot answer
-  through ntfy; you wait for him in the session.
+- `ntfy-ask [-t SECONDS] QUESTION OPTION OPTION [OPTION]`: two or three
+  options, ntfy shows no more than three buttons. The script numbers them
+  and puts the hostname in the title, so add neither yourself.
+- The question in one sentence, with what is at stake. Each option a
+  complete action he can pick without reading anything else; say what it
+  costs if that is not obvious. Mark the one you recommend with "(my pick)".
+- Exit 0 prints `N) option text`: act on it. Exit 2 means nobody tapped
+  within the timeout (an hour by default): do not guess, leave the question
+  open.
+- It blocks until the tap, so run it in the background and ask the same
+  question with the same numbering in your terminal reply. Whichever answer
+  comes first counts; if he answers in the terminal, stop the waiting
+  command.
+- If `ntfy-ask` is missing, fall back to `ntfy-cmd claude` with the options
+  written as numbered lines in the message, and wait for him in the session.
 
 ## When
 
