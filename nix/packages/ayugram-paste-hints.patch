@@ -1,0 +1,243 @@
+diff --git a/Telegram/SourceFiles/history/history_widget.cpp b/Telegram/SourceFiles/history/history_widget.cpp
+index 520fd33..6147e33 100644
+--- a/Telegram/SourceFiles/history/history_widget.cpp
++++ b/Telegram/SourceFiles/history/history_widget.cpp
+@@ -8151,6 +8151,26 @@ bool HistoryWidget::confirmSendingFiles(
+ 	const auto hasImage = data->hasImage();
+ 	const auto premium = controller()->session().user()->isPremium();
+ 
++	// Paste hints from the copier (Storage::ReadPasteHints) apply to a
++	// plain paste only: drops, "send as" overrides and edits ignore them.
++	const auto hints = (overrideSendImagesAsPhotos || _editMsgId)
++		? Storage::PasteHints()
++		: Storage::ReadPasteHints(data);
++	const auto confirmPasted = [&](
++			Ui::PreparedList &&list,
++			const QString &textOnCancel) {
++		if (!Storage::ApplyPasteHints(list, hints)) {
++			return confirmSendingFiles(std::move(list), textOnCancel);
++		}
++		sendingFilesConfirmed(
++			Storage::PrepareBundleWithoutBox(
++				std::move(list),
++				Core::App().settings().sendFilesWay(),
++				_peer && _peer->slowmodeApplied()),
++			{});
++		return true;
++	};
++
+ 	if (const auto urls = Core::ReadMimeUrls(data); !urls.empty()) {
+ 		const auto folder = Storage::SingleFolderPath(urls);
+ 		if (!folder.isEmpty()) {
+@@ -8187,13 +8207,22 @@ bool HistoryWidget::confirmSendingFiles(
+ 				|| !hasImage) {
+ 				const auto emptyTextOnCancel = QString();
+ 				list.overrideSendImagesAsPhotos = overrideSendImagesAsPhotos;
+-				confirmSendingFiles(std::move(list), emptyTextOnCancel);
++				confirmPasted(std::move(list), emptyTextOnCancel);
+ 				return true;
+ 			}
+ 		}
+ 	}
+ 
+ 	if (auto read = Core::ReadMimeImage(data)) {
++		if (hints.noDialog && !read.image.isNull()) {
++			confirmPasted(
++				Storage::PrepareMediaFromImage(
++					std::move(read.image),
++					std::move(read.content),
++					st::sendMediaPreviewSize),
++				insertTextOnCancel);
++			return true;
++		}
+ 		confirmSendingFiles(
+ 			std::move(read.image),
+ 			std::move(read.content),
+diff --git a/Telegram/SourceFiles/history/view/history_view_chat_section.cpp b/Telegram/SourceFiles/history/view/history_view_chat_section.cpp
+index f0c7b1a..58e502e 100644
+--- a/Telegram/SourceFiles/history/view/history_view_chat_section.cpp
++++ b/Telegram/SourceFiles/history/view/history_view_chat_section.cpp
+@@ -2015,6 +2015,27 @@ bool ChatWidget::confirmSendingFiles(
+ 	const auto hasImage = data->hasImage();
+ 	const auto premium = controller()->session().user()->isPremium();
+ 
++	// Paste hints from the copier (Storage::ReadPasteHints) apply to a
++	// plain paste only: drops, "send as" overrides and edits ignore them.
++	const auto hints = (overrideSendImagesAsPhotos
++		|| _composeControls->isEditingMessage())
++		? Storage::PasteHints()
++		: Storage::ReadPasteHints(data);
++	const auto confirmPasted = [&](
++			Ui::PreparedList &&list,
++			const QString &textOnCancel) {
++		if (!Storage::ApplyPasteHints(list, hints)) {
++			return confirmSendingFiles(std::move(list), textOnCancel);
++		}
++		sendingFilesConfirmed(
++			Storage::PrepareBundleWithoutBox(
++				std::move(list),
++				Core::App().settings().sendFilesWay(),
++				_peer->slowmodeApplied()),
++			{});
++		return true;
++	};
++
+ 	if (const auto urls = Core::ReadMimeUrls(data); !urls.empty()) {
+ 		const auto folder = Storage::SingleFolderPath(urls);
+ 		if (!folder.isEmpty()) {
+@@ -2052,13 +2073,22 @@ bool ChatWidget::confirmSendingFiles(
+ 				|| !hasImage) {
+ 				const auto emptyTextOnCancel = QString();
+ 				list.overrideSendImagesAsPhotos = overrideSendImagesAsPhotos;
+-				confirmSendingFiles(std::move(list), emptyTextOnCancel);
++				confirmPasted(std::move(list), emptyTextOnCancel);
+ 				return true;
+ 			}
+ 		}
+ 	}
+ 
+ 	if (auto read = Core::ReadMimeImage(data)) {
++		if (hints.noDialog && !read.image.isNull()) {
++			confirmPasted(
++				Storage::PrepareMediaFromImage(
++					std::move(read.image),
++					std::move(read.content),
++					st::sendMediaPreviewSize),
++				insertTextOnCancel);
++			return true;
++		}
+ 		confirmSendingFiles(
+ 			std::move(read.image),
+ 			std::move(read.content),
+diff --git a/Telegram/SourceFiles/storage/storage_media_prepare.cpp b/Telegram/SourceFiles/storage/storage_media_prepare.cpp
+index 2e7eb3c..f32cb14 100644
+--- a/Telegram/SourceFiles/storage/storage_media_prepare.cpp
++++ b/Telegram/SourceFiles/storage/storage_media_prepare.cpp
+@@ -14,6 +14,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "platform/platform_file_utilities.h"
+ #include "lang/lang_keys.h"
+ #include "storage/localimageloader.h"
++#include "storage/file_download.h"
+ #include "core/mime_type.h"
+ #include "ui/image/image_prepare.h"
+ #include "ui/chat/attach/attach_prepare.h"
+@@ -486,6 +487,63 @@ void UpdateImageDetails(
+ 	file.preview.setDevicePixelRatio(style::DevicePixelRatio());
+ }
+ 
++PasteHints ReadPasteHints(not_null<const QMimeData*> data) {
++	return {
++		.sticker = data->hasFormat(
++			QString::fromLatin1(kStickerHintMimeType)),
++		.noDialog = data->hasFormat(
++			QString::fromLatin1(kNoDialogHintMimeType)),
++	};
++}
++
++bool SendsAsSticker(const PreparedFile &file) {
++	// What localimageloader turns into a sticker: an uncompressed WebP
++	// under the sticker size limit, with sticker-like dimensions.
++	if (!file.information
++		|| !file.isSticker()
++		|| file.size >= kMaxStickerBytesSize) {
++		return false;
++	}
++	const auto image = std::get_if<Image>(&file.information->media);
++	return image
++		&& GoodStickerDimensions(image->data.width(), image->data.height());
++}
++
++bool ApplyPasteHints(PreparedList &list, PasteHints hints) {
++	if (list.error != PreparedList::Error::None
++		|| list.files.empty()
++		|| !list.filesToProcess.empty()) {
++		return false;
++	}
++	if (hints.sticker) {
++		if (!ranges::all_of(list.files, SendsAsSticker)) {
++			return false;
++		}
++		list.overrideSendImagesAsPhotos = false;
++	}
++	return hints.noDialog;
++}
++
++std::shared_ptr<Ui::PreparedBundle> PrepareBundleWithoutBox(
++		PreparedList &&list,
++		Ui::SendFilesWay way,
++		bool slowmode) {
++	// As SendFilesBox::initSendWay preselects it. Restrictions and slow
++	// mode are checked when the bundle is sent.
++	way.setHasCompressedStickers(list.hasSticker());
++	if (slowmode && list.files.size() > 1) {
++		way.setGroupFiles(true);
++	}
++	if (list.overrideSendImagesAsPhotos == false) {
++		way.setSendImagesAsPhotos(false);
++	}
++	const auto ctrlShiftEnter = false;
++	return Ui::PrepareFilesBundle(
++		Ui::DivideByGroups(std::move(list), way, slowmode),
++		way,
++		ctrlShiftEnter);
++}
++
+ bool ApplyModifications(PreparedList &list, bool composeAnimated) {
+ 	auto applied = false;
+ 	const auto apply = [&](PreparedFile &file, QSize strictSize = {}) {
+diff --git a/Telegram/SourceFiles/storage/storage_media_prepare.h b/Telegram/SourceFiles/storage/storage_media_prepare.h
+index efb800c..f410b66 100644
+--- a/Telegram/SourceFiles/storage/storage_media_prepare.h
++++ b/Telegram/SourceFiles/storage/storage_media_prepare.h
+@@ -18,6 +18,8 @@ namespace Ui {
+ struct PreparedFileInformation;
+ struct PreparedFile;
+ struct PreparedList;
++struct PreparedBundle;
++class SendFilesWay;
+ enum class AlbumType;
+ } // namespace Ui
+ 
+@@ -88,6 +90,42 @@ struct PhotoEditorMedia {
+ 	QByteArray &&content,
+ 	int previewWidth);
+ void PrepareDetails(Ui::PreparedFile &file, int previewWidth, int sideLimit);
++
++// Paste hints: MIME types a copier may offer on the clipboard next to the
++// files or the image it copies. Only their presence counts, the payload is
++// ignored. An open convention, described in stickpile's docs/clipboard.md
++// ("Paste hints"). They apply to a plain paste only, never to drops,
++// "send as" choices or edits.
++//
++// kStickerHintMimeType: the files are stickers. When every pasted file is
++// one Telegram sends as a sticker, "send as file" is preselected (an
++// uncompressed WebP goes out as a sticker).
++// kNoDialogHintMimeType: send the paste at once, the way the send files
++// box would preselect it, without the box. Not honoured when another hint
++// on the paste can't be, so the box shows what will be sent instead.
++inline constexpr auto kStickerHintMimeType = "application/x-sticker";
++inline constexpr auto kNoDialogHintMimeType = "application/x-no-dialog";
++
++struct PasteHints {
++	bool sticker = false;
++	bool noDialog = false;
++};
++[[nodiscard]] PasteHints ReadPasteHints(not_null<const QMimeData*> data);
++
++// Whether the file goes out as a sticker when it is sent uncompressed.
++[[nodiscard]] bool SendsAsSticker(const Ui::PreparedFile &file);
++
++// Applies the hints to a list prepared from a pasted file list or image.
++// Returns true when the list should be sent at once, without the box.
++[[nodiscard]] bool ApplyPasteHints(Ui::PreparedList &list, PasteHints hints);
++
++// The bundle the send files box would send for the list with the way it
++// preselects (starting from the user's saved way) and no caption.
++[[nodiscard]] std::shared_ptr<Ui::PreparedBundle> PrepareBundleWithoutBox(
++	Ui::PreparedList &&list,
++	Ui::SendFilesWay way,
++	bool slowmode);
++
+ struct VideoDetails {
+ 	QSize originalDimensions;
+ 	QSize shownDimensions;

@@ -25,7 +25,8 @@ in
 
 	config = lib.mkIf config.dotfiles.communication.enable {
 		home.packages = with pkgs; [
-			ayugram-desktop
+			# Sends stickpile's sticker copies without the send box.
+			(callPackage ../../../packages/ayugram-desktop.nix { })
 			viber
 		]
 		++ map pinSecretStore (with pkgs; [
