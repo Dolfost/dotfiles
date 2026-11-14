@@ -224,17 +224,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794651594,
-        "narHash": "sha256-yj0TInfI1zr4Oz7XftUsx4K9LU5HCi3dEbYR8n24TRQ=",
+        "lastModified": 1794680883,
+        "narHash": "sha256-8yAx3DwmpVwyV1xlZV/kxWhaVDAAOTxgH7Jrg3/HI1o=",
         "owner": "Dolfost",
         "repo": "nutflow",
-        "rev": "418985b11f99b9251e1ed9ca4919fdb1cdb42b9d",
+        "rev": "b36298c8fd2fa0dbc72f0d8c3c85436384057607",
         "type": "github"
       },
       "original": {
         "owner": "Dolfost",
+        "ref": "stable",
         "repo": "nutflow",
-        "rev": "418985b11f99b9251e1ed9ca4919fdb1cdb42b9d",
         "type": "github"
       }
     },

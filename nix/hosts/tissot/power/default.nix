@@ -38,10 +38,10 @@ in
 			description = "EcoFlow Delta 3 Max Plus (BLE)";
 			address = "D4:05:92:A3:F9:82";
 			low_battery_percent = 20;
-			# The device's remaining-time estimate is stale for the first seconds
-			# on battery (2 min left at 93 %) and noisy after: a low one counts
-			# only while discharging, at or below this charge, and once it has
-			# held for the grace (LB from the charge threshold is immediate).
+			# LB also from the time left, nutflow's estimate from the energy and
+			# the load averaged over 30 s: only while discharging, at or below
+			# this charge, and once it has held for the grace (LB from the charge
+			# threshold is immediate).
 			low_runtime_seconds = 300;
 			low_runtime_max_percent = 50;
 			low_runtime_grace_seconds = 30;

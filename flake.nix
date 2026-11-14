@@ -37,10 +37,11 @@
 			url = "github:Dolfost/upst/13e822f509c63726ec29002b763e8a31b857a9a4";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		# The EcoFlow's NUT server over Bluetooth (hosts/tissot/power), pinned
-		# to a commit until its first release tag.
+		# The EcoFlow's NUT server over Bluetooth (hosts/tissot/power), on its
+		# stable branch: the latest release. `nix flake update nutflow` moves
+		# to a newer one.
 		nutflow = {
-			url = "github:Dolfost/nutflow/418985b11f99b9251e1ed9ca4919fdb1cdb42b9d";
+			url = "github:Dolfost/nutflow/stable";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
