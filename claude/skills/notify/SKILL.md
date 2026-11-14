@@ -25,6 +25,28 @@ its own:
 - Then the outcome, and what he has to do, if anything.
 - One or two sentences, plain text. No markdown, no secrets, no long output.
 
+## When you need a decision
+
+If the notification is a question, put the answer options in it, so he can
+decide from the lock screen and reply with a single character when he is
+back:
+
+```sh
+ntfy-cmd claude "loq: the migration needs a schema change that drops the old sessions table. How do I proceed?
+1) drop it, the data is stale (my pick)
+2) rename it to sessions_old and keep it
+3) stop here, you will look yourself"
+```
+
+- The question first, in one sentence, with what is at stake.
+- Then two to four numbered options, one per line, each a complete action
+  he can pick without reading anything else. Say what each one costs if it
+  is not obvious.
+- Mark the one you recommend with "(my pick)".
+- Ask the same question with the same numbering in your reply in the
+  terminal, so "2" there means what it meant on the phone. He cannot answer
+  through ntfy; you wait for him in the session.
+
 ## When
 
 - He asked for it: always, once, at the point he named.
