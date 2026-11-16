@@ -182,6 +182,9 @@ let
 		];
 in
 {
+	# For ./elamon.nix, whose buttons do the same.
+	_module.args.dashboardScripts = { inherit aorus-remote; };
+
 	systemd.tmpfiles.rules = [ "d ${stateDir} 0755 olivetin olivetin -" ];
 
 	# The buttons' way in to nutflow (./default.nix): its socket belongs to

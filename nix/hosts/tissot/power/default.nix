@@ -8,8 +8,9 @@
 # capability as root.
 #
 # ./notify.nix turns its events into ntfy pushes; ./dashboard.nix has the
-# buttons (through nutflow's control socket); upst's recorder keeps the
-# history behind every upst dashboard on the network.
+# buttons (through nutflow's control socket); ./elamon.nix has the same in
+# the Elamon app; upst's recorder keeps the history behind every upst
+# dashboard on the network.
 { config, inputs, pkgs, ... }:
 
 let
@@ -22,6 +23,7 @@ in
 		inputs.nutflow.nixosModules.default
 		./notify.nix
 		./dashboard.nix
+		./elamon.nix
 	];
 
 	# The EcoFlow account's user ID the station is bound to, from

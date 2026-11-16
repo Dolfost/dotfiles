@@ -15,6 +15,30 @@
         "type": "github"
       }
     },
+    "elamon": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nutflow": [
+          "nutflow"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794803179,
+        "narHash": "sha256-LxDhMAPCJXWeFIBk/vT1GjjlQp9mb1oC4yTO8Y324o4=",
+        "owner": "Elaizes",
+        "repo": "elamon",
+        "rev": "0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Elaizes",
+        "repo": "elamon",
+        "rev": "0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -310,6 +334,7 @@
     },
     "root": {
       "inputs": {
+        "elamon": "elamon",
         "herdr": "herdr",
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager_2",

@@ -44,6 +44,14 @@
 			url = "github:Dolfost/nutflow/stable";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		# Elamon's service, elamond: tissot and the EcoFlow in the Elamon app
+		# on Android (hosts/tissot/power/elamon.nix). Pinned by commit: 0.7.0
+		# with the fixes after it, which has no tag yet.
+		elamon = {
+			url = "github:Elaizes/elamon/0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.nutflow.follows = "nutflow"; # its VM test's only, never built here
+		};
 	};
 
 	outputs = inputs@{ self, nixpkgs, home-manager, ... }:
