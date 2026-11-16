@@ -6,8 +6,9 @@
 # ./notify.nix and modules/system/power).
 #
 # State is two entity files OliveTin watches: ups.yaml, written every 10 s
-# from upsc, and aorus.yaml, written once a minute and after every command
-# from what aorus says about itself over ssh. That ssh goes as the
+# from upsc, and aorus.yaml, written every 10 s and after every command
+# from what aorus says about itself over ssh (through one connection kept
+# open, aorus-link, so aorus does not log a login each time). That ssh goes as the
 # power-remote user there (modules/system/power, outage.remote): a forced
 # command with four words, status | hold | release | hibernate. The key is
 # made here on first boot and its public half is facts.hosts.tissot.remote_key.
@@ -27,11 +28,14 @@ let
 	outlets = lib.range 1 9; # outlet.N as nutflow numbers them (AC 1, AC 2, USB, 12 V)
 	keyDir = "/var/lib/olivetin";
 	key = "${keyDir}/id_ed25519";
-	ssh = lib.concatStringsSep " " [
+	mux = "${keyDir}/aorus.mux";
+	sshTo = extra: lib.concatStringsSep " " ([
 		"${pkgs.openssh}/bin/ssh" "-i ${key}" "-o BatchMode=yes" "-o ConnectTimeout=3"
 		"-o StrictHostKeyChecking=accept-new" "-o UserKnownHostsFile=${keyDir}/known_hosts"
-		"power-remote@${facts.hosts.aorus.lan_ipv4}"
-	];
+		# Through aorus-link's connection while there is one, else its own.
+		"-o ControlPath=${mux}"
+	] ++ extra ++ [ "power-remote@${facts.hosts.aorus.lan_ipv4}" ]);
+	ssh = sshTo [ ];
 	path = lib.makeBinPath (with pkgs; [ coreutils gnused nut openssh wakeonlan ]);
 	# Each entity file is one list with one mapping, written in a single
 	# printf: OliveTin re-reads it on every change and should never see half.
@@ -206,6 +210,23 @@ in
 				ExecStart = "${pkgs.openssh}/bin/ssh-keygen -q -t ed25519 -N \"\" -C olivetin@tissot -f ${key}";
 			};
 		};
+		# The one ssh connection to aorus the others go through: it does nothing
+		# itself, ends within 10 s of aorus going quiet and is tried again every 10.
+		aorus-link = {
+			description = "A connection to aorus for the dashboard to ask through";
+			wantedBy = [ "multi-user.target" ];
+			after = [ "olivetin-key.service" ];
+			unitConfig.StartLimitIntervalSec = 0;
+			serviceConfig = {
+				User = "olivetin";
+				Group = "olivetin";
+				StateDirectory = "olivetin";
+				ExecStartPre = "${pkgs.coreutils}/bin/rm -f ${mux}";
+				ExecStart = sshTo [ "-N" "-o ControlMaster=yes" "-o ServerAliveInterval=5" "-o ServerAliveCountMax=2" ];
+				Restart = "always";
+				RestartSec = 10;
+			};
+		};
 		ups-state = asOlivetin ups-state // { description = "The EcoFlow's state for the dashboard"; };
 		aorus-state = asOlivetin "${aorus-remote} status" // { description = "aorus's state for the dashboard"; };
 		olivetin = {
@@ -217,7 +238,7 @@ in
 	};
 	systemd.timers = {
 		ups-state = every 10 "ups-state";
-		aorus-state = every 60 "aorus-state";
+		aorus-state = every 10 "aorus-state";
 	};
 
 	services.olivetin = {
