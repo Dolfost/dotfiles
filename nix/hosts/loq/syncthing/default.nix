@@ -9,5 +9,6 @@
 		obsidian = "/home/vladyslav/data/obsidian";
 		avatars  = "/home/vladyslav/data/avatars";
 		guitar   = "/home/vladyslav/data/guitar";
+		sync     = "/home/vladyslav/data/data";
 	};
 }

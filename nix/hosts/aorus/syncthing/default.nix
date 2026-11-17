@@ -8,8 +8,8 @@
 	dotfiles.syncthing.folders = {
 		books = "/storage/2.5/media/books";
 		obsidian = "/storage/data/obsidian";
-		shared = "/home/vladyslav/data/shared";
 		avatars = "/storage/2.5/media/avatars";
 		guitar = "/home/vladyslav/data/guitar";
+		sync = "/home/vladyslav/data/sync";
 	};
 }
