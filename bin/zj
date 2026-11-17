@@ -1,19 +1,26 @@
 #!/usr/bin/env bash
-# zj [SESSION] - attach to a zellij session (default: main) whose server runs in its own
-# systemd user unit (zellij@SESSION.service, see nix/modules/user/shell).
+# zj [SESSION] - attach to a zellij session (default: main) so that neither it
+# nor any session later created from inside it dies with the compositor.
 #
-# A server forked by a plain `zellij` call stays in the cgroup of the terminal
-# that spawned it. Under uwsm that is a scope in app-graphical.slice, which
-# systemd kills when the compositor dies - and the server with it. Starting it
-# through the unit puts it in app-zellij.slice, where it outlives Hyprland.
+# A zellij server is forked by whichever process first asks for the session and
+# stays in that process's cgroup. Under uwsm a terminal lives in a scope in
+# app-graphical.slice, which systemd kills when the compositor dies - and every
+# server forked there with it. Two things keep servers out of that slice:
+#   - the named session's server is started by zellij@SESSION.service
+#     (see nix/modules/user/shell), in app-zellij.slice;
+#   - the client itself runs in its own scope in app-zellij.slice, so servers
+#     it forks later (session manager: new session / switch / resurrect)
+#     land there too instead of in the terminal's scope.
 # Without a systemd user manager (macOS) this is a plain attach --create.
 set -eu
 
 # No name given: the shared "main" session.
 name=${1:-main}
 
-if [ -n "${XDG_RUNTIME_DIR:-}" ] && command -v systemctl >/dev/null 2>&1 &&
-	systemctl --user start "zellij@$name.service" 2>/dev/null; then
-	exec zellij attach "$name"
+if [ -n "${XDG_RUNTIME_DIR:-}" ] && command -v systemd-run >/dev/null 2>&1 &&
+	systemctl --user show-environment >/dev/null 2>&1; then
+	systemctl --user start "zellij@$name.service" 2>/dev/null || true
+	exec systemd-run --user --scope --quiet --collect --slice=app-zellij.slice \
+		-- zellij attach --create "$name"
 fi
 exec zellij attach --create "$name"
