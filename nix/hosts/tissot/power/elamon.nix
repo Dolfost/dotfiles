@@ -10,7 +10,8 @@
 #   EcoFlow  everything of the station. It is elamond's standard UPS
 #            dashboard (the status, a timeline of the outages, the outlets,
 #            graphs that reach back, filled from upst's recorder for the
-#            time before elamond, the switches and settings) without the
+#            time before elamond, the switches and settings) with the
+#            voltages over time added, and without the
 #            solar inputs, which nothing is plugged into.
 #   aorus    whether it is up, on what power and whether it may hibernate,
 #            what it draws, and what there is to do about it: wake, keep
@@ -65,13 +66,21 @@ let
 		(w: w // lib.optionalAttrs (w ? widgets) { widgets = trim w.widgets ++ (extra.${w.id or ""} or [ ]); })
 		(lib.filter (w: !lib.elem (w.id or "") unused) widgets);
 	# Its order, but what is looked at least last: the graphs, the details,
-	# then nutflow's buttons and the station's settings, those one to a row
-	# (their labels do not fit two columns).
-	last = [ "charge_graph" "watts" "details" "nutflow" "station" ];
+	# then nutflow's buttons and the station's settings. Those and the outlets'
+	# switches go one to a row (their labels do not fit two columns).
+	last = [ "charge_graph" "watts" "volts_in" "volts_out" "details" "nutflow" "station" ];
+	# The voltages over time, each on a scale of its own: the grid's falls to
+	# nothing in an outage, which would flatten the output's beside it.
+	volts = id: value: label: color: {
+		inherit id label color; type = "graph"; values = [ value ]; when = value;
+		labels = [ label ]; colors = [ color ]; icon = "gauge";
+	};
 	arrange = widgets:
-		lib.filter (w: !lib.elem w.id last) widgets
-		++ map (id: let w = lib.findFirst (w: w.id == id) null widgets; in
-			if id == "station" then w // { widgets = map (s: s // { span = 4; }) w.widgets; } else w) last;
+		let
+			narrow = [ "switches" "station" ];
+			column = w: if lib.elem w.id narrow then w // { widgets = map (s: s // { span = 4; }) w.widgets; } else w;
+		in map column (lib.filter (w: !lib.elem w.id last) widgets
+			++ map (id: lib.findFirst (w: w.id == id) null widgets) last);
 	# Added to its groups, by id.
 	extra.station = [
 		# Minutes idle before AC 2 turns itself off; 0 is never.
@@ -215,13 +224,17 @@ in
 				ecoflow = {
 					title = "EcoFlow";
 					icon = "battery";
-					widgets = arrange (trim (forEco standard.ups.widgets) ++ [{
-						id = "nutflow"; type = "group"; label = "nutflow"; icon = "terminal";
-						widgets = [
-							(button "ups-vars" "Every variable" "terminal")
-							(button "nutflow-restart" "Restart nutflow" "restart")
-						];
-					}]);
+					widgets = arrange (trim (forEco standard.ups.widgets) ++ [
+						(volts "volts_in" "eco.input.voltage" "Input voltage" "rx")
+						(volts "volts_out" "eco.output.voltage" "Output voltage" "tx")
+						{
+							id = "nutflow"; type = "group"; label = "nutflow"; icon = "terminal";
+							widgets = [
+								(button "ups-vars" "Every variable" "terminal")
+								(button "nutflow-restart" "Restart nutflow" "restart")
+							];
+						}
+					]);
 				};
 
 				aorus = {
