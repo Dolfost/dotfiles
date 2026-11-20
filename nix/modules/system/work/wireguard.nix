@@ -29,7 +29,7 @@ in
 				publicKey = "WOi3aHI/B3VQ1yRQQ5giOGs3+OsaCqFNA2IJALujACQ=";
 				allowedIPs = [ "10.144.0.2/32" ];
 				endpoint = "192.168.144.2:${toString wg_port}";
-				persistentKeepalive = 15;
+				persistentKeepalive = 2; # the ground unit forwards our uplink only while we keep talking to it (2026-11-18: 15 s left it dead most of the time)
 			}
 		];
 	};

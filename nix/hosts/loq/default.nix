@@ -55,8 +55,14 @@ in
 			};
 			ipv4 = {
 				method = "auto";
-				address1 = "192.168.144.117/24";
-				address2 = "10.0.0.5/24";
+				# .7 first: the primary address is what the laptop sends to the radio's
+				# ground unit from, and the unit delivers its TID / video to the address
+				# that last talked to it on 14550 (the vendor test left .7 there, .68 was
+				# the earlier value; docs/radio-link.md in auf)
+				address1 = "192.168.144.7/24";
+				address2 = "192.168.144.117/24";
+				address3 = "10.0.0.5/24";
+				address4 = "192.168.144.68/24";
 			};
 			ipv6.method = "auto";
 		};

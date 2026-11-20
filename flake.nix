@@ -45,10 +45,10 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		# Elamon's service, elamond: tissot and the EcoFlow in the Elamon app
-		# on Android (hosts/tissot/power/elamon.nix). Pinned by commit: 0.7.0
-		# with the fixes after it, which has no tag yet.
+		# on Android (hosts/tissot/power/elamon.nix). Pinned by tag: a newer
+		# release is a new tag here, then `nix flake update elamon`.
 		elamon = {
-			url = "github:Elaizes/elamon/0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f";
+			url = "github:Elaizes/elamon/v0.11.1";
 			inputs.nixpkgs.follows = "nixpkgs";
 			inputs.nutflow.follows = "nutflow"; # its VM test's only, never built here
 		};

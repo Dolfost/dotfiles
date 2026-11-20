@@ -25,17 +25,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794803179,
-        "narHash": "sha256-LxDhMAPCJXWeFIBk/vT1GjjlQp9mb1oC4yTO8Y324o4=",
+        "lastModified": 1795140601,
+        "narHash": "sha256-efGoQWNN0y+jgWykmyAYF7UQuCri/rR/57WaPMUnqqk=",
         "owner": "Elaizes",
         "repo": "elamon",
-        "rev": "0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f",
+        "rev": "b54bcfe0e5e03907c624216ed11d5e1fa08860dc",
         "type": "github"
       },
       "original": {
         "owner": "Elaizes",
+        "ref": "v0.11.1",
         "repo": "elamon",
-        "rev": "0b8ec0e4fbb7db382a9e3a2743dc379e92b5c78f",
         "type": "github"
       }
     },

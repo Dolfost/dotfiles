@@ -8,7 +8,7 @@
 	dotfiles.syncthing.identityFromSops = false;
 	dotfiles.syncthing.folders = {
 		obsidian = "/home/vladyslav/data/obsidian";
-		shared   = "/home/vladyslav/data/shared";
+		sync     = "/home/vladyslav/data/sync";
 		avatars  = "/home/vladyslav/data/avatars";
 	};
 }
