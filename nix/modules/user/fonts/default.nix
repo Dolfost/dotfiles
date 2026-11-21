@@ -10,6 +10,8 @@
 
 	config = lib.mkIf config.dotfiles.fonts.enable {
 		home.packages = [
+			pkgs.corefonts
+			pkgs.vista-fonts
 			pkgs.nerd-fonts.iosevka
 			# For Inkscape/GIMP work. Not pkgs.lobster - that is the programming
 			# language.

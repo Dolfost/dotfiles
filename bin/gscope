@@ -45,9 +45,15 @@ SUNSET_OFF=1   # 1: stop hyprsunset for the game's lifetime so the night tint
                # hyprsunset v0.3 applies one CTM to every output, so the other
                # monitor loses the tint during games too. Skipped if hyprsunset
                # wasn't running, so it never turns the tint *on*.
+NTSYNC=1       # 0: Proton falls back to fsync. With ntsync wine keeps one fd
+               # per sync handle inside the game process, on top of ~3.5 pipe
+               # fds per thread. A game with many threads and handles walks
+               # past fd 1024, and Steam's native steamclient.so still select()s
+               # on its sockets: the first one numbered >= 1024 trips glibc's
+               # FD_SET check and aborts the game (__fdelt_warn in the dump).
+               # fsync waits on futexes, no fds.
 
 export AMD_USERQ=1
-export PROTON_USE_NTSYNC=1
 export MANGOHUD=1   # required for the --mangoapp overlay to hook the game
 export VK_LOADER_LAYERS_ENABLE=VK_LAYER_VALVE_steam_overlay_64
 # export PROTON_NO_FSYNC=0
@@ -71,6 +77,14 @@ fi
 REFRESH=$(printf "%.0f" "$REFRESH")
 
 [[ "$OVERLAY" == 0 ]] && export LD_PRELOAD=""
+
+# Proton-CachyOS 11 takes ntsync whenever /dev/ntsync exists; only its
+# wineserver's PROTON_NO_NTSYNC turns it off. Older builds want the opt-in.
+if [[ "$NTSYNC" == 0 ]]; then
+	export PROTON_NO_NTSYNC=1
+else
+	export PROTON_USE_NTSYNC=1
+fi
 
 # Wine enumerates display modes from the X primary output; with none set it
 # falls back to the first one, so a game launched on any other monitor caps its
