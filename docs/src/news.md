@@ -2,6 +2,33 @@
 
 Оновлення мережі: нові сервіси, зміни, планові роботи. Свіже - зверху.
 
+## 2026-11-24
+
+- До [Navidrome](services/navidrome.md) додано близько 170 релізів, усе у
+  FLAC. Нові виконавці: Pearl Jam (12 студійних альбомів), Twisted Sister
+  (5 студійних альбомів), Drudkh (13 альбомів), Godspeed You! Black Emperor
+  (8 альбомів та EP) і usedcvnt.
+- Розширено вже наявних: BONES (тепер 48 релізів), Cynthoni, Sadness,
+  Scythe of Luna, Ling tosite sigure, TK from Ling tosite sigure, Burzum,
+  Psychonaut 4, Plastic Tree, Ozoi The Maid, Yung Lean (Unknown Memory,
+  Warlord), Tool (Fear Inoculum), SALEM (Red Dragon), Scrim та
+  Këkht Aräkh.
+- Японські назви тепер записані латинкою - і треки, і альбоми, і
+  виконавці. Шукай за новими іменами: 凛として時雨 - Ling tosite sigure,
+  死んだ僕の彼女 - My Dead Girlfriend, 結束バンド - Kessoku Band,
+  揺らぎ - Yuragi, 溶けない名前 - tokenainamae, 岩崎琢 - Taku Iwasaki,
+  泰葉 - Yasuha, 大貫妙子 - Taeko Onuki. Лічильники прослуховувань та
+  "улюблене" збереглися (загубилося лише кілька прослуховувань одного EP
+  My Dead Girlfriend).
+- "Loli in early 20s" та "Rory in early 20s" - це один виконавець, тепер
+  він всюди називається Rory in early 20s.
+- Додано обкладинки для півсотні альбомів, які були без них, та фото для
+  34 виконавців. Прибрано дублікати треків.
+- $uicideboy$ - "YIN YANG TAPES: Winter Season" замінено на якісну копію.
+- Того ж вечора, приблизно з 22:47 до 23:27, Navidrome відповідав із
+  помилками (не зберігалися прослуховування, підвисали клієнти) - через
+  навантаження на диск під час оновлення бібліотеки. Зараз усе працює.
+
 ## 2026-09-25
 
 - Запущено цей сайт - довідник по сервісах мережі:
