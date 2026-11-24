@@ -5,5 +5,6 @@
 	imports = [
 		./pihole.nix
 		./ntfy.nix
+		./docs.nix
 	];
 }

@@ -48,7 +48,6 @@ in
 		./gitlab.nix
 		./crafty.nix
 		./nicotine.nix
-		./docs.nix
 		./elaread.nix
 		./stickpile.nix
 		./watchlist.nix

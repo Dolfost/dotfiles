@@ -5,7 +5,8 @@
 #
 # Tailscale services front the local ones with their own names and
 # certificates on the tailnet, as on aorus (hosts/aorus/services): ntfy is
-# https://ntfy.<tailnet>, Pi-hole's web UI https://pihole.<tailnet>, and
+# https://ntfy.<tailnet>, Pi-hole's web UI https://pihole.<tailnet>, the
+# guide https://docs.<tailnet> (services/docs.nix), and
 # https://dash.<tailnet> is Elamon's page (power/elamon.nix): elamond serves
 # it over HTTPS with a certificate of its own, which only loopback sees, so
 # serve does not check it. The service itself is made in the admin console;
@@ -40,6 +41,7 @@ in
 	systemd.services = lib.mkMerge [
 		(serve "ntfy" "http://127.0.0.1:2586")
 		(serve "pihole" "http://127.0.0.1:8080")
+		(serve "docs" "http://127.0.0.1:8090")
 		(serve "dash" "https+insecure://127.0.0.1:${toString config.services.elamond.settings.port}")
 	];
 }

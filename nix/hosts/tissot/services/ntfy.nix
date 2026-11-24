@@ -4,6 +4,8 @@
 # with -c /etc/ntfy/server.yml); the UPS notifier's token is in sops
 # (power/notify.nix). claude-pub is the account behind the answer buttons of
 # ntfy-ask (modules/system/ntfy): write-only on `claude`, nothing else.
+# requests-pub, behind the guide's request form, is not made by hand: it is
+# declared in ./docs.nix (auth-users, auth-access, and its token from sops).
 { ... }:
 
 let
