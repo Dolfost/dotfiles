@@ -421,11 +421,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1795442268,
-        "narHash": "sha256-cfN8zvmCjtPkoFbrN+srL4yzWG3ju+TcfiYgXKenjwQ=",
+        "lastModified": 1795512278,
+        "narHash": "sha256-s0ImEv5BH7xnajbJZQhPsaJdmaIWrtmMwbJc7YPg8gg=",
         "owner": "Dolfost",
         "repo": "stickpile",
-        "rev": "3968b91088c7f86cf42b418ea6403e941849f94b",
+        "rev": "ab663ff1c3c083f04e6f7ecfc45f812ada545d40",
         "type": "github"
       },
       "original": {
