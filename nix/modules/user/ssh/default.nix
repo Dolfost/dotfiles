@@ -66,11 +66,10 @@ in
 				User = "git";
 				IdentityFile = "~/.ssh/git";
 			};
-			# svc:gitlab on the tailnet, ssh forwarded to the container; the key file
-			# keeps the name it had for gitea, same key.
+			# svc:gitlab on the tailnet, ssh forwarded to the container.
 			"gitlab" = {
 				User = "git";
-				IdentityFile = "~/.ssh/gitea";
+				IdentityFile = "~/.ssh/gitlab";
 				IdentitiesOnly = "yes";
 			};
 		};
