@@ -26,6 +26,7 @@ in
 		./browser
 		./media
 		./music
+		./watchlist
 		./audio
 		./openrgb
 		./power

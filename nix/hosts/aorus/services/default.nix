@@ -51,6 +51,7 @@ in
 		./docs.nix
 		./elaread.nix
 		./stickpile.nix
+		./watchlist.nix
 	];
 
 	options.dotfiles.serve = lib.mkOption {
