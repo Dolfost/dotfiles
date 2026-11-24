@@ -1,0 +1,4 @@
+Version = "1"
+Authors = ["Vladyslav Rehan"]
+Name = "Agent API"
+Description = "Search and download over a unix socket, for scripts: one JSON request per connection, one JSON reply. The `slsk` command on the host is its client."

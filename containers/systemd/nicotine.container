@@ -47,6 +47,13 @@ PublishPort=8282:8282
 Volume=${NICOTINE_DIR}/config:/root/.config/nicotine
 Volume=${NICOTINE_DIR}/data:/root/.local/share/nicotine
 
+# The Agent API plugin (containers/nicotine/plugins/agent_api): search and
+# download for scripts, over a unix socket it opens in the data folder above,
+# so at $NICOTINE_DIR/data/agent_api.sock on the host. No port: whoever can
+# write to that folder can drive Nicotine+, nobody else. It has to be ticked
+# once in Preferences > Plugins; the choice is kept in the config.
+Volume=%h/.config/containers/nicotine/plugins/agent_api:/root/.local/share/nicotine/plugins/agent_api:ro
+
 # Downloads (read-write). /storage/data on NixOS, ~/data (a symlink to the very
 # same dir) on Arch — hence a fixed container path rather than ${VAR}:${VAR}.
 Volume=${NICOTINE_DOWNLOADS}:/downloads
