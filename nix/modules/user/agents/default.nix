@@ -54,6 +54,9 @@ in
 	# notify tells every session how to reach the phone (`ntfy-cmd claude`,
 	# modules/system/ntfy).
 	home.file.".claude/skills/notify" = link "claude/skills/notify";
+	# music takes an album from Soulseek into the library on aorus, with the
+	# commands of modules/user/music.
+	home.file.".claude/skills/music" = link "claude/skills/music";
 
 	programs.hermes-agent.enable = true;
 	services.hermes-agent = {
