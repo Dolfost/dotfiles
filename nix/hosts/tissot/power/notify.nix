@@ -12,7 +12,7 @@
 # (modules/system/power, outage.hibernateAfterLock): "grid back" leaves a flag
 # that starts a ten-minute countdown ending in a Wake-on-LAN packet, "grid
 # lost" removes the flag and the countdown finds nothing to do. Anything to
-# do by hand is on the dashboard (./dashboard.nix), which a tap on any of
+# do by hand is on Elamon's page (./elamon.nix), which a tap on any of
 # these messages opens.
 { config, pkgs, ... }:
 

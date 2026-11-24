@@ -7,9 +7,10 @@
 # that is who the host's BlueZ policy lets through; nutflow keeps no
 # capability as root.
 #
-# ./notify.nix turns its events into ntfy pushes; ./dashboard.nix has the
-# buttons (through nutflow's control socket); ./elamon.nix has the same in
-# the Elamon app; upst's recorder keeps the history behind every upst
+# ./notify.nix turns its events into ntfy pushes; ./elamon.nix has the
+# buttons, in the Elamon app and as the web page https://dash.<tailnet>;
+# ./dashboard.nix keeps what they rest on (aorus's state, and what nutflow
+# lets be done); upst's recorder keeps the history behind every upst
 # dashboard on the network.
 { config, inputs, pkgs, ... }:
 
@@ -57,7 +58,7 @@ in
 		# goes on without.
 		users.${facts.hosts.tissot.nut.user}.password = facts.hosts.tissot.nut.password;
 		settings.nut.listen = [ "0.0.0.0:3493" ];
-		# settings.control.allow: what the dashboard may do, ./dashboard.nix.
+		# settings.control.allow: what Elamon may do, ./dashboard.nix.
 	};
 	systemd.services.nutflow.unitConfig.ConditionPathExists = hostBus;
 

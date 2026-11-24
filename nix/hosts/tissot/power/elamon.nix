@@ -1,8 +1,9 @@
 # Elamon (github:Elaizes/elamon): the EcoFlow and aorus in the Elamon app
-# on Android, beside the web dashboard (./dashboard.nix) and with the same
-# things to do. elamond is a user service (ours, lingering), on :47823 for
-# paired phones only (open on the host too, pmos/etc/nftables.d):
-# `elamond pair` here prints the QR code.
+# on Android, and in a browser as https://dash.<tailnet> (elamond's own web
+# page behind a Tailscale service, ../tailscale; it took OliveTin's place).
+# elamond is a user service (ours, lingering), on :47823 for paired phones
+# and browsers only (open on the host too, pmos/etc/nftables.d):
+# `elamond pair` here prints the QR code, and the code a browser asks for.
 #
 # The phone is a small headless box that looks after other machines, so
 # the app shows those and next to nothing of the phone itself. Three tabs,
@@ -15,12 +16,12 @@
 #            solar inputs, which nothing is plugged into.
 #   aorus    whether it is up, on what power and whether it may hibernate,
 #            what it draws, and what there is to do about it: wake, keep
-#            awake, hibernate (the web dashboard's own script and ssh
+#            awake, hibernate (./dashboard.nix's script and ssh
 #            identity, as olivetin).
 #   Control  the phone in four lines, and the log of what phones did.
 #
 # elamond reads the station from nutflow like any NUT client, and may
-# switch and set exactly what the web dashboard may (nutflow's
+# switch and set exactly what ./dashboard.nix lists (nutflow's
 # control.allow there): AC 2, USB, the beeper, the charge limits, the
 # charging power and the screen. AC 1 (aorus) and 12 V (the router) stay
 # out of reach. It logs in to nutflow as the NUT user elamon, whose
@@ -30,7 +31,7 @@
 let
 	facts = import ../../../facts.nix;
 	user = config.dotfiles.user;
-	# What phones may run on the station: what the web dashboard may.
+	# What phones may run on the station: ./dashboard.nix's controlAllow.
 	allowed = config.services.nutflow.settings.control.allow;
 	split = lib.partition (lib.hasPrefix "experimental.") allowed;
 	nutflowPassword = "/var/lib/secrets/nut-elamon"; # root's, for nutflow
@@ -38,7 +39,7 @@ let
 	sudo = "/run/wrappers/bin/sudo";
 	aorus = word: [ sudo "-n" "-u" "olivetin" "${dashboardScripts.aorus-remote}" word ];
 	button = action: label: icon: { type = "button"; inherit action label icon; };
-	# aorus.yaml of the web dashboard, and the units that show it in the app
+	# aorus.yaml of ./dashboard.nix, and the units that show it in the app
 	# (below): the link each is the unit of, and what its state reads as.
 	aorusState = "/run/ups-state/aorus.yaml";
 	marks = {
@@ -101,7 +102,7 @@ in
 
 	# aorus's state, live in the app. elamond shows only its own readings and
 	# a NUT source's, but among its own is the state of a systemd unit (of a
-	# link, read every 5 s). So what the web dashboard knows about aorus
+	# link, read every 5 s). So what ./dashboard.nix knows about aorus
 	# (aorus.yaml, every 10 s and after each button) is kept as three units
 	# that do nothing but be active or not, and the tab shows their states.
 	# While aorus is down the other two stay as they last were.

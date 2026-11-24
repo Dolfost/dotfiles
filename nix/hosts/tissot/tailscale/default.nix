@@ -3,12 +3,13 @@
 # for every service on it. /dev/net/tun and CAP_NET_ADMIN come from the
 # .nspawn unit (pmos/etc/systemd/nspawn/nixos.nspawn).
 #
-# Tailscale services front the plain-HTTP ones with their own names and
+# Tailscale services front the local ones with their own names and
 # certificates on the tailnet, as on aorus (hosts/aorus/services): ntfy is
-# https://ntfy.<tailnet>, Pi-hole's web UI https://pihole.<tailnet>, the
-# EcoFlow dashboard https://dash.<tailnet> (power/dashboard.nix). The
-# service itself is made in the admin console; the serve config lives in
-# tailscaled's state, so each oneshot is idempotent.
+# https://ntfy.<tailnet>, Pi-hole's web UI https://pihole.<tailnet>, and
+# https://dash.<tailnet> is Elamon's page (power/elamon.nix): elamond serves
+# it over HTTPS with a certificate of its own, which only loopback sees, so
+# serve does not check it. The service itself is made in the admin console;
+# the serve config lives in tailscaled's state, so each oneshot is idempotent.
 { config, lib, ... }:
 
 let
@@ -39,6 +40,6 @@ in
 	systemd.services = lib.mkMerge [
 		(serve "ntfy" "http://127.0.0.1:2586")
 		(serve "pihole" "http://127.0.0.1:8080")
-		(serve "dash" "http://127.0.0.1:1337")
+		(serve "dash" "https+insecure://127.0.0.1:${toString config.services.elamond.settings.port}")
 	];
 }
