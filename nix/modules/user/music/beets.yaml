@@ -1,0 +1,50 @@
+# beets as a headless MusicBrainz tagger, for `music-tag` (./default.nix).
+# It only writes tags and fetches the cover, in place: naming and moving
+# is mlib's job, and the library database is a throwaway per run, so beets
+# never learns where the library is and cannot touch it.
+
+directory: /var/empty
+
+import:
+  copy: no
+  move: no
+  write: yes
+  # No questions: an album that does not match well enough is skipped, and
+  # music-tag says so.
+  quiet: yes
+  quiet_fallback: skip
+  timid: no
+  duplicate_action: keep
+  resume: no
+  incremental: no
+
+# DATE is the release's own date, ORIGINALDATE the first release of the
+# album, as Picard writes them. mlib names the folder after the latter.
+original_date: no
+# Names as the release credits them (Paul “Bunyan” Rosenberg), like Picard.
+artist_credit: yes
+# Disc 2 starts at track 1 again, and TRACKTOTAL counts the disc.
+per_disc_numbering: yes
+va_name: Various Artists
+art_filename: cover
+
+plugins: [musicbrainz, fetchart]
+
+musicbrainz:
+  genres: yes
+  extra_tags: [barcode, catalognum, country, label, media, year]
+
+match:
+  # Prefer the plain digital or CD release when several fit equally.
+  preferred:
+    media: ["Digital Media|File", "CD"]
+    original_year: yes
+
+fetchart:
+  auto: yes
+  cautious: no
+  # A cover that came with the download is used only if nothing better is found.
+  sources: [coverart, itunes, amazon, filesystem]
+  cover_names: [cover, front, folder]
+  high_resolution: yes
+  store_source: no
