@@ -63,6 +63,10 @@ in
 				address2 = "192.168.144.117/24";
 				address3 = "10.0.0.5/24";
 				address4 = "192.168.144.68/24";
+				# the SIYI cameras' own subnet beside the lab LAN (auf docs/radio-link.md:
+				# zr10_c .26, the second ZR10 .27; jet2 is .5) so the laptop reaches them
+				# directly, the air unit's ONVIF scan does not
+				address5 = "192.168.145.7/24";
 			};
 			ipv6.method = "auto";
 		};
