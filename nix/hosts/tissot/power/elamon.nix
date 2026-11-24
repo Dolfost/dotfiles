@@ -280,6 +280,31 @@ in
 				};
 
 				inherit (standard) activity;
+
+				# Not a tab: what the app's home-screen widget shows (4 by 2 on
+				# the POCO), read every widget_minutes and on a tap. The gauges
+				# are rings at the top, the rest lines under them, as many as
+				# fit: so what matters most first.
+				glance = {
+					title = "Glance";
+					icon = "battery";
+					widgets = [
+						{ id = "charge"; type = "gauge"; value = "eco.battery.charge"; label = "Battery"; color = "battery"; }
+						# The grid's volts, large in a ring that is full at 250 and
+						# empty at 180; none on battery (the station measures nothing).
+						{ id = "volts"; type = "gauge"; value = "eco.input.voltage"; label = "Grid"; color = "rx"; min = 180; max = 250; }
+						{ id = "load"; type = "gauge"; value = "eco.ups.load"; label = "Load"; color = "tx"; }
+						# The outages, as far as a widget tells them (it draws no
+						# timeline): on line or on battery, and for how long now.
+						{ id = "power"; type = "list"; items = [
+							{ label = "Power"; text = "{eco.status} · {eco.status.since:duration}"; }
+						]; }
+						{ id = "left"; type = "value"; value = "eco.battery.runtime"; label = "Lasts"; }
+						(mark "up" marks.up)
+						{ id = "grid"; type = "value"; value = "eco.input.realpower"; label = "Grid in"; }
+						{ id = "output"; type = "value"; value = "eco.ups.realpower"; label = "Output"; }
+					];
+				};
 			};
 
 			profiles.default.dashboards = [ "ecoflow" "aorus" "control" ];
@@ -292,6 +317,8 @@ in
 				name = "POCO X7 Pro";
 				use = "default";
 				theme = "dark";
+				android.widget = "glance";
+				android.widget_minutes = 15; # the least Android allows
 			};
 		};
 	};
