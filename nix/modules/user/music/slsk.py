@@ -8,6 +8,7 @@ that runs the nicotine container.
   slsk search TERM...            folders that match, best first
   slsk show SEARCH N             the files of candidate N
   slsk get SEARCH N [--job J]    download candidate N into the job folder
+                                 (--only: just the files the search matched)
   slsk wait JOB                  block until the job is done, stalls or times out
   slsk ls [JOB]                  transfers
   slsk retry|abort|clear JOB     clear forgets the transfers, files stay
@@ -180,7 +181,9 @@ def cmd_search(args):
         slot = "free" if c["free"] else f"q{c['queue']}"
         extras = "+".join(name for name in ("log", "cue") if c[name]) or "-"
         mixed = f" +{c['other_audio']} lossy" if c["other_audio"] else ""
-        print(f"{number:>3}  {c['tracks']:>3} flac{mixed}  {clock(c['duration']):>7}  {human(c['size']):>6}  "
+        # Not music at all (--any, a video): the count is of the matched files.
+        count = f"{c['tracks']:>3} flac{mixed}" if c["tracks"] or c["other_audio"] else f"{len(c['files']):>3} files"
+        print(f"{number:>3}  {count}  {clock(c['duration']):>7}  {human(c['size']):>6}  "
               f"{','.join(c['formats']) or '?':<9} {extras:<7} {slot:<5} {c['speed'] / 1_000_000:>4.1f}MB/s  "
               f"{c['user']}  {c['folder']}")
 
@@ -202,7 +205,18 @@ def cmd_show(args):
 def cmd_get(args):
     candidate = load(args.search, args.n)
     job = args.job or f"{args.search}-{args.n}"
-    result = call("download", user=candidate["user"], job=job, folder=candidate["folder"], files=candidate["files"])
+    files, folder = candidate["files"], candidate["folder"]
+
+    if args.match:
+        files = [f for f in files if re.search(args.match, f[0], re.I)]
+        if not files:
+            sys.exit(f"slsk: no file of candidate {args.n} matches {args.match!r}")
+    if args.only or args.match:
+        # With a folder the plugin asks the user for all of it: right for an
+        # album (cover, log), a whole season when one episode was wanted.
+        folder = None
+
+    result = call("download", user=candidate["user"], job=job, folder=folder, files=files)
     print(f"job {job}: {result['queued']} files queued from {candidate['user']}")
     print(os.path.join(HOST_ROOT, job))
 
@@ -309,6 +323,10 @@ def main():
         command.set_defaults(run=run)
         if name == "get":
             command.add_argument("--job", help="folder name under the download root (default SEARCH-N)")
+            command.add_argument("--only", action="store_true",
+                                 help="just the files the search matched, not the rest of the folder")
+            command.add_argument("--match", metavar="REGEX",
+                                 help="of those, just the ones whose path matches (implies --only)")
 
     wait = sub.add_parser("wait")
     wait.add_argument("job")
