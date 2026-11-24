@@ -57,6 +57,9 @@ in
 	# music takes an album from Soulseek into the library on aorus, with the
 	# commands of modules/user/music.
 	home.file.".claude/skills/music" = link "claude/skills/music";
+	# shows does the same for an episode into the Jellyfin library; the
+	# watchlist timers (modules/user/watchlist) start sessions with both.
+	home.file.".claude/skills/shows" = link "claude/skills/shows";
 
 	programs.hermes-agent.enable = true;
 	services.hermes-agent = {
