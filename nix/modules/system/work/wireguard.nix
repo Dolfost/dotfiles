@@ -39,6 +39,16 @@ in
 				endpoint = "192.168.144.2:${toString wg_port}";
 				persistentKeepalive = 2; # the ground unit forwards our uplink only while we keep talking to it (2026-11-18: 15 s left it dead most of the time)
 			}
+			{
+				# jet3, the air test stand on the second SkyPulse pair (auf preset
+				# skypulse2, 2026-11-25). Both pairs keep the factory addresses (air
+				# unit .1, ground unit .2), so only one pair can be on the lab LAN at a
+				# time; the tunnel to jet3 handshook through the second pair on 11-25.
+				publicKey = "E3WEhbN5WYeXaehW9HFE1tW92JsuQIDGFxScBeyg1mM=";
+				allowedIPs = [ "10.144.0.3/32" ];
+				endpoint = "192.168.144.2:${toString wg_port}";
+				persistentKeepalive = 2;
+			}
 		];
 	};
 }
